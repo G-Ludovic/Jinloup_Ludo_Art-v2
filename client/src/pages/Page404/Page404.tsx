@@ -27,7 +27,7 @@ function Page404() {
       <h1>Erreur 404</h1>
       <main className="page404">
         <figure>
-          <img src="/images/wolf_404.webp" alt="loup surpris" />
+          <img src="/public/images/wolf_404.webp" alt="loup surpris" />
           <figcaption id="sr-only">
             "Représentation de la page d'erreur 404 illustrée par un avatar de
             loup surpris."
