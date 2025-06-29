@@ -9,7 +9,7 @@
 .page404 figure img {
   justify-content: center;
   width: 250px;
-  margin: 16px 32px 16px 32px;
+  margin: 16px 32px;
 }
 
 #sr-only {
@@ -32,7 +32,7 @@
 }
 
 .page404 article:first-of-type p {
-  font-style: var(--font-family-body);
+  font-style: var(--font-family-text);
   text-align: center;
 }
 
@@ -47,18 +47,13 @@
 
 @media screen and (min-width: 768px) {
   .page404 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    display: flex;
     background-color: white;
     margin: 0;
-    padding: 0;
   }
 
   .page404 figure {
-    grid-area: 1 / 1 / 6 / 2;
     background-color: var(--light-bg-bloc-color);
-    height: 100vh;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -67,29 +62,8 @@
   }
 
   .page404 figure img {
-    width: 400px;
+    width: 350px;
     margin: 0;
-  }
-
-  .page404 article {
-    grid-area: 1 / 2 / 6 / 3;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
-
-  .page404 article h1 {
-    font-style: var(--font-family-title);
-    text-align: center;
-  }
-
-  .page404 article:first-of-type p {
-    text-align: center;
-    gap: 25px;
-    padding: 48px;
   }
 
   #chrono {

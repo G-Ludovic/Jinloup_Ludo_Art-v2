@@ -23,23 +23,25 @@ function Page404() {
   const displaySeconds = seconds < 10 ? `0${seconds}` : seconds;
 
   return (
-    <main className="not-found">
+    <>
       <h1>Erreur 404</h1>
-      <figure>
-        <img src="" alt="" />
-        <figcaption id="sr-only">
-          "Représentation de la page d'erreur 404 illustrée par un avatar de
-          loup surpris."
-        </figcaption>
-      </figure>
-      <article>
-        <p>La page que vous recherchez ne semble pas disponible.</p>
-        <p id="chrono">
-          Vous allez être rediriger dans {displaySeconds} secondes <br />
-          vers la page d'accueil.
-        </p>
-      </article>
-    </main>
+      <main className="page404">
+        <figure>
+          <img src="/images/wolf_404.webp" alt="loup surpris" />
+          <figcaption id="sr-only">
+            "Représentation de la page d'erreur 404 illustrée par un avatar de
+            loup surpris."
+          </figcaption>
+        </figure>
+        <article>
+          <p>La page que vous recherchez ne semble pas disponible.</p>
+          <p id="chrono">
+            Vous allez être rediriger dans {displaySeconds} secondes <br />
+            vers la page d'accueil.
+          </p>
+        </article>
+      </main>
+    </>
   );
 }
 
