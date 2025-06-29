@@ -18,19 +18,19 @@ main {
   /* 🎨 Couleurs principales */
   --color-text: #050315;
   --color-success: rgb(30, 145, 30);
-  --background-color-primary: #68766C;
-  --background-color-secondary: #93B09C;
+  --background-color-primary: #68766c;
+  --background-color-secondary: #93b09c;
   --background-color-main: #c3dac9;
-  --primary-color: #0D2013;
-  --secondary-color: #2C5A3A;
-  --color-hover-primary: #4F7159;
+  --primary-color: #0d2013;
+  --secondary-color: #2c5a3a;
+  --color-hover-primary: #4f7159;
   --color-hover-secondary: rgb(63, 63, 63);
-  --background-color-hover: #D5E7DB;
+  --background-color-hover: #d5e7db;
   --background-color-hoverbutton: #5a5a5a;
   --background-color-button: #111;
 
   /* 🖌️ Typography */
-  --font-family-link: 'Raleway', sans-serif;
-  --font-family-title: 'Poppins', sans-serif;
-  --font-family-text: 'Karla', sans-serif;
+  --font-family-link: "Raleway", sans-serif;
+  --font-family-title: "Poppins", sans-serif;
+  --font-family-text: "Karla", sans-serif;
 }

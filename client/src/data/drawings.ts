@@ -24,13 +24,14 @@ import kaolla from "../assets/draw/Kaolla_Su_by_Nakiba.jpg";
 import kei from "../assets/draw/Kei_Love_by_Nakiba.jpg";
 import kurogane from "../assets/draw/Kurogane_style_DBZ_by_Nakiba.jpg";
 import loka from "../assets/draw/Loka_by_Nakiba.jpg";
-import loupPoeme from "../assets/draw/Loup_poème_clem'.jpg";
 import loupRose from "../assets/draw/LoupRose_by_JinLoup-2017.jpg";
+import loupPoeme from "../assets/draw/Loup_poème_clem'.jpg";
 import loveHina from "../assets/draw/Love_Hina_by_Nakiba.jpg";
 import lujaoka from "../assets/draw/Lujaoka_Jeagerjack.jpg";
 import lujaokaWolf from "../assets/draw/Lujaoka_Wolf_by_Nakiba.jpg";
-import megaAbsol from "../assets/draw/Méga-Absol_forLuv_by-Jinloup2024.JPG";
+import lujaokaEvo from "../assets/draw/Lujaoka_Wolf_evolution_by_Nakiba.jpg";
 import autoportrait from "../assets/draw/MonAutoportrait2008.JPG";
+import megaAbsol from "../assets/draw/Méga-Absol_forLuv_by-Jinloup2024.JPG";
 import neko from "../assets/draw/NekoGirlNinja.jpg";
 import nyu2 from "../assets/draw/Nyu_Chan_2_by_Nakiba.jpg";
 import nyu from "../assets/draw/Nyu_Chan_by_Nakiba.jpg";
@@ -40,17 +41,16 @@ import renjiRukia from "../assets/draw/Renji_and_Rukia.jpg";
 import sakura2 from "../assets/draw/Sakura_Haruno_2e_by_Nakiba.jpg";
 import sakura from "../assets/draw/Sakura_Haruno_by_Nakiba.jpg";
 import sisu from "../assets/draw/Sisu_the_last_dragon_byJinloup2024.jpg";
-import soiFong from "../assets/draw/soi-fong.jpg";
 import testOkami from "../assets/draw/TestAnthrosOkami2024.jpg";
 import testHarima from "../assets/draw/TestCaractèreHarimaKenji2007.jpg";
 import testLycan from "../assets/draw/TestLycanWarriorMMORPG2008.jpg";
-import wolf from "../assets/draw/Wolf_by_Nakiba.jpg";
-import wolfSpirit from "../assets/draw/Wolf_Spirit_by_Jinloup2024.png";
 import wolfGirlAnthro from "../assets/draw/Wolf-Girl-Anthros-Flavie.JPG";
 import wolfGirl from "../assets/draw/WolfGirl_by_Jinloup_2024_final.jpg";
 import wolfMan1 from "../assets/draw/WolfMan_by_Jinloup_2024_1.jpg";
 import wolfMan2 from "../assets/draw/WolfMan_by_Jinloup_2024_final.jpg";
-import lujaokaEvo from "../assets/draw/Lujaoka_Wolf_evolution_by_Nakiba.jpg";
+import wolfSpirit from "../assets/draw/Wolf_Spirit_by_Jinloup2024.png";
+import wolf from "../assets/draw/Wolf_by_Nakiba.jpg";
+import soiFong from "../assets/draw/soi-fong.jpg";
 
 export const drawings = [
   { id: 1, name: "Aono", art: aono },
