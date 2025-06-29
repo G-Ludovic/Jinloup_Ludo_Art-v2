@@ -1,7 +1,6 @@
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-
 }
 
 .contact-container {
@@ -10,7 +9,7 @@
   align-content: center;
   padding: 20px;
   margin: 6rem auto 6rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #333;
   background-color: var(--background-color-secondary);
   border-radius: 6px;
