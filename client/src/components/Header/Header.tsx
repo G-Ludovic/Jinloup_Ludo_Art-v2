@@ -7,7 +7,7 @@ function Header() {
       <figure>
         <img
           className="img-logo"
-          src="/public/images/logo-jinloup-ludo-art.webp"
+          src="/images/logo-jinloup-ludo-art.webp"
           alt="logo du site"
         />
       </figure>
