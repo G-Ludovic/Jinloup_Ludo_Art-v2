@@ -11,17 +11,26 @@
 }
 
 .header-nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 16px;
   font-size: 1.3rem;
   font-family: var(--font-family-link);
 
+  img {
+    height: 25px;
+    object-fit: contain;
+    margin: auto;
+
+  }
+
   a {
+    display: flex;
     background-color: var(--background-color-secondary);
     border-radius: 6px;
     text-decoration: none;
+    justify-content: center;
     color: var(--color-text);
     padding: 16px;
     position: relative;
@@ -32,6 +41,22 @@
   a:hover {
     color: var(--color-hover-secondary);
     background-color: var(--background-color-hover);
+  }
+
+  .home-a {
+    grid-column: 1;
+  }
+
+  .gallery-a {
+    grid-column: 2;
+  }
+
+  .contact-a {
+    grid-column: 3;
+  }
+
+  .login-a {
+    grid-column: -2 / -3;
   }
 }
 
@@ -49,6 +74,9 @@
   }
 
   .header-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
     padding-right: 16px;
   }
 

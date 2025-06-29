@@ -8,6 +8,7 @@ import GalleryPage from "./pages/GalleryPage/GalleryPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import AuthorPage from "./pages/AuthorPage/AuthorPage";
 import Page404 from "./pages/Page404/Page404";
+import LoginPage from "./pages/LoginPage/LoginPage";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         element: <AuthorPage />,
         path: "/author",
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
       },
       {
         path: "*",
