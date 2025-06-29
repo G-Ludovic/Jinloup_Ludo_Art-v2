@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  min-height: calc(100vh - 308px + 68px);
+
+  @media screen and (min-width: 768px) {
+    min-height: calc(100vh - 236px + 50px);
+  }
+}
+
+:root {
+  /* 🎨 Couleurs principales */
+  --color-text: #050315;
+  --color-success: rgb(30, 145, 30);
+  --background-color-primary: #68766C;
+  --background-color-secondary: #93B09C;
+  --background-color-main: #c3dac9;
+  --primary-color: #0D2013;
+  --secondary-color: #2C5A3A;
+  --color-hover-primary: #4F7159;
+  --color-hover-secondary: rgb(63, 63, 63);
+  --background-color-hover: #D5E7DB;
+  --background-color-hoverbutton: #5a5a5a;
+  --background-color-button: #111;
+
+  /* 🖌️ Typography */
+  --font-family-link: 'Raleway', sans-serif;
+  --font-family-title: 'Poppins', sans-serif;
+  --font-family-text: 'Karla', sans-serif;
+}

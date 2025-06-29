@@ -1,0 +1,39 @@
+.banner-footer {
+  background-color: var(--background-color-primary);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  background-color: var(--background-color-primary);
+  align-items: center;
+
+  a {
+    text-align: start;
+    padding-left: 1rem;
+    text-decoration: none;
+    color: var(--color-text);
+    font-family: var(--font-family-link);
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--color-hover-secondary);
+  }
+
+  p {
+    text-align: center;
+    color: white;
+  }
+
+  figure {
+    display: flex;
+    justify-content: end;
+    gap: 0.2rem;
+    margin: 0;
+    padding-right: 1rem;
+
+    img {
+      height: 35px;
+    }
+  }
+}
