@@ -12,9 +12,19 @@ function Header() {
         />
       </figure>
       <nav className="header-nav">
-        <Link to="/">Accueil</Link>
-        <Link to="/gallery">Galerie</Link>
-        <Link to="/contact">Contact</Link>
+        <Link className="home-a" to="/">
+          Accueil
+        </Link>
+        <Link className="gallery-a" to="/gallery">
+          Galerie
+        </Link>
+        <Link className="contact-a" to="/contact">
+          Contact
+        </Link>
+
+        <Link className="login-a" to="/login">
+          <img src="/images/account-login.png" alt="login" />
+        </Link>
       </nav>
     </header>
   );
