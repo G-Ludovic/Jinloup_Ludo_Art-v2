@@ -25,7 +25,7 @@ function RegistrationPage() {
             placeholder="************"
           />
 
-          <button type="button">Valider</button>
+          <button type="submit">Valider</button>
         </form>
       </main>
     </>
