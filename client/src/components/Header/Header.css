@@ -43,6 +43,20 @@
     background-color: var(--background-color-hover);
   }
 
+  button {
+    all: unset;
+    cursor: pointer;
+
+    img {
+      height: 32px;
+    }
+
+    img:hover {
+      transition: opacity 0.3s ease;
+      opacity: 50%;
+    }
+  }
+
   .home-a {
     grid-column: 1;
   }

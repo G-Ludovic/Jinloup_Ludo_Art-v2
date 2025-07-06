@@ -68,4 +68,13 @@ const login: RequestHandler = async (req, res) => {
   }
 };
 
-export default { hashPassword, login };
+const logout: RequestHandler = (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+};
+
+export default { hashPassword, login, logout };
