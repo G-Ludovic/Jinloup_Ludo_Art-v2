@@ -54,11 +54,14 @@ const login: RequestHandler = async (req, res) => {
       throw new Error("A secret must be provided");
     }
 
-    const token = jwt.sign(payload, secretKey);
+    const token = jwt.sign(payload, secretKey, { expiresIn: "1d" });
 
-    res
-      .status(200)
-      .json({ message: "Congratulations, you're logged in !", token });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // "false" quand le site est en phase de développement et "true" en déploiement
+    });
+
+    res.status(200).json("Congratulations, you're logged in !");
   } catch (err) {
     console.warn((err as Error).message);
     res.sendStatus(500);
