@@ -12,8 +12,8 @@
 
 .header-nav {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 12px;
   font-size: 1rem;
   font-family: var(--font-family-link);
@@ -64,10 +64,6 @@
   .gallery-a {
     grid-column: 2;
   }
-
-  .forum-a {
-    grid-column: 3;
-  }
 }
 
 /** Responsive **/
@@ -75,29 +71,27 @@
 @media (min-width: 992px) {
   .header {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 3fr 0.5fr;
     padding: 0;
+  }
+
+  .header-nav {
+    justify-items: flex-end;
+    margin-right: 32px;
   }
 
   .img-logo {
     margin: 0;
   }
 
-  .header-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
-    padding-right: 16px;
-
-    a {
-      width: 140px;
-    }
+  a {
+    width: 140px;
   }
+}
 
-  .click-link {
-    display: flex;
-    justify-content: center;
-    flex: 1;
-    /* Chaque <a> prend la même part de d'espace disponible */
-  }
+.click-link {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  /* Chaque <a> prend la même part de d'espace disponible */
 }
