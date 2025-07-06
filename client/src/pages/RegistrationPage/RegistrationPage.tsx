@@ -4,7 +4,18 @@ function RegistrationPage() {
   const handleSubmit = (FormData: FormData) => {
     const data = Object.fromEntries(FormData);
 
-    console.warn(data);
+    if (data.password !== data.confirmPassword) {
+      // console.log("Les mots de passes ne concordent pas !");
+      return;
+    }
+
+    fetch("http://localhost:3310/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((res) => console.warn("Ma réponse : ", res.ok));
   };
 
   return (
