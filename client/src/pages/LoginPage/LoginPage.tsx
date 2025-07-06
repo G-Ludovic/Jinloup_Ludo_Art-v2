@@ -1,22 +1,25 @@
 import { Link } from "react-router";
 import "./LoginPage.css";
+import { toast } from "react-toastify";
 
 function LoginPage() {
   const handleSubmit = (FormData: FormData) => {
     const data = Object.fromEntries(FormData);
 
-    if (data.password !== data.confirmPassword) {
-      // console.log("Les mots de passes ne concordent pas !");
-      return;
-    }
-
-    fetch("http://localhost:3310/api/user", {
+    fetch("http://localhost:3310/api/login", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then((res) => console.warn("Ma réponse : ", res.ok));
+    }).then((res) => {
+      if (res.ok) {
+        toast.success("🎉 Félicitations, vous êtes connecté !");
+      } else {
+        toast.error("😩 Connection échouée");
+      }
+    });
   };
 
   return (
