@@ -1,11 +1,17 @@
 import "./RegistrationPage.css";
 
 function RegistrationPage() {
+  const handleSubmit = (FormData: FormData) => {
+    const data = Object.fromEntries(FormData);
+
+    console.warn(data);
+  };
+
   return (
     <>
       <h1>Enregistrement</h1>
       <main className="registration-page">
-        <form>
+        <form action={handleSubmit}>
           <label htmlFor="email">Votre email</label>
           <input
             type="email"

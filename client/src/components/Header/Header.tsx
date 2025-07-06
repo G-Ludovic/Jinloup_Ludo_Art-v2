@@ -18,12 +18,17 @@ function Header() {
         <Link className="gallery-a" to="/gallery">
           Galerie
         </Link>
+        <Link className="forum-a" to="/forum">
+          Forum
+        </Link>
         <Link className="contact-a" to="/contact">
           Contact
         </Link>
-
+        <Link className="registration-a" to="/registration">
+          Inscription
+        </Link>
         <Link className="login-a" to="/login">
-          <img src="/images/account-login.png" alt="login" />
+          Connection
         </Link>
       </nav>
     </header>
