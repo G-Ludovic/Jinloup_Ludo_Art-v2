@@ -1,8 +1,11 @@
 import { Link } from "react-router";
 import "./LoginPage.css";
 import { toast } from "react-toastify";
+import { useAuth } from "../../services/AuthContext";
 
 function LoginPage() {
+  const { setIsLogged } = useAuth();
+
   const handleSubmit = (FormData: FormData) => {
     const data = Object.fromEntries(FormData);
 
@@ -16,8 +19,10 @@ function LoginPage() {
     }).then((res) => {
       if (res.ok) {
         toast.success("🎉 Félicitations, vous êtes connecté !");
+        setIsLogged(true);
       } else {
         toast.error("😩 Connection échouée");
+        setIsLogged(false);
       }
     });
   };

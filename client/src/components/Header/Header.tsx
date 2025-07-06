@@ -1,7 +1,10 @@
 import { Link } from "react-router";
 import "./Header.css";
+import { useAuth } from "../../services/AuthContext";
 
 function Header() {
+  const { isLogged } = useAuth();
+
   return (
     <header className="header">
       <figure>
@@ -27,9 +30,13 @@ function Header() {
         <Link className="registration-a" to="/registration">
           Inscription
         </Link>
-        <Link className="login-a" to="/login">
-          Connection
-        </Link>
+        {!isLogged ? (
+          <Link className="login-a" to="/login">
+            Se connecter
+          </Link>
+        ) : (
+          <button type="button">Se déconnecter</button>
+        )}
       </nav>
     </header>
   );
