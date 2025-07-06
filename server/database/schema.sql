@@ -6,5 +6,5 @@ CREATE TABLE user (
 
 INSERT INTO user (id, email, password)
 VALUES
-  (1, "jdoe@mail.com", "123456");
+  (1, "johndoe@gmail.com", "P@ssw0rd!");
 
