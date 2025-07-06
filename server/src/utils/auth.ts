@@ -1,7 +1,7 @@
 import argon2 from "argon2";
 import type { RequestHandler } from "express";
 import userRepository from "../modules/user/userRepository";
-import jwt from "jsonwebtoken";
+import jwt, { type JwtPayload } from "jsonwebtoken";
 
 const hashPassword: RequestHandler = async (req, res, next) => {
   try {
@@ -78,11 +78,33 @@ const logout: RequestHandler = (req, res) => {
 };
 
 const refreshToken: RequestHandler = (req, res) => {
-  const token = req.cookies.token;
+  try {
+    const token = req.cookies.token;
 
-  console.warn(token);
+    if (!token) {
+      throw new Error("A token must be provided");
+    }
 
-  res.sendStatus(200);
+    const secretKey = process.env.APP_SECRET;
+
+    if (!secretKey) {
+      throw new Error("A secret must be provided");
+    }
+
+    const verifyToken = jwt.verify(token, secretKey);
+
+    if (verifyToken) {
+      const { id, email } = verifyToken as JwtPayload;
+
+      const newToken = jwt.sign({ id, email }, secretKey, { expiresIn: "1d" });
+
+      res.cookie("token", newToken);
+      res.status(200).json({ id, email });
+    }
+  } catch (err) {
+    console.error((err as Error).message);
+    res.sendStatus(500);
+  }
 };
 
 export default { hashPassword, login, logout, refreshToken };

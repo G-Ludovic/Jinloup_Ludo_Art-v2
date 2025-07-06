@@ -5,11 +5,17 @@ const AuthContext = createContext<null | Auth>(null);
 
 export const AuthProvider = ({ children }: Children) => {
   const [isLogged, setIsLogged] = useState(false);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     fetch("http://localhost:3310/api/refresh", {
       credentials: "include",
-    }).then((res) => res.ok && setIsLogged(true));
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setIsLogged(true);
+        setUser(data);
+      });
   }, []);
 
   return (
