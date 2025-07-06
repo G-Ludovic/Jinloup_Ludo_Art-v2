@@ -6,5 +6,5 @@ CREATE TABLE user (
 
 INSERT INTO user (id, email, password)
 VALUES
-  (1, "johndoe@gmail.com", "P@ssw0rd!");
+  (1, "johndoe@gmail.com", "$argon2id$v=19$m=16,t=2,p=1$bnh3SWdQcXZOVXc5SEF4NQ$HhwqNmpIzASIlOYXi1mS4g");
 

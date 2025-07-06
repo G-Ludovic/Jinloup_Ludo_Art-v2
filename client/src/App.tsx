@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import "./global.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Header />
       <main>
         <Outlet />
+        <ToastContainer />
       </main>
       <Footer />
     </>

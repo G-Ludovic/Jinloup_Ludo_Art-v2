@@ -1,12 +1,13 @@
 import { Link } from "react-router";
 import "./RegistrationPage.css";
+import { toast } from "react-toastify";
 
 function RegistrationPage() {
   const handleSubmit = (FormData: FormData) => {
     const data = Object.fromEntries(FormData);
 
     if (data.password !== data.confirmPassword) {
-      // console.log("Les mots de passes ne concordent pas !");
+      toast.error("❌ Les mots de passe ne concordent pas");
       return;
     }
 
@@ -16,7 +17,13 @@ function RegistrationPage() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then((res) => console.warn("Ma réponse : ", res.ok));
+    }).then((res) => {
+      if (res.ok) {
+        toast.success("🎉 Félicitations, vous avez créé votre compte !");
+      } else {
+        toast.error("😩 Erreur lors de l'inscription");
+      }
+    });
   };
 
   return (
