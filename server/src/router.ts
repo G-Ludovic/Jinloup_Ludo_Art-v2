@@ -12,4 +12,6 @@ router.post(
   userActions.add,
 );
 
+router.post("/login", validation.userValidation, auth.login);
+
 export default router;
