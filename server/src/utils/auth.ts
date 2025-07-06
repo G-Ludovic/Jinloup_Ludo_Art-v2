@@ -77,4 +77,12 @@ const logout: RequestHandler = (req, res) => {
   }
 };
 
-export default { hashPassword, login, logout };
+const refreshToken: RequestHandler = (req, res) => {
+  const token = req.cookies.token;
+
+  console.warn(token);
+
+  res.sendStatus(200);
+};
+
+export default { hashPassword, login, logout, refreshToken };

@@ -10,7 +10,9 @@
     "test": "jest --verbose"
   },
   "dependencies": {
+    "@types/cookie-parser": "^1.4.9",
     "argon2": "^0.43.0",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
