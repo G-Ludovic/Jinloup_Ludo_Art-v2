@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import "./RegistrationPage.css";
 
 function RegistrationPage() {
@@ -20,7 +21,7 @@ function RegistrationPage() {
 
   return (
     <>
-      <h1>Enregistrement</h1>
+      <h1>Veuillez créer votre compte</h1>
       <main className="registration-page">
         <form action={handleSubmit}>
           <label htmlFor="email">Votre email</label>
@@ -44,6 +45,10 @@ function RegistrationPage() {
 
           <button type="submit">Valider</button>
         </form>
+
+        <p>
+          Vous avez déjà un compte ? <Link to="/login">Connectez-vous !</Link>
+        </p>
       </main>
     </>
   );
