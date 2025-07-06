@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import type { Auth, Children } from "../types/auth";
+import type { Auth, Children, User } from "../types/auth";
 
 const AuthContext = createContext<null | Auth>(null);
 
 export const AuthProvider = ({ children }: Children) => {
   const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     fetch("http://localhost:3310/api/refresh", {
@@ -19,7 +19,9 @@ export const AuthProvider = ({ children }: Children) => {
   }, []);
 
   return (
-    <AuthContext value={{ isLogged, setIsLogged }}>{children}</AuthContext>
+    <AuthContext value={{ isLogged, setIsLogged, user, setUser }}>
+      {children}
+    </AuthContext>
   );
 };
 
