@@ -1,0 +1,32 @@
+.registration-page {
+  display: grid;
+  place-items: center;
+  margin: 50px 26px 50px;
+  padding: 26px;
+  gap: 26px;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  background-color: var(--background-color-secondary);
+  border-radius: 6px;
+
+  label,
+  input,
+  button {
+    display: block;
+  }
+
+  input {
+    margin: 8px 0;
+  }
+
+  button {
+    background-color: var(--background-color-button);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+}

@@ -14,8 +14,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 16px;
-  font-size: 1.3rem;
+  gap: 12px;
+  font-size: 1rem;
   font-family: var(--font-family-link);
 
   img {
@@ -51,18 +51,14 @@
     grid-column: 2;
   }
 
-  .contact-a {
+  .forum-a {
     grid-column: 3;
-  }
-
-  .login-a {
-    grid-column: -2 / -3;
   }
 }
 
 /** Responsive **/
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .header {
     display: grid;
     grid-template-columns: 3fr 1fr;
@@ -78,6 +74,10 @@
     flex-direction: row;
     justify-content: end;
     padding-right: 16px;
+
+    a {
+      width: 100px;
+    }
   }
 
   .click-link {
@@ -85,13 +85,5 @@
     justify-content: center;
     flex: 1;
     /* Chaque <a> prend la même part de d'espace disponible */
-  }
-}
-
-@media (max-width: 768px) {
-  header {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
   }
 }
