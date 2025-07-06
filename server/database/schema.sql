@@ -1,10 +1,10 @@
-create table user (
-  id int unsigned primary key auto_increment not null,
-  email varchar(255) not null unique,
-  password varchar(500) not null
+CREATE TABLE user (
+  ID INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(500) NOT NULL
 );
 
-insert into user(id, email, password)
-values
+INSERT INTO user (id, email, password)
+VALUES
   (1, "jdoe@mail.com", "123456");
 
