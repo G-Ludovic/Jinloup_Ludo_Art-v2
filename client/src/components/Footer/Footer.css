@@ -7,7 +7,7 @@
   align-items: center;
 
   a {
-    text-align: start;
+    text-align: auto;
     padding-left: 1rem;
     text-decoration: none;
     color: var(--color-text);

@@ -1,7 +1,7 @@
 .home-main {
   height: collapse;
 
-  .presentation-home {
+  section {
     background-color: var(--background-color-main);
     width: 100%;
     text-align: center;
@@ -10,13 +10,14 @@
 
   img {
     width: 100%;
-    max-height: 600px;
+    max-height: 450px;
     object-fit: cover;
   }
 
   article {
-    background-color: var(--background-color-hover);
     font-family: var(--font-family-text);
+    padding: 16px;
+
   }
 
   p {

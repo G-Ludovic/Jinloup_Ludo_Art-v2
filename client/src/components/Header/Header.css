@@ -71,21 +71,16 @@
 @media (min-width: 992px) {
   .header {
     display: grid;
-    grid-template-columns: 3fr 0.5fr;
+    grid-template-columns: 3fr 1fr;
     padding: 0;
   }
 
   .header-nav {
-    justify-items: flex-end;
-    margin-right: 32px;
+    padding-right: 16px;
   }
 
   .img-logo {
     margin: 0;
-  }
-
-  a {
-    width: 140px;
   }
 }
 
