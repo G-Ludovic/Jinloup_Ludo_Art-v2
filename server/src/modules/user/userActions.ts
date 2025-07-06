@@ -3,6 +3,8 @@ import userRepository from "./userRepository";
 
 const add: RequestHandler = async (req, res) => {
   try {
+    // console.warn(req.body);
+
     const user = await userRepository.create(req.body);
 
     if (user) {
