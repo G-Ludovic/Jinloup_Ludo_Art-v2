@@ -29,8 +29,9 @@ Ce projet a pour but de créer un véritable **espace communautaire et artistiqu
   - Profil utilisateur personnalisé  
   - Partage de dessins & commentaires sur le forum
 
-- 📱 **Responsive Design**  
-  Compatible tous supports : PC, tablette, mobile.
+- 📱 **Responsive Design**
+  
+  Compatible tous supports : PC & mobile.
 
 ---
 
