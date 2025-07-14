@@ -71,9 +71,5 @@ Tu peux me contacter ici :
 
 ## Wireframe de base du projet :
 
-<img width="1085" height="738" alt="Capture d’écran du 2025-07-14 19-06-54" src="https://github.com/user-attachments/assets/65f40353-6166-4d17-ba68-5a2eabc4f5b7" />
-<img width="1085" height="738" alt="Capture d’écran du 2025-07-14 19-07-11" src="https://github.com/user-attachments/assets/3c4ce400-fd22-4fde-8ab0-3e2f1bee5436" />
-<img width="1085" height="738" alt="Capture d’écran du 2025-07-14 19-07-18" src="https://github.com/user-attachments/assets/ebbdde0d-d436-41d2-971b-90a9263f580b" />
-<img width="1085" height="738" alt="Capture d’écran du 2025-07-14 19-07-34" src="https://github.com/user-attachments/assets/31dde076-f1a2-405d-a5c4-5df8d154fb36" />
-<img width="1085" height="738" alt="Capture d’écran du 2025-07-14 19-07-49" src="https://github.com/user-attachments/assets/8958f23f-6629-41a8-a23a-945b2f76ff63" />
-<img width="1085" height="738" alt="Capture d’écran du 2025-07-14 19-08-00" src="https://github.com/user-attachments/assets/8eb31c27-28be-40ad-a0dc-31e5cd205a2d" />
+<img width="1292" height="1276" alt="Capture d’écran du 2025-07-14 19-37-50" src="https://github.com/user-attachments/assets/d799c8f6-e2df-4563-b127-9cc924243ebf" />
+
