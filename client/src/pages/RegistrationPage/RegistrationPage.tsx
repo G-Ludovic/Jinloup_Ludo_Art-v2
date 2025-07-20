@@ -30,13 +30,13 @@ function RegistrationPage() {
     <>
       <h1>Veuillez créer votre compte</h1>
       <main className="registration-page">
-        <form action={handleSubmit}>
+        <form className="registration-form" action={handleSubmit}>
           <label htmlFor="email">Votre email</label>
           <input
             type="email"
             id="email"
             name="email"
-            placeholder="Ex: loup@gmail.com"
+            placeholder="loup@gmail.com"
           />
 
           <label htmlFor="password">Votre mot de passe</label>
@@ -51,11 +51,17 @@ function RegistrationPage() {
           />
 
           <button type="submit">Valider</button>
-        </form>
 
-        <p>
-          Vous avez déjà un compte ? <Link to="/login">Connectez-vous !</Link>
-        </p>
+          <p>
+            Vous avez déjà un compte ? <Link to="/login">Connectez-vous !</Link>
+          </p>
+        </form>
+        <div className="illustration-registration">
+          <img
+            src="\images\wolf_registrepage.png"
+            alt="illustration d'un portrait de jeune louveteau pour l'enregistrement sur le site"
+          />
+        </div>
       </main>
     </>
   );

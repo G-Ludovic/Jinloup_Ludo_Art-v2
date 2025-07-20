@@ -1,14 +1,10 @@
-/* Page global */
-
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 32px;
   align-items: center;
-  padding: 28px;
+  padding: 24px;
 }
-
-/* Partie gauche - formulaire */
 
 .contact-container {
   align-items: center;
@@ -24,9 +20,6 @@
 }
 
 .contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
   color: var(--color-text);
 }
 
@@ -36,6 +29,13 @@
   font-weight: 600;
   font-family: var(--font-family-text);
   font-size: 1rem;
+  margin: 12px;
+}
+
+.contact-form label button {
+  align-self: flex-end;
+  margin-top: 16px;
+  width: 200px;
 }
 
 .contact-form input,
@@ -51,7 +51,7 @@
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: var(--secondary-color);
-  box-shadow: 0 0 0 2px rgba(44, 90, 58, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .contact-form button {
@@ -79,11 +79,9 @@
   font-size: 1.2rem;
 }
 
-/* Partie droite - illustration */
-
 .illustration-contact {
   display: flex;
-  justify-content: right;
+  justify-content: center;
   grid-column: 2;
 }
 
@@ -101,7 +99,10 @@
   .form-grid {
     display: flex;
     flex-direction: column;
-    gap: 16px;
     padding: 16px;
+  }
+
+  .illustration-contact {
+    width: 100%;
   }
 }

@@ -1,32 +1,97 @@
 .registration-page {
   display: grid;
-  place-items: center;
-  margin: 50px 26px 50px;
-  padding: 26px;
-  gap: 26px;
-  font-family: "Poppins", sans-serif;
-  color: #333;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 24px;
+  align-items: center;
+  font-family: var(--font-family-title);
+  color: var(--color-text);
+}
+
+.registration-form {
+  grid-column: 2 / 3;
   background-color: var(--background-color-secondary);
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  font-family: var(--font-family-text);
+  color: var(--color-text);
+}
+
+.registration-form label {
+  font-weight: 600;
+}
+
+.registration-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
   border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-  label,
-  input,
-  button {
-    display: block;
+.registration-form input:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+.registration-form button {
+  align-self: flex-end;
+  background-color: var(--background-color-button);
+  color: #fff;
+  border: none;
+  padding: 12px;
+  width: 200px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.registration-form button:hover {
+  background-color: var(--background-color-hoverbutton);
+}
+
+.registration-form p {
+  font-size: 1rem;
+  margin-top: 12px;
+}
+
+.registration-form a {
+  font-weight: bold;
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+.illustration-registration {
+  grid-column: 1 / 2;
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.illustration-registration img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 968px) {
+  .registration-page {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
   }
 
-  input {
-    margin: 8px 0;
-  }
-
-  button {
-    background-color: var(--background-color-button);
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 0.9rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  .registration-form {
+    width: 100%;
   }
 }

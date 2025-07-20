@@ -31,25 +31,43 @@ function LoginPage() {
     <>
       <h1>Veuillez vous connecter</h1>
       <main className="login-page">
-        <form action={handleSubmit}>
+        <form
+          className="login-form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formData = new FormData(e.currentTarget);
+            handleSubmit(formData);
+          }}
+        >
           <label htmlFor="email">Votre email</label>
           <input
             type="email"
             id="email"
             name="email"
-            placeholder="Ex: loup@gmail.com"
+            placeholder="loup@gmail.com"
+            required
           />
 
           <label htmlFor="password">Votre mot de passe</label>
-          <input type="password" name="password" placeholder="************" />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="************"
+            required
+          />
 
           <button type="submit">Valider</button>
+
+          <p>
+            Vous n'avez pas de compte ?{" "}
+            <Link to="/registration">Créez-en un !</Link>
+          </p>
         </form>
 
-        <p>
-          Vous n'avez pas de compte ?{" "}
-          <Link to="/registration">Créez-en un !</Link>
-        </p>
+        <div className="illustration-login">
+          <img src="#" alt="#" />
+        </div>
       </main>
     </>
   );
