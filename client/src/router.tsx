@@ -3,12 +3,13 @@ import { createBrowserRouter } from "react-router";
 
 // Import the main app component
 import App from "./App";
-import HomePage from "./pages/HomePage/HomePage";
-import GalleryPage from "./pages/GalleryPage/GalleryPage";
-import ContactPage from "./pages/ContactPage/ContactPage";
 import AuthorPage from "./pages/AuthorPage/AuthorPage";
-import Page404 from "./pages/Page404/Page404";
+import ContactPage from "./pages/ContactPage/ContactPage";
+import ForumPage from "./pages/ForumPage/ForumPage";
+import GalleryPage from "./pages/GalleryPage/GalleryPage";
+import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import Page404 from "./pages/Page404/Page404";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 
 const router = createBrowserRouter([
@@ -33,16 +34,20 @@ const router = createBrowserRouter([
         path: "/author",
       },
       {
-        path: "/login",
+        element: <ForumPage />,
+        path: "/forum",
+      },
+      {
         element: <LoginPage />,
+        path: "/login",
       },
       {
-        path: "/registration",
         element: <RegistrationPage />,
+        path: "/registration",
       },
       {
-        path: "*",
         element: <Page404 />,
+        path: "*",
       },
     ],
   },

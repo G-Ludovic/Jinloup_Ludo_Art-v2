@@ -1,0 +1,109 @@
+.forum-main {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-auto-rows: 1fr 1fr;
+  gap: 12px;
+  padding: 16px;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-family-text);
+    font-size: 0.95rem;
+  }
+
+  thead {
+    background-color: var(--background-color-hoverbutton);
+    color: white;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+  }
+
+  tbody tr:hover {
+    background-color: var(--background-color-hover);
+  }
+}
+
+.forum-main h3 {
+  font-family: var(--font-family-title);
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 8px;
+}
+
+.subject-forum {
+  grid-column: 1 / 2;
+  grid-row: 1;
+  border-radius: 6px;
+  max-height: 508px;
+  overflow-y: auto;
+}
+
+.latest-posts-forum {
+  grid-column: 1 / 2;
+  grid-row: 2;
+  border-radius: 6px;
+  max-height: 508px;
+  overflow-y: auto;
+}
+
+.home-forum {
+  background-color: var(--background-color-main);
+  grid-column: 2 / 3;
+  grid-row: 1 / span 2;
+  color: var(--color-text);
+  font-family: var(--font-family-title);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border-radius: 6px;
+  max-height: 1090px;
+  overflow-y: auto;
+}
+
+.subject-forum,
+.latest-posts-forum,
+.onligne-forum,
+.regulation-forum {
+  background-color: var(--background-color-main);
+  color: var(--color-text);
+  font-family: var(--font-family-text);
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.onligne-forum {
+  grid-column: 3 / 4;
+  grid-row: 1;
+  color: var(--color-text);
+  font-family: var(--font-family-text);
+  padding: 12px;
+  border-radius: 6px;
+  max-height: 508px;
+  overflow-y: auto;
+}
+
+.regulation-forum {
+  grid-column: 3 / 4;
+  grid-row: 2;
+  color: var(--color-text);
+  font-family: var(--font-family-text);
+  padding: 12px;
+  border-radius: 6px;
+  max-height: 508px;
+  overflow-y: auto;
+}
+
+@media (min-width: 320px) and (max-width: 968px) {
+  .forum-main {
+    display: flex;
+    flex-direction: column;
+  }
+}
