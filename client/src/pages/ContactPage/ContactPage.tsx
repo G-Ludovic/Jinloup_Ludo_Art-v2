@@ -26,7 +26,7 @@ const ContactPage: React.FC = () => {
   };
 
   return (
-    <>
+    <main className="contact-page-main">
       <h1>Contact</h1>
       <section className="form-grid">
         <div className="contact-container">
@@ -70,8 +70,14 @@ const ContactPage: React.FC = () => {
             </form>
           )}
         </div>
+        <div className="illustration-contact">
+          <img
+            src="\images\wolf_contactpage.png"
+            alt="illustration du héros du site pour la prise de contact"
+          />
+        </div>
       </section>
-    </>
+    </main>
   );
 };
 

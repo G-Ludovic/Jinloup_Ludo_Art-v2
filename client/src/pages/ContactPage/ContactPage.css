@@ -1,31 +1,41 @@
+/* Page global */
+
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 28px;
 }
 
+/* Partie gauche - formulaire */
+
 .contact-container {
-  grid-column: 2 / 3;
-  width: auto;
-  align-content: center;
-  padding: 20px;
-  margin: 6rem auto 6rem;
-  font-family: "Poppins", sans-serif;
+  align-items: center;
+  grid-column: 1;
+  max-width: 100%;
+  width: 100%;
+  padding: 24px;
+  font-family: var(--font-family-title);
   color: #333;
   background-color: var(--background-color-secondary);
-  border-radius: 6px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .contact-form {
-  color: white;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 16px;
+  color: var(--color-text);
 }
 
 .contact-form label {
   display: flex;
   flex-direction: column;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: var(--font-family-text);
+  font-size: 1rem;
 }
 
 .contact-form input,
@@ -34,24 +44,25 @@
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  font-family: var(--font-family-text);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: black;
-  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 2px rgba(44, 90, 58, 0.3);
 }
 
 .contact-form button {
-  align-self: flex-start;
   background-color: var(--background-color-button);
   color: #fff;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
+  font-family: var(--font-family-link);
   transition: background-color 0.3s ease;
 }
 
@@ -63,20 +74,34 @@
   color: var(--color-success);
   font-weight: bold;
   text-align: center;
-  padding: 35px 0 35px;
+  padding: 40px 0;
+  font-family: var(--font-family-title);
+  font-size: 1.2rem;
+}
+
+/* Partie droite - illustration */
+
+.illustration-contact {
+  display: flex;
+  justify-content: right;
+  grid-column: 2;
+}
+
+.illustration-contact img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /** Responsive **/
 
-@media (min-width: 768px) {
-  .contact-container {
-    width: 600px;
-    align-content: center;
-    padding: 20px;
-    margin: 6rem auto;
-  }
-
-  .success-message {
-    font-size: 28px;
+@media (max-width: 968px) {
+  .form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
   }
 }
