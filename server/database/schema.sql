@@ -4,6 +4,12 @@ CREATE TABLE user (
   password VARCHAR(500) NOT NULL
 );
 
+CREATE TABLE draw (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  name VARCHAR(100) NOT NULL UNIQUE,
+  image VARCHAR(250)
+);
+
 INSERT INTO user (id, email, password)
 VALUES
   (1, "johndoe@gmail.com", "$argon2id$v=19$m=16,t=2,p=1$WmRCS21yeTVMSGFlYkFiSA$BD49Ws1JoGxpCr0lF5Mkxw"),
