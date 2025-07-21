@@ -33,7 +33,7 @@ function GalleryPage() {
     };
   }, [previewUrl]);
 
-  // Fonction pour charger les dessins
+  // Charger les dessins
   const loadDraws = useCallback(() => {
     fetch("http://localhost:3310/api/draws")
       .then((res) => res.json())
@@ -79,7 +79,12 @@ function GalleryPage() {
     }).then((res) => {
       if (res.ok) {
         toast.success("Dessin supprimé !");
-        loadDraws();
+        // Supprime l’élément du state local
+        setData((prevData) =>
+          prevData.filter((item: Drawing) => item.id !== id),
+        );
+        // Retirer du localStorage si stocké dedans
+        localStorage.removeItem(`preview-${id}`);
       } else {
         toast.error("❌ Échec de la suppression");
       }
@@ -89,7 +94,7 @@ function GalleryPage() {
   // Modification
   const handleModify = (id: number, formData: FormData) => {
     fetch(`http://localhost:3310/api/draws/${id}`, {
-      method: "PUT", // ou PATCH selon ton back
+      method: "PUT",
       body: formData,
     }).then((res) => {
       if (res.ok) {

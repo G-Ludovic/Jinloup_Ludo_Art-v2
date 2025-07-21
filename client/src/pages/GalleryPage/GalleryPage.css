@@ -6,8 +6,6 @@
   text-align: center;
 }
 
-/* Formulaire */
-
 .add-draw {
   align-items: center;
   justify-items: center;
@@ -49,7 +47,6 @@
   background-color: var(--background-color-hoverbutton);
 }
 
-/* Dessins membres */
 .draw-member {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -57,7 +54,6 @@
   margin-bottom: 3rem;
 }
 
-/* Dessins du site */
 .gallery-article {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -88,7 +84,6 @@
   font-weight: bold;
 }
 
-/* Scrollbar */
 .draw-member,
 .gallery-article {
   max-height: 550px;
@@ -98,7 +93,7 @@
 
 .draw-member::-webkit-scrollbar,
 .gallery-article::-webkit-scrollbar {
-  width: 8px;
+  width: 12px;
 }
 
 .draw-member::-webkit-scrollbar-thumb,
@@ -124,7 +119,6 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive extra */
 @media (max-width: 968px) {
   .preview-container img {
     max-height: 200px;
