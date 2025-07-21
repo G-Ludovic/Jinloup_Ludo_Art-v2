@@ -1,12 +1,13 @@
 interface CardProps {
   image: string;
-  text: string;
+  name: string;
+  text?: string;
 }
 
-function Card({ image, text }: CardProps) {
+function Card({ image, name, text }: CardProps) {
   return (
     <figure>
-      <img src={image} alt="" />
+      <img src={image} alt={name} />
       <article>{text}</article>
     </figure>
   );
