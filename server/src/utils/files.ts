@@ -28,7 +28,6 @@ const drawImage: RequestHandler = (req, res, next) => {
   try {
     if (req.file) {
       req.body.image = `/uploads/${req.file.filename}`;
-
       next();
     } else {
       res.sendStatus(400).json("File problem");

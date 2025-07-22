@@ -1,4 +1,11 @@
-import { type ChangeEvent, useCallback, useEffect, useState } from "react";
+import {
+  type ChangeEvent,
+  type FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 import Card from "../../components/Card/Card.tsx";
 import { drawings } from "../../data/drawings.ts";
@@ -14,6 +21,7 @@ function GalleryPage() {
   const [data, setData] = useState<Drawing[]>([]);
   const [file, setFile] = useState<File | undefined>();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -60,7 +68,7 @@ function GalleryPage() {
   // Ajout
   const handleSubmit = (formData: FormData) => {
     fetch("http://localhost:3310/api/draws", {
-      method: "POST",
+      method: "PUT",
       body: formData,
     }).then((res) => {
       if (res.ok) {
@@ -92,10 +100,17 @@ function GalleryPage() {
   };
 
   // Modification
-  const handleModify = (id: number, formData: FormData) => {
+  const handleModify = (e: FormEvent<HTMLFormElement>, id: number) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData);
+    console.log(data);
+
     fetch(`http://localhost:3310/api/draws/${id}`, {
-      method: "PUT",
-      body: formData,
+      method: "POST",
+      body: JSON.stringify({
+        test: "string",
+      }),
     }).then((res) => {
       if (res.ok) {
         toast.success("Modification effectuée !");
@@ -178,8 +193,6 @@ function GalleryPage() {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  const formData = new FormData(e.currentTarget);
-                  handleModify(el.id, formData);
                 }}
                 encType="multipart/form-data"
               >
@@ -190,22 +203,30 @@ function GalleryPage() {
                   placeholder="Modifier le nom"
                 />
                 <input type="file" name="image" accept=".png,.jpg,.jpeg" />
-                <button type="submit">Modifier</button>
               </form>
-
-              <button type="button" onClick={() => handleDelete(el.id)}>
-                Supprimer
-              </button>
-
               <button
                 type="button"
                 onClick={() => {
-                  localStorage.removeItem("draws");
-                  toast.info("Cache local supprimé.");
+                  dialogRef.current?.showModal();
                 }}
               >
-                Vider le cache local
+                Modifier
               </button>
+              <button type="button" onClick={() => handleDelete(el.id)}>
+                Supprimer
+              </button>
+              <dialog ref={dialogRef}>
+                <p>Coucou</p>
+                <form onSubmit={(e) => handleModify(e, el.id)}>
+                  <input
+                    id="image_modified"
+                    name="image_modified"
+                    type="file"
+                    accept=".png,.jpg,.jpeg"
+                  />
+                  <button type="submit">Valider</button>
+                </form>
+              </dialog>
             </div>
           ))}
         </article>
