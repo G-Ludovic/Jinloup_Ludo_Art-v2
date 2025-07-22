@@ -18,6 +18,9 @@ const read: RequestHandler = async (req, res) => {
 };
 
 const edit: RequestHandler = async (req, res) => {
+  const draw = req.body;
+  console.log(draw);
+
   try {
     const result = await drawRepository.update(req.body, req.params.id);
 
@@ -41,7 +44,7 @@ const add: RequestHandler = async (req, res) => {
       res.status(404).json("This draw doesn't exist");
     }
   } catch (err) {
-    res.status(500).json("Internal server error");
+    // res.status(500).json("Internal server error");
   }
 };
 
