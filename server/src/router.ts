@@ -22,7 +22,7 @@ router.get("/refresh", auth.refreshToken);
 
 router.get("/draws", drawActions.browse);
 router.get("/draws/:id", drawActions.read);
-router.post("/draws/:id", drawActions.edit);
+router.put("/draws/:id", drawActions.edit);
 router.post("/draws", files.imageUpload, files.drawImage, drawActions.add);
 router.delete("/draws/:id", drawActions.destroy);
 

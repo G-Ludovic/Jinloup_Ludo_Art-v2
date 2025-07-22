@@ -68,7 +68,7 @@ function GalleryPage() {
   // Ajout
   const handleSubmit = (formData: FormData) => {
     fetch("http://localhost:3310/api/draws", {
-      method: "POST",
+      method: "PUT",
       body: formData,
     }).then((res) => {
       if (res.ok) {
