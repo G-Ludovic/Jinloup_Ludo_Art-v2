@@ -16,8 +16,9 @@ const storage = multer.diskStorage({
   filename(req, file, callback) {
     const base = path.basename(file.originalname).toLowerCase();
     const ext = path.extname(file.originalname).toLowerCase();
+    const nameWithoutExt = path.parse(file.originalname).name.toLowerCase();
     const id = crypto.randomUUID();
-    callback(null, `${base}_${id}${ext}`);
+    callback(null, `${base}_${nameWithoutExt}${ext}`);
   },
 });
 
@@ -41,7 +42,11 @@ const drawImage: RequestHandler = (req, res, next) => {
 const removeImageFromServer = (path: string) => {
   const relativePath = `./public${path}`;
   fs.unlink(relativePath, (err) => {
-    if (err) throw new Error("Error while deleting previous image files", err);
+    if (err) {
+      console.error("Error deleting file :", err);
+    } else {
+      console.log("Image deleted :", relativePath);
+    }
   });
 };
 
