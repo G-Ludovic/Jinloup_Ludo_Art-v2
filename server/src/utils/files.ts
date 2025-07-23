@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import fs from "node:fs";
 import path from "node:path";
 import type { RequestHandler } from "express";
 import multer from "multer";
@@ -37,4 +38,11 @@ const drawImage: RequestHandler = (req, res, next) => {
   }
 };
 
-export default { imageUpload, drawImage };
+const removeImageFromServer = (path: string) => {
+  const relativePath = `./public${path}`;
+  fs.unlink(relativePath, (err) => {
+    if (err) throw new Error("Error while deleting previous image files", err);
+  });
+};
+
+export default { imageUpload, drawImage, removeImageFromServer };

@@ -22,8 +22,8 @@ class drawRepository {
 
   async update(body: Draw, id: string) {
     const [rows] = await databaseClient.query<Result>(
-      "UPDATE draw SET name = ?, image = ? WHERE id = ?",
-      [body.name, body.image, id],
+      "UPDATE draw SET image = ? WHERE id = ?",
+      [body.image, id],
     );
 
     return rows.affectedRows;
