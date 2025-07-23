@@ -1,5 +1,4 @@
 import {
-  type ChangeEvent,
   type FormEvent,
   useCallback,
   useEffect,
@@ -19,19 +18,19 @@ interface Drawing {
 
 function GalleryPage() {
   const [data, setData] = useState<Drawing[]>([]);
-  const [file, setFile] = useState<File | undefined>();
+  const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
 
-  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
-
     if (selectedFile) {
       setFile(selectedFile);
-
-      // Crée l’URL pour prévisualisation
-      const objectUrl = URL.createObjectURL(selectedFile);
-      setPreviewUrl(objectUrl);
+      const preview = URL.createObjectURL(selectedFile);
+      setPreviewUrl(preview);
+    } else {
+      setFile(null);
+      setPreviewUrl(null);
     }
   };
 
@@ -132,19 +131,25 @@ function GalleryPage() {
               const formData = new FormData(e.currentTarget);
               handleSubmit(formData);
               e.currentTarget.reset();
-              setFile(undefined);
+              setFile(null); // remet à zéro les infos du fichier
+              setPreviewUrl(null); // supprime l’image d’aperçu
             }}
             encType="multipart/form-data"
           >
-            <label htmlFor="name">Nom de votre création</label>
+            <label htmlFor="name">
+              <h3>Nom de votre création</h3>
+            </label>
             <input
               id="name"
               name="name"
+              type="text"
               placeholder="Ex: Le Loup d'argent"
               required
             />
 
-            <label htmlFor="image">Votre image</label>
+            <label htmlFor="image">
+              <h4>⬇️ Votre image ⬇️</h4>
+            </label>
             <input
               id="image"
               name="image"
@@ -162,12 +167,23 @@ function GalleryPage() {
 
             {file && (
               <section>
-                <p>Détails du fichier :</p>
-                <ul>
-                  <li>Nom : {file.name}</li>
-                  <li>Type : {file.type}</li>
-                  <li>Taille : {file.size} octets</li>
-                </ul>
+                <h3>Détails du fichier :</h3>
+                <table className="details-table">
+                  <tbody>
+                    <tr>
+                      <th>Nom :</th>
+                      <td>{file.name}</td>
+                    </tr>
+                    <tr>
+                      <th>Type :</th>
+                      <td>{file.type}</td>
+                    </tr>
+                    <tr>
+                      <th>Taille :</th>
+                      <td>{file.size.toLocaleString()} octets</td>
+                    </tr>
+                  </tbody>
+                </table>
               </section>
             )}
 
@@ -187,39 +203,34 @@ function GalleryPage() {
                 text=""
               />
 
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                }}
-                encType="multipart/form-data"
-              >
-                <input
-                  type="text"
-                  name="name"
-                  defaultValue={el.name}
-                  placeholder="Modifier le nom"
-                />
-                <input type="file" name="image" accept=".png,.jpg,.jpeg" />
-              </form>
-              <button
-                type="button"
-                onClick={() => {
-                  dialogRef.current?.showModal();
-                }}
-              >
-                Modifier
-              </button>
-              <button type="button" onClick={() => handleDelete(el.id)}>
-                Supprimer
-              </button>
+              <div className="member-card-btn">
+                <button
+                  type="button"
+                  className="edit-button"
+                  onClick={() => {
+                    dialogRef.current?.showModal();
+                  }}
+                >
+                  Modifier
+                </button>
+                <button
+                  type="button"
+                  className="delete-button"
+                  onClick={() => handleDelete(el.id)}
+                >
+                  Supprimer
+                </button>
+              </div>
+
               <dialog ref={dialogRef}>
-                <p>Coucou</p>
+                <p>⬇️ Nouvelle image à sélectionner ⬇️</p>
                 <form onSubmit={(e) => handleModify(e, el.id)}>
                   <input
                     id="image_modified"
                     name="image"
                     type="file"
                     accept=".png,.jpg,.jpeg"
+                    required
                   />
                   <button type="submit">Valider</button>
                 </form>

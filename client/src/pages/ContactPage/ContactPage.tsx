@@ -74,7 +74,7 @@ const ContactPage: React.FC = () => {
         </div>
         <div className="illustration-contact">
           <img
-            src="\images\wolf_contactpage.png"
+            src="\images\loup_contact.webp"
             alt="illustration du héros du site pour la prise de contact"
           />
         </div>

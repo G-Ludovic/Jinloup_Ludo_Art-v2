@@ -29,6 +29,7 @@
     background-color: var(--background-color-secondary);
     border-radius: 6px;
     text-decoration: none;
+    font-weight: 600;
     justify-content: center;
     color: var(--color-text);
     padding: 16px;
