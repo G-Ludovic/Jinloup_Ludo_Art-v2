@@ -133,6 +133,7 @@ function GalleryPage() {
               handleSubmit(formData);
               e.currentTarget.reset();
               setFile(undefined);
+              setPreviewUrl(null);
             }}
             encType="multipart/form-data"
           >
