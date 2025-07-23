@@ -1,6 +1,6 @@
 import type { RequestHandler } from "express";
-import drawRepository from "./drawRepository";
 import files from "../../utils/files";
+import drawRepository from "./drawRepository";
 
 const browse: RequestHandler = async (req, res) => {
   const result = await drawRepository.readAll();
