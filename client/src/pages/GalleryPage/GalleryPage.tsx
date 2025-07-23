@@ -216,11 +216,19 @@ function GalleryPage() {
           ) : (
             data.map((el) => (
               <div key={el.id} className="card">
-                <Card
-                  name={el.name}
-                  image={`http://localhost:3310${el.image}`}
-                  text=""
-                />
+                <a
+                  href={`http://localhost:3310${el.image}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="click-link"
+                  title={`Voir ${el.name} en grand`}
+                >
+                  <Card
+                    name={el.name}
+                    image={`http://localhost:3310${el.image}`}
+                    text=""
+                  />
+                </a>
 
                 <div className="member-card-btn">
                   <button
