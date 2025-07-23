@@ -25,6 +25,13 @@ h1 {
   margin: 0;
 }
 
+a {
+  font-family: var(--font-family-link);
+  text-decoration: none;
+  color: rgb(43, 85, 99);
+  cursor: pointer;
+}
+
 :root {
   /* 🎨 Couleurs principales */
   --color-text: #050315;
