@@ -24,6 +24,7 @@
   max-width: 100%;
   margin-top: 1rem;
   margin-bottom: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .add-draw input[type="text"],
@@ -93,7 +94,7 @@
   width: auto;
   object-fit: contain;
   border-radius: 0.5rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Créations des membres */
@@ -117,7 +118,7 @@
   border: none;
   border-radius: 8px;
   padding: 2rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
   background-color: var(--background-color-secondary);
   max-width: 400px;
   width: 90%;

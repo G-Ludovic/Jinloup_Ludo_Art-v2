@@ -66,7 +66,7 @@ function LoginPage() {
         </form>
 
         <div className="illustration-login">
-          <img src="#" alt="#" />
+          <img src="\images\loup_porte_sanctuaire.webp" alt="#" />
         </div>
       </main>
     </>

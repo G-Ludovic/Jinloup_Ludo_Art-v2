@@ -58,7 +58,7 @@ function RegistrationPage() {
         </form>
         <div className="illustration-registration">
           <img
-            src="\images\wolf_registrepage.png"
+            src="\images\loup_manuscrit.webp"
             alt="illustration d'un portrait de jeune louveteau pour l'enregistrement sur le site"
           />
         </div>
