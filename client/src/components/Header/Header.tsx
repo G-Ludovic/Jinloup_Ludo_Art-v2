@@ -42,9 +42,11 @@ function Header() {
             Se connecter
           </Link>
         ) : (
-          <button type="button" onClick={handleLogout}>
-            <img src="images/account-login.png" alt="Logout icon" />
-          </button>
+          <Link className="login-a" to="/">
+            <button type="button" onClick={handleLogout}>
+              Se déconnecter
+            </button>
+          </Link>
         )}
       </nav>
     </header>
