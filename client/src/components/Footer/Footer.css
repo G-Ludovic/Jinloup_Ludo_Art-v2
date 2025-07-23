@@ -3,7 +3,6 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  background-color: var(--background-color-primary);
   align-items: center;
 
   .author-btn {
@@ -14,24 +13,31 @@
     padding: 0.5rem;
     background-color: var(--color-hover-secondary);
     border-radius: 6px;
+
+    a {
+      color: white;
+    }
   }
 
   .author-btn:hover {
-    background-color: var(--background-color-hoverbutton);
+    opacity: 70%;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
   }
 
-  a {
+  /* a {
     text-align: auto;
     text-decoration: none;
     color: white;
-    font-family: var(--font-family-link);
     position: relative;
-    transition: color 0.2s ease;
-  }
+    transition: color 0.3s ease;
+  } */
 
   p {
+    font-family: var(--font-family-text);
     text-align: center;
     color: white;
+    font-size: medium;
   }
 
   figure {
