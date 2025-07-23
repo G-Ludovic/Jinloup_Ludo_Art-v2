@@ -1,3 +1,4 @@
+/* Page général */
 .gallery-page {
   padding: 2rem;
   background-color: var(--background-color-main);
@@ -6,6 +7,7 @@
   text-align: center;
 }
 
+/* Formulaire du dessin */
 .add-draw {
   align-items: center;
   justify-items: center;
@@ -20,6 +22,7 @@
   padding: 1.5rem;
   border-radius: 8px;
   max-width: 100%;
+  margin-top: 1rem;
   margin-bottom: 2rem;
 }
 
@@ -28,7 +31,7 @@
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 300px;
+  width: 280px;
   align-self: center;
 }
 
@@ -47,66 +50,127 @@
   background-color: var(--background-color-hoverbutton);
 }
 
+/* Table de détails du fichier */
+.details-table {
+  margin: 1rem auto;
+  border-collapse: collapse;
+  background-color: var(--background-color-secondary);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.75rem;
+}
+
+.details-table th,
+.details-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+}
+
+.details-table th {
+  background-color: var(--color-hover-primary);
+  color: white;
+  font-weight: 600;
+  width: 100px;
+}
+
+.details-table td {
+  background-color: white;
+  color: #333;
+}
+
+/* Aperçu d'image */
+.preview-container {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.preview-container img {
+  max-width: 100%;
+  max-height: 300px;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Créations des membres */
 .draw-member {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
   margin-bottom: 3rem;
-
-  dialog {
-    border: none;
-    border-radius: 8px;
-    padding: 2rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    background-color: var(--background-color-secondary);
-    max-width: 400px;
-    width: 90%;
-    /* margin: auto; */
-    font-family: var(--font-family-text);
-  }
-
-  dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
-  }
-
-  dialog form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  dialog button {
-    justify-content: center;
-    padding: 0.5rem 1rem;
-    border: none;
-    background-color: var(--background-color-button);
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-
-  dialog button:hover {
-    background-color: var(--background-color-hoverbutton);
-  }
+  height: 100%;
 }
 
+.draw-member .member-card-btn {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* Modale de modification */
+.draw-member dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  background-color: var(--background-color-secondary);
+  max-width: 400px;
+  width: 90%;
+  font-family: var(--font-family-text);
+}
+
+.draw-member dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.draw-member dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.draw-member dialog button {
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: var(--background-color-button);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.draw-member dialog button:hover {
+  background-color: var(--background-color-hoverbutton);
+}
+
+/* Galerie de Jinloup */
 .gallery-article {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
 }
 
+/* Composant Carte */
 .card {
   background-color: white;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   padding: 1rem;
+  max-width: 250px;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
 }
 
 .card img {
@@ -122,6 +186,35 @@
   font-weight: bold;
 }
 
+/* boutons de la carte */
+.card .edit-button {
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: var(--background-color-button);
+  color: white;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.card .edit-button:hover {
+  background-color: var(--background-color-hoverbutton);
+}
+
+.card .delete-button {
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: var(--color-success);
+  color: white;
+  cursor: pointer;
+}
+
+.card .delete-button:hover {
+  background-color: rgb(37, 185, 37);
+}
+
+/* Scroll */
 .draw-member,
 .gallery-article {
   max-height: 550px;
@@ -138,23 +231,6 @@
 .gallery-article::-webkit-scrollbar-thumb {
   background-color: var(--primary-color);
   border-radius: 10px;
-}
-
-.preview-container {
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 1rem 0;
-}
-
-.preview-container img {
-  max-width: 100%;
-  max-height: 300px;
-  height: auto;
-  width: auto;
-  object-fit: contain;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 968px) {
