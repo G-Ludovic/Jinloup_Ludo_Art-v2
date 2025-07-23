@@ -1,5 +1,4 @@
 import {
-  type ChangeEvent,
   type FormEvent,
   useCallback,
   useEffect,
@@ -19,19 +18,19 @@ interface Drawing {
 
 function GalleryPage() {
   const [data, setData] = useState<Drawing[]>([]);
-  const [file, setFile] = useState<File | undefined>();
+  const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
 
-  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
-
     if (selectedFile) {
       setFile(selectedFile);
-
-      // Crée l’URL pour prévisualisation
-      const objectUrl = URL.createObjectURL(selectedFile);
-      setPreviewUrl(objectUrl);
+      const preview = URL.createObjectURL(selectedFile);
+      setPreviewUrl(preview);
+    } else {
+      setFile(null);
+      setPreviewUrl(null);
     }
   };
 
@@ -132,8 +131,8 @@ function GalleryPage() {
               const formData = new FormData(e.currentTarget);
               handleSubmit(formData);
               e.currentTarget.reset();
-              setFile(undefined);
-              setPreviewUrl(null);
+              setFile(null); // remet à zéro les infos du fichier
+              setPreviewUrl(null); // supprime l’image d’aperçu
             }}
             encType="multipart/form-data"
           >
@@ -188,20 +187,6 @@ function GalleryPage() {
                 text=""
               />
 
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                }}
-                encType="multipart/form-data"
-              >
-                <input
-                  type="text"
-                  name="name"
-                  defaultValue={el.name}
-                  placeholder="Modifier le nom"
-                />
-                <input type="file" name="image" accept=".png,.jpg,.jpeg" />
-              </form>
               <button
                 type="button"
                 onClick={() => {
@@ -214,13 +199,14 @@ function GalleryPage() {
                 Supprimer
               </button>
               <dialog ref={dialogRef}>
-                <p>Coucou</p>
+                <p>⬇️ Nouvelle image à sélectionner ⬇️</p>
                 <form onSubmit={(e) => handleModify(e, el.id)}>
                   <input
                     id="image_modified"
                     name="image"
                     type="file"
                     accept=".png,.jpg,.jpeg"
+                    required
                   />
                   <button type="submit">Valider</button>
                 </form>
