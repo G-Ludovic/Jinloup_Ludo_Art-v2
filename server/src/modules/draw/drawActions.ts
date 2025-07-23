@@ -52,12 +52,27 @@ const add: RequestHandler = async (req, res) => {
 };
 
 const destroy: RequestHandler = async (req, res) => {
-  const deleteVideoGame = await drawRepository.delete(req.params.id);
+  try {
+    const draw = await drawRepository.readById(req.params.id);
 
-  if (deleteVideoGame) {
-    res.status(200).json("A draw has been successfully deleted !");
-  } else {
-    res.status(404).json("Impossible to delete a draw");
+    if (!draw) {
+      res.status(404).json("Impossible to delete a draw: not found");
+    }
+
+    if (draw.image) {
+      files.removeImageFromServer(draw.image);
+    }
+
+    const deleteDraw = await drawRepository.delete(req.params.id);
+
+    if (deleteDraw) {
+      res.status(200).json("A draw has been successfully deleted!");
+    } else {
+      res.status(404).json("Failed to delete draw in database");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json("Internal server error during draw deletion");
   }
 };
 
