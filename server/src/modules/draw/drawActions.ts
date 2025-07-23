@@ -1,5 +1,6 @@
 import type { RequestHandler } from "express";
 import drawRepository from "./drawRepository";
+import files from "../../utils/files";
 
 const browse: RequestHandler = async (req, res) => {
   const result = await drawRepository.readAll();
@@ -18,10 +19,12 @@ const read: RequestHandler = async (req, res) => {
 };
 
 const edit: RequestHandler = async (req, res) => {
-  const draw = req.body;
+  const draw = req.body.image;
   console.log(draw);
 
   try {
+    const previousImage = await drawRepository.readById(req.params.id);
+    files.removeImageFromServer(previousImage.image);
     const result = await drawRepository.update(req.body, req.params.id);
 
     if (result) {
@@ -44,7 +47,7 @@ const add: RequestHandler = async (req, res) => {
       res.status(404).json("This draw doesn't exist");
     }
   } catch (err) {
-    // res.status(500).json("Internal server error");
+    res.status(500).json("Internal server error");
   }
 };
 

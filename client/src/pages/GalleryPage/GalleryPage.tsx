@@ -68,7 +68,7 @@ function GalleryPage() {
   // Ajout
   const handleSubmit = (formData: FormData) => {
     fetch("http://localhost:3310/api/draws", {
-      method: "PUT",
+      method: "POST",
       body: formData,
     }).then((res) => {
       if (res.ok) {
@@ -103,14 +103,10 @@ function GalleryPage() {
   const handleModify = (e: FormEvent<HTMLFormElement>, id: number) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData);
-    console.log(data);
 
     fetch(`http://localhost:3310/api/draws/${id}`, {
-      method: "POST",
-      body: JSON.stringify({
-        test: "string",
-      }),
+      method: "PUT",
+      body: formData,
     }).then((res) => {
       if (res.ok) {
         toast.success("Modification effectuée !");
@@ -118,6 +114,7 @@ function GalleryPage() {
       } else {
         toast.error("❌ Échec de la modification");
       }
+      dialogRef.current?.close();
     });
   };
 
@@ -220,7 +217,7 @@ function GalleryPage() {
                 <form onSubmit={(e) => handleModify(e, el.id)}>
                   <input
                     id="image_modified"
-                    name="image_modified"
+                    name="image"
                     type="file"
                     accept=".png,.jpg,.jpeg"
                   />
