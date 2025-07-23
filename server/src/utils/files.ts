@@ -43,9 +43,7 @@ const removeImageFromServer = (path: string) => {
   const relativePath = `./public${path}`;
   fs.unlink(relativePath, (err) => {
     if (err) {
-      console.error("Error deleting file :", err);
-    } else {
-      console.log("Image deleted :", relativePath);
+      throw new Error(`Error deleting file: ${err.message}`);
     }
   });
 };

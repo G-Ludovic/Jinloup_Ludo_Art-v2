@@ -71,7 +71,6 @@ const destroy: RequestHandler = async (req, res) => {
       res.status(404).json("Failed to delete draw in database");
     }
   } catch (err) {
-    console.error(err);
     res.status(500).json("Internal server error during draw deletion");
   }
 };
