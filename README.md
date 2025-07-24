@@ -84,7 +84,9 @@ Tu peux me contacter ici :
 
 ## Bases de modélisation :
 
-<img width="1263" height="1136" alt="MCD_Jinloup_Ludo_Art" src="https://github.com/user-attachments/assets/e99174f6-f07e-4d7c-bd67-150d4d61022e" />
-<img width="1287" height="1084" alt="MLD_Jinloup_Ludo_Art" src="https://github.com/user-attachments/assets/f369b74d-c1a3-443d-87d7-2f62badd0508" />
+<img width="1261" height="1132" alt="MCD_Jinloup_Ludo_Art" src="https://github.com/user-attachments/assets/d753cd40-d260-47a4-8bc3-f48da03d7541" />
+<img width="1279" height="1078" alt="MLD_Jinloup_Ludo_Art" src="https://github.com/user-attachments/assets/a33ca001-92e2-4929-8414-823f4ca68dfa" />
+<img width="1277" height="1077" alt="MPD_Jinloup_Ludo_Art" src="https://github.com/user-attachments/assets/d0a86404-04c6-4efe-a5b0-c1dd19cb2f85" />
+
 
 
