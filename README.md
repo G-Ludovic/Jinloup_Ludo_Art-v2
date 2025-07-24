@@ -78,6 +78,7 @@ Tu peux me contacter ici :
 <img width="1699" height="1127" alt="Desktop_Inscription_Wireframe" src="https://github.com/user-attachments/assets/3fd20790-3504-4f79-ba5e-7dc368dbfecb" />
 <img width="1707" height="1122" alt="Desktop_Connexion_Wireframe" src="https://github.com/user-attachments/assets/af2b52e2-ed97-4c77-a9c3-1934bf953261" />
 <img width="1702" height="1124" alt="Desktop_Contact_Wireframe" src="https://github.com/user-attachments/assets/bbebe6e9-341a-4cd3-9e7c-73c9d40af1d3" />
+<img width="1703" height="1130" alt="Desktop_Propos_Wireframe" src="https://github.com/user-attachments/assets/27da6e38-1126-47d5-98c2-7c8bca1b2066" />
 
 ---
 
