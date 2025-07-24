@@ -42,6 +42,11 @@ Ce projet a pour but de créer un véritable **espace communautaire et artistiqu
 | `React` + `TypeScript` + `Vite` | `Node.js` + `Express` | `MySQL` | `JWT` / `OAuth` |
 
 ---
+## Petite démo
+
+https://github.com/user-attachments/assets/e9e1b365-2b36-46aa-aad2-00c760dad499
+
+---
 
 ## 📌 Objectifs à long terme
 
