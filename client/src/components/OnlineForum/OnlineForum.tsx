@@ -1,5 +1,20 @@
 import "./OnlineForum.css";
 
+type Grade = {
+  id: string;
+  logo: string;
+  name: string;
+  onLigne: number;
+};
+
+const grades: Grade[] = [
+  { id: "g1", logo: "logo 1", name: "Admin", onLigne: 2 },
+  { id: "g2", logo: "logo 2", name: "Modérateur", onLigne: 1 },
+  { id: "g3", logo: "logo 3", name: "Grand Loup", onLigne: 0 },
+  { id: "g4", logo: "logo 4", name: "Loup", onLigne: 3 },
+  { id: "g5", logo: "logo 5", name: "Louveteau", onLigne: 4 },
+];
+
 function OnlineForum() {
   return (
     <article className="onligne-forum">
@@ -13,31 +28,13 @@ function OnlineForum() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">logo 1</th>
-            <td>Admin</td>
-            <td>: Nb</td>
-          </tr>
-          <tr>
-            <th scope="row">logo 2</th>
-            <td>Modérateur</td>
-            <td>: Nb</td>
-          </tr>
-          <tr>
-            <th scope="row">logo 3</th>
-            <td>Grand Loup</td>
-            <td>: Nb</td>
-          </tr>
-          <tr>
-            <th scope="row">logo 4</th>
-            <td>Loup</td>
-            <td>: Nb</td>
-          </tr>
-          <tr>
-            <th scope="row">logo 5</th>
-            <td>Louveteau</td>
-            <td>: Nb</td>
-          </tr>
+          {grades.map((gra) => (
+            <tr key={gra.id}>
+              <th scope="row">{gra.logo}</th>
+              <td>{gra.name}</td>
+              <td>: {gra.onLigne}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </article>

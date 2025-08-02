@@ -1,5 +1,21 @@
 import "./LatestsPostsForum.css";
 
+type Message = {
+  id: string;
+  content: string;
+};
+
+const messages: Message[] = [
+  { id: "m1", content: "Bienvenue à tous !" },
+  { id: "m2", content: "Super vos dessins !" },
+  { id: "m3", content: "Qui participe à l’événement de septembre ?" },
+  { id: "m4", content: "Vos astuces d’organisation ?" },
+  { id: "m5", content: "Un bug sur le site ?" },
+  { id: "m6", content: "Trop cool le nouveau thème" },
+  { id: "m7", content: "Besoin d’aide en perspective" },
+  { id: "m8", content: "Suggestions pour la galerie ?" },
+];
+
 function LatestsPostsForum() {
   return (
     <article className="latest-posts-forum">
@@ -13,38 +29,12 @@ function LatestsPostsForum() {
         </thead>
 
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Ici le message</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Ici le message</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Ici le message</td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>Ici le message</td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>Ici le message</td>
-          </tr>
-          <tr>
-            <th scope="row">6</th>
-            <td>Ici le message</td>
-          </tr>
-          <tr>
-            <th scope="row">7</th>
-            <td>Ici le message</td>
-          </tr>
-          <tr>
-            <th scope="row">8</th>
-            <td>Ici le message</td>
-          </tr>
+          {messages.map((mes, index) => (
+            <tr key={mes.id}>
+              <th scope="row">{index + 1}</th>
+              <td>{mes.content}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </article>

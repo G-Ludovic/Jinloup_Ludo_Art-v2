@@ -1,11 +1,11 @@
 import "./SubjectForum.css";
 
-type SubjectProps = {
+type Subject = {
   id: string;
   title: string;
 };
 
-const subject: SubjectProps[] = [
+const subject: Subject[] = [
   { id: "s1", title: "Présentation du forum" },
   { id: "s2", title: "Vos créations préférées" },
   { id: "s3", title: "Événements à venir" },
