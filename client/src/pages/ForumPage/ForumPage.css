@@ -4,29 +4,6 @@
   grid-auto-rows: 1fr 1fr;
   gap: 12px;
   padding: 16px;
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: var(--font-family-text);
-    font-size: 0.95rem;
-  }
-
-  thead {
-    background-color: var(--background-color-hoverbutton);
-    color: white;
-  }
-
-  th,
-  td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ccc;
-  }
-
-  tbody tr:hover {
-    background-color: var(--background-color-hover);
-  }
 }
 
 .forum-main h3 {
@@ -37,68 +14,28 @@
   padding-bottom: 8px;
 }
 
-.subject-forum {
-  grid-column: 1 / 2;
-  grid-row: 1;
-  border-radius: 6px;
-  max-height: 508px;
-  overflow-y: auto;
-}
-
-.latest-posts-forum {
-  grid-column: 1 / 2;
-  grid-row: 2;
-  border-radius: 6px;
-  max-height: 508px;
-  overflow-y: auto;
-}
-
-.home-forum {
-  background-color: var(--background-color-main);
-  grid-column: 2 / 3;
-  grid-row: 1 / span 2;
-  color: var(--color-text);
-  font-family: var(--font-family-title);
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 12px;
-  border-radius: 6px;
-  max-height: 1090px;
-  overflow-y: auto;
-}
-
-.subject-forum,
-.latest-posts-forum,
-.onligne-forum,
-.regulation-forum {
-  background-color: var(--background-color-main);
-  color: var(--color-text);
+/* Table qui peut être déplacé plus tard dans le composant concerné */
+.forum-main table {
+  width: 100%;
+  border-collapse: collapse;
   font-family: var(--font-family-text);
-  padding: 12px;
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 0.95rem;
 }
 
-.onligne-forum {
-  grid-column: 3 / 4;
-  grid-row: 1;
-  color: var(--color-text);
-  font-family: var(--font-family-text);
-  padding: 12px;
-  border-radius: 6px;
-  max-height: 508px;
-  overflow-y: auto;
+.forum-main thead {
+  background-color: var(--background-color-hoverbutton);
+  color: white;
 }
 
-.regulation-forum {
-  grid-column: 3 / 4;
-  grid-row: 2;
-  color: var(--color-text);
-  font-family: var(--font-family-text);
-  padding: 12px;
-  border-radius: 6px;
-  max-height: 508px;
-  overflow-y: auto;
+.forum-main th,
+.forum-main td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.forum-main tbody tr:hover {
+  background-color: var(--background-color-hover);
 }
 
 @media (min-width: 320px) and (max-width: 968px) {

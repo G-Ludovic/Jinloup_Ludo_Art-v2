@@ -1,0 +1,12 @@
+.onligne-forum {
+  grid-column: 3 / 4;
+  grid-row: 1;
+  background-color: var(--background-color-main);
+  color: var(--color-text);
+  font-family: var(--font-family-text);
+  padding: 12px;
+  border-radius: 6px;
+  max-height: 508px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

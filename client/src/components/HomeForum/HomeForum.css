@@ -1,0 +1,12 @@
+.home-forum {
+  grid-column: 2 / 3;
+  grid-row: 1 / span 2;
+  background-color: var(--background-color-main);
+  color: var(--color-text);
+  font-family: var(--font-family-title);
+  padding: 12px;
+  border-radius: 6px;
+  max-height: 1090px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
