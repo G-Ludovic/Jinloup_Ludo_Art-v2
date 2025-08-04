@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./HomeForum.css";
 
 type Categorie = {
@@ -6,18 +7,28 @@ type Categorie = {
   message: string;
 };
 
-const categories: Categorie[] = [
-  { id: "c1", name: "Présentations", message: "Présente-toi ici" },
-  { id: "c2", name: "Trombinoscope", message: "Ajoute ta photo !" },
-  { id: "c3", name: "Vos créations", message: "Partage tes dessins" },
-  { id: "c4", name: "Vos passions", message: "Parle de ce que tu aimes" },
-  { id: "c5", name: "La Tanière", message: "Discutons librement" },
-  { id: "c6", name: "Évènements", message: "Retrouve les activités à venir" },
-  { id: "c7", name: "Aides entre nous", message: "Besoin de soutien ?" },
-  { id: "c8", name: "Une carrière ?", message: "Parlons avenir pro !" },
-];
-
 function HomeForum() {
+  const [categories, setCategories] = useState<Categorie[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("http://localhost:3310/api/categories");
+
+        if (!response.ok) {
+          throw new Error("Erreur lors de la récupération des catégories");
+        }
+
+        const data = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Erreur fetch:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
     <article className="home-forum">
       <h3>Bienvenue sur le forum de Jinloup Ludo Art !</h3>
