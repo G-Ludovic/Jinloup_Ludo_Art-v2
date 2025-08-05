@@ -3,6 +3,14 @@ import { createBrowserRouter } from "react-router";
 
 // Import the main app component
 import App from "./App";
+import Career from "./categories/Career/Career";
+import Events from "./categories/Events/Events";
+import Helpers from "./categories/Helpers/Helpers";
+import Presentations from "./categories/Presentations/Presentations";
+import TheDen from "./categories/TheDen/TheDen";
+import Trombinoscope from "./categories/Trombinoscope/Trombinoscope";
+import YourCreations from "./categories/YourCreations/YourCreations";
+import YourPassions from "./categories/YourPassions/YourPassions";
 import AuthorPage from "./pages/AuthorPage/AuthorPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import ForumPage from "./pages/ForumPage/ForumPage";
@@ -36,6 +44,38 @@ const router = createBrowserRouter([
       {
         element: <ForumPage />,
         path: "/forum",
+      },
+      {
+        element: <Presentations />,
+        path: "forum/category/1",
+      },
+      {
+        element: <Trombinoscope />,
+        path: "forum/category/2",
+      },
+      {
+        element: <YourCreations />,
+        path: "forum/category/3",
+      },
+      {
+        element: <YourPassions />,
+        path: "forum/category/4",
+      },
+      {
+        element: <TheDen />,
+        path: "forum/category/5",
+      },
+      {
+        element: <Events />,
+        path: "forum/category/6",
+      },
+      {
+        element: <Helpers />,
+        path: "forum/category/7",
+      },
+      {
+        element: <Career />,
+        path: "forum/category/8",
       },
       {
         element: <LoginPage />,
