@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import "./HomeForum.css";
 
 type Categorie = {
@@ -47,7 +48,9 @@ function HomeForum() {
               <th scope="row">{cat.name}</th>
               <td>{cat.message}</td>
               <td>
-                <button type="button">Voir</button>
+                <Link to={`/forum/category/${cat.id}`}>
+                  <button type="button">Voir</button>
+                </Link>
               </td>
             </tr>
           ))}
