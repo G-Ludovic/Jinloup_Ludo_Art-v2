@@ -1,6 +1,7 @@
 import { type FormEvent, useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Card from "../../components/Card/Card.tsx";
+import { Carousel } from "../../components/Carousel/Carousel.tsx";
 import { drawings } from "../../data/drawings.ts";
 import "./GalleryPage.css";
 
@@ -330,25 +331,9 @@ function GalleryPage() {
         <hr />
         <h2>Créations de Jinloup</h2>
         <hr />
-        <article className="gallery-article">
-          {drawings.map((drawing) => (
-            <div key={drawing.id} className="card">
-              <a
-                className="click-link"
-                href={drawing.art}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  className="draw-img"
-                  src={drawing.art}
-                  alt={drawing.name || `Dessin #${drawing.id}`}
-                />
-              </a>
-              <p>{drawing.name || `Dessin #${drawing.id}`}</p>
-            </div>
-          ))}
-        </article>
+        <div className="carousel-article">
+          <Carousel data={drawings} />
+        </div>
       </main>
     </>
   );
