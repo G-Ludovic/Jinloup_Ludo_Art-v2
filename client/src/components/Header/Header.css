@@ -26,12 +26,12 @@
 
   a {
     display: flex;
-    background-color: var(--background-color-secondary);
+    background-color: var(--background-color-button);
     border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
     justify-content: center;
-    color: var(--color-text);
+    color: white;
     padding: 16px;
     position: relative;
     transition: color 0.3s ease;
