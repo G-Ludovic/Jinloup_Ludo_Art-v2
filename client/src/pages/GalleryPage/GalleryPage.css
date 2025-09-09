@@ -234,6 +234,10 @@
   border-radius: 10px;
 }
 
+dialog {
+  z-index: 1;
+}
+
 /* Composant Carousel */
 .carousel-article {
   display: grid;
