@@ -5,7 +5,9 @@ function Footer() {
   return (
     <footer className="banner-footer">
       <div className="author-btn">
-        <Link to="/author">À propos</Link>
+        <Link to="/author" className="link-about">
+          À propos
+        </Link>
       </div>
       <p>&copy; Jinloup Ludo Art 2025</p>
       <figure className="grid-figure">
