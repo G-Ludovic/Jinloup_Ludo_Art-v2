@@ -1,0 +1,43 @@
+.new-discussion {
+  display: flex;
+  justify-content: start;
+  margin: 12px;
+
+  button {
+    border: solid rgb(150, 126, 126) 3px;
+    border-radius: 8px;
+    color: white;
+    background: var(--background-color-button);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 8px 16px;
+  }
+
+  button:hover {
+    background: var(--background-color-hoverbutton);
+    color: white;
+  }
+}
+
+.cat-pres {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.cat-pres .art-p {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin: 12px 0 12px 12px;
+}
+
+@media (min-width: 320px) and (max-width: 960px) {
+  .new-discussion {
+    justify-content: center;
+  }
+
+  .art-p {
+    align-items: center;
+  }
+}
