@@ -37,7 +37,11 @@
     justify-content: center;
   }
 
-  .art-p {
+  /* .art-p {
     align-items: center;
+  } */
+
+  .cat-pres .online {
+    display: none;
   }
 }

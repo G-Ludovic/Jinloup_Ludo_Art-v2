@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import "./HomeForum.css";
+import { FaFolder } from "react-icons/fa";
 
 type Categorie = {
   id: string;
@@ -49,7 +50,9 @@ function HomeForum() {
               <td>{cat.message}</td>
               <td>
                 <Link to={`/forum/category/${cat.id}`}>
-                  <button type="button">Voir</button>
+                  <button type="button">
+                    <FaFolder />
+                  </button>
                 </Link>
               </td>
             </tr>
