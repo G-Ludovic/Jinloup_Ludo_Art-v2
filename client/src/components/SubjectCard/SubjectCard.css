@@ -1,19 +1,32 @@
 .subject-card {
   display: flex;
   border-radius: 8px;
+  /* border: navajowhite solid 3px; */
   padding: 12px;
+  margin: 12px 12px;
   background-color: var(--background-color-secondary);
   box-shadow: 0 2px 4px rgba(0, 0, 1, 0.3);
   max-width: fit-content;
   max-height: fit-content;
+
+  figure {
+    justify-items: center;
+  }
+
+  figcaption {
+    max-width: auto;
+  }
+
+  textarea {
+    max-width: max-content;
+    overflow-x: hidden;
+  }
 }
 
 .subject-card img {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  border: 1px solid black;
-  margin: 0 16px 0 0;
 }
 
 .subject-card p {
@@ -29,15 +42,16 @@
   display: flex;
   flex-direction: column;
   align-self: flex-end;
-  gap: 6px;
   margin-left: 12px;
 }
 
 .actions button {
-  border: solid rgb(150, 126, 126) 3px;
+  border: none;
   border-radius: 8px;
   background: var(--background-color-button);
   font-size: 1.2rem;
+  margin-top: 8px;
+  padding: 4px;
   cursor: pointer;
 }
 
@@ -67,5 +81,9 @@
     flex-direction: row;
     align-self: center;
     margin-left: 0;
+  }
+
+  .actions button {
+    margin: 4px 4px;
   }
 }
