@@ -34,8 +34,24 @@
   border-bottom: 1px solid #ccc;
 }
 
+.forum-main tbody tr > td:last-child button {
+  color: var(--color-success);
+  cursor: pointer;
+  /* background: var(--background-color-button); */
+  border: none;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 4px 8px;
+  border-radius: 100%;
+  font-size: 1rem;
+}
+
+.forum-main tbody tr > td:last-child button:hover {
+  background: var(--background-color-secondary);
+  color: black;
+}
+
 .forum-main tbody tr:hover {
-  background-color: var(--background-color-hover);
+  background-color: var(--color-hover);
 }
 
 @media (min-width: 320px) and (max-width: 968px) {
