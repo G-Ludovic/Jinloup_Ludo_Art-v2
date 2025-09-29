@@ -10,36 +10,27 @@ Ce projet a pour but de créer un véritable **espace communautaire et artistiqu
 ## ✏️ Fonctionnalités principales
 
 - 🖼️ **Galerie interactive**  
-  Présentation dynamique des œuvres de l’artiste : images, descriptions, techniques utilisées.
-
-- 👤 **Profil de l’artiste**  
-  Biographie, inspirations, projets en cours et liens vers les réseaux sociaux.
-
-- 💬 **Forum communautaire**  
-  Espace d’échange pour les artistes et passionnés de dessin.  
-  **Catégories :**  
-  - Critiques constructives  
-  - Entraide technique  
-  - Inspiration  
-  - Discussions générales  
-  - 🎯 Tutoriels, événements, actualités régulières
+  Publication et visualisation d’œuvres.
 
 - 🧑‍🤝‍🧑 **Zone membre**  
-  - Inscription / Connexion sécurisée  
-  - Profil utilisateur personnalisé  
-  - Partage de dessins & commentaires sur le forum
+  Inscription, connexion sécurisée, profil utilisateur personnalisé.
+
+- 👤 **Espace utilisateur personnalisé**  
+  Messagerie privée, biographie, inspirations, projets en cours et liens vers les réseaux sociaux.
+
+- 💬 **Forum communautaire**  
+  Espace d’échange pour les artistes et passionnés de dessin.
 
 - 📱 **Responsive Design**
-  
   Compatible tous supports : PC & mobile.
 
 ---
 
 ## 🛠️ Stack Technique
 
-| Frontend | Backend | Base de données | Authentification |
-|----------|---------|------------------|------------------|
-| `React` + `TypeScript` + `Vite` | `Node.js` + `Express` | `MySQL` | `JWT` / `OAuth` |
+| Frontend | Backend | Base de données | Sécurité & Upload | Linter |
+|----------|---------|------------------|------------------|--------------------|
+| `React` + `TypeScript` + `Vite` | `Node.js` + `Express` | `MySQL` | `JWT` + `argon2` + `Multer` | `Biome` |
 
 ---
 ## Petite démo
@@ -58,9 +49,7 @@ https://github.com/user-attachments/assets/e9e1b365-2b36-46aa-aad2-00c760dad499
 
 ## 🚧 État du projet
 
-📌 **Actuellement en développement**  
-✅ Architecture en cours de mise en place  
-🛠️ Fonctionnalités principales à venir
+📌 **Actuellement en développement évolutif**
 
 ---
 
