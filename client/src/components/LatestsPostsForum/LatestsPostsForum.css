@@ -1,7 +1,7 @@
 .latest-posts-forum {
   grid-column: 1 / 2;
   grid-row: 2;
-  background-color: var(--background-color-main);
+  background-color: var(--background-color-secondary);
   color: var(--color-text);
   font-family: var(--font-family-text);
   padding: 12px;
