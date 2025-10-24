@@ -60,28 +60,28 @@ Tu peux me contacter ici :
 
 ---
 
-*Merci de suivre ce projet, et bienvenue dans cette aventure artistique !*
+## Wireframe (exemple de la page de galerie) :
+
+<img width="1546" height="1022" alt="image" src="https://github.com/user-attachments/assets/4ce867a0-5ca2-4af7-abd8-5523c21c959b" /> <img width="549" height="1022" alt="image" src="https://github.com/user-attachments/assets/1c92ca37-933e-46d6-ab49-739a071fa5ca" />
 
 ---
 
-## Wireframe de base du projet :
+## Mockup & Prototype (exemple de la page de contact) :
 
-<img width="1723" height="1273" alt="Desktop_Acceuil_Wireframe" src="https://github.com/user-attachments/assets/ba5b96de-1859-4a23-bd95-70e0d6e5ba8d" />
-<img width="1705" height="1120" alt="Desktop_Galerie_Wireframe" src="https://github.com/user-attachments/assets/acaab253-76c7-4732-ae6c-fa0865c3f0e6" />
-<img width="1702" height="1118" alt="Desktop_Forum_Wireframe" src="https://github.com/user-attachments/assets/dfce0676-b084-411a-ac8b-e5a7d5461ecd" />
-<img width="1699" height="1127" alt="Desktop_Inscription_Wireframe" src="https://github.com/user-attachments/assets/3fd20790-3504-4f79-ba5e-7dc368dbfecb" />
-<img width="1707" height="1122" alt="Desktop_Connexion_Wireframe" src="https://github.com/user-attachments/assets/af2b52e2-ed97-4c77-a9c3-1934bf953261" />
-<img width="1702" height="1124" alt="Desktop_Contact_Wireframe" src="https://github.com/user-attachments/assets/bbebe6e9-341a-4cd3-9e7c-73c9d40af1d3" />
-<img width="1703" height="1130" alt="Desktop_Propos_Wireframe" src="https://github.com/user-attachments/assets/27da6e38-1126-47d5-98c2-7c8bca1b2066" />
-<img width="1697" height="1130" alt="Desktop_espace-utilisateur_Wireframe" src="https://github.com/user-attachments/assets/9dc28371-90be-4951-b76f-455afed5c41c" />
+<img width="1933" height="1112" alt="image" src="https://github.com/user-attachments/assets/27b51d09-f8bb-4496-8220-c429f5d91ed8" /> <img width="424" height="1112" alt="image" src="https://github.com/user-attachments/assets/664b2bd7-7d5e-4536-bc83-12f455bfde24" />
 
 ---
 
 ## Bases de modélisation :
 
-<img width="1264" height="1134" alt="JLA-MCD" src="https://github.com/user-attachments/assets/b2233e38-88f1-4095-b1a0-c8ab097986f5" />
-<img width="1288" height="1087" alt="JLA-MLD" src="https://github.com/user-attachments/assets/d8b642a2-31c8-4779-b51e-6b4614d19e84" />
-<img width="1302" height="1094" alt="JLA-MPD" src="https://github.com/user-attachments/assets/a01a4bad-8b87-4022-bcac-43bcbbefbbf3" />
+<img width="1264" height="1134" alt="image" src="https://github.com/user-attachments/assets/1de74597-165b-4538-8490-ae187a3b5541" /> <img width="1825" height="1444" alt="image" src="https://github.com/user-attachments/assets/561fe047-9c14-4f4d-a00e-4727a87ad431" /> <img width="1752" height="1432" alt="image" src="https://github.com/user-attachments/assets/b7373b65-f0f2-4e2d-8ce9-87b8298e7f9b" />
+
+---
+
+*Merci de suivre ce projet, et bienvenue dans cette aventure artistique !*
+
+
+
 
 
 
