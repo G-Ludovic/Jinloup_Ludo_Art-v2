@@ -35,7 +35,7 @@ const ContactPage: React.FC = () => {
           ) : (
             <form onSubmit={handleSubmit} className="contact-form">
               <label>
-                <p>Nom</p>
+                <p>Pseudo</p>
                 <input
                   type="text"
                   name="name"
