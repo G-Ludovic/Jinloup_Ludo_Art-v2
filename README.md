@@ -60,24 +60,6 @@ Tu peux me contacter ici :
 
 ---
 
-## Wireframe (exemple de la page de galerie) :
-
-<img width="1546" height="1022" alt="image" src="https://github.com/user-attachments/assets/4ce867a0-5ca2-4af7-abd8-5523c21c959b" /> <img width="549" height="1022" alt="image" src="https://github.com/user-attachments/assets/1c92ca37-933e-46d6-ab49-739a071fa5ca" />
-
----
-
-## Mockup & Prototype (exemple de la page de contact) :
-
-<img width="1933" height="1112" alt="image" src="https://github.com/user-attachments/assets/27b51d09-f8bb-4496-8220-c429f5d91ed8" /> <img width="424" height="1112" alt="image" src="https://github.com/user-attachments/assets/664b2bd7-7d5e-4536-bc83-12f455bfde24" />
-
----
-
-## Bases de modélisation :
-
-<img width="1264" height="1134" alt="image" src="https://github.com/user-attachments/assets/1de74597-165b-4538-8490-ae187a3b5541" /> <img width="1825" height="1444" alt="image" src="https://github.com/user-attachments/assets/561fe047-9c14-4f4d-a00e-4727a87ad431" /> <img width="1752" height="1432" alt="image" src="https://github.com/user-attachments/assets/b7373b65-f0f2-4e2d-8ce9-87b8298e7f9b" />
-
----
-
 *Merci de suivre ce projet, et bienvenue dans cette aventure artistique !*
 
 
