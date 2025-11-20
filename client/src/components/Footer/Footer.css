@@ -86,7 +86,6 @@
   .banner-footer {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
-    text-align: center;
     padding-left: 16px;
     gap: 16px;
     grid-column: 2;

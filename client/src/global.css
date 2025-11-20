@@ -59,6 +59,9 @@ a {
   /* 🎨 Couleurs principales */
   --color-text: #050315;
   --color-success: rgb(30, 145, 30);
+  --color-link: #3b3b98;
+  --color-hover-link: #4e4ebf;
+  --color-error: #d93025;
   --background-color-primary: #68766c;
   --background-color-secondary: #93b09c;
   --background-color-main: #c3dac9;
@@ -73,5 +76,5 @@ a {
   /* 🖌️ Typography */
   --font-family-link: "Raleway", sans-serif;
   --font-family-title: "Poppins", sans-serif;
-  --font-family-text: "Karla", sans-serif;
+  --font-family-text: "Inter", sans-serif;
 }

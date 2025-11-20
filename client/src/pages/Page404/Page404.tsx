@@ -1,6 +1,6 @@
-import "./Page404.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import "./Page404.css";
 
 function Page404() {
   const [seconds, setSeconds] = useState(8);
