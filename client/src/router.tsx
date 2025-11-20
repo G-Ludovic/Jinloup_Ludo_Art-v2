@@ -18,6 +18,7 @@ import GalleryPage from "./pages/GalleryPage/GalleryPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import Page404 from "./pages/Page404/Page404";
+import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 
 const router = createBrowserRouter([
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         element: <RegistrationPage />,
         path: "/registration",
+      },
+      {
+        element: <PrivacyPolicy />,
+        path: "/privacy-policy",
       },
       {
         element: <Page404 />,

@@ -5,13 +5,13 @@
   align-items: center;
   padding: 1rem;
   margin: 0 auto;
-  max-width: 1200px;
+  background-color: var(--background-color-secondary);
 }
 
 .presentation-author {
-  background-color: var(--background-color-main);
+  background-color: white;
   border-radius: 8px;
-  padding: 2rem;
+  padding: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -52,17 +52,16 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive sans order */
-@media (max-width: 1200px) {
+@media (max-width: 968px) {
   .author-main {
     display: flex;
     flex-direction: column;
-    padding: 1rem;
   }
 
   .presentation-author,
   .image-author {
     max-width: 320px;
     margin-bottom: 1.5rem;
+    padding: 0 1.2rem 0 1.2rem;
   }
 }

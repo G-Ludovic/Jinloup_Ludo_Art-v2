@@ -17,39 +17,23 @@ function Footer() {
           <article className="footer-title">
             <h3>Jinloup Ludo Art</h3>
           </article>
-          <Link to="/author" className="link-about">
-            À propos
-          </Link>
-          <Link to="/contact" className="link-about">
-            Contact
-          </Link>
+          <Link to="/author">À propos</Link>
+          <Link to="/contact">Contact</Link>
         </div>
 
         <div className="footer-column">
-          <Link to="" className="link-about">
-            Politique de confidentialité
-          </Link>
-          <Link to="" className="link-about">
-            Droits d'auteur
-          </Link>
+          <Link to="/privacy-policy">Politique de confidentialité</Link>
+          <Link to="*">Droits d'auteur</Link>
         </div>
 
         <div className="footer-column">
-          <Link to="" className="link-about">
-            Étiquette
-          </Link>
-          <Link to="" className="link-about">
-            Conditions d'utilisation
-          </Link>
+          <Link to="*">Étiquette</Link>
+          <Link to="*">Conditions d'utilisation</Link>
         </div>
 
         <div className="footer-column">
-          <Link to="" className="link-about">
-            Développeurs
-          </Link>
-          <Link to="" className="link-about">
-            Centre d'aide
-          </Link>
+          <Link to="*">Développeurs</Link>
+          <Link to="*">Centre d'aide</Link>
         </div>
       </section>
 
