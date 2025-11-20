@@ -23,7 +23,7 @@ function Footer() {
 
         <div className="footer-column">
           <Link to="/privacy-policy">Politique de confidentialité</Link>
-          <Link to="*">Droits d'auteur</Link>
+          <Link to="/copyright">Droits d'auteur</Link>
         </div>
 
         <div className="footer-column">

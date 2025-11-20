@@ -58,6 +58,7 @@ a {
 :root {
   /* 🎨 Couleurs principales */
   --color-text: #050315;
+  --color-text-secondary: #2a2a72;
   --color-success: rgb(30, 145, 30);
   --color-link: #3b3b98;
   --color-hover-link: #4e4ebf;

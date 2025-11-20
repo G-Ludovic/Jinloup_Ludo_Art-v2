@@ -1,14 +1,19 @@
-.privacy-policy-page {
+.copyright-page {
   background-color: var(--background-color-secondary);
   padding-bottom: 2rem;
+  font-family: var(--font-family-text);
+  color: var(--color-text);
+  line-height: 1.6;
 }
 
-.privacy-page {
+.copyright-page h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.copyright-content {
   max-width: 900px;
   margin: 0 auto;
-  line-height: 1.6;
-  font-family: "Inter", sans-serif;
-  color: var(--color-text);
   background-color: white;
   padding: 2rem;
   margin: 2rem auto 0 auto;
@@ -16,43 +21,39 @@
   border-radius: 8px;
 }
 
-.privacy-page h1 {
-  text-align: center;
-  color: white;
-}
-
 .update-date {
   text-align: center;
   font-size: 0.9rem;
   color: #555;
+  margin-bottom: 2rem;
 }
 
-.privacy-page h2 {
+.copyright-page h2 {
   color: var(--color-text-secondary);
   margin-top: 2rem;
   margin-bottom: 0.5rem;
 }
 
-.privacy-page ul {
+.copyright-page ul {
   margin-left: 1.5rem;
 }
 
-.privacy-page a {
+.copyright-content a {
   color: var(--color-link);
   text-decoration: underline;
 }
 
-.privacy-page a:hover {
+.copyright-content a:hover {
   color: var(--color-hover-link);
 }
 
 @media (max-width: 968px) {
-  .privacy-page {
+  .copyright-content {
     padding: 1rem;
     margin: 1rem;
   }
 
-  .privacy-page h2 {
+  .copyright-page h2 {
     font-size: 1.2rem;
   }
 }
