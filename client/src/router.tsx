@@ -13,6 +13,7 @@ import YourCreations from "./categories/YourCreations/YourCreations";
 import YourPassions from "./categories/YourPassions/YourPassions";
 import AuthorPage from "./pages/AuthorPage/AuthorPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
+import CopyrightPage from "./pages/CopyrightPage/CopyrightPage";
 import ForumPage from "./pages/ForumPage/ForumPage";
 import GalleryPage from "./pages/GalleryPage/GalleryPage";
 import HomePage from "./pages/HomePage/HomePage";
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
       {
         element: <PrivacyPolicy />,
         path: "/privacy-policy",
+      },
+      {
+        element: <CopyrightPage />,
+        path: "/copyright",
       },
       {
         element: <Page404 />,
