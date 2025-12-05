@@ -1,0 +1,103 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.modal-content {
+  background-color: var(--background-color-secondary);
+  border-radius: 12px;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+
+  p {
+    font-family: var(--font-family-link);
+    font-size: 14px;
+    font-style: italic;
+  }
+}
+
+.modal-content h3 {
+  font-size: 1.4rem;
+  font-family: var(--font-family-title);
+}
+
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: both;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  font-family: var(--font-family-text);
+  color: black;
+}
+
+.image-preview-zone {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.file-input {
+  font-family: var(--font-family-text);
+  font-weight: bold;
+}
+
+.preview-img {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 8px;
+  margin-top: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.file-input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.file-input input {
+  margin-top: 6px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-confirm {
+  background-color: var(--color-success);
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background-color: var(--color-error);
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-confirm:hover {
+  background-color: #45a049;
+}
+
+.btn-cancel:hover {
+  background-color: #dd5656;
+}
