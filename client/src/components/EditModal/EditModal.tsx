@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./EditModal.css";
 
 interface EditModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialText: string;
-  initialImage?: string | null; // image existante
+  initialImage?: string | null;
   onConfirm: (newText: string, newFile?: File) => void;
 }
 
@@ -17,20 +17,43 @@ function EditModal({
   onConfirm,
 }: EditModalProps) {
   const [text, setText] = useState(initialText);
-  const [file, setFile] = useState<File | undefined>(undefined);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(
+    initialImage ? `http://localhost:3310${initialImage}` : null,
+  );
+  const dropRef = useRef<HTMLDivElement>(null);
 
-  // Réinitialiser seulement quand la modale s’ouvre
+  // Réinitialiser le contenu à l’ouverture
   useEffect(() => {
     if (isOpen) {
       setText(initialText);
-      setPreview(null);
-      setFile(undefined);
+      setFile(null);
+      setPreview(initialImage ? `http://localhost:3310${initialImage}` : null);
     }
-  }, [isOpen, initialText]);
+  }, [isOpen, initialText, initialImage]);
 
   if (!isOpen) return null;
 
+  // Gestion du drag & drop
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const droppedFile = e.dataTransfer.files[0];
+    if (droppedFile) {
+      setFile(droppedFile);
+      setPreview(URL.createObjectURL(droppedFile));
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    dropRef.current?.classList.add("drag-active");
+  };
+
+  const handleDragLeave = () => {
+    dropRef.current?.classList.remove("drag-active");
+  };
+
+  // Sélection via input classique
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const selected = e.target.files[0];
@@ -39,11 +62,35 @@ function EditModal({
     }
   };
 
+  const handleConfirm = () => {
+    if (!text.trim()) {
+      alert("Le texte est requis");
+      return;
+    }
+    onConfirm(text, file || undefined);
+    onClose();
+  };
+
   return (
-    <main className="modal-overlay">
-      <div className="modal-content">
+    <main
+      className="modal-overlay"
+      typeof="button"
+      onClick={onClose}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") onClose();
+      }}
+    >
+      <div
+        className="modal-content"
+        typeof="button"
+        onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") e.stopPropagation();
+        }}
+      >
         <h3>Modifier le message</h3>
 
+        {/* Texte */}
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -52,45 +99,30 @@ function EditModal({
           placeholder="Écris ton texte ici..."
         />
 
-        {/* Aperçu des images */}
-        <div className="image-preview-zone">
+        {/* Zone de drag & drop */}
+
+        <h3>Modifier l'image</h3>
+        <div
+          ref={dropRef}
+          className="drop-zone"
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+        >
           {preview ? (
             <>
-              <p>Nouvelle image :</p>
-              <img
-                src={preview}
-                alt="Prévisualisation"
-                className="preview-img"
-              />
-            </>
-          ) : initialImage ? (
-            <>
-              <p>Image actuelle :</p>
-              <img
-                src={`http://localhost:3310${initialImage}`}
-                alt="preview"
-                className="preview-img"
-              />
+              <img src={preview} alt="preview" className="preview-img" />
+              <p>Glisse une nouvelle image ici pour la remplacer</p>
             </>
           ) : (
-            <p>Aucune image pour ce message.</p>
+            <p>Glisse une image ici ou clique pour en ajouter une</p>
           )}
+          <input type="file" accept="image/*" onChange={handleFileChange} />
         </div>
 
-        <label className="file-input">
-          <span>Changer l’image (optionnel)</span>
-          <input type="file" accept="image/*" onChange={handleFileChange} />
-        </label>
-
+        {/* Actions */}
         <div className="modal-actions">
-          <button
-            type="button"
-            className="btn-confirm"
-            onClick={() => {
-              onConfirm(text, file);
-              onClose();
-            }}
-          >
+          <button type="submit" className="btn-confirm" onClick={handleConfirm}>
             💾 Enregistrer
           </button>
           <button type="button" className="btn-cancel" onClick={onClose}>

@@ -99,10 +99,8 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
               id={msg.id}
               text={msg.content}
               file={msg.file}
-              validated
               sending_date={msg.sending_date}
               onDelete={handleDelete}
-              onValidate={() => {}}
               onEdit={handleEdit}
             />
           ))}

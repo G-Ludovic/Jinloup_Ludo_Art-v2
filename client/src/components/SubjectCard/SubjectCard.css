@@ -3,9 +3,25 @@
   background-color: var(--background-color-secondary);
   border-radius: 12px;
   padding: 16px;
-  margin-bottom: 20px;
-  margin-top: 12px;
+  margin: 8px 16px 0 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .message-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    overflow-wrap: break-word;
+    /* permet de couper les mots trop longs */
+    word-break: break-word;
+    /* pour compatibilité plus large */
+    white-space: pre-wrap;
+    /* garde les retours à la ligne du texte */
+    max-width: 100%;
+    /* empêche le débordement horizontal */
+    text-align: left;
+    line-height: 1.4;
+    padding: 0.5rem 0;
+  }
 }
 
 .subject-card figure {
@@ -122,7 +138,7 @@
 
 @media (min-width: 320px) and (max-width: 900px) {
   .subject-card {
-    width: 300px;
+    width: content;
   }
 
   textarea {
@@ -138,10 +154,6 @@
 
 .actions {
   justify-content: center;
-}
-
-.message-img {
-  display: none;
 }
 
 @media (min-width: 600px) {

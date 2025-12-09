@@ -28,19 +28,27 @@ class MessageRepository {
     return rows;
   }
 
-  async readById(id: string) {
-    const [rows] = await databaseClient.query<Rows>(
+  async readBySubjectId(subjectId: number) {
+    const [rows] = await databaseClient.query(
       `SELECT m.id, m.content, m.file, m.sending_date,
-          m.user_id, m.subject_id,
-          u.pseudo AS user_name,
-          s.title AS subject_title
-   FROM message m
-   JOIN user u ON m.user_id = u.id
-   JOIN subject s ON m.subject_id = s.id
-   WHERE m.id = ?`,
+              m.user_id, m.subject_id,
+              u.pseudo AS user_name,
+              s.title AS subject_title
+       FROM message m
+       JOIN user u ON m.user_id = u.id
+       JOIN subject s ON m.subject_id = s.id
+       WHERE m.subject_id = ?
+       ORDER BY m.id DESC`,
+      [subjectId],
+    );
+    return rows;
+  }
+
+  async readById(id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT * FROM message WHERE id = ?",
       [id],
     );
-
     return rows[0];
   }
 

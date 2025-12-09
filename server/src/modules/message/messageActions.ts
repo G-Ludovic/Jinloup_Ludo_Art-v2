@@ -9,12 +9,12 @@ const add: RequestHandler = async (req, res) => {
     console.log("🧾 Nouveau message reçu :", req.body);
 
     if (!content?.trim()) {
-      res.status(400).json("Content is required");
+      res.status(400).json({ error: "Content is required" });
       return;
     }
 
     if (!user_id || !subject_id) {
-      res.status(400).json("User ID and Subject ID are required");
+      res.status(400).json({ error: "User ID and Subject ID are required" });
       return;
     }
 
@@ -25,7 +25,7 @@ const add: RequestHandler = async (req, res) => {
       subject_id: Number(subject_id),
     });
 
-    const createdMessage = await messageRepository.readById(String(newId));
+    const createdMessage = await messageRepository.readById(newId); // ✅ Pas de String()
 
     res.status(201).json({
       id: newId,
@@ -33,12 +33,13 @@ const add: RequestHandler = async (req, res) => {
       file: filePath,
       sending_date: new Date().toISOString(),
       validated: false,
-      user_id: 1, // ou l'user actuel
-      subject_id: 1, // par défaut
+      user_id: Number(user_id), // ✅ Utilise la vraie valeur
+      subject_id: Number(subject_id), // ✅ Utilise la vraie valeur
     });
   } catch (err) {
     console.error("❌ Error creating message:", err);
-    if (!res.headersSent) res.status(500).json("Internal server error");
+    if (!res.headersSent)
+      res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -55,7 +56,7 @@ const browse: RequestHandler = async (_req, res) => {
 const read: RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const message = await messageRepository.readById(id);
+    const message = await messageRepository.readById(Number(id));
     if (message) {
       res.status(200).json(message);
     } else {
@@ -78,7 +79,7 @@ const edit: RequestHandler = async (req, res) => {
       return;
     }
 
-    const existing = await messageRepository.readById(id);
+    const existing = await messageRepository.readById(Number(id));
     if (!existing) {
       res.status(404).json("Message not found");
       return;
@@ -88,12 +89,12 @@ const edit: RequestHandler = async (req, res) => {
       files.removeImageFromServer(existing.file);
     }
 
-    await messageRepository.update(id, {
+    await messageRepository.update(String(id), {
       content,
       file: filePath || existing.file,
     });
 
-    const updated = await messageRepository.readById(id);
+    const updated = await messageRepository.readById(Number(id));
     res.status(200).json(updated);
   } catch (err) {
     console.error("❌ Error updating message:", err);
@@ -104,14 +105,14 @@ const edit: RequestHandler = async (req, res) => {
 const destroy: RequestHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const message = await messageRepository.readById(id);
+    const message = await messageRepository.readById(Number(id));
     if (!message) {
       res.status(404).json("Message not found");
       return;
     }
 
     if (message.file) files.removeImageFromServer(message.file);
-    await messageRepository.delete(id);
+    await messageRepository.delete(String(id));
 
     res.sendStatus(204);
   } catch (err) {
