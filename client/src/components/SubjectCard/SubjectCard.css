@@ -1,89 +1,163 @@
 .subject-card {
-  display: flex;
-  border-radius: 8px;
-  /* border: navajowhite solid 3px; */
-  padding: 12px;
-  margin: 12px 12px;
+  border: 1px solid #ccc;
   background-color: var(--background-color-secondary);
-  box-shadow: 0 2px 4px rgba(0, 0, 1, 0.3);
-  max-width: fit-content;
-  max-height: fit-content;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 8px 16px 0 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-  figure {
-    justify-items: center;
-  }
-
-  figcaption {
-    max-width: auto;
-  }
-
-  textarea {
-    max-width: max-content;
-    overflow-x: hidden;
+  .message-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    overflow-wrap: break-word;
+    /* permet de couper les mots trop longs */
+    word-break: break-word;
+    /* pour compatibilité plus large */
+    white-space: pre-wrap;
+    /* garde les retours à la ligne du texte */
+    max-width: 100%;
+    /* empêche le débordement horizontal */
+    text-align: left;
+    line-height: 1.4;
+    padding: 0.5rem 0;
   }
 }
 
-.subject-card img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+.subject-card figure {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.subject-card p {
-  flex: 1;
+.subject-card h3 {
   margin: 0;
-  font-size: 0.95rem;
-  border: 1px solid black;
-  padding: 0.5px;
-  background-color: white;
+  font-weight: 600;
+}
+
+.subject-card h4 {
+  margin: 0;
+  color: #888;
+}
+
+.message-image {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.message-img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.file-upload {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.file-label {
+  background: #4caf50;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.file-input {
+  display: none;
+}
+
+.timestamp {
+  display: block;
+  margin-top: 8px;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.timestamp.editing {
+  color: #d32f2f;
 }
 
 .actions {
   display: flex;
-  flex-direction: column;
-  align-self: flex-end;
-  margin-left: 12px;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .actions button {
+  background: #eee;
   border: none;
-  border-radius: 8px;
-  background: var(--background-color-button);
-  font-size: 1.2rem;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  padding: 6px 10px;
   margin-top: 8px;
-  padding: 4px;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
 }
 
 .actions button:hover {
-  background: var(--background-color-hoverbutton);
+  background: #ccc;
+}
+
+.actions .btn-validate {
+  background: #4caf50;
   color: white;
 }
 
-@media (min-width: 320px) and (max-width: 960px) {
+.actions .btn-validate:hover {
+  background: #45a049;
+}
+
+.actions .btn-delete {
+  background: #d32f2f;
+  color: white;
+}
+
+.actions .btn-delete:hover {
+  background: #b71c1c;
+}
+
+.actions .btn-edit {
+  background: #1976d2;
+  color: white;
+}
+
+.actions .btn-edit:hover {
+  background: #1565c0;
+}
+
+.subject-content {
+  white-space: pre-wrap;
+  margin: 10px 0;
+}
+
+@media (min-width: 320px) and (max-width: 900px) {
   .subject-card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 350px;
-
-    textarea {
-      max-width: 320px;
-      margin-bottom: 12px;
-    }
+    width: content;
   }
 
-  .subject-card img {
-    margin: 0 0 12px 0;
+  textarea {
+    font-size: 0.9rem;
+    width: 100%;
   }
+}
 
-  .actions {
-    flex-direction: row;
-    align-self: center;
-    margin-left: 0;
-  }
+.subject-card figure {
+  flex-direction: column;
+  align-items: center;
+}
 
-  .actions button {
-    margin: 4px 4px;
+.actions {
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  .message-img {
+    display: block;
   }
 }

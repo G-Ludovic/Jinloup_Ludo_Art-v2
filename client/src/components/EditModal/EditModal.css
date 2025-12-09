@@ -1,0 +1,92 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  width: 450px;
+  max-width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.drop-zone {
+  position: relative;
+  border: 2px dashed #bbb;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  color: #666;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.drop-zone.drag-active {
+  background: rgba(0, 150, 255, 0.1);
+  border-color: #0096ff;
+}
+
+.drop-zone input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.preview-img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.btn-confirm,
+.btn-cancel {
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.btn-confirm {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-cancel {
+  background-color: #e0e0e0;
+}
+
+.btn-confirm:hover {
+  background-color: #45a049;
+}
+
+.btn-cancel:hover {
+  background-color: #dd5656;
+}

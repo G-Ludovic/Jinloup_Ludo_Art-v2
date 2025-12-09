@@ -1,69 +1,66 @@
+import { useState } from "react";
+import EditModal from "../EditModal/EditModal";
 import "./SubjectCard.css";
 
-interface SubjectCardProps {
+interface Props {
   id: number;
   text?: string;
-  validated: boolean;
+  file?: string | null;
+  sending_date?: string | null;
   onDelete: (id: number) => void;
-  onValidate: (id: number, newtext: string) => void;
+  onEdit: (id: number, newText: string, newFile?: File) => void;
 }
 
-function SubjectCard({
+export default function SubjectCard({
   id,
   text = "",
-  validated,
+  file,
+  sending_date,
   onDelete,
-  onValidate,
-}: SubjectCardProps) {
+  onEdit,
+}: Props) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const formattedDate = sending_date
+    ? new Date(sending_date).toLocaleString("fr-FR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : null;
+
   return (
     <div className="subject-card">
-      <figure>
-        <img src="/images/user-circle.png" alt="avatar" />
-        <h3>Pseudo</h3>
-        <h4>Grade</h4>
-      </figure>
-
-      {/* Si validé → afficher texte simple, sinon textarea */}
-      {validated ? (
-        <figcaption>
-          <p>{text}</p>
-        </figcaption>
-      ) : (
-        <textarea
-          name="text"
-          id={`text-${id}`}
-          cols={100}
-          rows={10}
-          maxLength={5000}
-          minLength={100}
-          defaultValue={text}
-          placeholder="Écris ton message ici..."
-        />
-      )}
+      <div className="message-content">
+        <p>{text}</p>
+        {file && (
+          <img
+            src={`http://localhost:3310${file}`}
+            alt="message"
+            className="message-img"
+          />
+        )}
+        {formattedDate && <small>Posté le {formattedDate}</small>}
+      </div>
 
       <div className="actions">
-        <button type="button" onClick={() => onDelete(id)}>
-          ❌
+        <button type="button" onClick={() => setIsModalOpen(true)}>
+          ✏️ Modifier
         </button>
-
-        {!validated && (
-          <button
-            type="button"
-            onClick={() => {
-              const value = (
-                document.getElementById(`text-${id}`) as HTMLTextAreaElement
-              ).value;
-              onValidate(id, value);
-              console.log("Message validé:", value);
-              // Ici, on pourra aussi appeler une fonction pour envoyer ce message à un serveur
-            }}
-          >
-            ✔️
-          </button>
-        )}
+        <button type="button" onClick={() => onDelete(id)}>
+          ❌ Supprimer
+        </button>
       </div>
+
+      <EditModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        initialText={text}
+        initialImage={file}
+        onConfirm={(newText, newFile) => onEdit(id, newText, newFile)}
+      />
     </div>
   );
 }
-
-export default SubjectCard;

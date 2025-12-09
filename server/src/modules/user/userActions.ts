@@ -19,4 +19,111 @@ const add: RequestHandler = async (req, res) => {
   }
 };
 
-export default { add };
+import argon2 from "argon2";
+import jwt, { type JwtPayload } from "jsonwebtoken";
+
+const hashPassword: RequestHandler = async (req, res, next) => {
+  try {
+    const { password } = req.body;
+
+    const hash = await argon2.hash(password, {
+      memoryCost: 2 ** 19,
+      timeCost: 2,
+      parallelism: 1,
+    });
+
+    req.body.password = hash;
+
+    next();
+  } catch (err) {
+    res.sendStatus(500);
+  }
+};
+
+const login: RequestHandler = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // 1ere partie
+
+    const user = await userRepository.readByEmail(email);
+
+    if (!user) {
+      throw new Error("This user doesn't exist");
+    }
+
+    // 2ème partie
+
+    const isPasswordValid = await argon2.verify(user.password, password);
+
+    if (!isPasswordValid) {
+      throw new Error("Invalid password");
+    }
+
+    // 3ème partie
+
+    const payload = {
+      id: user.id,
+      email: user.email,
+    };
+
+    const secretKey = process.env.APP_SECRET;
+
+    if (!secretKey) {
+      throw new Error("A secret must be provided");
+    }
+
+    const token = jwt.sign(payload, secretKey, { expiresIn: "1d" });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // "false" quand le site est en phase de développement et "true" en déploiement
+    });
+
+    res.status(200).json("Congratulations, you're logged in !");
+  } catch (err) {
+    console.warn((err as Error).message);
+    res.sendStatus(500);
+  }
+};
+
+const logout: RequestHandler = (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+};
+
+const refreshToken: RequestHandler = (req, res) => {
+  try {
+    const token = req.cookies.token;
+
+    if (!token) {
+      throw new Error("A token must be provided");
+    }
+
+    const secretKey = process.env.APP_SECRET;
+
+    if (!secretKey) {
+      throw new Error("A secret must be provided");
+    }
+
+    const verifyToken = jwt.verify(token, secretKey);
+
+    if (verifyToken) {
+      const { id, email } = verifyToken as JwtPayload;
+
+      const newToken = jwt.sign({ id, email }, secretKey, { expiresIn: "1d" });
+
+      res.cookie("token", newToken);
+      res.status(200).json({ id, email });
+    }
+  } catch (err) {
+    console.error((err as Error).message);
+    res.sendStatus(500);
+  }
+};
+
+export default { add, hashPassword, login, logout, refreshToken };

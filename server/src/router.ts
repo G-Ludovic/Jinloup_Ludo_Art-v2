@@ -30,4 +30,22 @@ router.delete("/draws/:id", drawActions.destroy);
 router.get("/categories", categoriesActions.browse);
 router.get("/categories/:id", categoriesActions.read);
 
+import messageActions from "./modules/message/messageActions";
+
+router.get("/message", messageActions.browse);
+router.get("/message/:id", messageActions.read);
+router.post(
+  "/message",
+  files.imageUpload,
+  files.presentationImage,
+  messageActions.add,
+);
+router.delete("/message/:id", messageActions.destroy);
+router.put(
+  "/message/:id",
+  files.imageUpload,
+  files.presentationImage,
+  messageActions.edit,
+);
+
 export default router;
