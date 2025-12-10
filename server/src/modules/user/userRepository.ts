@@ -4,6 +4,19 @@ import databaseClient, {
 } from "../../../database/client";
 
 class UserRepository {
+  async readAll() {
+    const [users] = await databaseClient.query<Rows>("SELECT * FROM user");
+    return users;
+  }
+
+  async read(id: number) {
+    const [user] = await databaseClient.query<Rows>(
+      "SELECT * FROM user WHERE id = ?",
+      [id],
+    );
+    return user[0];
+  }
+
   async readByEmail(email: string) {
     const [user] = await databaseClient.query<Rows>(
       "SELECT * FROM user WHERE email = ?",
