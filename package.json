@@ -23,7 +23,8 @@
     "dev:server": "npm run dev --workspace=server",
     "prepare": "git config core.hooksPath .git-hooks || true",
     "start": "npm run start --workspace=server",
-    "test": "npm run test --workspaces --if-present"
+    "test": "npm run test --workspaces --if-present",
+    "security:check": "npm audit --omit=dev && npm ls form-data jws"
   },
   "keywords": [],
   "author": "  (hit Enter to use an empty string)",
@@ -39,6 +40,7 @@
     "form-data": "^4.0.5"
   },
   "overrides": {
-    "form-data": "^4.0.5"
+    "form-data": "^4.0.5",
+    "jws": ">=3.2.3"
   }
 }
