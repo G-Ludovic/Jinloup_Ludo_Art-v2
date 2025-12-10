@@ -43,10 +43,19 @@ const add: RequestHandler = async (req, res) => {
   }
 };
 
-const browse: RequestHandler = async (_req, res) => {
+const browse: RequestHandler = async (req, res) => {
   try {
-    const messages = await messageRepository.readAll();
-    res.status(200).json(messages);
+    const { subject_id } = req.query;
+
+    if (subject_id) {
+      const messages = await messageRepository.readBySubjectId(
+        Number(subject_id),
+      );
+      res.status(200).json(messages);
+    } else {
+      const messages = await messageRepository.readAll();
+      res.status(200).json(messages);
+    }
   } catch (err) {
     console.error("❌ Error fetching messages:", err);
     res.status(500).json("Internal server error");
