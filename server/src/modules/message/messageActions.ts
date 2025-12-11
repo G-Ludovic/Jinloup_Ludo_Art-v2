@@ -6,7 +6,7 @@ const add: RequestHandler = async (req, res) => {
   try {
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
     const { content, user_id, subject_id } = req.body;
-    console.log("🧾 Nouveau message reçu :", req.body);
+    // console.log("🧾 Nouveau message reçu :", req.body);
 
     if (!content?.trim()) {
       res.status(400).json({ error: "Content is required" });

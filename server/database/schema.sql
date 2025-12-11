@@ -17,7 +17,7 @@ CREATE TABLE item (
 
 CREATE TABLE user (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  pseudo VARCHAR(50) NOT NULL,
+  pseudo VARCHAR(255) NOT NULL DEFAULT 'Anonymous',
   avatar VARCHAR(255),
   location VARCHAR(100),
   bio TEXT,
