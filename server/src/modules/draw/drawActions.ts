@@ -2,77 +2,84 @@ import type { RequestHandler } from "express";
 import files from "../../utils/files";
 import drawRepository from "./drawRepository";
 
-const browse: RequestHandler = async (req, res) => {
-  const result = await drawRepository.readAll();
-
-  res.json(result);
-};
-
-const read: RequestHandler = async (req, res) => {
-  const result = await drawRepository.readById(req.params.id);
-
-  if (result) {
-    res.json(result);
-  } else {
-    res.status(404).json("This draw doesn't exist");
-  }
-};
-
-const edit: RequestHandler = async (req, res) => {
-  const draw = req.body.image;
-  console.log(draw);
-
+// GET /draws
+const browse: RequestHandler = async (_req, res, next) => {
   try {
-    const previousImage = await drawRepository.readById(req.params.id);
-    files.removeImageFromServer(previousImage.image);
-    const result = await drawRepository.update(req.body, req.params.id);
-
-    if (result) {
-      res.status(201).json(`${req.body.name} has been updated successfully`);
-    } else {
-      res.status(404).json("This draw doesn't exist");
-    }
+    const draws = await drawRepository.readAll();
+    res.status(200).json(draws);
   } catch (err) {
-    res.status(500).json("Internal server error");
+    next(err);
   }
 };
 
-const add: RequestHandler = async (req, res) => {
-  try {
-    const result = await drawRepository.create(req.body);
-
-    if (result) {
-      res.status(201).json("A new draw has been created successfully");
-    } else {
-      res.status(404).json("This draw doesn't exist");
-    }
-  } catch (err) {
-    res.status(500).json("Internal server error");
-  }
-};
-
-const destroy: RequestHandler = async (req, res) => {
+// GET /draws/:id
+const read: RequestHandler = async (req, res, next) => {
   try {
     const draw = await drawRepository.readById(req.params.id);
-
-    if (!draw) {
-      res.status(404).json("Impossible to delete a draw: not found");
-    }
-
-    if (draw.image) {
-      files.removeImageFromServer(draw.image);
-    }
-
-    const deleteDraw = await drawRepository.delete(req.params.id);
-
-    if (deleteDraw) {
-      res.status(200).json("A draw has been successfully deleted!");
-    } else {
-      res.status(404).json("Failed to delete draw in database");
-    }
+    if (!draw) return res.status(404).json("This draw doesn't exist");
+    res.status(200).json(draw);
   } catch (err) {
-    res.status(500).json("Internal server error during draw deletion");
+    next(err);
   }
 };
 
-export default { browse, read, edit, add, destroy };
+// POST /draws
+const add: RequestHandler = async (req, res, next) => {
+  try {
+    const { name, image } = req.body;
+
+    if (!name || !image) {
+      // ne pas casser le front : on reste sur un 400 avec une réponse simple
+      return res.status(400).json({});
+    }
+
+    const insertId = await drawRepository.create({ name, image });
+    res.status(201).json({ insertId });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// PUT /draws/:id
+const edit: RequestHandler = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const { name, image } = req.body;
+
+    if (!name || !image) return res.status(400).json({});
+
+    const existingDraw = await drawRepository.readById(id);
+    if (!existingDraw) return res.status(404).json({});
+
+    // supprimer l’ancienne image du serveur si elle existe
+    if (existingDraw.image) files.removeImageFromServer(existingDraw.image);
+
+    const updated = await drawRepository.update(id, { name, image });
+    if (!updated) return res.status(404).json({});
+
+    res.status(204).json({});
+  } catch (err) {
+    next(err);
+  }
+};
+
+// DELETE /draws/:id
+const destroy: RequestHandler = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const draw = await drawRepository.readById(id);
+
+    if (!draw) return res.status(404).json({});
+
+    if (draw.image) files.removeImageFromServer(draw.image);
+
+    const deleted = await drawRepository.delete(id);
+    if (!deleted) return res.status(404).json({});
+
+    res.status(204).json({});
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default { browse, read, add, edit, destroy };
