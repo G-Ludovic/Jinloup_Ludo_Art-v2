@@ -9,4 +9,25 @@
   max-height: 1090px;
   overflow-y: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-size: cover;
+  background-position: center;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)
+    ), url(/public/images/bc_home_forum.webp);
+}
+
+.home-forum p,
+.home-forum h3,
+.home-forum td,
+.home-forum th {
+  text-shadow: 2px 1px 8px rgb(455, 755, 255);
+  transition: background-color 0.3s, backdrop-filter 0.3s;
+}
+
+.home-forum .view-category-button {
+  margin-top: 8px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  transition: background-color 0.3s, transform 0.3s;
 }

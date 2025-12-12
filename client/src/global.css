@@ -19,6 +19,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   background-color: #3a4b3f;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   color: white;
   font-family: var(--font-family-text);
   padding: 16px;
