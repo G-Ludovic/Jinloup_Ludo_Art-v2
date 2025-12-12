@@ -8,6 +8,8 @@
 
 .img-logo {
   height: 200px;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .header-nav {

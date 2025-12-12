@@ -38,7 +38,7 @@ function HomeForum() {
         <thead>
           <tr>
             <th scope="col">Catégorie</th>
-            <th scope="col">Messages</th>
+            <th scope="col">Description</th>
             <th scope="col">Voir</th>
           </tr>
         </thead>
@@ -50,7 +50,7 @@ function HomeForum() {
               <td>{cat.message}</td>
               <td>
                 <Link to={`/forum/category/${cat.id}`}>
-                  <button type="button">
+                  <button type="button" className="view-category-button">
                     <FaFolder />
                   </button>
                 </Link>

@@ -9,4 +9,25 @@
   max-height: 508px;
   overflow-y: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-size: cover;
+  background-position: center;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)
+    ), url(/public/images/bc_subject.webp);
+}
+
+.subject-forum p,
+.subject-forum td,
+.subject-forum th,
+.subject-forum h3 {
+  text-shadow: 2px 1px 6px rgb(455, 755, 255);
+  transition: background-color 0.3s, backdrop-filter 0.3s;
+}
+
+.subject-forum p:hover,
+.subject-forum td:hover {
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
 }

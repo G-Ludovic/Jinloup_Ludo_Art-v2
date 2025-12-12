@@ -24,7 +24,7 @@ function LatestsPostsForum() {
         <thead>
           <tr>
             <th scope="col">N°</th>
-            <th scope="col">Message</th>
+            <th scope="col"> Message</th>
           </tr>
         </thead>
 

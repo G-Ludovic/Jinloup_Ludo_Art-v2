@@ -8,6 +8,7 @@
   padding-left: 24px;
   text-align: start;
   font-family: var(--font-family-text);
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .footer-logo {
@@ -19,6 +20,8 @@
 .footer-logo .logo-wolf {
   max-width: 120px;
   height: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
 }
 
 .footer-links {
@@ -55,7 +58,9 @@
 }
 
 .footer-column a:hover {
-  color: var(--accent-color, #80c0ff);
+  color: var(--accent-color, #c5d1d4);
+  scale: 1.06;
+  transition: 0.1s ease-in-out;
 }
 
 .social-block {
