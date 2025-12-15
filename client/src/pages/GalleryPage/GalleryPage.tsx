@@ -298,6 +298,7 @@ function GalleryPage() {
           initialText={editingDraw.name}
           initialImage={editingDraw.image}
           onConfirm={handleConfirmEdit}
+          mode="gallery"
         />
       )}
     </>
