@@ -14,8 +14,7 @@
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.718),
       rgba(255, 255, 255, 0.612)
-    ),
-    url(/home/ludo/Documents/Projets_Dev_Perso/Jinloup_Ludo_Art-v2/client/public/images/bc_lastests_posts.webp);
+    ), url(/images/bc_lastests_posts.webp);
 }
 
 .latest-posts-forum p,

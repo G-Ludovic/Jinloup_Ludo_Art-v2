@@ -14,7 +14,7 @@
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.718),
       rgba(255, 255, 255, 0.612)
-    ), url(/public/images/bc_regulation.webp);
+    ), url(/images/bc_regulation.webp);
 }
 
 .regulation-forum p,
