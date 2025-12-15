@@ -7,6 +7,7 @@ interface EditModalProps {
   initialText: string;
   initialImage?: string | null;
   onConfirm: (newText: string, newFile?: File) => void;
+  mode?: "gallery" | "forum";
 }
 
 function EditModal({
@@ -15,6 +16,7 @@ function EditModal({
   initialText,
   initialImage,
   onConfirm,
+  mode = "gallery",
 }: EditModalProps) {
   const [text, setText] = useState(initialText);
   const [file, setFile] = useState<File | null>(null);
@@ -22,6 +24,9 @@ function EditModal({
     initialImage ? `http://localhost:3310${initialImage}` : null,
   );
   const dropRef = useRef<HTMLDivElement>(null);
+
+  const maxLength = mode === "gallery" ? 18 : 5000;
+  const labelText = mode === "gallery" ? "Titre : " : "";
 
   // Réinitialiser le contenu à l’ouverture
   useEffect(() => {
@@ -34,7 +39,7 @@ function EditModal({
 
   if (!isOpen) return null;
 
-  // Gestion du drag & drop
+  // --- Gestion du Drag & Drop ---
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const droppedFile = e.dataTransfer.files[0];
@@ -42,6 +47,7 @@ function EditModal({
       setFile(droppedFile);
       setPreview(URL.createObjectURL(droppedFile));
     }
+    dropRef.current?.classList.remove("drag-active");
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -53,7 +59,6 @@ function EditModal({
     dropRef.current?.classList.remove("drag-active");
   };
 
-  // Sélection via input classique
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const selected = e.target.files[0];
@@ -62,9 +67,15 @@ function EditModal({
     }
   };
 
+  // --- Validation ---
+  const isTextModified = text.trim() && text !== initialText;
+  const isImageModified = !!file;
+  const isFormValid =
+    mode === "gallery" ? isTextModified && isImageModified : isTextModified;
+
   const handleConfirm = () => {
     if (!text.trim()) {
-      alert("Le texte est requis");
+      alert("Le champ de texte est requis");
       return;
     }
     onConfirm(text, file || undefined);
@@ -88,23 +99,62 @@ function EditModal({
           if (e.key === "Enter" || e.key === " ") e.stopPropagation();
         }}
       >
-        <h3>Modifier le message</h3>
+        <h3>
+          {mode === "gallery"
+            ? "Modifier votre création"
+            : "Modifier votre post"}
+        </h3>
 
-        {/* Texte */}
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          rows={8}
-          maxLength={5000}
-          placeholder="Écris ton texte ici..."
-        />
+        {/* Champ texte */}
+        <label htmlFor="text">{labelText}</label>
+        {mode === "gallery" ? (
+          <input
+            id="text"
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            maxLength={maxLength}
+            placeholder="Nouveau titre (max 18 caractères)"
+            className={isTextModified ? "" : "input-error"}
+          />
+        ) : (
+          <textarea
+            id="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            rows={10}
+            maxLength={maxLength}
+            placeholder="Modifiez votre message..."
+            className={isTextModified ? "" : "input-error"}
+          />
+        )}
 
-        {/* Zone de drag & drop */}
+        {/* compteur */}
+        <p
+          className={`char-counter ${
+            text.length >= maxLength ? "char-error" : ""
+          }`}
+        >
+          {text.length}/{maxLength} caractères
+        </p>
 
-        <h3>Modifier l'image</h3>
+        {!isTextModified && (
+          <p className="warning-msg">
+            ⚠️ Veuillez modifier le {mode === "gallery" ? "titre" : "texte"} ⚠️
+          </p>
+        )}
+
+        {/* Drag & drop pour les deux modes */}
+        <h3>
+          {mode === "gallery"
+            ? "Nouvelle image"
+            : "Image du message (optionnelle)"}
+        </h3>
         <div
           ref={dropRef}
-          className="drop-zone"
+          className={`drop-zone ${
+            mode === "gallery" && !isImageModified ? "input-error" : ""
+          }`}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -112,17 +162,36 @@ function EditModal({
           {preview ? (
             <>
               <img src={preview} alt="preview" className="preview-img" />
-              <p>Glisse une nouvelle image ici pour la remplacer</p>
+              <p>
+                ⤿ Glissez une nouvelle image ici ou cliquez pour en ajouter une
+              </p>
             </>
           ) : (
-            <p>Glisse une image ici ou clique pour en ajouter une</p>
+            <p>⤿ Glissez une image ici ou cliquez pour en ajouter une</p>
           )}
           <input type="file" accept="image/*" onChange={handleFileChange} />
         </div>
 
+        {/* Avertissement obligatoire uniquement pour la galerie */}
+        {mode === "gallery" && !isImageModified && (
+          <p className="warning-msg">
+            ⚠️ Veuillez sélectionner une nouvelle image ⚠️
+          </p>
+        )}
+
         {/* Actions */}
         <div className="modal-actions">
-          <button type="submit" className="btn-confirm" onClick={handleConfirm}>
+          <button
+            type="submit"
+            className="btn-confirm"
+            onClick={handleConfirm}
+            disabled={!isFormValid}
+            title={
+              !isFormValid
+                ? "Modifiez le texte et (si galerie) l'image avant d'enregistrer"
+                : ""
+            }
+          >
             💾 Enregistrer
           </button>
           <button type="button" className="btn-cancel" onClick={onClose}>

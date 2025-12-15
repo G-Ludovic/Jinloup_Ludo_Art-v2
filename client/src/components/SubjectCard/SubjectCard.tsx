@@ -60,6 +60,7 @@ export default function SubjectCard({
         initialText={text}
         initialImage={file}
         onConfirm={(newText, newFile) => onEdit(id, newText, newFile)}
+        mode="forum"
       />
     </div>
   );
