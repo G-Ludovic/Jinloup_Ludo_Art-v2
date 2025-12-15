@@ -71,6 +71,10 @@ function EditModal({
     onClose();
   };
 
+  const isTextModified = text.trim() && text !== initialText;
+  const isImageModified = !!file;
+  const isFormValid = isTextModified && isImageModified;
+
   return (
     <main
       className="modal-overlay"
@@ -88,7 +92,7 @@ function EditModal({
           if (e.key === "Enter" || e.key === " ") e.stopPropagation();
         }}
       >
-        <h3>Modifier le message</h3>
+        <h3>Modifier le titre / texte</h3>
 
         {/* Texte */}
         <textarea
@@ -97,14 +101,19 @@ function EditModal({
           rows={8}
           maxLength={5000}
           placeholder="Écris ton texte ici..."
+          className={isTextModified ? "" : "input-error"} // contour rouge
         />
+
+        {!isTextModified && (
+          <p className="warning-msg">⚠️ Veuillez modifier le titre / texte ⚠️</p>
+        )}
 
         {/* Zone de drag & drop */}
 
         <h3>Modifier l'image</h3>
         <div
           ref={dropRef}
-          className="drop-zone"
+          className={`drop-zone ${isImageModified ? "" : "input-error"}`} // contour rouge si pas modifié
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -112,17 +121,30 @@ function EditModal({
           {preview ? (
             <>
               <img src={preview} alt="preview" className="preview-img" />
-              <p>Glisse une nouvelle image ici pour la remplacer</p>
+              <p>
+                ⤿ Glisse une nouvelle image ici ou clique pour en ajouter une
+              </p>
             </>
           ) : (
-            <p>Glisse une image ici ou clique pour en ajouter une</p>
+            <p>⤿ Glisse une image ici ou clique pour en ajouter une</p>
           )}
           <input type="file" accept="image/*" onChange={handleFileChange} />
         </div>
 
+        {!isImageModified && (
+          <p className="warning-msg">
+            ⚠️ Veuillez sélectionner une nouvelle image ⚠️
+          </p>
+        )}
+
         {/* Actions */}
         <div className="modal-actions">
-          <button type="submit" className="btn-confirm" onClick={handleConfirm}>
+          <button
+            type="submit"
+            className="btn-confirm"
+            onClick={handleConfirm}
+            disabled={!isFormValid}
+          >
             💾 Enregistrer
           </button>
           <button type="button" className="btn-cancel" onClick={onClose}>

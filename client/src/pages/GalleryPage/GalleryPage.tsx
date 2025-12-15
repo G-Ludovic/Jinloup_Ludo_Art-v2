@@ -1,7 +1,9 @@
-import { type FormEvent, useCallback, useEffect, useState } from "react";
+import type { FormEvent } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import Card from "../../components/Card/Card.tsx";
 import { Carousel } from "../../components/Carousel/Carousel.tsx";
+import EditModal from "../../components/EditModal/EditModal.tsx";
 import { drawings } from "../../data/drawings.ts";
 import "./GalleryPage.css";
 
@@ -15,45 +17,24 @@ function GalleryPage() {
   const [data, setData] = useState<Drawing[]>([]);
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [modifFile, setModifFile] = useState<File | null>(null);
-  const [modifPreviewUrl, setModifPreviewUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingDraw, setEditingDraw] = useState<Drawing | null>(null);
 
-  // Preview de l'image lors de l'ajout
-  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile) {
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
-      setFile(selectedFile);
-      setPreviewUrl(URL.createObjectURL(selectedFile));
-    } else {
-      setFile(null);
-      setPreviewUrl(null);
-    }
-  };
+  const dropRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  // Preview de l'image lors de la modification
-  const handleModifFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile) {
-      if (modifPreviewUrl) URL.revokeObjectURL(modifPreviewUrl);
-      setModifFile(selectedFile);
-      setModifPreviewUrl(URL.createObjectURL(selectedFile));
-    }
-  };
-
+  // Nettoyage des previews
   useEffect(() => {
     return () => {
       if (previewUrl) URL.revokeObjectURL(previewUrl);
-      if (modifPreviewUrl) URL.revokeObjectURL(modifPreviewUrl);
     };
-  }, [previewUrl, modifPreviewUrl]);
+  }, [previewUrl]);
 
   // Chargement des dessins
   const loadDraws = useCallback(() => {
     setLoading(true);
-    fetch("http://localhost:3310/api/draws")
+    fetch("http://localhost:3310/api/draws", { credentials: "include" })
       .then((res) => res.json())
       .then((draws) => {
         setData(draws);
@@ -64,73 +45,111 @@ function GalleryPage() {
   }, []);
 
   useEffect(() => {
-    const storedDraws = localStorage.getItem("draws");
-    if (storedDraws) {
+    const stored = localStorage.getItem("draws");
+    if (stored) {
       try {
-        setData(JSON.parse(storedDraws));
+        setData(JSON.parse(stored));
       } catch {
-        console.warn("Impossible de lire les données du localStorage.");
+        console.warn("Erreur lecture localStorage");
       }
     }
     loadDraws();
   }, [loadDraws]);
 
-  // Ajout d’un dessin
-  const handleSubmit = (formData: FormData) => {
-    if (!formData.get("name") || !formData.get("image")) {
-      toast.error("Merci de remplir tous les champs !");
-      return;
+  // --- Drag & Drop Ajout ---
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const droppedFile = e.dataTransfer.files[0];
+    if (droppedFile) {
+      setFile(droppedFile);
+      setPreviewUrl(URL.createObjectURL(droppedFile));
     }
+    dropRef.current?.classList.remove("drag-active");
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    dropRef.current?.classList.add("drag-active");
+  };
+
+  const handleDragLeave = () => {
+    dropRef.current?.classList.remove("drag-active");
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setPreviewUrl(URL.createObjectURL(selectedFile));
+    }
+  };
+
+  // --- Ajout de dessin ---
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    if (file) formData.set("image", file);
 
     fetch("http://localhost:3310/api/draws", {
       method: "POST",
       body: formData,
+      credentials: "include",
     }).then((res) => {
       if (res.ok) {
-        toast.success("🎉 Bravo, dessin ajouté !");
+        toast.success("🎉 Dessin ajouté !");
         loadDraws();
+        // reset automatique
+        formRef.current?.reset();
+        setFile(null);
+        setPreviewUrl(null);
       } else {
         toast.error("❌ Échec de la création");
       }
     });
   };
 
-  // Suppression d’un dessin
+  // --- Suppression ---
   const handleDelete = (id: number) => {
     fetch(`http://localhost:3310/api/draws/${id}`, {
       method: "DELETE",
+      credentials: "include",
     }).then((res) => {
       if (res.ok) {
         toast.success("Dessin supprimé !");
-        setData((prevData) => prevData.filter((item) => item.id !== id));
-        localStorage.removeItem(`preview-${id}`);
+        setData((prev) => prev.filter((item) => item.id !== id));
       } else {
         toast.error("❌ Échec de la suppression");
       }
     });
   };
 
-  // Modification d’un dessin
-  const handleModify = (e: FormEvent<HTMLFormElement>, id: number) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+  // --- Modification via modal ---
+  const handleConfirmEdit = (newName: string, newFile?: File) => {
+    if (!editingDraw) return;
 
-    fetch(`http://localhost:3310/api/draws/${id}`, {
+    // Vérification obligatoire
+    if (!newFile || newName === editingDraw.name) {
+      toast.error("❌ Vous devez modifier à la fois le titre et l'image !");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", newName);
+    formData.append("image", newFile);
+
+    fetch(`http://localhost:3310/api/draws/${editingDraw.id}`, {
       method: "PUT",
       body: formData,
+      credentials: "include",
     }).then((res) => {
       if (res.ok) {
-        toast.success("Modification effectuée !");
+        toast.success("✏️ Dessin modifié !");
         loadDraws();
       } else {
         toast.error("❌ Échec de la modification");
       }
-      setEditingId(null);
-      setModifFile(null);
-      if (modifPreviewUrl) {
-        URL.revokeObjectURL(modifPreviewUrl);
-        setModifPreviewUrl(null);
-      }
+      setIsModalOpen(false);
+      setEditingDraw(null);
     });
   };
 
@@ -141,16 +160,12 @@ function GalleryPage() {
         <hr />
         <h2>Proposez vos créations</h2>
         <hr />
+
+        {/* FORMULAIRE AJOUT */}
         <article className="add-draw">
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const formData = new FormData(e.currentTarget);
-              handleSubmit(formData);
-              e.currentTarget.reset();
-              setFile(null);
-              setPreviewUrl(null);
-            }}
+            ref={formRef}
+            onSubmit={handleSubmit}
             encType="multipart/form-data"
           >
             <label htmlFor="name">
@@ -161,26 +176,33 @@ function GalleryPage() {
               name="name"
               type="text"
               placeholder="Ex: Le Loup d'argent"
+              maxLength={18}
               required
             />
 
-            <label htmlFor="image">
-              <h4>⬇️ Votre image ⬇️</h4>
-            </label>
-            <input
-              id="image"
-              name="image"
-              type="file"
-              accept=".png,.jpg,.jpeg"
-              onChange={handleFile}
-              required
-            />
-
-            {previewUrl && (
-              <div className="preview-container">
-                <img src={previewUrl} alt="Aperçu" className="preview-img" />
-              </div>
-            )}
+            {/* <h4>⬇️ Glissez votre image ci-dessous ⬇️</h4> */}
+            <div
+              ref={dropRef}
+              className="drop-zone"
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+            >
+              {previewUrl ? (
+                <>
+                  <img src={previewUrl} alt="Aperçu" className="preview-img" />
+                  <p>╰┈➤ Glissez une nouvelle image ici pour la remplacer</p>
+                </>
+              ) : (
+                <p>╰┈➤ Glissez une image ici ou cliquez pour en ajouter une</p>
+              )}
+              <input
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </div>
 
             {file && (
               <section>
@@ -211,6 +233,8 @@ function GalleryPage() {
         <hr />
         <h2>Créations des membres</h2>
         <hr />
+
+        {/* GALERIE MEMBRES */}
         <article className="draw-member">
           {loading ? (
             <p>Chargement des dessins...</p>
@@ -235,14 +259,9 @@ function GalleryPage() {
                   <button
                     type="button"
                     className="edit-button"
-                    aria-label={`Modifier le dessin ${el.name}`}
                     onClick={() => {
-                      setEditingId(el.id);
-                      setModifFile(null);
-                      if (modifPreviewUrl) {
-                        URL.revokeObjectURL(modifPreviewUrl);
-                        setModifPreviewUrl(null);
-                      }
+                      setEditingDraw(el);
+                      setIsModalOpen(true);
                     }}
                   >
                     Modifier
@@ -250,79 +269,11 @@ function GalleryPage() {
                   <button
                     type="button"
                     className="delete-button"
-                    aria-label={`Supprimer le dessin ${el.name}`}
                     onClick={() => handleDelete(el.id)}
                   >
                     Supprimer
                   </button>
                 </div>
-
-                {editingId === el.id && (
-                  <dialog open>
-                    <p>⬇️ Nouvelle image à sélectionner ⬇️</p>
-                    <form
-                      onSubmit={(e) => handleModify(e, el.id)}
-                      encType="multipart/form-data"
-                    >
-                      <input
-                        name="image"
-                        type="file"
-                        accept=".png,.jpg,.jpeg"
-                        onChange={handleModifFile}
-                        required
-                      />
-
-                      {modifPreviewUrl && (
-                        <div className="preview-container">
-                          <img
-                            src={modifPreviewUrl}
-                            alt="Aperçu de la modification"
-                            className="preview-img"
-                          />
-                        </div>
-                      )}
-
-                      {modifFile && (
-                        <section>
-                          <h3>Détails du fichier :</h3>
-                          <table className="details-table">
-                            <tbody>
-                              <tr>
-                                <th>Nom :</th>
-                                <td>{modifFile.name}</td>
-                              </tr>
-                              <tr>
-                                <th>Type :</th>
-                                <td>{modifFile.type}</td>
-                              </tr>
-                              <tr>
-                                <th>Taille :</th>
-                                <td>
-                                  {modifFile.size.toLocaleString()} octets
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </section>
-                      )}
-
-                      <button type="submit">Valider</button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setEditingId(null);
-                          setModifFile(null);
-                          if (modifPreviewUrl) {
-                            URL.revokeObjectURL(modifPreviewUrl);
-                            setModifPreviewUrl(null);
-                          }
-                        }}
-                      >
-                        Annuler
-                      </button>
-                    </form>
-                  </dialog>
-                )}
               </div>
             ))
           )}
@@ -335,6 +286,20 @@ function GalleryPage() {
           <Carousel data={drawings} />
         </div>
       </main>
+
+      {/* MODALE EDIT */}
+      {editingDraw && (
+        <EditModal
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false);
+            setEditingDraw(null);
+          }}
+          initialText={editingDraw.name}
+          initialImage={editingDraw.image}
+          onConfirm={handleConfirmEdit}
+        />
+      )}
     </>
   );
 }

@@ -18,9 +18,15 @@
   flex-direction: column;
   text-align: center;
   gap: 1rem;
-  background-color: var(--background-color-secondary);
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)
+    ), url(/images/bc_discussion-form.webp);
+  background-size: cover;
+  background-position: center;
   padding: 1.5rem;
   border-radius: 8px;
+  border: 2px white solid;
   max-width: 100%;
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -32,7 +38,7 @@
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 280px;
+  width: 300px;
   align-self: center;
 }
 
@@ -102,8 +108,30 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
-  margin-bottom: 3rem;
-  height: 100%;
+  margin: 3rem 0.5rem;
+}
+
+.draw-member .card {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)
+    ), url(/images/bc_discussion-form.webp);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  border: 1px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: grid;
+  justify-content: center;
+}
+
+.draw-member .card a {
+  max-height: 270px;
+  max-width: 300px;
+  justify-self: center;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px dashed rgb(255, 255, 255);
 }
 
 .draw-member .member-card-btn {

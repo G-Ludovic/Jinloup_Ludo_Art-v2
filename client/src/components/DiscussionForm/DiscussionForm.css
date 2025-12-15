@@ -9,7 +9,13 @@
   margin: 1.5rem auto;
   width: 100%;
   max-width: 1200px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)
+    ), url(/images/bc_discussion-form.webp);
+  background-size: cover;
+  background-position: center;
 }
 
 /* Zone de texte */
