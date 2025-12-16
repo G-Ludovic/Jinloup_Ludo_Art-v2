@@ -18,8 +18,10 @@
   flex-direction: column;
   text-align: center;
   gap: 1rem;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.718),
-      rgba(255, 255, 255, 0.612)), url(/images/bc_discussion-form.webp);
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)
+    ), url(/images/bc_discussion-form.webp);
   background-size: cover;
   background-position: center;
   padding: 1.5rem;
@@ -110,8 +112,10 @@
 }
 
 .draw-member .card {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.718),
-      rgba(255, 255, 255, 0.612)), url(/images/bc_discussion-form.webp);
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)
+    ), url(/images/bc_discussion-form.webp);
   background-size: cover;
   background-position: center;
   overflow: hidden;
