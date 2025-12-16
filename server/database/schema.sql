@@ -108,10 +108,3 @@ VALUES
 ('Besoin d’aide ?', 3, 7),
 ('Carrières et avenir', 4, 8);
 
--- MESSAGE DE DÉMO
-INSERT INTO message (content, user_id, subject_id)
-VALUES
-('Salut tout le monde !', 1, 1),
-('Voici ma photo !', 2, 2),
-('Regardez mon dessin', 3, 3),
-('J’adore le coding', 4, 4);
