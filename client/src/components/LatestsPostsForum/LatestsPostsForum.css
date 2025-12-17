@@ -24,3 +24,35 @@
   text-shadow: 2px 1px 6px rgb(455, 755, 255);
   transition: background-color 0.3s, backdrop-filter 0.3s;
 }
+
+.latest-posts-forum td {
+  max-width: 8px;
+  content: fit-content;
+  overflow-inline: clip;
+}
+
+.latest-posts-forum th:nth-child(1) {
+  display: none;
+}
+
+.latest-posts-forum th:nth-child(2) {
+  display: none;
+}
+
+.latest-posts-forum td:nth-child(2) {
+  display: none;
+}
+
+.latest-posts-forum tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: background-color 0.3s;
+}
+
+.latest-posts-forum td:nth-child(3) {
+  font-style: italic;
+}
+
+.latest-posts-forum td:last-child {
+  font-size: 0.9rem;
+  color: #555;
+}

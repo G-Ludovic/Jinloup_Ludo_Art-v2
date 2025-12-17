@@ -26,8 +26,42 @@
 }
 
 .home-forum .view-category-button {
+  width: 70px;
+  justify-items: end;
   margin-top: 8px;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   transition: background-color 0.3s, transform 0.3s;
+}
+
+.message-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.message-list li {
+  margin: 6px 0;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.message-list li:hover {
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(1.02);
+}
+
+.message-preview {
+  color: #333;
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+.message-date {
+  color: #444;
+  font-size: 0.75rem;
+  opacity: 0.8;
 }

@@ -121,14 +121,6 @@
   overflow: hidden;
 }
 
-/*
-.draw-member .member-card-btn {
-  margin-top: auto;
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
-} */
-
 /* Modale de modification */
 .draw-member dialog {
   border: none;
