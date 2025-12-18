@@ -25,13 +25,16 @@
   transition: background-color 0.3s, backdrop-filter 0.3s;
 }
 
+.home-forum .direction-button {
+  width: 10px;
+}
+
 .home-forum .view-category-button {
-  width: 70px;
-  justify-items: end;
   margin-top: 8px;
+  height: 2rem;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .message-list {
@@ -46,12 +49,11 @@
   background: rgba(255, 255, 255, 0.3);
   border-radius: 8px;
   font-size: 0.9rem;
-  transition: background 0.3s, transform 0.2s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .message-list li:hover {
   background: rgba(255, 255, 255, 0.6);
-  transform: scale(1.02);
 }
 
 .message-preview {

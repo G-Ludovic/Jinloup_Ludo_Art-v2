@@ -72,13 +72,13 @@ function HomeForum() {
             // Filtrer les messages appartenant à cette catégorie
             const messagesForCategory = messages
               .filter((msg) => msg.category_id === cat.id)
-              // 🔥 Trier les messages du plus récent au plus ancien
+              // Trier les messages du plus récent au plus ancien
               .sort(
                 (a, b) =>
                   new Date(b.sending_date).getTime() -
                   new Date(a.sending_date).getTime(),
               )
-              // 🔥 Garder seulement les 3 plus récents
+              // Garder seulement les 3 plus récents
               .slice(0, 3);
 
             return (
@@ -117,7 +117,7 @@ function HomeForum() {
                   )}
                 </td>
 
-                <td>
+                <td className="direction-button">
                   <Link to={`/forum/category/${cat.id}`}>
                     <button type="button" className="view-category-button">
                       🗂️
