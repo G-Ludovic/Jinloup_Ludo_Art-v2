@@ -1,41 +1,65 @@
 .subject-forum {
-  grid-column: 1 / 2;
-  grid-row: 1;
   background-color: var(--background-color-secondary);
   color: var(--color-text);
   font-family: var(--font-family-text);
-  padding: 12px;
-  border-radius: 6px;
-  max-height: 508px;
-  overflow-y: auto;
+  padding: 16px;
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.75),
+      rgba(255, 255, 255, 0.55)
+    ), url(/images/bc_subject.webp);
   background-size: cover;
   background-position: center;
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.718),
-      rgba(255, 255, 255, 0.612)
-    ), url(/images/bc_subject.webp);
 }
 
-.subject-forum p,
-.subject-forum td,
-.subject-forum th,
 .subject-forum h3 {
-  text-shadow: 2px 1px 6px rgb(455, 755, 255);
-  transition: background-color 0.3s, backdrop-filter 0.3s;
+  margin-bottom: 12px;
+  text-shadow: 2px 1px 6px rgb(255, 255, 255);
 }
 
-.subject-forum p:hover,
-.subject-forum td:hover {
-  backdrop-filter: blur(8px);
-  background-color: rgba(255, 255, 255, 0.4);
-  cursor: pointer;
+.subject-forum table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.subject-forum th:nth-child(1) {
-  display: none;
+.subject-forum th,
+.subject-forum td {
+  padding: 8px;
+  text-align: left;
 }
 
-.subject-forum th:nth-child(3) {
-  display: none;
+.subject-forum thead {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.subject-forum th {
+  font-weight: bold;
+  text-shadow: 1px 1px 4px rgb(255, 255, 255);
+}
+
+.subject-forum tbody tr {
+  transition: background-color 0.3s, box-shadow 0.3s;
+  border-radius: 6px;
+  /* pour que le shadow suive bien la ligne */
+}
+
+.subject-forum tbody td {
+  max-width: 100%;
+}
+
+.subject-forum tbody td:last-child {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #555;
+}
+
+.subject-forum tbody tr:hover {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05)
+  );
+  transform: scale(1.01);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
 }
