@@ -99,11 +99,12 @@ VALUES
 -- On relie chaque subject à un user et une category existante
 INSERT INTO subject (title, user_id, category_id, creation_date)
 VALUES
-('Bienvenue dans Présentations', 1, 1, '2025-11-20 14:12:00'),
-('Trombinoscope officiel', 2, 2, '2025-12-05 16:10:00'),
-('Vos créations libres', 3, 3, '2025-12-14 11:23:00'),
-('Vos passions favorites', 4, 4, '2025-11-28 18:32:00'),
-('Discussions libres', 1, 5, '2025-12-11 21:17:00'),
-('Évènements à venir', 2, 6, '2025-12-15 09:40:00'),
-('Besoin d’aide ?', 3, 7, '2025-12-16 08:30:00'),
-('Carrières et avenir', 4, 8, '2025-12-10 20:00:00');
+('Ici tu peux te présenter à la communauté.', 1, 1, '2025-12-18 10:55:00'),
+('Ajoute ta photo !', 2, 2, '2025-12-18 10:56:00'),
+('Partage tes dessins', 3, 3, '2025-12-18 10:57:00'),
+('Parle de ce que tu aimes', 4, 4, '2025-12-18 10:58:00'),
+('Discutons librement', 1, 5, '2025-12-18 10:59:00'),
+('Retrouve les activités à venir', 2, 6, '2025-12-18 11:00:00'),
+('Besoin de soutien ?', 3, 7, '2025-12-18 11:01:00'),
+('Parlons avenir pro !', 4, 8, '2025-12-18 11:02:00');
+
