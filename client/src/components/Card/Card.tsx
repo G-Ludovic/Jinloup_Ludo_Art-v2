@@ -6,13 +6,15 @@ interface CardProps {
 
 function Card({ name, image, text }: CardProps) {
   return (
-    <main className="card-add">
-      <div className="card-content">
+    <section className="main-card">
+      <article className="card-image-container">
         <img src={image} alt={name} className="card-image" />
+      </article>
+      <article className="card-content">
         <h4 className="card-title">{name}</h4>
         {text && <p className="card-text">{text}</p>}
-      </div>
-    </main>
+      </article>
+    </section>
   );
 }
 

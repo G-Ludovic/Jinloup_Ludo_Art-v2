@@ -94,7 +94,7 @@
   font-weight: 600;
   padding: 0.7rem 1.5rem;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .discussion-form button[type="submit"]:hover {

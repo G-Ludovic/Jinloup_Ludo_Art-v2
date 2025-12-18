@@ -15,14 +15,22 @@ interface Message {
 class MessageRepository {
   async readAll() {
     const [rows] = await databaseClient.query<Rows>(
-      `SELECT m.id, m.content, m.file, m.sending_date,
-          m.user_id, m.subject_id,
-          u.pseudo AS user_name,
-          s.title AS subject_title
-   FROM message m
-   JOIN user u ON m.user_id = u.id
-   JOIN subject s ON m.subject_id = s.id
-   ORDER BY m.id DESC`,
+      `SELECT 
+        m.id,
+        m.content,
+        m.file,
+        m.sending_date,
+        m.user_id,
+        u.pseudo AS user_name,
+        m.subject_id,
+        s.title AS subject_title,
+        s.category_id,            -- Ajout clé étrangère vers la catégorie
+        c.name AS category_name   -- Nom de la catégorie correspondante
+     FROM message m
+     JOIN user u ON m.user_id = u.id
+     JOIN subject s ON m.subject_id = s.id
+     JOIN category c ON s.category_id = c.id  -- Liaison vers la catégorie
+     ORDER BY m.id DESC`,
     );
 
     return rows;

@@ -39,7 +39,7 @@ function EditModal({
 
   if (!isOpen) return null;
 
-  // --- Gestion du Drag & Drop ---
+  // Gestion du Drag & Drop
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const droppedFile = e.dataTransfer.files[0];
@@ -67,7 +67,7 @@ function EditModal({
     }
   };
 
-  // --- Validation ---
+  // Validation
   const isTextModified = text.trim() && text !== initialText;
   const isImageModified = !!file;
   const isFormValid =

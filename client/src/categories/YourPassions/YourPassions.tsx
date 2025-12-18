@@ -1,21 +1,33 @@
 import CategoryTemplate from "../../components/CategoryTemplate/CategoryTemplate";
+import OnlineForum from "../../components/OnlineForum/OnlineForum";
 import "./YourPassions.css";
 
 function YourPassions() {
   return (
-    <main>
+    <>
       <header className="category-section-forum">
         <h2>Vos Passions</h2>
         <p>Parle de ce que tu aimes</p>
       </header>
 
-      <CategoryTemplate
-        title="Vos passions"
-        description="Discute de tes passions : nature, art, jeux vidéo, animaux et plus encore !"
-        subjectId={4}
-        userId={3}
-      />
-    </main>
+      <main className="presentations-layout">
+        <section className="forum-content">
+          <article className="posts-forum">
+            <CategoryTemplate
+              title="Vos passions"
+              description="Discute de tes passions : nature, art, jeux vidéo, animaux et plus encore !"
+              subjectId={4}
+              userId={3}
+            />
+          </article>
+
+          <article className="visual-forum">
+            <img src="/images/bc_online_latests.webp" alt="wolfman warrior" />
+            <OnlineForum />
+          </article>
+        </section>
+      </main>
+    </>
   );
 }
 

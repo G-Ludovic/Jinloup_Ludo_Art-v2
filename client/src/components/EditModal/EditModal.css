@@ -122,7 +122,7 @@ textarea {
   font-weight: bold;
 }
 
-/* === Animation shake du bouton désactivé === */
+/* Animation shake du bouton désactivé */
 @keyframes shake {
   0%,
   100% {

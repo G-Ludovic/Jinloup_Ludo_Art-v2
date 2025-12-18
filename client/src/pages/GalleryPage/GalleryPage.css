@@ -119,26 +119,6 @@
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  border: 1px solid white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  display: grid;
-  justify-content: center;
-}
-
-.draw-member .card a {
-  max-height: 270px;
-  max-width: 300px;
-  justify-self: center;
-  overflow: hidden;
-  border-radius: 6px;
-  border: 1px dashed rgb(255, 255, 255);
-}
-
-.draw-member .member-card-btn {
-  margin-top: auto;
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
 }
 
 /* Modale de modification */

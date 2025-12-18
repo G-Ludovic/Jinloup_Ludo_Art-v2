@@ -56,7 +56,7 @@ function GalleryPage() {
     loadDraws();
   }, [loadDraws]);
 
-  // --- Drag & Drop Ajout ---
+  // Drag & Drop Ajout
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const droppedFile = e.dataTransfer.files[0];
@@ -84,7 +84,7 @@ function GalleryPage() {
     }
   };
 
-  // --- Ajout de dessin ---
+  // Ajout de dessin
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -108,7 +108,7 @@ function GalleryPage() {
     });
   };
 
-  // --- Suppression ---
+  // Suppression
   const handleDelete = (id: number) => {
     fetch(`http://localhost:3310/api/draws/${id}`, {
       method: "DELETE",
@@ -123,7 +123,7 @@ function GalleryPage() {
     });
   };
 
-  // --- Modification via modal ---
+  // Modification via modal
   const handleConfirmEdit = (newName: string, newFile?: File) => {
     if (!editingDraw) return;
 
@@ -180,7 +180,6 @@ function GalleryPage() {
               required
             />
 
-            {/* <h4>⬇️ Glissez votre image ci-dessous ⬇️</h4> */}
             <div
               ref={dropRef}
               className="drop-zone"
