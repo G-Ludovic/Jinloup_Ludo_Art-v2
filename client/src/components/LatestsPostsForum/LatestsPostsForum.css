@@ -17,42 +17,28 @@
     ), url(/images/bc_lastests_posts.webp);
 }
 
-.latest-posts-forum p,
 .latest-posts-forum h3,
 .latest-posts-forum td,
 .latest-posts-forum th {
   text-shadow: 2px 1px 6px rgb(455, 755, 255);
-  transition: background-color 0.3s, backdrop-filter 0.3s;
 }
 
 .latest-posts-forum td {
-  max-width: 8px;
-  content: fit-content;
-  overflow-inline: clip;
-}
-
-.latest-posts-forum th:nth-child(1) {
-  display: none;
-}
-
-.latest-posts-forum th:nth-child(2) {
-  display: none;
-}
-
-.latest-posts-forum td:nth-child(2) {
-  display: none;
-}
-
-.latest-posts-forum tbody tr:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transition: background-color 0.3s;
-}
-
-.latest-posts-forum td:nth-child(3) {
   font-style: italic;
+  max-width: 100%;
 }
 
 .latest-posts-forum td:last-child {
   font-size: 0.9rem;
   color: #555;
+}
+
+.latest-posts-forum tbody tr:hover {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05)
+  );
+  transform: scale(1.01);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
 }

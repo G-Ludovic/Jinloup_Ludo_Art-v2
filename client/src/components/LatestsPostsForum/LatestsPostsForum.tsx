@@ -52,18 +52,14 @@ function LatestsPostsForum() {
       <table>
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Sujet</th>
             <th scope="col">Message</th>
             <th scope="col">Date</th>
           </tr>
         </thead>
 
         <tbody>
-          {messages.map((mes, index) => (
+          {messages.map((mes) => (
             <tr key={mes.id}>
-              <th scope="row">{index + 1}</th>
-              <td>{mes.subject_title}</td>
               <td>
                 {mes.content.length > 60
                   ? `${mes.content.slice(0, 60)}...`

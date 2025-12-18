@@ -3,6 +3,7 @@ import categoriesActions from "./modules/category/categoriesActions";
 import drawActions from "./modules/draw/drawActions";
 import itemActions from "./modules/item/itemActions";
 import messageActions from "./modules/message/messageActions";
+import subjectActions from "./modules/subject/subjectActions";
 import userActions from "./modules/user/userActions";
 import files from "./utils/files";
 import validation from "./utils/validation";
@@ -39,6 +40,10 @@ router.delete("/draws/:id", drawActions.destroy);
 /** Categories **/
 router.get("/categories", categoriesActions.browse);
 router.get("/categories/:id", categoriesActions.read);
+
+/** Subjects **/
+router.get("/subject", subjectActions.browse);
+router.get("/subject/:id", subjectActions.read);
 
 /** Messages **/
 router.get("/message", messageActions.browse);
