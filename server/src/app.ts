@@ -4,9 +4,10 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 
+// import auth from "./utils/auth";
+import authRoutes from "./modules/auth/authRoutes";
 // Import routers
 import router from "./router"; // ton router global
-import auth from "./utils/auth";
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use("/api", router);
 // Exemple pour les routes qui nécessitent un token
 // Tu peux créer un router séparé ou ajouter verifyToken dans les routes sensibles
 // app.use("/api/protected", auth.verifyToken, protectedRouter);
+app.use("/api/auth", authRoutes);
 
 // --------------------
 // Production-ready setup

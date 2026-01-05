@@ -23,6 +23,7 @@ CREATE TABLE user (
   bio TEXT,
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(500) NOT NULL,
+  role ENUM('loup alpha', 'loup gardien', 'jeune loup') DEFAULT 'jeune loup',
   registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
