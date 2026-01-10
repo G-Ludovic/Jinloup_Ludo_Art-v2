@@ -56,7 +56,6 @@ describe("GET /api/message/:id", () => {
   });
 });
 
-//
 // POST /api/message
 describe("POST /api/message", () => {
   it("should add a new message successfully", async () => {

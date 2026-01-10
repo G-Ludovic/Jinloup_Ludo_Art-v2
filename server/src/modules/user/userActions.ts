@@ -124,7 +124,7 @@ const refreshToken: RequestHandler = async (req, res) => {
     });
 
     res.cookie("token", newToken, { httpOnly: true });
-    // On renvoie id, email ET role
+    // On renvoie id, email & role
     return res
       .status(200)
       .json({ id: user.id, email: user.email, role: user.role });

@@ -1,14 +1,14 @@
-// Import Faker library for generating fake data
+// Importer la bibliothèque Faker pour générer des données factices
 import { faker } from "@faker-js/faker";
 
 import type { Faker } from "@faker-js/faker";
 
-// Import database client
+// Importer le client de base de données
 import database from "../client";
 
 import type { Result } from "../client";
 
-// Declare an object to store created objects from their names
+// Déclarer un objet pour stocker les objets créés à partir de leurs noms de référence
 type Ref = object & { insertId: number };
 
 const refs: { [key: string]: Ref } = {};
@@ -19,7 +19,7 @@ type SeederOptions = {
   dependencies?: (typeof AbstractSeeder)[];
 };
 
-// Provide faker access through AbstractSeed class
+// Fournir un accès Faker via la classe AbstractSeeder
 abstract class AbstractSeeder implements SeederOptions {
   table: string;
   truncate: boolean;
@@ -44,10 +44,10 @@ abstract class AbstractSeeder implements SeederOptions {
   }
 
   async #doInsert(data: { refName?: string } & object) {
-    // Extract ref name (if it exists)
+    // Extraire le nom de la référence (s'il existe)
     const { refName, ...values } = data;
 
-    // Prepare the SQL statement: "insert into <table>(<fields>) values (<placeholders>)"
+    // Préparer l'instruction SQL : « insert into <table>(<fields>) values ​​(<placeholders>) »
     const fields = Object.keys(values).join(",");
     const placeholders = new Array(Object.keys(values).length)
       .fill("?")
@@ -55,7 +55,7 @@ abstract class AbstractSeeder implements SeederOptions {
 
     const sql = `insert into ${this.table}(${fields}) values (${placeholders})`;
 
-    // Perform the query and if applicable store the insert id given the ref name
+    // Exécuter la requête et, le cas échéant, stocker l'identifiant d'insertion correspondant au nom de référence
     const [result] = await database.query<Result>(sql, Object.values(values));
 
     if (refName != null) {
@@ -78,7 +78,7 @@ abstract class AbstractSeeder implements SeederOptions {
   }
 }
 
-// Ready to export
+// Prêt à exporter
 export default AbstractSeeder;
 
 export type { AbstractSeeder };

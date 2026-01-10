@@ -6,7 +6,7 @@ import multer from "multer";
 import type { FileFilterCallback } from "multer";
 
 // ==============================
-// 📂 CONFIGURATION DU STOCKAGE
+// CONFIGURATION DU STOCKAGE
 // ==============================
 
 // Dossier où seront sauvegardées les images
@@ -33,7 +33,7 @@ const storage = multer.diskStorage({
 });
 
 // ==============================
-// 🧠 MULTER : middleware upload
+// MULTER : middleware upload
 // ==============================
 
 // Filtrage : n’accepter que les fichiers image
@@ -58,13 +58,13 @@ const upload = multer({
 });
 
 // ==============================
-// 🧩 MIDDLEWARES EXPRESS
+// MIDDLEWARES EXPRESS
 // ==============================
 
-// 🔸 Middleware générique pour upload d’image (clé : "image")
+// Middleware générique pour upload d’image (clé : "image")
 const imageUpload = upload.single("image");
 
-// 🔸 Middleware pour ajouter le chemin d’accès au body (module draw)
+// Middleware pour ajouter le chemin d’accès au body (module draw)
 const drawImage: RequestHandler = (req, res, next) => {
   try {
     if (req.file) {
@@ -76,7 +76,7 @@ const drawImage: RequestHandler = (req, res, next) => {
   }
 };
 
-// 🔸 Middleware pour le module "presentation"
+// Middleware pour le module "presentation"
 const presentationImage: RequestHandler = (req, res, next) => {
   try {
     if (req.file) {
@@ -89,10 +89,10 @@ const presentationImage: RequestHandler = (req, res, next) => {
 };
 
 // ==============================
-// 🗑️ SUPPRESSION DE FICHIERS
+// SUPPRESSION DE FICHIERS
 // ==============================
 
-// 🔸 Supprime un fichier (ex: "/uploads/nom.jpg")
+// Supprime un fichier (ex: "/uploads/nom.jpg")
 const removeImageFromServer = (filePath: string | null | undefined) => {
   if (!filePath) return;
 
@@ -100,15 +100,15 @@ const removeImageFromServer = (filePath: string | null | undefined) => {
 
   fs.unlink(relativePath, (err) => {
     if (err && err.code !== "ENOENT") {
-      console.error(`⚠️ Erreur suppression fichier : ${err.message}`);
+      console.error(`Erreur suppression fichier : ${err.message}`);
     } else {
-      console.log(`🗑️ Fichier supprimé : ${filePath}`);
+      console.log(`Fichier supprimé : ${filePath}`);
     }
   });
 };
 
 // ==============================
-// 📦 EXPORTS
+// EXPORTS
 // ==============================
 
 export default {

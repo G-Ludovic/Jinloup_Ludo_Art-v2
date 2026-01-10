@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: Children) => {
 
       if (!res.ok) throw new Error("Login failed");
 
-      // Après login, on refresh pour récupérer l'utilisateur complet avec role
+      // Après login, on refresh pour récupérer l'utilisateur complet avec son role
       const refreshRes = await fetch("http://localhost:3310/api/refresh", {
         credentials: "include",
       });

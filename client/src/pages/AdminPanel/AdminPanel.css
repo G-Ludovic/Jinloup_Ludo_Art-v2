@@ -7,7 +7,7 @@
   flex-direction: column;
 }
 
-/* ma sidebar */
+/* la sidebar */
 .admin-sidebar {
   background-color: #1e1e2f;
   color: white;
@@ -82,7 +82,7 @@
   background-color: #e65050;
 }
 
-/* mon dashboard */
+/* le dashboard */
 .admin-dashboard {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -104,7 +104,7 @@
   color: #333;
 }
 
-/* Téléphones moyens */
+/* Téléphones */
 @media (min-width: 320px) and (max-width: 968px) {
   .admin-container {
     flex-direction: column;

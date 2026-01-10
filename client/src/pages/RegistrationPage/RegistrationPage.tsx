@@ -19,9 +19,9 @@ function RegistrationPage() {
       body: JSON.stringify(data),
     }).then((res) => {
       if (res.ok) {
-        toast.success("🎉 Félicitations, vous avez créé votre compte !");
+        toast.success("Félicitations, vous avez créé votre compte !");
       } else {
-        toast.error("😩 Erreur lors de l'inscription");
+        toast.error("Erreur lors de l'inscription");
       }
     });
   };

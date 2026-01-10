@@ -38,7 +38,7 @@ function LoginPage() {
           }
         }
       } else {
-        toast.error("😩 Connexion échouée");
+        toast.error("Connexion échouée");
         setIsLogged(false);
       }
     });

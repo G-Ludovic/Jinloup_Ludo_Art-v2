@@ -36,7 +36,7 @@ const add: RequestHandler = async (req, res) => {
       subject_id: Number(subject_id), // Utilise la vraie valeur
     });
   } catch (err) {
-    console.error("❌ Error creating message:", err);
+    console.error("Error creating message:", err);
     if (!res.headersSent)
       res.status(500).json({ error: "Internal server error" });
   }
@@ -56,7 +56,7 @@ const browse: RequestHandler = async (req, res) => {
       res.status(200).json(messages);
     }
   } catch (err) {
-    console.error("❌ Error fetching messages:", err);
+    console.error("Error fetching messages:", err);
     res.status(500).json("Internal server error");
   }
 };
@@ -71,7 +71,7 @@ const read: RequestHandler = async (req, res) => {
       res.status(404).json("Message not found");
     }
   } catch (err) {
-    console.error("❌ Error fetching message:", err);
+    console.error("Error fetching message:", err);
     if (!res.headersSent) res.status(500).json("Internal server error");
   }
 };
@@ -105,7 +105,7 @@ const edit: RequestHandler = async (req, res) => {
     const updated = await messageRepository.readById(Number(id));
     res.status(200).json(updated);
   } catch (err) {
-    console.error("❌ Error updating message:", err);
+    console.error("Error updating message:", err);
     if (!res.headersSent) res.status(500).json("Internal server error");
   }
 };
@@ -124,7 +124,7 @@ const destroy: RequestHandler = async (req, res) => {
 
     res.sendStatus(204);
   } catch (err) {
-    console.error("❌ Error deleting message:", err);
+    console.error("Error deleting message:", err);
     if (!res.headersSent) res.status(500).json("Internal server error");
   }
 };

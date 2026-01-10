@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import Career from "../../categories/Career/Career";
-import Events from "../../categories/Events/Events";
-import Helpers from "../../categories/Helpers/Helpers";
 import Presentations from "../../categories/Presentations/Presentations";
 import TheDen from "../../categories/TheDen/TheDen";
+import Events from "../../categories/TheEvents/Events";
+import Helpers from "../../categories/TheHelpers/Helpers";
 import Trombinoscope from "../../categories/Trombinoscope/Trombinoscope";
 import YourCreations from "../../categories/YourCreations/YourCreations";
 import YourPassions from "../../categories/YourPassions/YourPassions";

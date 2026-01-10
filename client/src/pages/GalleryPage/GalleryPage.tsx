@@ -96,7 +96,7 @@ function GalleryPage() {
       credentials: "include",
     }).then((res) => {
       if (res.ok) {
-        toast.success("🎉 Dessin ajouté !");
+        toast.success("Dessin ajouté avec succès !");
         loadDraws();
         // reset automatique
         formRef.current?.reset();
@@ -143,7 +143,7 @@ function GalleryPage() {
       credentials: "include",
     }).then((res) => {
       if (res.ok) {
-        toast.success("✏️ Dessin modifié !");
+        toast.success("Dessin modifié avec succès !");
         loadDraws();
       } else {
         toast.error("Échec de la modification");
@@ -161,7 +161,7 @@ function GalleryPage() {
         <h2>Proposez vos créations</h2>
         <hr />
 
-        {/* FORMULAIRE AJOUT */}
+        {/* Formulaire d'ajout */}
         <article className="add-draw">
           <form
             ref={formRef}
@@ -233,7 +233,7 @@ function GalleryPage() {
         <h2>Créations des membres</h2>
         <hr />
 
-        {/* GALERIE MEMBRES */}
+        {/* Galeries des membres */}
         <article className="draw-member">
           {loading ? (
             <p>Chargement des dessins...</p>
@@ -286,7 +286,7 @@ function GalleryPage() {
         </div>
       </main>
 
-      {/* MODALE EDIT */}
+      {/* Modale d'édition */}
       {editingDraw && (
         <EditModal
           isOpen={isModalOpen}

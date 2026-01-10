@@ -1,4 +1,4 @@
-// Load environment variables from .env file
+// Charger les variables d'environnement à partir du fichier .env
 import "dotenv/config";
 
 import fs from "node:fs";
@@ -7,41 +7,41 @@ import databaseClient from "../database/client";
 
 import type { Rows } from "../database/client";
 
-// Close the database connection after all tests have run
+// Fermer la connexion à la base de données une fois tous les tests exécutés
 afterAll((done) => {
   databaseClient.end().then(done);
 });
 
-// Test suite for environment installation
+// Suite de tests pour l'installation de l'environnement
 describe("Installation", () => {
-  // Test: Check if the .env file exists
+  // Test : Vérifier si le fichier .env existe
   test("You have created /server/.env", async () => {
     expect(fs.existsSync(`${__dirname}/../.env`)).toBe(true);
   });
 
-  // Test: Check if the .env.sample file exists
+  // Test : Vérifier si le fichier .env.sample existe
   test("You have retained /server/.env.sample", async () => {
     expect(fs.existsSync(`${__dirname}/../.env.sample`)).toBe(true);
   });
 
-  // Test: Check if the .env file is properly filled with valid database connection information
+  // Test : Vérifier si le fichier .env est correctement rempli avec des informations de connexion à la base de données valides
   test("You have filled /server/.env with valid information to connect to your database", async () => {
     expect.assertions(0);
 
     try {
-      // Check if the connection is successful
+      // Vérifier si la connexion a réussi
       await databaseClient.getConnection();
     } catch (error) {
       expect(error).toBeDefined();
     }
   });
 
-  // Test: Check if the database migration scripts have been executed
+  // Test : Vérifier si les scripts de migration de la base de données ont été exécutés
   test("You have executed the db:migrate scripts", async () => {
-    // Query the 'item' table to check if any data has been inserted
+    // Interroger la table 'item' pour vérifier si des données ont été insérées.
     const [rows] = await databaseClient.query<Rows>("select * from item");
 
-    // Expecting rows to be returned, indicating successful migration
+    // On s'attend à ce que des lignes soient renvoyées, indiquant une migration réussie
     expect(rows.length).toBeGreaterThanOrEqual(0);
   });
 });

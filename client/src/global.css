@@ -58,7 +58,7 @@ a {
 }
 
 :root {
-  /* 🎨 Couleurs principales */
+  /* Couleurs principales */
   --color-text: #050315;
   --color-text-secondary: #2a2a72;
   --color-success: rgb(30, 145, 30);
@@ -76,7 +76,7 @@ a {
   --background-color-hoverbutton: #5a5a5a;
   --background-color-button: #111;
 
-  /* 🖌️ Typography */
+  /* Typography */
   --font-family-link: "Raleway", sans-serif;
   --font-family-title: "Poppins", sans-serif;
   --font-family-text: "Inter", sans-serif;

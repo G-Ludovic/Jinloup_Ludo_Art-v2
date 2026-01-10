@@ -73,11 +73,12 @@ CREATE TABLE comment (
   FOREIGN KEY (draw_id) REFERENCES draw(id)
 );
 
+-- INSERT ITEMS (tests pour la boutique en ligne en projet futur)
 INSERT INTO item (name, description, price) VALUES
 ('Item1', 'Premier item de test', 10.99),
 ('Item2', 'Deuxième item de test', 5.49);
 
--- INSERT USER DE DÉMO
+-- INSERT USERS (tests pour le forum)
 INSERT INTO user (id, pseudo, avatar, location, bio, email, password, registration_date, role)
 VALUES
   (1, "Jdoe", "###", "2, rue fantôme, 99 999 Lost", "Je suis un fantôme", "johndoe@gmail.com", "$argon2id$v=19$m=16,t=2,p=1$WmRCS21yeTVMSGFlYkFiSA$BD49Ws1JoGxpCr0lF5Mkxw", "2025-05-25", "loup gardien"),
@@ -85,7 +86,7 @@ VALUES
   (3, "Jinloup", "###", "25, rue de la montagne, 59 999 Toundra", "Le secret du loup", "jinshi.wolf@gmail.com", "$argon2d$v=19$m=16,t=2,p=1$THBzUlRGaTcxOWtSdzd3aA$YzIgD5uXbC0sDQIMhkGd8Q", "2020-01-22", "loup alpha"),
   (4, "Kitsune", "###", "58, rue de la renardière, 79 999 Fox", "Le secret de la renarde", "kitsunekiss@gmail.com", "$argon2id$v=19$m=16,t=2,p=1$Rmg2MnVtaGd5dG1xdGtmbA$cmHBOEOuGivPybVLLMEAwg", "2025-01-06", "jeune loup");
 
--- INSERT CATEGORY (forum principal)
+-- INSERT CATEGORY (forum categories)
 INSERT INTO category (name, description)
 VALUES
 ('Présentations', 'Présente-toi ici'),
@@ -97,7 +98,7 @@ VALUES
 ('Aides entre nous', 'Besoin de soutien ?'),
 ('Une carrière ?', 'Parlons avenir pro !');
 
--- On relie chaque subject à un user et une category existante
+-- INSERT SUBJECT (forum topics)
 INSERT INTO subject (title, user_id, category_id, creation_date)
 VALUES
 ('Ici tu peux te présenter à la communauté.', 1, 1, '2025-12-18 10:55:00'),
