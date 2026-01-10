@@ -19,7 +19,7 @@ function LoginPage() {
       body: JSON.stringify(data),
     }).then(async (res) => {
       if (res.ok) {
-        toast.success("🎉 Félicitations, vous êtes connecté !");
+        toast.success("Félicitations, vous êtes connecté !");
         setIsLogged(true);
 
         // On récupère l'utilisateur complet pour le rôle
