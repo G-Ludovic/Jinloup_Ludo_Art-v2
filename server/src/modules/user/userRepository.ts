@@ -33,6 +33,22 @@ class UserRepository {
 
     return user.affectedRows;
   }
+
+  async delete(id: number) {
+    const [result] = await databaseClient.query<Result>(
+      "DELETE FROM user WHERE id = ?",
+      [id],
+    );
+    return result.affectedRows;
+  }
+
+  async updateRole(id: number, role: string) {
+    const [result] = await databaseClient.query<Result>(
+      "UPDATE user SET role = ? WHERE id = ?",
+      [role, id],
+    );
+    return result.affectedRows;
+  }
 }
 
 export default new UserRepository();

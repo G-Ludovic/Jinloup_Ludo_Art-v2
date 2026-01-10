@@ -42,12 +42,10 @@ const add: RequestHandler = async (req, res) => {
       req.body as RegisterRequestBody;
 
     if (!email || !password || !confirmPassword)
-      return res
-        .status(400)
-        .json({ message: "Please fill all required fields" });
+      res.status(400).json("Please fill all required fields");
 
     if (password !== confirmPassword)
-      return res.status(400).json({ message: "Passwords do not match" });
+      res.status(400).json("Passwords do not match");
 
     const hashedPassword = await argon2.hash(password, {
       memoryCost: 2 ** 19,
@@ -60,20 +58,13 @@ const add: RequestHandler = async (req, res) => {
       password: hashedPassword,
     });
 
-    if (!user)
-      return res
-        .status(500)
-        .json({ message: "An error occurred during registration" });
+    if (!user) throw res.sendStatus(500).json;
 
     res
       .status(201)
       .json("Congratulations, your account has been created successfully !");
   } catch (err) {
-    console.error("🔥 Error in add():", err);
-    res.status(500).json({
-      message: "Internal server error",
-      error: (err as Error).message,
-    });
+    res.sendStatus(500).json;
   }
 };
 
@@ -114,7 +105,7 @@ const logout: RequestHandler = (req, res) => {
 };
 
 // Refresh Token
-const refreshToken: RequestHandler = (req, res) => {
+const refreshToken: RequestHandler = async (req, res) => {
   try {
     const token = req.cookies.token;
     if (!token) throw new Error("jwt must be provided");
@@ -123,20 +114,26 @@ const refreshToken: RequestHandler = (req, res) => {
     if (!secretKey) throw new Error("APP_SECRET is not defined");
 
     const decoded = jwt.verify(token, secretKey) as JwtPayload;
-    const newToken = jwt.sign(
-      { id: decoded.id, email: decoded.email },
-      secretKey,
-      { expiresIn: "1d" },
-    );
+
+    // Récupérer l'utilisateur complet depuis la DB
+    const user = await userRepository.read(decoded.id);
+    if (!user) return res.sendStatus(404);
+
+    // Générer un nouveau token
+    const newToken = jwt.sign({ id: user.id, email: user.email }, secretKey, {
+      expiresIn: "1d",
+    });
 
     res.cookie("token", newToken, { httpOnly: true });
-    res.status(200).json({ id: decoded.id, email: decoded.email });
+    // On renvoie id, email ET role
+    return res
+      .status(200)
+      .json({ id: user.id, email: user.email, role: user.role });
   } catch (err) {
-    // On log seulement les vraies erreurs serveur
     if ((err as Error).message !== "jwt must be provided") {
       console.error((err as Error).message);
     }
-    res.sendStatus(500);
+    return res.sendStatus(500);
   }
 };
 
@@ -144,8 +141,7 @@ const refreshToken: RequestHandler = (req, res) => {
 const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const token = req.cookies?.token;
-    if (!token)
-      return res.status(403).json({ message: "A token must be provided" });
+    if (!token) res.status(403).json("A token must be provided");
 
     const secretKey = process.env.APP_SECRET;
     if (!secretKey) throw new Error("APP_SECRET is not defined");
@@ -154,7 +150,7 @@ const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
     req.user = { id: decoded.id, email: decoded.email };
     next();
   } catch {
-    return res.status(403).json({ message: "Invalid or expired token" });
+    res.status(403).json("Invalid or expired token");
   }
 };
 

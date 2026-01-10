@@ -103,7 +103,7 @@ function GalleryPage() {
         setFile(null);
         setPreviewUrl(null);
       } else {
-        toast.error("❌ Échec de la création");
+        toast.error("Échec de la création");
       }
     });
   };
@@ -118,7 +118,7 @@ function GalleryPage() {
         toast.success("Dessin supprimé !");
         setData((prev) => prev.filter((item) => item.id !== id));
       } else {
-        toast.error("❌ Échec de la suppression");
+        toast.error("Échec de la suppression");
       }
     });
   };
@@ -129,7 +129,7 @@ function GalleryPage() {
 
     // Vérification obligatoire
     if (!newFile || newName === editingDraw.name) {
-      toast.error("❌ Vous devez modifier à la fois le titre et l'image !");
+      toast.error("Vous devez modifier à la fois le titre et l'image !");
       return;
     }
 
@@ -146,7 +146,7 @@ function GalleryPage() {
         toast.success("✏️ Dessin modifié !");
         loadDraws();
       } else {
-        toast.error("❌ Échec de la modification");
+        toast.error("Échec de la modification");
       }
       setIsModalOpen(false);
       setEditingDraw(null);

@@ -20,7 +20,7 @@ function HomeForum() {
   const [categories, setCategories] = useState<Categorie[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
 
-  // --- Charger les catégories ---
+  // Charger les catégories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -37,7 +37,7 @@ function HomeForum() {
     fetchCategories();
   }, []);
 
-  // --- Charger les messages ---
+  // Charger les messages
   useEffect(() => {
     const fetchMessages = async () => {
       try {

@@ -1,49 +1,51 @@
+import "dotenv/config"; // ✅ Charge les variables d’environnement avant tout
 import fs from "node:fs";
 import path from "node:path";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 
-// import auth from "./utils/auth";
+// Routes
+import router from "./router";
 import authRoutes from "./modules/auth/authRoutes";
-// Import routers
-import router from "./router"; // ton router global
+import type { ErrorRequestHandler } from "express";
 
 const app = express();
 
 // --------------------
-// CORS
+// 🔹 Middleware parsing
 // --------------------
-if (process.env.CLIENT_URL != null) {
-  app.use(cors({ origin: [process.env.CLIENT_URL], credentials: true }));
+// ⚠️ L’ordre compte : on doit parser les cookies avant d’utiliser le routeur
+app.use(cookieParser());
+app.use(express.json());
+
+// --------------------
+// 🔹 CORS
+// --------------------
+if (process.env.CLIENT_URL) {
+  app.use(
+    cors({
+      origin: [process.env.CLIENT_URL],
+      credentials: true,
+    }),
+  );
 }
 
 // --------------------
-// Request Parsing
+// 🔹 ROUTES
 // --------------------
-app.use(express.json());
-app.use(cookieParser());
-
-// --------------------
-// ROUTES PUBLIQUES
-// --------------------
-// Ces routes ne nécessitent pas de token
-// On suppose que ton router gère "/user" pour l'inscription et "/login" pour la connexion
+// Publics
 app.use("/api", router);
-
-// --------------------
-// ROUTES PROTÉGÉES
-// --------------------
-// Exemple pour les routes qui nécessitent un token
-// Tu peux créer un router séparé ou ajouter verifyToken dans les routes sensibles
-// app.use("/api/protected", auth.verifyToken, protectedRouter);
+// Auth (si tu en as besoin)
 app.use("/api/auth", authRoutes);
 
 // --------------------
-// Production-ready setup
+// 🔹 Static files (Production)
 // --------------------
 const publicFolderPath = path.join(__dirname, "../../server/public");
-if (fs.existsSync(publicFolderPath)) app.use(express.static(publicFolderPath));
+if (fs.existsSync(publicFolderPath)) {
+  app.use(express.static(publicFolderPath));
+}
 
 const clientBuildPath = path.join(__dirname, "../../client/dist");
 if (fs.existsSync(clientBuildPath)) {
@@ -54,15 +56,15 @@ if (fs.existsSync(clientBuildPath)) {
 }
 
 // --------------------
-// Middleware for Error Logging
+// 🔹 Error Middleware
 // --------------------
-import type { ErrorRequestHandler } from "express";
-
 const logErrors: ErrorRequestHandler = (err, req, res, next) => {
-  console.error(err);
-  console.error("on req:", req.method, req.path);
+  console.error("🔥 Error:", err);
+  console.error("Request:", req.method, req.path);
+  res.status(500).json({ message: "Internal Server Error" });
   next(err);
 };
+
 app.use(logErrors);
 
 export default app;

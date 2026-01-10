@@ -134,6 +134,12 @@ describe("GET /api/refresh", () => {
       .spyOn(jwt, "verify")
       .mockImplementation(() => ({ id: 1, email: "a@mail.com" }));
     jest.spyOn(jwt, "sign").mockImplementation(() => newToken);
+    jest
+      .spyOn(databaseClient, "query")
+      .mockResolvedValueOnce([
+        [{ id: 1, email: "a@mail.com", role: "user" }] as Rows,
+        [],
+      ]);
 
     const response = await supertest(app)
       .get("/api/refresh")
