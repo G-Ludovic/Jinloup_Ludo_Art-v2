@@ -108,8 +108,6 @@
   }
 }
 
-/** Responsive **/
-
 @media (min-width: 992px) {
   .header {
     display: grid;

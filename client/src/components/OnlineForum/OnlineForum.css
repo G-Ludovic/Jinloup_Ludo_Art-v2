@@ -1,7 +1,6 @@
 .onligne-forum {
   grid-column: 3 / 4;
   grid-row: 1;
-  background-color: var(--background-color-secondary);
   color: var(--color-text);
   font-family: var(--font-family-text);
   padding: 12px;
@@ -23,4 +22,10 @@
 .onligne-forum th {
   text-shadow: 2px 1px 6px rgb(455, 755, 255);
   transition: background-color 0.3s, backdrop-filter 0.3s;
+}
+
+.onligne-forum thead tr:hover {
+  background-color: inherit;
+  transform: none;
+  box-shadow: none;
 }

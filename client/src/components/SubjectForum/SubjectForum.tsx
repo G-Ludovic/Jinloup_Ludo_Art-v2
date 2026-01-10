@@ -32,7 +32,7 @@ function SubjectForum() {
 
         setSubjects(sorted);
       } catch (error) {
-        console.error("❌ Erreur fetch sujets:", error);
+        console.error("Erreur fetch sujets:", error);
       }
     };
 

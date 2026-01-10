@@ -1,7 +1,6 @@
 .regulation-forum {
   grid-column: 3 / 4;
   grid-row: 2;
-  background-color: var(--background-color-secondary);
   color: var(--color-text);
   font-family: var(--font-family-text);
   padding: 12px;

@@ -1,7 +1,6 @@
 .home-forum {
   grid-column: 2 / 3;
   grid-row: 1 / span 2;
-  background-color: var(--background-color-secondary);
   color: var(--color-text);
   font-family: var(--font-family-title);
   padding: 12px;
@@ -66,4 +65,10 @@
   color: #444;
   font-size: 0.75rem;
   opacity: 0.8;
+}
+
+.home-forum thead tr:hover {
+  background-color: inherit;
+  transform: none;
+  box-shadow: none;
 }

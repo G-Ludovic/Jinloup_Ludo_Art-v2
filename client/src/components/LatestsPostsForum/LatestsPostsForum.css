@@ -1,7 +1,6 @@
 .latest-posts-forum {
   grid-column: 1 / 2;
   grid-row: 2;
-  background-color: var(--background-color-secondary);
   color: var(--color-text);
   font-family: var(--font-family-text);
   padding: 12px;
@@ -33,12 +32,13 @@
   color: #555;
 }
 
+.latest-posts-forum thead tr:hover {
+  background-color: inherit;
+  transform: none;
+  box-shadow: none;
+}
+
 .latest-posts-forum tbody tr:hover {
-  background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 0.15),
-    rgba(255, 255, 255, 0.05)
-  );
   transform: scale(1.01);
   box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
 }
