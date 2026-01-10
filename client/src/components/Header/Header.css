@@ -6,6 +6,27 @@
   padding-bottom: 16px;
 }
 
+.header .p-logo {
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.header .p-logo .admin-a {
+  display: flex;
+  justify-items: center;
+  background-color: var(--background-color-button);
+  border-radius: 6px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+  padding: 6px;
+  justify-content: center;
+}
+
+.header .p-logo .admin-a:hover {
+  background-color: var(--background-color-hoverbutton);
+}
+
 .img-logo {
   height: 200px;
   border-radius: 6px;
@@ -14,7 +35,7 @@
 
 .header-nav {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 160px);
   grid-template-rows: repeat(3, 1fr);
   gap: 12px;
   font-size: 1rem;
@@ -24,6 +45,25 @@
     height: 25px;
     object-fit: contain;
     margin: auto;
+  }
+
+  .login-a {
+    display: flex;
+    background-color: var(--background-color-button);
+    border-radius: 6px;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+    font-weight: 600;
+    justify-content: center;
+    color: white;
+    padding: 16px;
+    position: relative;
+    transition: color 0.3s ease;
+    transition: background-color 0.3s ease;
+  }
+
+  .login-a:hover {
+    background-color: var(--background-color-hoverbutton);
   }
 
   a {
@@ -42,8 +82,7 @@
   }
 
   a:hover {
-    color: var(--color-hover-secondary);
-    background-color: var(--background-color-hover);
+    background-color: var(--background-color-hoverbutton);
   }
 
   button {

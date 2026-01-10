@@ -8,9 +8,10 @@ function App() {
   return (
     <>
       <Header />
+
       <main>
         <Outlet />
-        <ToastContainer />
+        <ToastContainer position="bottom-right" autoClose={2000} theme="dark" />
       </main>
       <Footer />
     </>

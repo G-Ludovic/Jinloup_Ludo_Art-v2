@@ -21,6 +21,8 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import Page404 from "./pages/Page404/Page404";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
+import AdminPanel from "./pages/AdminPanel/AdminPanel";
+import MembersPage from "./pages/MembersPage/MembersPage";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +100,14 @@ const router = createBrowserRouter([
       {
         element: <Page404 />,
         path: "*",
+      },
+      {
+        element: <AdminPanel />,
+        path: "/admin",
+      },
+      {
+        element: <MembersPage />,
+        path: "/members",
       },
     ],
   },
