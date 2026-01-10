@@ -1,6 +1,5 @@
 import argon2 from "argon2";
-import type { RequestHandler } from "express";
-import type { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, RequestHandler, Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import userRepository from "./userRepository";
 
@@ -141,7 +140,7 @@ const refreshToken: RequestHandler = async (req, res) => {
 const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const token = req.cookies?.token;
-    if (!token) res.status(403).json("A token must be provided");
+    if (!token) return res.status(403).json("A token must be provided");
 
     const secretKey = process.env.APP_SECRET;
     if (!secretKey) throw new Error("APP_SECRET is not defined");
@@ -150,7 +149,7 @@ const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
     req.user = { id: decoded.id, email: decoded.email };
     next();
   } catch {
-    res.status(403).json("Invalid or expired token");
+    return res.status(403).json("Invalid or expired token");
   }
 };
 

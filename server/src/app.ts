@@ -1,26 +1,26 @@
-import "dotenv/config"; // ✅ Charge les variables d’environnement avant tout
+import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 
+import type { ErrorRequestHandler } from "express";
+import authRoutes from "./modules/auth/authRoutes";
 // Routes
 import router from "./router";
-import authRoutes from "./modules/auth/authRoutes";
-import type { ErrorRequestHandler } from "express";
 
 const app = express();
 
 // --------------------
-// 🔹 Middleware parsing
+// Middleware parsing
 // --------------------
-// ⚠️ L’ordre compte : on doit parser les cookies avant d’utiliser le routeur
+// L’ordre compte : on doit parser les cookies avant d’utiliser le routeur
 app.use(cookieParser());
 app.use(express.json());
 
 // --------------------
-// 🔹 CORS
+// CORS
 // --------------------
 if (process.env.CLIENT_URL) {
   app.use(
@@ -32,15 +32,15 @@ if (process.env.CLIENT_URL) {
 }
 
 // --------------------
-// 🔹 ROUTES
+// ROUTES
 // --------------------
 // Publics
 app.use("/api", router);
-// Auth (si tu en as besoin)
+// Auth (si besoin)
 app.use("/api/auth", authRoutes);
 
 // --------------------
-// 🔹 Static files (Production)
+// Static files (Production)
 // --------------------
 const publicFolderPath = path.join(__dirname, "../../server/public");
 if (fs.existsSync(publicFolderPath)) {
@@ -56,13 +56,14 @@ if (fs.existsSync(clientBuildPath)) {
 }
 
 // --------------------
-// 🔹 Error Middleware
+// Error Middleware
 // --------------------
 const logErrors: ErrorRequestHandler = (err, req, res, next) => {
   console.error("🔥 Error:", err);
   console.error("Request:", req.method, req.path);
-  res.status(500).json({ message: "Internal Server Error" });
-  next(err);
+  if (!res.headersSent) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
 app.use(logErrors);
