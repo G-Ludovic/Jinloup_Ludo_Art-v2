@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: jinloup-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DB_HOST
+        fromDatabase:
+          name: jinloup-db
+          property: host
+      - key: DB_USER
+        fromDatabase:
+          name: jinloup-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: jinloup-db
+          property: password
+      - key: DB_NAME
+        value: jinloup_ludo_art
+
+databases:
+  - name: jinloup-db
+    databaseName: jinloup_ludo_art
+    user: postgres
