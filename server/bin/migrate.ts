@@ -19,7 +19,7 @@ const migrate = async () => {
       user: DB_USER,
       password: DB_PASSWORD,
       multipleStatements: true, // Autoriser plusieurs requêtes SQL
-      ssl: true,
+      ssl: {},
     });
     // Supprimer la base de données existante si elle existe
     await database.query(`DROP DATABASE IF EXISTS \`${DB_NAME}\``);
