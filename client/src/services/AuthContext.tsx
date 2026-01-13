@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }: Children) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:3310/api/refresh", {
+        const res = await fetch("${API_URL}/api/refresh", {
           credentials: "include",
         });
         if (!res.ok) return;
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }: Children) => {
 
   const login = async (email: string, password: string) => {
     try {
-      const res = await fetch("http://localhost:3310/api/login", {
+      const res = await fetch("${API_URL}/api/login", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: Children) => {
       if (!res.ok) throw new Error("Login failed");
 
       // Après login, on refresh pour récupérer l'utilisateur complet avec son role
-      const refreshRes = await fetch("http://localhost:3310/api/refresh", {
+      const refreshRes = await fetch("${API_URL}/api/refresh", {
         credentials: "include",
       });
 
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }: Children) => {
 
   const logout = async () => {
     try {
-      const res = await fetch("http://localhost:3310/api/logout", {
+      const res = await fetch("${API_URL}/api/logout", {
         method: "POST",
         credentials: "include",
       });

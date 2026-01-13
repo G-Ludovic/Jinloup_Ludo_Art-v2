@@ -34,7 +34,7 @@ function GalleryPage() {
   // Chargement des dessins
   const loadDraws = useCallback(() => {
     setLoading(true);
-    fetch("http://localhost:3310/api/draws", { credentials: "include" })
+    fetch("${API_URL}/api/draws", { credentials: "include" })
       .then((res) => res.json())
       .then((draws) => {
         setData(draws);
@@ -90,7 +90,7 @@ function GalleryPage() {
     const formData = new FormData(e.currentTarget);
     if (file) formData.set("image", file);
 
-    fetch("http://localhost:3310/api/draws", {
+    fetch("${API_URL}/api/draws", {
       method: "POST",
       body: formData,
       credentials: "include",

@@ -7,7 +7,7 @@ function Header() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    fetch("http://localhost:3310/api/logout", {
+    fetch("${API_URL}/api/logout", {
       method: "POST",
       credentials: "include",
     }).then((res) => {

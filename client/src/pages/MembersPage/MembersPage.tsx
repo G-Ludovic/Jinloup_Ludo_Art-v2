@@ -26,7 +26,7 @@ function MembersPage() {
   // Récupération des membres
   const fetchMembers = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:3310/api/users", {
+      const res = await fetch("${API_URL}/api/users", {
         credentials: "include",
       });
       if (!res.ok) throw new Error("Erreur serveur");

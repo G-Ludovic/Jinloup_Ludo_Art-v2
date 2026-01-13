@@ -30,7 +30,7 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
 
   // Ajouter un nouveau message
   const handleAdd = async (formData: FormData) => {
-    const res = await fetch("http://localhost:3310/api/message", {
+    const res = await fetch("${API_URL}/api/message", {
       method: "POST",
       body: formData,
     });
