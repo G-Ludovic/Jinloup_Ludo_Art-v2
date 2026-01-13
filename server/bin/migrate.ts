@@ -2,13 +2,10 @@
 import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
-
 // Construire le chemin d'accès au fichier SQL du schéma
 const schema = path.join(__dirname, "../../server/database/schema.sql");
-
 // Récupérer les informations de connexion à la base de données à partir du fichier .env
 const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
-
 // Mettre à jour le schéma de la base de données
 import mysql from "mysql2/promise";
 const migrate = async () => {
@@ -22,7 +19,7 @@ const migrate = async () => {
       user: DB_USER,
       password: DB_PASSWORD,
       multipleStatements: true, // Autoriser plusieurs requêtes SQL
-      ssl: "amazon",
+      ssl: true,
     });
     // Supprimer la base de données existante si elle existe
     await database.query(`DROP DATABASE IF EXISTS \`${DB_NAME}\``);
