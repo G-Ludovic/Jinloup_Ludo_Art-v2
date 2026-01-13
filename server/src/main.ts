@@ -10,7 +10,7 @@ import "../database/checkConnection";
 import app from "./app";
 
 // Récupérer le port à partir des variables d'environnement
-const port = process.env.PORT || 3310;
+const port = process.env.PORT || process.env.APP_PORT || 3310;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
