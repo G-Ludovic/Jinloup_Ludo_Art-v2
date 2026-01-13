@@ -10,9 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/  (hit Enter to use an empty string)/jinloup-ludo-art.git"
   },
-  "workspaces": ["client", "server"],
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
+    "build:render": "npm install --workspace=@js-monorepo/server",
     "check": "biome check --error-on-warnings --no-errors-on-unmatched --staged . && npm run check-types --workspaces --if-present",
     "check:fix": "biome check --write --error-on-warnings --no-errors-on-unmatched --staged .",
     "clean": "node ./bin/clean",
