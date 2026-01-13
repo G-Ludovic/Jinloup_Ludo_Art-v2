@@ -11,7 +11,6 @@ const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
 
 // Mettre à jour le schéma de la base de données
 import mysql from "mysql2/promise";
-
 const migrate = async () => {
   try {
     // Lire les instructions SQL à partir du fichier de schéma
@@ -23,6 +22,7 @@ const migrate = async () => {
       user: DB_USER,
       password: DB_PASSWORD,
       multipleStatements: true, // Autoriser plusieurs requêtes SQL
+      ssl: "amazon",
     });
     // Supprimer la base de données existante si elle existe
     await database.query(`DROP DATABASE IF EXISTS \`${DB_NAME}\``);
