@@ -32,6 +32,8 @@ if (process.env.CLIENT_URL) {
   );
 }
 
+app.use(cors({ origin: "https://jinloup-ludo-art-v2-client.vercel.app" }));
+
 // --------------------
 // ROUTES
 // --------------------
@@ -60,7 +62,7 @@ if (fs.existsSync(clientBuildPath)) {
 // Error Middleware
 // --------------------
 const logErrors: ErrorRequestHandler = (err, req, res, next) => {
-  console.error("🔥 Error:", err);
+  console.error("Error:", err);
   console.error("Request:", req.method, req.path);
   if (!res.headersSent) {
     res.status(500).json({ message: "Internal Server Error" });
