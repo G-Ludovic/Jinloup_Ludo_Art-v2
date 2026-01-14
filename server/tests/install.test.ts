@@ -15,9 +15,12 @@ afterAll((done) => {
 // Suite de tests pour l'installation de l'environnement
 describe("Installation", () => {
   // Test : Vérifier si le fichier .env existe
-  test("You have created /server/.env", async () => {
-    expect(fs.existsSync(`${__dirname}/../.env`) || process.env.CI).toBe(true);
-  });
+  (process.env.CI ? test.skip : test)(
+    "You have created /server/.env",
+    async () => {
+      expect(fs.existsSync(`${__dirname}/../.env`)).toBe(true);
+    },
+  );
 
   // Test : Vérifier si le fichier .env.sample existe
   test("You have retained /server/.env.sample", async () => {
