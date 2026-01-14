@@ -26,14 +26,8 @@ describe("Installation", () => {
 
   // Test : Vérifier si le fichier .env est correctement rempli avec des informations de connexion à la base de données valides
   test("You have filled /server/.env with valid information to connect to your database", async () => {
-    expect.assertions(0);
-
-    try {
-      // Vérifier si la connexion a réussi
-      await databaseClient.getConnection();
-    } catch (error) {
-      expect(error).toBeDefined();
-    }
+    // Vérifier si la connexion a réussi
+    await databaseClient.getConnection();
   });
 
   // Test : Vérifier si les scripts de migration de la base de données ont été exécutés
