@@ -11,7 +11,7 @@ function RegistrationPage() {
       return;
     }
 
-    fetch("http://localhost:3310/api/user", {
+    fetch("${API_URL}/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -15,9 +15,12 @@ afterAll((done) => {
 // Suite de tests pour l'installation de l'environnement
 describe("Installation", () => {
   // Test : Vérifier si le fichier .env existe
-  test("You have created /server/.env", async () => {
-    expect(fs.existsSync(`${__dirname}/../.env`)).toBe(true);
-  });
+  (process.env.CI ? test.skip : test)(
+    "You have created /server/.env",
+    async () => {
+      expect(fs.existsSync(`${__dirname}/../.env`)).toBe(true);
+    },
+  );
 
   // Test : Vérifier si le fichier .env.sample existe
   test("You have retained /server/.env.sample", async () => {
@@ -25,23 +28,23 @@ describe("Installation", () => {
   });
 
   // Test : Vérifier si le fichier .env est correctement rempli avec des informations de connexion à la base de données valides
-  test("You have filled /server/.env with valid information to connect to your database", async () => {
-    expect.assertions(0);
-
-    try {
+  (process.env.CI ? test.skip : test)(
+    "You have filled /server/.env with valid information to connect to your database",
+    async () => {
       // Vérifier si la connexion a réussi
       await databaseClient.getConnection();
-    } catch (error) {
-      expect(error).toBeDefined();
-    }
-  });
+    },
+  );
 
   // Test : Vérifier si les scripts de migration de la base de données ont été exécutés
-  test("You have executed the db:migrate scripts", async () => {
-    // Interroger la table 'item' pour vérifier si des données ont été insérées.
-    const [rows] = await databaseClient.query<Rows>("select * from item");
+  (process.env.CI ? test.skip : test)(
+    "You have executed the db:migrate scripts",
+    async () => {
+      // Interroger la table 'item' pour vérifier si des données ont été insérées.
+      const [rows] = await databaseClient.query<Rows>("select * from item");
 
-    // On s'attend à ce que des lignes soient renvoyées, indiquant une migration réussie
-    expect(rows.length).toBeGreaterThanOrEqual(0);
-  });
+      // On s'attend à ce que des lignes soient renvoyées, indiquant une migration réussie
+      expect(rows.length).toBeGreaterThanOrEqual(0);
+    },
+  );
 });

@@ -69,7 +69,7 @@ const login: RequestHandler = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // "false" en phase de développement et "true" en déploiement
+      secure: true, // "false" en phase de développement et "true" en déploiement
     });
 
     res.status(200).json("Congratulations, you're logged in !");

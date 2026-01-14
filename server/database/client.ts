@@ -1,5 +1,5 @@
 // Récupérer les variables du fichier .env pour la connexion à la base de données
-const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
+const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, DB_SSL } = process.env;
 
 // Créer un pool de connexions à la base de données
 import mysql from "mysql2/promise";
@@ -10,6 +10,7 @@ const client = mysql.createPool({
   user: DB_USER,
   password: DB_PASSWORD,
   database: DB_NAME,
+  ssl: DB_SSL === "true" ? { rejectUnauthorized: false } : undefined,
 });
 
 // Prêt à exporter le client de base de données

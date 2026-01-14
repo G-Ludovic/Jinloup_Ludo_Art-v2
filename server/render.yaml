@@ -11,21 +11,14 @@ services:
       - key: PORT
         value: 3000
       - key: DB_HOST
-        fromDatabase:
-          name: jinloup-db
-          property: host
+        scope: build,runtime
+      - key: DB_PORT
+        value: 3306
       - key: DB_USER
-        fromDatabase:
-          name: jinloup-db
-          property: user
+        scope: build,runtime
       - key: DB_PASSWORD
-        fromDatabase:
-          name: jinloup-db
-          property: password
+        scope: build,runtime
       - key: DB_NAME
         value: jinloup_ludo_art
-
-databases:
-  - name: jinloup-db
-    databaseName: jinloup_ludo_art
-    user: postgres
+      - key: JWT_SECRET
+        scope: build,runtime

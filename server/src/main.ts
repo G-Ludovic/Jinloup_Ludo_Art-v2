@@ -1,18 +1,10 @@
-// Charger les variables d'environnement à partir du fichier .env
 import "dotenv/config";
-
-// Vérifier la connexion à la base de données
-
-/* Remarque : Cette étape est facultative et peut être supprimée si la connexion à la base de données n'est pas requise au démarrage de l'application */
 import "../database/checkConnection";
-
-// Importer l'application Express depuis ./app
 import app from "./app";
 
-// Récupérer le port à partir des variables d'environnement
-const port = process.env.APP_PORT;
+// Définir le port à utiliser
+const port = process.env.PORT || process.env.APP_PORT || 3310;
 
-// Démarrer le serveur et écouter sur le port spécifié
 app
   .listen(port, () => {
     console.info(`Server is listening on port ${port}`);
@@ -20,3 +12,6 @@ app
   .on("error", (err: Error) => {
     console.error("Error:", err.message);
   });
+
+// Ici on ne touche pas à import.meta.env !
+console.log("Backend Node démarré sur le port", port);

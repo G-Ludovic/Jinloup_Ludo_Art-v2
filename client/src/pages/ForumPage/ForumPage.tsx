@@ -23,7 +23,7 @@ type Categorie = {
 function ForumPage() {
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await fetch("http://localhost:3310/api/categories");
+      const response = await fetch("${API_URL}/api/categories");
       const data = await response.json();
       console.log("Fetched categories:", data);
     };
