@@ -29,4 +29,3 @@ jobs:
       - name: Deploy backend to Render
         run: |
           curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_DEPLOY_KEY }}
-
