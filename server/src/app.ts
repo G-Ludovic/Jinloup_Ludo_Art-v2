@@ -50,13 +50,14 @@ if (fs.existsSync(publicFolderPath)) {
   app.use(express.static(publicFolderPath));
 }
 
-const clientBuildPath = path.join(__dirname, "../../client/dist");
-if (fs.existsSync(clientBuildPath)) {
-  app.use(express.static(clientBuildPath));
-  app.get("*", (_, res) => {
-    res.sendFile("index.html", { root: clientBuildPath });
-  });
-}
+// Client is deployed separately on Vercel, so no need to serve it here
+// const clientBuildPath = path.join(__dirname, "../../client/dist");
+// if (fs.existsSync(clientBuildPath)) {
+//   app.use(express.static(clientBuildPath));
+//   app.get("*", (_, res) => {
+//     res.sendFile("index.html", { root: clientBuildPath });
+//   });
+// }
 
 // --------------------
 // Error Middleware
