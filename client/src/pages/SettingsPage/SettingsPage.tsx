@@ -84,7 +84,7 @@ function SettingsPage() {
 
   return (
     <div className="settings-container">
-      <h2>Paramètres du profil 🐺</h2>
+      <h2>Paramètres du profil :</h2>
       <form onSubmit={handleSubmit} className="settings-form">
         <div className="form-group">
           <label htmlFor="pseudo">Pseudo</label>
