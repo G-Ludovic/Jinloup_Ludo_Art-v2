@@ -157,7 +157,7 @@ VALUES
   (1, 'Jdoe', '###', '2, rue fantôme, 99 999 Lost', 'Je suis un fantôme', 'johndoe@gmail.com', '$argon2id$v=19$m=16,t=2,p=1$WmRCS21yeTVMSGFlYkFiSA$BD49Ws1JoGxpCr0lF5Mkxw', '2025-05-25 00:00:00', 'jeune loup'),
   (2, 'PetitLoup', '###', '12, run de la neige, 59 999 Toundra', 'Je suis un petit loup mignon', 'petitloup@gmail.com', '$argon2id$v=19$m=16,t=2,p=1$NFpuWXFyYldKZTVXaDd3Yw$sEPJMkW3cOEiBNgK6rQOSg', '2024-06-14 00:00:00', 'loup gardien'),
   (3, 'Jinloup', '###', '25, rue de la montagne, 59 999 Toundra', 'Le secret du loup', 'jinshi.wolf@gmail.com', '$argon2d$v=19$m=16,t=2,p=1$THBzUlRGaTcxOWtSdzd3aA$YzIgD5uXbC0sDQIMhkGd8Q', '2020-01-22 00:00:00', 'loup alpha'),
-  (4, 'Kitsune', '###', '58, rue de la renardière, 79 999 Fox', 'Le secret de la renarde', 'kitsunekiss@gmail.com', '$argon2id$v=19$m=16,t=2,p=1$Rmg2MnVtaGd5dG1xdGtmbA$cmHBOEOuGivPybVLLMEAwg', '2025-01-06 00:00:00', 'jeune loup');
+  (4, 'Kitsune', '###', '58, rue de la renardière, 79 999 Fox', 'Le secret de la renarde', 'kitsunekiss@gmail.com', '$argon2d$v=19$m=16,t=2,p=1$MkxDVDdOc3hWOVpGTnB0NA$IoknlDz4vSmaP0Y/dqbdwg', '2025-01-06 00:00:00', 'jeune loup');
 
 -- Categories
 INSERT INTO category (name, description)
@@ -182,3 +182,6 @@ VALUES
 ('Retrouve les activités à venir', 2, 6, '2025-12-18 11:00:00'),
 ('Besoin de soutien ?', 3, 7, '2025-12-18 11:01:00'),
 ('Parlons avenir pro !', 4, 8, '2025-12-18 11:02:00');
+
+-- Migration: Attribuer les dessins existants sans user_id à Jinloup (admin)
+UPDATE draw SET user_id = 3 WHERE user_id IS NULL;

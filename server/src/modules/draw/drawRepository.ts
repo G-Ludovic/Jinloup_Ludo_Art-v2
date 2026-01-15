@@ -7,17 +7,26 @@ export type Draw = {
   id?: number;
   name: string;
   image: string;
+  user_id?: number;
 };
 
 class DrawRepository {
   async readAll() {
-    const [rows] = await databaseClient.query<Rows>("SELECT * FROM draw");
+    const [rows] = await databaseClient.query<Rows>(
+      `SELECT d.id, d.name, d.image, d.user_id, u.pseudo AS user_name
+       FROM draw d
+       JOIN user u ON d.user_id = u.id
+       ORDER BY d.id DESC`,
+    );
     return rows;
   }
 
   async readById(id: string) {
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM draw WHERE id = ?",
+      `SELECT d.*, u.pseudo AS user_name
+       FROM draw d
+       JOIN user u ON d.user_id = u.id
+       WHERE d.id = ?`,
       [id],
     );
     return rows[0];
@@ -25,8 +34,8 @@ class DrawRepository {
 
   async create(draw: Draw) {
     const [result] = await databaseClient.query<Result>(
-      "INSERT INTO draw (name, image) VALUES (?, ?)",
-      [draw.name, draw.image],
+      "INSERT INTO draw (name, image, user_id) VALUES (?, ?, ?)",
+      [draw.name, draw.image, draw.user_id],
     );
     return result.insertId; // <-- on renvoie l'ID, utile pour tests ou logs
   }

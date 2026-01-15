@@ -17,7 +17,6 @@ function YourPassions() {
               title="Vos passions"
               description="Discute de tes passions : nature, art, jeux vidéo, animaux et plus encore !"
               subjectId={4}
-              userId={3}
             />
           </article>
 

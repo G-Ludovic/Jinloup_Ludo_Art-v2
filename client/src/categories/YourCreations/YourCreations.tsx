@@ -17,7 +17,6 @@ function YourCreations() {
               title="Vos créations"
               description="Partage ici tes dessins, vidéos, musiques et autres œuvres !"
               subjectId={3}
-              userId={3}
             />
           </article>
 

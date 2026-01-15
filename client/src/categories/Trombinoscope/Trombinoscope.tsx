@@ -17,7 +17,6 @@ function Trombinoscope() {
               title="Présentations"
               description="Ici tu peux te présenter à la communauté."
               subjectId={2}
-              userId={3}
             />
           </article>
 

@@ -12,6 +12,7 @@ interface Drawing {
   id: number;
   name: string;
   image: string;
+  user_name?: string;
 }
 
 function GalleryPage() {
@@ -53,7 +54,7 @@ function GalleryPage() {
       try {
         setData(JSON.parse(stored));
       } catch {
-        console.warn("Erreur lecture localStorage");
+        // Ignore les erreurs de localStorage
       }
     }
     loadDraws();
@@ -261,7 +262,7 @@ function GalleryPage() {
                   <Card
                     name={el.name}
                     image={`http://localhost:3310${el.image}`}
-                    text=""
+                    text={el.user_name ? `Par ${el.user_name}` : ""}
                   />
                 </a>
 

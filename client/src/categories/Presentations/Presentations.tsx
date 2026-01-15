@@ -17,7 +17,6 @@ function Presentations() {
               title="Présentations"
               description="Ici tu peux te présenter à la communauté."
               subjectId={1}
-              userId={3}
             />
           </article>
 

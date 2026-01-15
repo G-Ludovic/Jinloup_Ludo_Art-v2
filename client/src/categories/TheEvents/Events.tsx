@@ -17,7 +17,6 @@ function Events() {
               title="Événements"
               description="Annonce ou découvre les événements de la communauté."
               subjectId={6}
-              userId={3}
             />
           </article>
 

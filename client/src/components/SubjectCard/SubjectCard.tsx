@@ -7,6 +7,7 @@ interface Props {
   text?: string;
   file?: string | null;
   sending_date?: string | null;
+  user_name?: string;
   onDelete: (id: number) => void;
   onEdit: (id: number, newText: string, newFile?: File) => void;
 }
@@ -16,6 +17,7 @@ export default function SubjectCard({
   text = "",
   file,
   sending_date,
+  user_name,
   onDelete,
   onEdit,
 }: Props) {
@@ -34,6 +36,7 @@ export default function SubjectCard({
   return (
     <div className="subject-card">
       <div className="message-content">
+        {user_name && <strong className="user-name">Par {user_name}</strong>}
         <p>{text}</p>
         {file && (
           <img

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useAuth } from "../../services/AuthContext";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import DiscussionForm from "../DiscussionForm/DiscussionForm";
 import SubjectCard from "../SubjectCard/SubjectCard";
@@ -11,16 +12,17 @@ interface Message {
   content: string;
   file?: string | null;
   sending_date?: string | null;
+  user_name?: string;
 }
 
 interface CategoryTemplateProps {
   title: string;
   description: string;
   subjectId: number;
-  userId: number;
 }
 
-function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
+function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
+  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
@@ -30,7 +32,7 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
     fetch(`/api/message?subject_id=${subjectId}`)
       .then((res) => res.json())
       .then((data) => setMessages(data))
-      .catch(console.error);
+      .catch(() => toast.error("Erreur lors du chargement des messages."));
   }, [subjectId]);
 
   // Ajouter un nouveau message
@@ -40,7 +42,7 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
       body: formData,
     });
     if (!res.ok) {
-      console.error("Erreur lors de l'ajout du message");
+      toast.error("Erreur lors de l'envoi du message.");
       return;
     }
     const newMsg = await res.json();
@@ -58,7 +60,7 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
       body: formData,
     });
     if (!res.ok) {
-      console.error("Erreur lors de la modification du message");
+      toast.error("Erreur lors de la modification du message.");
       return;
     }
 
@@ -90,19 +92,23 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
       method: "DELETE",
     });
     if (!res.ok) {
-      console.error("Erreur lors de la suppression");
+      toast.error("Erreur lors de la suppression du message.");
       return;
     }
 
     setMessages((prev) => prev.filter((msg) => msg.id !== deleteId));
     setShowDeleteModal(false);
     setDeleteId(null);
-    toast.success("Message supprimé avec succès !");
+    toast.success("Message supprimé du forum.");
   };
 
   return (
     <>
-      <DiscussionForm subjectId={subjectId} userId={userId} onAdd={handleAdd} />
+      <DiscussionForm
+        subjectId={subjectId}
+        userId={user?.id || 0}
+        onAdd={handleAdd}
+      />
 
       <div className="category-messages">
         <article className="category-article">
@@ -113,6 +119,7 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
               text={msg.content}
               file={msg.file}
               sending_date={msg.sending_date}
+              user_name={msg.user_name}
               onDelete={handleDelete}
               onEdit={handleEdit}
             />

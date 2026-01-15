@@ -17,7 +17,6 @@ function TheDen() {
               title="Le repaire du loup"
               description="Un lieu pour discuter librement avec la meute !"
               subjectId={5}
-              userId={3}
             />
           </article>
 

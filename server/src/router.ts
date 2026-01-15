@@ -48,9 +48,21 @@ router.get("/refresh", userActions.verifyToken, userActions.refreshToken);
 /** Draws **/
 router.get("/draws", drawActions.browse);
 router.get("/draws/:id", drawActions.read);
-router.put("/draws/:id", files.imageUpload, files.drawImage, drawActions.edit);
-router.post("/draws", files.imageUpload, files.drawImage, drawActions.add);
-router.delete("/draws/:id", drawActions.destroy);
+router.put(
+  "/draws/:id",
+  auth.verifyToken,
+  files.imageUpload,
+  files.drawImage,
+  drawActions.edit,
+);
+router.post(
+  "/draws",
+  auth.verifyToken,
+  files.imageUpload,
+  files.drawImage,
+  drawActions.add,
+);
+router.delete("/draws/:id", auth.verifyToken, drawActions.destroy);
 
 /** Categories **/
 router.get("/categories", categoriesActions.browse);

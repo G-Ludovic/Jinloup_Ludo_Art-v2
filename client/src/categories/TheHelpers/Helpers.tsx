@@ -17,7 +17,6 @@ function Helpers() {
               title="Coup de patte"
               description="Besoin d’aide ou envie d’aider un autre membre ? C’est ici !"
               subjectId={7}
-              userId={3}
             />
           </article>
 

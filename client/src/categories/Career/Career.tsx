@@ -17,7 +17,6 @@ function Career() {
               title="Carrière et projets"
               description="Partage ton parcours professionnel, tes formations ou tes ambitions."
               subjectId={8}
-              userId={3}
             />
           </article>
 

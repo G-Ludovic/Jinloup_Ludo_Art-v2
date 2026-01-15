@@ -1,0 +1,6 @@
+.card-text {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
