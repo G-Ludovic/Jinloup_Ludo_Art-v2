@@ -48,16 +48,29 @@ const edit: RequestHandler = async (req, res, next) => {
     const id = req.params.id;
     const { name, image } = req.body;
 
-    if (!name || !image) res.status(400).json({});
+    if (!name) {
+      res.status(400).json({});
+      return;
+    }
 
     const existingDraw = await drawRepository.readById(id);
-    if (!existingDraw) res.status(404).json({});
+    if (!existingDraw) {
+      res.status(404).json({});
+      return;
+    }
 
-    // supprimer l’ancienne image du serveur si elle existe
-    if (existingDraw.image) files.removeImageFromServer(existingDraw.image);
+    const updateData: { name: string; image?: string } = { name };
+    if (image) {
+      // supprimer l’ancienne image du serveur si elle existe
+      if (existingDraw.image) files.removeImageFromServer(existingDraw.image);
+      updateData.image = image;
+    }
 
-    const updated = await drawRepository.update(id, { name, image });
-    if (!updated) res.status(404).json({});
+    const updated = await drawRepository.update(id, updateData);
+    if (!updated) {
+      res.status(404).json({});
+      return;
+    }
 
     res.status(204).json({});
   } catch (err) {
