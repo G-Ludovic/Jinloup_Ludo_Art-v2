@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./AdminPanel.css";
 import MembersPage from "../MembersPage/MembersPage";
+import MessagesPage from "../MessagesPage/MessagesPage";
 import SettingsPage from "../SettingsPage/SettingsPage";
 
 function AdminPanel() {
@@ -29,6 +30,15 @@ function AdminPanel() {
                 onClick={() => setActivePage("members")}
               >
                 Membres
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                className={activePage === "messages" ? "active" : ""}
+                onClick={() => setActivePage("messages")}
+              >
+                Messages
               </button>
             </li>
             <li>
@@ -68,6 +78,8 @@ function AdminPanel() {
         )}
 
         {activePage === "members" && <MembersPage />}
+
+        {activePage === "messages" && <MessagesPage />}
 
         {activePage === "settings" && <SettingsPage />}
       </main>
