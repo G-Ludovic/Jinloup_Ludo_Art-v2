@@ -1,7 +1,6 @@
 .latest-posts-forum {
   grid-column: 1 / 2;
   grid-row: 2;
-  background-color: var(--background-color-secondary);
   color: var(--color-text);
   font-family: var(--font-family-text);
   padding: 12px;
@@ -9,4 +8,37 @@
   max-height: 508px;
   overflow-y: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-size: cover;
+  background-position: center;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)
+    ), url(/images/bc_lastests_posts.webp);
+}
+
+.latest-posts-forum h3,
+.latest-posts-forum td,
+.latest-posts-forum th {
+  text-shadow: 2px 1px 6px rgb(455, 755, 255);
+}
+
+.latest-posts-forum td {
+  font-style: italic;
+  max-width: 100%;
+}
+
+.latest-posts-forum td:last-child {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.latest-posts-forum thead tr:hover {
+  background-color: inherit;
+  transform: none;
+  box-shadow: none;
+}
+
+.latest-posts-forum tbody tr:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
 }

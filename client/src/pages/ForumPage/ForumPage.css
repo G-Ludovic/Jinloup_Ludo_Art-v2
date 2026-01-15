@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   grid-auto-rows: 1fr 1fr;
-  gap: 12px;
+  gap: 24px;
   padding: 16px;
   background-color: var(--background-color-main);
 }
@@ -15,7 +15,6 @@
   padding-bottom: 8px;
 }
 
-/* Table qui peut être déplacé plus tard dans le composant concerné */
 .forum-main table {
   width: 100%;
   border-collapse: collapse;

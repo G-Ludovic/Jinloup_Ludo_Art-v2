@@ -4,6 +4,19 @@ import databaseClient, {
 } from "../../../database/client";
 
 class UserRepository {
+  async readAll() {
+    const [users] = await databaseClient.query<Rows>("SELECT * FROM user");
+    return users;
+  }
+
+  async read(id: number) {
+    const [user] = await databaseClient.query<Rows>(
+      "SELECT * FROM user WHERE id = ?",
+      [id],
+    );
+    return user[0];
+  }
+
   async readByEmail(email: string) {
     const [user] = await databaseClient.query<Rows>(
       "SELECT * FROM user WHERE email = ?",
@@ -19,6 +32,22 @@ class UserRepository {
     );
 
     return user.affectedRows;
+  }
+
+  async delete(id: number) {
+    const [result] = await databaseClient.query<Result>(
+      "DELETE FROM user WHERE id = ?",
+      [id],
+    );
+    return result.affectedRows;
+  }
+
+  async updateRole(id: number, role: string) {
+    const [result] = await databaseClient.query<Result>(
+      "UPDATE user SET role = ? WHERE id = ?",
+      [role, id],
+    );
+    return result.affectedRows;
   }
 }
 

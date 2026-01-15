@@ -7,11 +7,11 @@ function RegistrationPage() {
     const data = Object.fromEntries(FormData);
 
     if (data.password !== data.confirmPassword) {
-      toast.error("❌ Les mots de passe ne concordent pas");
+      toast.error("Les mots de passe ne concordent pas");
       return;
     }
 
-    fetch("http://localhost:3310/api/user", {
+    fetch("${API_URL}/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -19,9 +19,9 @@ function RegistrationPage() {
       body: JSON.stringify(data),
     }).then((res) => {
       if (res.ok) {
-        toast.success("🎉 Félicitations, vous avez créé votre compte !");
+        toast.success("Félicitations, vous avez créé votre compte !");
       } else {
-        toast.error("😩 Erreur lors de l'inscription");
+        toast.error("Erreur lors de l'inscription");
       }
     });
   };

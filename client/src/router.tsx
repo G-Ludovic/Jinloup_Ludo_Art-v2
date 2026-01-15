@@ -1,16 +1,17 @@
-// Import necessary modules from React and React Router
+// Importez les modules nécessaires depuis React et React Router
 import { createBrowserRouter } from "react-router";
 
-// Import the main app component
+// Importer le composant principal de l'application et les différentes pages et catégories
 import App from "./App";
 import Career from "./categories/Career/Career";
-import Events from "./categories/Events/Events";
-import Helpers from "./categories/Helpers/Helpers";
 import Presentations from "./categories/Presentations/Presentations";
 import TheDen from "./categories/TheDen/TheDen";
+import Events from "./categories/TheEvents/TheEvents";
+import Helpers from "./categories/TheHelpers/TheHelpers";
 import Trombinoscope from "./categories/Trombinoscope/Trombinoscope";
 import YourCreations from "./categories/YourCreations/YourCreations";
 import YourPassions from "./categories/YourPassions/YourPassions";
+import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import AuthorPage from "./pages/AuthorPage/AuthorPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import CopyrightPage from "./pages/CopyrightPage/CopyrightPage";
@@ -18,6 +19,7 @@ import ForumPage from "./pages/ForumPage/ForumPage";
 import GalleryPage from "./pages/GalleryPage/GalleryPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import MembersPage from "./pages/MembersPage/MembersPage";
 import Page404 from "./pages/Page404/Page404";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
@@ -98,6 +100,14 @@ const router = createBrowserRouter([
       {
         element: <Page404 />,
         path: "*",
+      },
+      {
+        element: <AdminPanel />,
+        path: "/admin",
+      },
+      {
+        element: <MembersPage />,
+        path: "/members",
       },
     ],
   },

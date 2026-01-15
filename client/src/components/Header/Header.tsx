@@ -1,26 +1,40 @@
-import { Link } from "react-router";
-import "./Header.css";
+import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../services/AuthContext";
+import "./Header.css";
 
 function Header() {
-  const { isLogged, setIsLogged } = useAuth();
+  const { isLogged, user, setIsLogged, setUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    fetch("http://localhost:3310/api/logout", {
+    fetch("${API_URL}/api/logout", {
       method: "POST",
       credentials: "include",
-    }).then((res) => res.ok && setIsLogged(false));
+    }).then((res) => {
+      if (res.ok) {
+        setIsLogged(false);
+        setUser(null);
+        navigate("/"); // redirige vers l'accueil
+      }
+    });
   };
 
   return (
     <header className="header">
-      <figure>
+      <figure className="p-logo">
         <img
           className="img-logo"
           src="/images/logo-jinloup-ludo-art.webp"
           alt="logo du site"
         />
+
+        {isLogged && user?.role === "loup alpha" && (
+          <Link className="admin-a" to="/admin">
+            🔑 Panel Admin 🔑
+          </Link>
+        )}
       </figure>
+
       <nav className="header-nav">
         <Link className="home-a" to="/">
           Accueil
@@ -42,11 +56,9 @@ function Header() {
             Se connecter
           </Link>
         ) : (
-          <Link className="login-a" to="/">
-            <button type="button" onClick={handleLogout}>
-              Se déconnecter
-            </button>
-          </Link>
+          <button type="button" className="login-a" onClick={handleLogout}>
+            Se déconnecter
+          </button>
         )}
       </nav>
     </header>

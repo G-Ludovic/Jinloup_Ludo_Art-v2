@@ -9,6 +9,12 @@ declare global {
       //
       // user?: { ... }
       /* ************************************************************************* */
+      user?: JwtPayload & {
+        id: number;
+        email: string;
+        role: string;
+      };
+      cookies: Record<string, string>;
     }
   }
 }

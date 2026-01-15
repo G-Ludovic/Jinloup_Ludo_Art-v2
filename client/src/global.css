@@ -19,6 +19,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   background-color: #3a4b3f;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   color: white;
   font-family: var(--font-family-text);
   padding: 16px;
@@ -30,8 +31,9 @@ h1 {
   flex-direction: column;
   align-items: center;
   padding: 16px;
-  background-color: var(--background-color-secondary);
+  background-color: #3a4b3f;
   color: white;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }
 
 .category-section-forum h2 {
@@ -56,7 +58,7 @@ a {
 }
 
 :root {
-  /* 🎨 Couleurs principales */
+  /* Couleurs principales */
   --color-text: #050315;
   --color-text-secondary: #2a2a72;
   --color-success: rgb(30, 145, 30);
@@ -65,7 +67,7 @@ a {
   --color-error: #d93025;
   --background-color-primary: #68766c;
   --background-color-secondary: #93b09c;
-  --background-color-main: #c3dac9;
+  --background-color-main: #e3eee6;
   --primary-color: #0d2013;
   --secondary-color: #2c5a3a;
   --color-hover-primary: #4f7159;
@@ -74,7 +76,7 @@ a {
   --background-color-hoverbutton: #5a5a5a;
   --background-color-button: #111;
 
-  /* 🖌️ Typography */
+  /* Typography */
   --font-family-link: "Raleway", sans-serif;
   --font-family-title: "Poppins", sans-serif;
   --font-family-text: "Inter", sans-serif;

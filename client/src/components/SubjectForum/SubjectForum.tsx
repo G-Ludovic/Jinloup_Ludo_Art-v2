@@ -1,42 +1,75 @@
+import { useEffect, useState } from "react";
 import "./SubjectForum.css";
 
 type Subject = {
-  id: string;
+  id: number;
   title: string;
+  category_id: number;
+  category_name?: string;
+  creation_date?: string;
 };
 
-const subject: Subject[] = [
-  { id: "s1", title: "Présentation du forum" },
-  { id: "s2", title: "Vos créations préférées" },
-  { id: "s3", title: "Événements à venir" },
-  { id: "s4", title: "Nouveautés du site" },
-  { id: "s5", title: "Partages de passions" },
-  { id: "s6", title: "Questions techniques" },
-  { id: "s7", title: "Débats entre membres" },
-  { id: "s8", title: "Suggestions d’amélioration" },
-];
-
 function SubjectForum() {
+  const [subjects, setSubjects] = useState<Subject[]>([]);
+
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      try {
+        const response = await fetch("${API_URL}/api/subject");
+        if (!response.ok)
+          throw new Error("Erreur lors de la récupération des sujets");
+
+        const data = await response.json();
+
+        // Trier par date décroissante et ne garder que les 6 derniers
+        const sorted = data
+          .sort(
+            (a: Subject, b: Subject) =>
+              new Date(b.creation_date || "").getTime() -
+              new Date(a.creation_date || "").getTime(),
+          )
+          .slice(0, 6);
+
+        setSubjects(sorted);
+      } catch (error) {
+        console.error("Erreur fetch sujets:", error);
+      }
+    };
+
+    fetchSubjects();
+  }, []);
+
   return (
     <article className="subject-forum">
-      <h3>Les sujets</h3>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">N°</th>
-            <th scope="col">Sujet</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {subject.map((su, index) => (
-            <tr key={su.id}>
-              <th scope="row">{index + 1}</th>
-              <td>{su.title}</td>
+      <h3>Derniers sujets</h3>
+      {subjects.length === 0 ? (
+        <p>Aucun sujet disponible pour le moment.</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Sujet</th>
+              <th>Date</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {subjects.map((su) => (
+              <tr key={su.id}>
+                <td>{su.title}</td>
+                <td>
+                  {su.creation_date
+                    ? new Date(su.creation_date).toLocaleDateString("fr-FR", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })
+                    : "–"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </article>
   );
 }

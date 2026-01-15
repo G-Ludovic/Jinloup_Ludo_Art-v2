@@ -1,18 +1,18 @@
-import type { ReactNode } from "react";
-
-export interface Children {
-  children: ReactNode;
+export interface User {
+  id: number;
+  email: string;
+  role: "loup alpha" | "loup gardien" | "jeune loup";
 }
 
 export interface Auth {
   isLogged: boolean;
   setIsLogged: (value: boolean) => void;
   user: User | null;
-  setUser: (value: User | null) => void;
+  setUser: (user: User | null) => void;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
-export interface User {
-  id: string;
-  name: string;
-  email: string;
+export interface Children {
+  children: React.ReactNode;
 }

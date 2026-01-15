@@ -1,0 +1,187 @@
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "./MembersPage.css";
+
+interface Member {
+  id: number;
+  username: string;
+  email: string;
+  role: string;
+}
+
+const roles = [
+  { label: "Alpha Loup/Louve", value: "alpha" },
+  { label: "Gardien Loup/Louve", value: "gardien" },
+  { label: "Jeune Loup/Louve", value: "jeune" },
+];
+
+function MembersPage() {
+  const [members, setMembers] = useState<Member[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editedRole, setEditedRole] = useState<string>("");
+  const [saving, setSaving] = useState(false);
+
+  // Récupération des membres
+  const fetchMembers = useCallback(async () => {
+    try {
+      const res = await fetch("${API_URL}/api/users", {
+        credentials: "include",
+      });
+      if (!res.ok) throw new Error("Erreur serveur");
+      const data = await res.json();
+      setMembers(data);
+    } catch (err) {
+      setError((err as Error).message);
+      toast.error("❌ Impossible de charger les membres.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // Suppression d’un membre
+  const handleDelete = async (id: number) => {
+    if (!confirm("Supprimer ce membre ?")) return;
+    try {
+      const res = await fetch(`http://localhost:3310/api/users/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      if (res.ok) {
+        setMembers((prev) => prev.filter((m) => m.id !== id));
+        toast.success("Membre supprimé avec succès !");
+      } else {
+        toast.error("Erreur lors de la suppression du membre.");
+      }
+    } catch {
+      toast.error("Impossible de supprimer ce membre.");
+    }
+  };
+
+  // Activer le mode édition
+  const handleEdit = (id: number, role: string) => {
+    setEditingId(id);
+    setEditedRole(role);
+  };
+
+  // Sauvegarder la modification
+  const handleSave = async (id: number) => {
+    setSaving(true);
+    try {
+      const res = await fetch(`http://localhost:3310/api/users/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ role: editedRole }),
+      });
+
+      if (!res.ok) throw new Error("Erreur lors de la mise à jour");
+
+      setMembers((prev) =>
+        prev.map((m) => (m.id === id ? { ...m, role: editedRole } : m)),
+      );
+      setEditingId(null);
+      toast.success("Rôle mis à jour avec succès !");
+    } catch (err) {
+      toast.error(`${(err as Error).message}`);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Chargement initial
+  useEffect(() => {
+    fetchMembers();
+  }, [fetchMembers]);
+
+  if (loading) return <p>Chargement des membres...</p>;
+  if (error) return <p style={{ color: "red" }}>Erreur : {error}</p>;
+
+  return (
+    <div className="members-container">
+      <h2>Gestion des membres 🐾</h2>
+      {members.length === 0 ? (
+        <p>Aucun membre trouvé.</p>
+      ) : (
+        <table className="members-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Pseudo</th>
+              <th>Email</th>
+              <th>Rôle</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {members.map((m) => (
+              <tr key={m.id}>
+                <td>{m.id}</td>
+                <td>{m.username}</td>
+                <td>{m.email}</td>
+                <td>
+                  {editingId === m.id ? (
+                    <select
+                      value={editedRole}
+                      onChange={(e) => setEditedRole(e.target.value)}
+                    >
+                      {roles.map((r) => (
+                        <option key={r.value} value={r.value}>
+                          {r.label}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <span className={`role ${m.role}`}>{m.role}</span>
+                  )}
+                </td>
+                <td>
+                  {editingId === m.id ? (
+                    <>
+                      <button
+                        type="button"
+                        className="btn-save"
+                        onClick={() => handleSave(m.id)}
+                        disabled={saving}
+                      >
+                        {saving ? "..." : "Enregistrer"}
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-cancel"
+                        onClick={() => setEditingId(null)}
+                      >
+                        Annuler
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        className="btn-edit"
+                        onClick={() => handleEdit(m.id, m.role)}
+                      >
+                        Modifier
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-delete"
+                        onClick={() => handleDelete(m.id)}
+                      >
+                        Supprimer
+                      </button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+
+export default MembersPage;

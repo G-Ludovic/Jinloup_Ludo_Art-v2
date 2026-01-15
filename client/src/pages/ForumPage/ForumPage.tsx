@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import Career from "../../categories/Career/Career";
-import Events from "../../categories/Events/Events";
-import Helpers from "../../categories/Helpers/Helpers";
 import Presentations from "../../categories/Presentations/Presentations";
 import TheDen from "../../categories/TheDen/TheDen";
+import Events from "../../categories/TheEvents/TheEvents";
+import Helpers from "../../categories/TheHelpers/TheHelpers";
 import Trombinoscope from "../../categories/Trombinoscope/Trombinoscope";
 import YourCreations from "../../categories/YourCreations/YourCreations";
 import YourPassions from "../../categories/YourPassions/YourPassions";
@@ -23,7 +23,7 @@ type Categorie = {
 function ForumPage() {
   useEffect(() => {
     const fetchCategories = async () => {
-      const response = await fetch("http://localhost:3310/api/categories");
+      const response = await fetch("${API_URL}/api/categories");
       const data = await response.json();
       console.log("Fetched categories:", data);
     };

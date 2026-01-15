@@ -1,27 +1,44 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "./LoginPage.css";
 import { toast } from "react-toastify";
 import { useAuth } from "../../services/AuthContext";
 
 function LoginPage() {
-  const { setIsLogged } = useAuth();
+  const { setIsLogged, setUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (FormData: FormData) => {
     const data = Object.fromEntries(FormData);
 
-    fetch("http://localhost:3310/api/login", {
+    fetch("${API_URL}/api/login", {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }).then((res) => {
+    }).then(async (res) => {
       if (res.ok) {
-        toast.success("🎉 Félicitations, vous êtes connecté !");
+        toast.success("Félicitations, vous êtes connecté !");
         setIsLogged(true);
+
+        // On récupère l'utilisateur complet pour le rôle
+        const refreshRes = await fetch("${API_URL}/api/refresh", {
+          credentials: "include",
+        });
+        if (refreshRes.ok) {
+          const userData = await refreshRes.json();
+          setUser(userData);
+
+          // Si l'utilisateur est admin, on redirige vers le Panel Admin
+          if (userData.role === "loup alpha") {
+            navigate("/admin");
+          } else {
+            navigate("/"); // Sinon accueil
+          }
+        }
       } else {
-        toast.error("😩 Connection échouée");
+        toast.error("Connexion échouée");
         setIsLogged(false);
       }
     });
@@ -66,7 +83,7 @@ function LoginPage() {
         </form>
 
         <div className="illustration-login">
-          <img src="\images\loup_porte_sanctuaire.webp" alt="#" />
+          <img src="/images/loup_porte_sanctuaire.webp" alt="#" />
         </div>
       </main>
     </>
