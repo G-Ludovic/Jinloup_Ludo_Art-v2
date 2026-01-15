@@ -24,7 +24,7 @@ function HomeForum() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("${API_URL}/api/categories");
+        const response = await fetch("/api/categories");
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération des catégories");
         }
@@ -41,7 +41,7 @@ function HomeForum() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await fetch("${API_URL}/api/message");
+        const response = await fetch("/api/message");
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération des messages");
         }

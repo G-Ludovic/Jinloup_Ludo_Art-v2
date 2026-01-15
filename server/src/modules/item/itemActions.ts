@@ -15,10 +15,16 @@ const browse: RequestHandler = async (_req, res, next) => {
 const read: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
-    if (Number.isNaN(id) || id <= 0) return res.status(404).json({});
+    if (Number.isNaN(id) || id <= 0) {
+      res.status(404).json({});
+      return;
+    }
 
     const item = await itemRepository.read(id);
-    if (!item) return res.status(404).json({});
+    if (!item) {
+      res.status(404).json({});
+      return;
+    }
 
     res.json(item);
   } catch (err) {
@@ -38,7 +44,8 @@ const add: RequestHandler = async (req, res, next) => {
       !title ||
       user_id === undefined
     ) {
-      return res.status(400).json({});
+      res.status(400).json({});
+      return;
     }
 
     const insertId = await itemRepository.create({ title, user_id });
@@ -55,18 +62,25 @@ const edit: RequestHandler = async (req, res, next) => {
     const { title, user_id } = req.body;
 
     // Validation ID et corps
-    if (Number.isNaN(id) || id <= 0) return res.status(404).json({});
+    if (Number.isNaN(id) || id <= 0) {
+      res.status(404).json({});
+      return;
+    }
     if (
       !req.body ||
       Object.keys(req.body).length === 0 ||
       !title ||
       user_id === undefined
     ) {
-      return res.status(400).json({});
+      res.status(400).json({});
+      return;
     }
 
     const affectedRows = await itemRepository.update(id, { title, user_id });
-    if (affectedRows === 0) return res.status(404).json({});
+    if (affectedRows === 0) {
+      res.status(404).json({});
+      return;
+    }
 
     res.status(204).json({});
   } catch (err) {
@@ -78,10 +92,16 @@ const edit: RequestHandler = async (req, res, next) => {
 const destroy: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
-    if (Number.isNaN(id) || id <= 0) return res.status(404).json({});
+    if (Number.isNaN(id) || id <= 0) {
+      res.status(404).json({});
+      return;
+    }
 
     const deleted = await itemRepository.delete(id);
-    if (deleted === 0) return res.status(404).json({});
+    if (deleted === 0) {
+      res.status(404).json({});
+      return;
+    }
 
     res.status(204).json({});
   } catch (err) {

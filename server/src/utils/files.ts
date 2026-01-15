@@ -5,10 +5,6 @@ import type { Request, RequestHandler } from "express";
 import multer from "multer";
 import type { FileFilterCallback } from "multer";
 
-// ==============================
-// CONFIGURATION DU STOCKAGE
-// ==============================
-
 // Dossier où seront sauvegardées les images
 const UPLOAD_DIR = path.join(process.cwd(), "public/uploads");
 
@@ -32,10 +28,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// ==============================
-// MULTER : middleware upload
-// ==============================
-
 // Filtrage : n’accepter que les fichiers image
 const fileFilter = (
   _req: Request,
@@ -56,10 +48,6 @@ const upload = multer({
   fileFilter,
   limits: { fileSize: 5 * 1024 * 1024 }, // max 5 Mo
 });
-
-// ==============================
-// MIDDLEWARES EXPRESS
-// ==============================
 
 // Middleware générique pour upload d’image (clé : "image")
 const imageUpload = upload.single("image");
@@ -88,10 +76,6 @@ const presentationImage: RequestHandler = (req, res, next) => {
   }
 };
 
-// ==============================
-// SUPPRESSION DE FICHIERS
-// ==============================
-
 // Supprime un fichier (ex: "/uploads/nom.jpg")
 const removeImageFromServer = (filePath: string | null | undefined) => {
   if (!filePath) return;
@@ -106,10 +90,6 @@ const removeImageFromServer = (filePath: string | null | undefined) => {
     }
   });
 };
-
-// ==============================
-// EXPORTS
-// ==============================
 
 export default {
   imageUpload,

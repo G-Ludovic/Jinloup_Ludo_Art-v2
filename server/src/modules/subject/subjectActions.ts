@@ -17,7 +17,10 @@ const read: RequestHandler = async (req, res, next) => {
     const id = Number(req.params.id);
     const subject = await subjectRepository.read(id);
 
-    if (!subject) return res.sendStatus(404);
+    if (!subject) {
+      res.status(404).json({});
+      return;
+    }
     res.json(subject);
   } catch (err) {
     next(err);

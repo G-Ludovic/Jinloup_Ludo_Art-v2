@@ -7,11 +7,11 @@ function RegistrationPage() {
     const data = Object.fromEntries(FormData);
 
     if (data.password !== data.confirmPassword) {
-      toast.error("❌ Les mots de passe ne concordent pas");
+      toast.error("Les mots de passe ne concordent pas");
       return;
     }
 
-    fetch("${API_URL}/api/user", {
+    fetch("/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -11,8 +11,8 @@ function HomePage() {
         />
         <section className="home-section">
           <article>
+            <hr />
             <p>
-              <hr />
               "Bienvenue sur Jinloup Ludo Art, un espace dédié à l'art et au
               dessin. Ici, chaque trait de crayon raconte une histoire, chaque
               couleur exprime une émotion, et chaque œuvre est une fenêtre sur
@@ -20,8 +20,8 @@ function HomePage() {
               dessin ou simplement un amateur d'art, vous trouverez ici un
               endroit où explorer, apprendre et partager votre passion pour le
               dessin."
-              <hr />
             </p>
+            <hr />
           </article>
         </section>
       </main>

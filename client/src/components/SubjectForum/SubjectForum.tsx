@@ -15,7 +15,7 @@ function SubjectForum() {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const response = await fetch("${API_URL}/api/subject");
+        const response = await fetch("/api/subject");
         if (!response.ok)
           throw new Error("Erreur lors de la récupération des sujets");
 
