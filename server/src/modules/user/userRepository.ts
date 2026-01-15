@@ -52,7 +52,6 @@ class UserRepository {
   }
 
   async updateUser(id: number, data: Partial<User>) {
-    console.log("Update user id:", id, "data:", data);
     const fields = [];
     const values = [];
     for (const [key, value] of Object.entries(data)) {
@@ -61,14 +60,11 @@ class UserRepository {
         values.push(value);
       }
     }
-    console.log("Fields:", fields, "Values:", values);
     if (fields.length === 0) return 0;
 
     values.push(id);
     const query = `UPDATE user SET ${fields.join(", ")} WHERE id = ?`;
-    console.log("Query:", query, "Full values:", values);
     const [result] = await databaseClient.query<Result>(query, values);
-    console.log("Update result:", result);
     return result.affectedRows;
   }
 

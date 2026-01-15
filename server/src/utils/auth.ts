@@ -137,7 +137,6 @@ const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
     };
 
     req.user = decoded;
-    console.log("verifyToken set req.user", req.user);
     next();
   } catch (err) {
     console.error((err as Error).message);
@@ -152,12 +151,6 @@ const authorize =
       res.status(401).json({ message: "Authentication required" });
       return;
     }
-
-    console.log("authorize check", {
-      userRole: req.user.role,
-      allowedRoles: roles,
-      includes: roles.includes(req.user.role),
-    });
 
     if (!roles.includes(req.user.role)) {
       res
