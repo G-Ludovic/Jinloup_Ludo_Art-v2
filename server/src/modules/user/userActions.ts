@@ -44,7 +44,9 @@ const read: RequestHandler = async (req, res, next) => {
 const edit: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id);
+    console.log("Edit user id:", userId);
     const { pseudo, role, bio, avatar } = req.body;
+    console.log("Edit data:", { pseudo, role, bio, avatar });
     if (!pseudo || !role) {
       res.status(400).json("Pseudo and role are required");
       return;
@@ -53,8 +55,10 @@ const edit: RequestHandler = async (req, res, next) => {
     const updateData: Partial<User> = { pseudo, role };
     if (bio !== undefined) updateData.bio = bio;
     if (avatar !== undefined) updateData.avatar = avatar;
+    console.log("Update data:", updateData);
 
     const affectedRows = await userRepository.updateUser(userId, updateData);
+    console.log("Affected rows:", affectedRows);
     if (affectedRows === 0) {
       res.sendStatus(404);
       return;
@@ -62,8 +66,10 @@ const edit: RequestHandler = async (req, res, next) => {
 
     // Return updated user
     const updatedUser = await userRepository.read(userId);
+    console.log("Updated user:", updatedUser);
     res.json(updatedUser);
   } catch (err) {
+    console.error("Edit error:", err);
     next(err);
   }
 };

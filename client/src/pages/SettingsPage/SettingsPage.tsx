@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../../services/AuthContext";
+import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
 import "../../components/ConfirmationModal/ConfirmationModal.css";
 import "./SettingsPage.css";
 
@@ -12,6 +13,7 @@ function SettingsPage() {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showSaveModal, setShowSaveModal] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const roles = [
@@ -40,8 +42,12 @@ function SettingsPage() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setShowSaveModal(true);
+  };
+
+  const confirmSave = async () => {
     if (!user) return;
 
     setLoading(true);
@@ -72,6 +78,7 @@ function SettingsPage() {
       toast.error("Erreur lors de la mise à jour");
     } finally {
       setLoading(false);
+      setShowSaveModal(false);
     }
   };
 
@@ -146,6 +153,15 @@ function SettingsPage() {
           {loading ? "Mise à jour..." : "Sauvegarder"}
         </button>
       </form>
+
+      <ConfirmationModal
+        isOpen={showSaveModal}
+        title="Confirmer la sauvegarde"
+        message="Êtes-vous sûr de vouloir sauvegarder ces modifications ?"
+        onConfirm={confirmSave}
+        onCancel={() => setShowSaveModal(false)}
+        loading={loading}
+      />
     </div>
   );
 }

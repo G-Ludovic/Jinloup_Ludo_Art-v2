@@ -30,7 +30,7 @@ router.get("/users", userActions.verifyToken, userActions.browse);
 router.get("/users/:id", userActions.verifyToken, userActions.read);
 router.put(
   "/users/:id",
-  files.imageUpload,
+  files.anyUpload,
   files.avatarImage,
   userActions.verifyToken,
   userActions.edit,

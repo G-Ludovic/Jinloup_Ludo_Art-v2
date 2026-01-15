@@ -52,6 +52,9 @@ const upload = multer({
 // Middleware générique pour upload d’image (clé : "image")
 const imageUpload = upload.single("image");
 
+// Middleware pour upload avec champs multiples (text + file)
+const anyUpload = upload.any();
+
 // Middleware pour ajouter le chemin d’accès au body (module draw)
 const drawImage: RequestHandler = (req, res, next) => {
   try {
@@ -79,8 +82,11 @@ const presentationImage: RequestHandler = (req, res, next) => {
 // Middleware pour l'avatar utilisateur
 const avatarImage: RequestHandler = (req, res, next) => {
   try {
-    if (req.file) {
-      req.body.avatar = `/uploads/${req.file.filename}`;
+    const avatarFile = (req.files as Express.Multer.File[])?.find(
+      (f) => f.fieldname === "avatar",
+    );
+    if (avatarFile) {
+      req.body.avatar = `/uploads/${avatarFile.filename}`;
     }
     next();
   } catch (err) {
@@ -105,6 +111,7 @@ const removeImageFromServer = (filePath: string | null | undefined) => {
 
 export default {
   imageUpload,
+  anyUpload,
   drawImage,
   presentationImage,
   avatarImage,
