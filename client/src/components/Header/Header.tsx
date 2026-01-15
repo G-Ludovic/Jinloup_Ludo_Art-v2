@@ -33,6 +33,11 @@ function Header() {
             🔑 Panel Admin 🔑
           </Link>
         )}
+        {isLogged && user?.role === "loup gardien" && (
+          <Link className="moderation-a" to="/moderation">
+            🛡️ Panel Modération 🛡️
+          </Link>
+        )}
       </figure>
 
       <nav className="header-nav">

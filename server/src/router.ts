@@ -5,7 +5,9 @@ import itemActions from "./modules/item/itemActions";
 import messageActions from "./modules/message/messageActions";
 import subjectActions from "./modules/subject/subjectActions";
 import userActions from "./modules/user/userActions";
+import auth from "./utils/auth";
 import files from "./utils/files";
+import { Role } from "./utils/roles";
 import validation from "./utils/validation";
 
 const router = express.Router();
@@ -35,7 +37,12 @@ router.put(
   userActions.verifyToken,
   userActions.edit,
 );
-router.delete("/users/:id", userActions.verifyToken, userActions.destroy);
+router.delete(
+  "/users/:id",
+  auth.verifyToken,
+  auth.authorize([Role.ALPHA, Role.GARDIEN]),
+  userActions.destroy,
+);
 router.get("/refresh", userActions.verifyToken, userActions.refreshToken);
 
 /** Draws **/
@@ -68,6 +75,6 @@ router.put(
   files.presentationImage,
   messageActions.edit,
 );
-router.delete("/message/:id", messageActions.destroy);
+router.delete("/message/:id", auth.verifyToken, messageActions.destroy);
 
 export default router;

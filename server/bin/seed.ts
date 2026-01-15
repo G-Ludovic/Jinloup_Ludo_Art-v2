@@ -9,6 +9,23 @@ import database from "../database/client";
 
 import type { AbstractSeeder } from "../database/fixtures/AbstractSeeder";
 
+// Fonction pour nettoyer le dossier uploads
+const cleanUploadsFolder = () => {
+  const uploadsPath = path.join(process.cwd(), "public/uploads");
+  if (fs.existsSync(uploadsPath)) {
+    const files = fs.readdirSync(uploadsPath);
+    for (const file of files) {
+      const filePath = path.join(uploadsPath, file);
+      try {
+        fs.unlinkSync(filePath);
+      } catch (err) {
+        console.warn(`Could not delete ${filePath}:`, err);
+      }
+    }
+    console.info("Uploads folder cleaned 🧹");
+  }
+};
+
 const fixturesPath = path.join(__dirname, "../database/fixtures");
 
 const seed = async () => {
@@ -60,6 +77,9 @@ const seed = async () => {
       // Attendre la fin de la promesse DELETE
       await database.query(`delete from ${seeder.table}`);
     }
+
+    // Nettoyer le dossier uploads
+    cleanUploadsFolder();
 
     // Exécuter chaque seeder
 

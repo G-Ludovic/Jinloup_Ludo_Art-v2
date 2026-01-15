@@ -3,6 +3,7 @@ import type { NextFunction, Request, RequestHandler, Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import databaseClient from "../../../database/client";
 import type { User } from "../../types/user";
+import files from "../../utils/files";
 import userRepository from "./userRepository";
 
 interface AuthRequest extends Request {
@@ -46,6 +47,18 @@ const edit: RequestHandler = async (req, res, next) => {
     if (!pseudo || !role) {
       res.status(400).json("Pseudo and role are required");
       return;
+    }
+
+    // Récupérer l'ancien user pour supprimer l'ancien avatar si nécessaire
+    const oldUser = await userRepository.read(userId);
+    if (!oldUser) {
+      res.sendStatus(404);
+      return;
+    }
+
+    // Si un nouvel avatar est uploadé, supprimer l'ancien
+    if (avatar && oldUser.avatar) {
+      files.removeImageFromServer(oldUser.avatar);
     }
 
     const updateData: Partial<User> = { pseudo, role };
@@ -145,9 +158,13 @@ const login: RequestHandler = async (req, res) => {
     const secretKey = process.env.APP_SECRET;
     if (!secretKey) throw new Error("A secret must be provided");
 
-    const token = jwt.sign({ id: user.id, email: user.email }, secretKey, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { id: user.id, email: user.email, role: user.role },
+      secretKey,
+      {
+        expiresIn: "1d",
+      },
+    );
 
     res.cookie("token", token, { httpOnly: true, secure: false });
     res.status(200).json("logged in");
@@ -186,9 +203,13 @@ const refreshToken: RequestHandler = async (req, res) => {
     }
 
     // Générer un nouveau token
-    const newToken = jwt.sign({ id: user.id, email: user.email }, secretKey, {
-      expiresIn: "1d",
-    });
+    const newToken = jwt.sign(
+      { id: user.id, email: user.email, role: user.role },
+      secretKey,
+      {
+        expiresIn: "1d",
+      },
+    );
 
     res.cookie("token", newToken, { httpOnly: true });
     // On renvoie les infos complètes de l'utilisateur
@@ -196,9 +217,9 @@ const refreshToken: RequestHandler = async (req, res) => {
       id: user.id,
       email: user.email,
       pseudo: user.pseudo,
-      role: user.role,
       avatar: user.avatar,
       bio: user.bio,
+      role: user.role,
     });
   } catch (err) {
     res.sendStatus(500);

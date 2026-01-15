@@ -86,6 +86,14 @@ class MessageRepository {
     );
     return result.affectedRows;
   }
+
+  async checkSubjectExists(subjectId: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT id FROM subject WHERE id = ?",
+      [subjectId],
+    );
+    return rows.length > 0;
+  }
 }
 
 export default new MessageRepository();

@@ -27,6 +27,21 @@
   background-color: var(--background-color-hoverbutton);
 }
 
+.header .p-logo .moderation-a {
+  display: flex;
+  justify-items: center;
+  background-color: #ff8c00;
+  /* Orange pour modération */
+  border-radius: 6px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+  padding: 6px;
+  justify-content: center;
+}
+
+.header .p-logo .moderation-a:hover {
+  background-color: #e67e22;
+}
+
 .img-logo {
   height: 200px;
   border-radius: 6px;

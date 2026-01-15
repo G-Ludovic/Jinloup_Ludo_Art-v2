@@ -17,6 +17,15 @@ const add: RequestHandler = async (req, res) => {
       return;
     }
 
+    // Vérifier que le sujet existe
+    const subjectExists = await messageRepository.checkSubjectExists(
+      Number(subject_id),
+    );
+    if (!subjectExists) {
+      res.status(400).json({ error: "Invalid subject ID" });
+      return;
+    }
+
     const newId = await messageRepository.create({
       content,
       file: filePath,
@@ -116,6 +125,19 @@ const destroy: RequestHandler = async (req, res) => {
     const message = await messageRepository.readById(Number(id));
     if (!message) {
       res.status(404).json("Message not found");
+      return;
+    }
+
+    // Vérifier que l'utilisateur peut supprimer ce message
+    const userRole = req.user?.role;
+    const isOwner = message.user_id === req.user?.id;
+    const canDelete =
+      userRole === "loup alpha" || userRole === "loup gardien" || isOwner;
+
+    if (!canDelete) {
+      res
+        .status(403)
+        .json({ message: "Access forbidden: insufficient rights" });
       return;
     }
 

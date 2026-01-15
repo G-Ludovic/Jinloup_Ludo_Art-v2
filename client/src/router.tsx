@@ -20,6 +20,7 @@ import GalleryPage from "./pages/GalleryPage/GalleryPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import MembersPage from "./pages/MembersPage/MembersPage";
+import ModerationPanel from "./pages/ModerationPanel/ModerationPanel";
 import Page404 from "./pages/Page404/Page404";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
       {
         element: <AdminPanel />,
         path: "/admin",
+      },
+      {
+        element: <ModerationPanel />,
+        path: "/moderation",
       },
       {
         element: <MembersPage />,

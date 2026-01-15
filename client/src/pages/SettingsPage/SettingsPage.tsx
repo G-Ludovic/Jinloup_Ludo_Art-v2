@@ -16,11 +16,20 @@ function SettingsPage() {
   const [showSaveModal, setShowSaveModal] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const roles = [
-    { label: "Alpha Loup/Louve", value: "loup alpha" },
-    { label: "Gardien Loup/Louve", value: "loup gardien" },
-    { label: "Jeune Loup/Louve", value: "jeune loup" },
-  ];
+  // Rôles disponibles selon le rôle de l'utilisateur
+  const getAvailableRoles = (userRole: string) => {
+    if (userRole === "loup gardien") {
+      return [
+        { label: "Gardien Loup/Louve", value: "loup gardien" },
+        { label: "Jeune Loup/Louve", value: "jeune loup" },
+      ];
+    }
+    return [
+      { label: "Alpha Loup/Louve", value: "loup alpha" },
+      { label: "Gardien Loup/Louve", value: "loup gardien" },
+      { label: "Jeune Loup/Louve", value: "jeune loup" },
+    ];
+  };
 
   // Load current user data
   useEffect(() => {
@@ -105,7 +114,7 @@ function SettingsPage() {
             onChange={(e) => setRole(e.target.value)}
             required
           >
-            {roles.map((r) => (
+            {getAvailableRoles(user?.role || "").map((r) => (
               <option key={r.value} value={r.value}>
                 {r.label}
               </option>
