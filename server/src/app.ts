@@ -23,16 +23,17 @@ app.use(express.json());
 // --------------------
 // CORS
 // --------------------
-if (process.env.CLIENT_URL) {
-  app.use(
-    cors({
-      origin: [process.env.CLIENT_URL],
-      credentials: true,
-    }),
-  );
-}
+const allowedOrigins = [
+  process.env.CLIENT_URL || "http://localhost:3000",
+  "https://jinloup-ludo-art-v2-client.vercel.app",
+].filter(Boolean);
 
-app.use(cors({ origin: "https://jinloup-ludo-art-v2-client.vercel.app" }));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }),
+);
 
 // --------------------
 // ROUTES

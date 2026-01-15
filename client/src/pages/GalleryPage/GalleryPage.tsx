@@ -110,7 +110,7 @@ function GalleryPage() {
 
   // Suppression
   const handleDelete = (id: number) => {
-    fetch(`http://localhost:3310/api/draws/${id}`, {
+    fetch(`/api/draws/${id}`, {
       method: "DELETE",
       credentials: "include",
     }).then((res) => {
@@ -128,16 +128,16 @@ function GalleryPage() {
     if (!editingDraw) return;
 
     // Vérification obligatoire
-    if (!newFile || newName === editingDraw.name) {
-      toast.error("Vous devez modifier à la fois le titre et l'image !");
+    if (!newFile && newName === editingDraw.name) {
+      toast.error("Vous devez modifier au moins le titre ou l'image !");
       return;
     }
 
     const formData = new FormData();
     formData.append("name", newName);
-    formData.append("image", newFile);
+    if (newFile) formData.append("image", newFile);
 
-    fetch(`http://localhost:3310/api/draws/${editingDraw.id}`, {
+    fetch(`/api/draws/${editingDraw.id}`, {
       method: "PUT",
       body: formData,
       credentials: "include",

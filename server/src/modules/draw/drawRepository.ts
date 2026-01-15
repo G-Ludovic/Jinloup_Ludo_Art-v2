@@ -32,10 +32,21 @@ class DrawRepository {
   }
 
   async update(id: string, draw: Partial<Draw>) {
-    const [result] = await databaseClient.query<Result>(
-      "UPDATE draw SET name = ?, image = ? WHERE id = ?",
-      [draw.name, draw.image, id],
-    );
+    const fields = [];
+    const values = [];
+    if (draw.name !== undefined) {
+      fields.push("name = ?");
+      values.push(draw.name);
+    }
+    if (draw.image !== undefined) {
+      fields.push("image = ?");
+      values.push(draw.image);
+    }
+    if (fields.length === 0) return 0;
+
+    const query = `UPDATE draw SET ${fields.join(", ")} WHERE id = ?`;
+    values.push(id);
+    const [result] = await databaseClient.query<Result>(query, values);
     return result.affectedRows;
   }
 
