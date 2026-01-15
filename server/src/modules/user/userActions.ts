@@ -2,6 +2,7 @@ import argon2 from "argon2";
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import databaseClient from "../../../database/client";
+import type { User } from "../../types/user";
 import userRepository from "./userRepository";
 
 interface AuthRequest extends Request {
@@ -43,17 +44,25 @@ const read: RequestHandler = async (req, res, next) => {
 const edit: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id);
-    const { role } = req.body;
-    if (!role) {
-      res.status(400).json("Role is required");
+    const { pseudo, role, bio, avatar } = req.body;
+    if (!pseudo || !role) {
+      res.status(400).json("Pseudo and role are required");
       return;
     }
-    const affectedRows = await userRepository.updateRole(userId, role);
+
+    const updateData: Partial<User> = { pseudo, role };
+    if (bio !== undefined) updateData.bio = bio;
+    if (avatar !== undefined) updateData.avatar = avatar;
+
+    const affectedRows = await userRepository.updateUser(userId, updateData);
     if (affectedRows === 0) {
       res.sendStatus(404);
       return;
     }
-    res.sendStatus(204);
+
+    // Return updated user
+    const updatedUser = await userRepository.read(userId);
+    res.json(updatedUser);
   } catch (err) {
     next(err);
   }
@@ -143,7 +152,14 @@ const login: RequestHandler = async (req, res) => {
     });
 
     res.cookie("token", token, { httpOnly: true, secure: false });
-    res.status(200).json("Congratulations, you're logged in !");
+    res.status(200).json({
+      id: user.id,
+      email: user.email,
+      pseudo: user.pseudo,
+      role: user.role,
+      avatar: user.avatar,
+      bio: user.bio,
+    });
   } catch (err) {
     console.warn((err as Error).message);
     res.sendStatus(500);
@@ -187,8 +203,15 @@ const refreshToken: RequestHandler = async (req, res) => {
     });
 
     res.cookie("token", newToken, { httpOnly: true });
-    // On renvoie id, email & role
-    res.status(200).json({ id: user.id, email: user.email, role: user.role });
+    // On renvoie les infos complètes de l'utilisateur
+    res.status(200).json({
+      id: user.id,
+      email: user.email,
+      pseudo: user.pseudo,
+      role: user.role,
+      avatar: user.avatar,
+      bio: user.bio,
+    });
   } catch (err) {
     console.error("Refresh token error:", (err as Error).message);
     if ((err as Error).message !== "jwt must be provided") {

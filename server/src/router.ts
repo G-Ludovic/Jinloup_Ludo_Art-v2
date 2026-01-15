@@ -28,7 +28,13 @@ router.post("/logout", userActions.logout);
 // Routes protégées
 router.get("/users", userActions.verifyToken, userActions.browse);
 router.get("/users/:id", userActions.verifyToken, userActions.read);
-router.put("/users/:id", userActions.verifyToken, userActions.edit);
+router.put(
+  "/users/:id",
+  files.imageUpload,
+  files.avatarImage,
+  userActions.verifyToken,
+  userActions.edit,
+);
 router.delete("/users/:id", userActions.verifyToken, userActions.destroy);
 router.get("/refresh", userActions.verifyToken, userActions.refreshToken);
 

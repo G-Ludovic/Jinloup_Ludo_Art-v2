@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./AdminPanel.css";
 import MembersPage from "../MembersPage/MembersPage";
+import SettingsPage from "../SettingsPage/SettingsPage";
 
 function AdminPanel() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -67,6 +68,8 @@ function AdminPanel() {
         )}
 
         {activePage === "members" && <MembersPage />}
+
+        {activePage === "settings" && <SettingsPage />}
       </main>
     </div>
   );

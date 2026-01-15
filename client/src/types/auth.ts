@@ -1,7 +1,10 @@
 export interface User {
   id: number;
   email: string;
+  pseudo?: string;
   role: "loup alpha" | "loup gardien" | "jeune loup";
+  avatar?: string;
+  bio?: string;
 }
 
 export interface Auth {

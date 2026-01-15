@@ -2,6 +2,7 @@ import databaseClient, {
   type Rows,
   type Result,
 } from "../../../database/client";
+import type { User } from "../../types/user";
 
 class UserRepository {
   async readAll() {
@@ -47,6 +48,23 @@ class UserRepository {
       "UPDATE user SET role = ? WHERE id = ?",
       [role, id],
     );
+    return result.affectedRows;
+  }
+
+  async updateUser(id: number, data: Partial<User>) {
+    const fields = [];
+    const values = [];
+    for (const [key, value] of Object.entries(data)) {
+      if (value !== undefined) {
+        fields.push(`${key} = ?`);
+        values.push(value);
+      }
+    }
+    if (fields.length === 0) return 0;
+
+    values.push(id);
+    const query = `UPDATE user SET ${fields.join(", ")} WHERE id = ?`;
+    const [result] = await databaseClient.query<Result>(query, values);
     return result.affectedRows;
   }
 

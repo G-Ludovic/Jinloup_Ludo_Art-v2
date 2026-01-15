@@ -76,6 +76,18 @@ const presentationImage: RequestHandler = (req, res, next) => {
   }
 };
 
+// Middleware pour l'avatar utilisateur
+const avatarImage: RequestHandler = (req, res, next) => {
+  try {
+    if (req.file) {
+      req.body.avatar = `/uploads/${req.file.filename}`;
+    }
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
 // Supprime un fichier (ex: "/uploads/nom.jpg")
 const removeImageFromServer = (filePath: string | null | undefined) => {
   if (!filePath) return;
@@ -95,5 +107,6 @@ export default {
   imageUpload,
   drawImage,
   presentationImage,
+  avatarImage,
   removeImageFromServer,
 };
