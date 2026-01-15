@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import Card from "../../components/Card/Card.tsx";
 import { Carousel } from "../../components/Carousel/Carousel.tsx";
+import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal.tsx";
 import EditModal from "../../components/EditModal/EditModal.tsx";
 import { drawings } from "../../data/drawings.ts";
 import "./GalleryPage.css";
@@ -20,6 +21,8 @@ function GalleryPage() {
   const [loading, setLoading] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingDraw, setEditingDraw] = useState<Drawing | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
 
   const dropRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -110,17 +113,25 @@ function GalleryPage() {
 
   // Suppression
   const handleDelete = (id: number) => {
-    fetch(`/api/draws/${id}`, {
+    setDeleteId(id);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteId) return;
+
+    const res = await fetch(`/api/draws/${deleteId}`, {
       method: "DELETE",
       credentials: "include",
-    }).then((res) => {
-      if (res.ok) {
-        toast.success("Dessin supprimé !");
-        setData((prev) => prev.filter((item) => item.id !== id));
-      } else {
-        toast.error("Échec de la suppression");
-      }
     });
+    if (res.ok) {
+      toast.success("Dessin supprimé !");
+      setData((prev) => prev.filter((item) => item.id !== deleteId));
+    } else {
+      toast.error("Échec de la suppression");
+    }
+    setShowDeleteModal(false);
+    setDeleteId(null);
   };
 
   // Modification via modal
@@ -285,6 +296,16 @@ function GalleryPage() {
           <Carousel data={drawings} />
         </div>
       </main>
+
+      {/* Modale de suppression */}
+      <ConfirmationModal
+        isOpen={showDeleteModal}
+        title="Confirmer la suppression"
+        message="Êtes-vous sûr de vouloir supprimer cette œuvre ? Cette action est irréversible."
+        confirmLabel="Supprimer"
+        onConfirm={confirmDelete}
+        onCancel={() => setShowDeleteModal(false)}
+      />
 
       {/* Modale d'édition */}
       {editingDraw && (
