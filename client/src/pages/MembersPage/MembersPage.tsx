@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
 import "./MembersPage.css";
 
 interface Member {
@@ -201,59 +202,23 @@ function MembersPage() {
         </table>
       )}
 
-      {showDeleteModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h3>Confirmer la suppression</h3>
-            <p>
-              Êtes-vous sûr de vouloir supprimer ce membre ? Cette action
-              supprimera également tout son contenu associé.
-            </p>
-            <div className="modal-buttons">
-              <button
-                type="button"
-                className="btn-cancel"
-                onClick={() => setShowDeleteModal(false)}
-              >
-                Annuler
-              </button>
-              <button
-                type="button"
-                className="btn-confirm-delete"
-                onClick={confirmDelete}
-              >
-                Supprimer
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ConfirmationModal
+        isOpen={showDeleteModal}
+        title="Confirmer la suppression"
+        message="Êtes-vous sûr de vouloir supprimer ce membre ? Cette action supprimera également tout son contenu associé."
+        confirmLabel="Supprimer"
+        onConfirm={confirmDelete}
+        onCancel={() => setShowDeleteModal(false)}
+      />
 
-      {showSaveModal && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h3>Confirmer la modification</h3>
-            <p>Êtes-vous sûr de vouloir changer le rôle de ce membre ?</p>
-            <div className="modal-buttons">
-              <button
-                type="button"
-                className="btn-cancel"
-                onClick={() => setShowSaveModal(false)}
-              >
-                Annuler
-              </button>
-              <button
-                type="button"
-                className="btn-confirm-save"
-                onClick={confirmSave}
-                disabled={saving}
-              >
-                {saving ? "..." : "Confirmer"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ConfirmationModal
+        isOpen={showSaveModal}
+        title="Confirmer la modification"
+        message="Êtes-vous sûr de vouloir changer le rôle de ce membre ?"
+        onConfirm={confirmSave}
+        onCancel={() => setShowSaveModal(false)}
+        loading={saving}
+      />
     </div>
   );
 }

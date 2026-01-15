@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import DiscussionForm from "../DiscussionForm/DiscussionForm";
 import SubjectCard from "../SubjectCard/SubjectCard";
+import "../ConfirmationModal/ConfirmationModal.css";
 import "./CategoryTemplate.css";
 
 interface Message {
@@ -19,6 +22,8 @@ interface CategoryTemplateProps {
 
 function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
 
   // Charger les messages de la catégorie (sujet)
   useEffect(() => {
@@ -73,10 +78,15 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
   };
 
   // Supprimer un message
-  const handleDelete = async (id: number) => {
-    if (!window.confirm("Voulez-vous vraiment supprimer ce message ?")) return;
+  const handleDelete = (id: number) => {
+    setDeleteId(id);
+    setShowDeleteModal(true);
+  };
 
-    const res = await fetch(`/api/message/${id}`, {
+  const confirmDelete = async () => {
+    if (!deleteId) return;
+
+    const res = await fetch(`/api/message/${deleteId}`, {
       method: "DELETE",
     });
     if (!res.ok) {
@@ -84,7 +94,10 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
       return;
     }
 
-    setMessages((prev) => prev.filter((msg) => msg.id !== id));
+    setMessages((prev) => prev.filter((msg) => msg.id !== deleteId));
+    setShowDeleteModal(false);
+    setDeleteId(null);
+    toast.success("Message supprimé avec succès !");
   };
 
   return (
@@ -106,6 +119,15 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
           ))}
         </article>
       </div>
+
+      <ConfirmationModal
+        isOpen={showDeleteModal}
+        title="Confirmer la suppression"
+        message="Êtes-vous sûr de vouloir supprimer ce message ? Cette action est irréversible."
+        confirmLabel="Supprimer"
+        onConfirm={confirmDelete}
+        onCancel={() => setShowDeleteModal(false)}
+      />
     </>
   );
 }
