@@ -1,4 +1,4 @@
-// to make the file a module and avoid the TypeScript error
+// pour faire du fichier un module et éviter l'erreur TypeScript
 export type {};
 
 declare global {

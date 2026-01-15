@@ -73,7 +73,7 @@ const add: RequestHandler = async (req, res) => {
       .status(201)
       .json("Congratulations, your account has been created successfully !");
   } catch (err) {
-    res.sendStatus(500);
+    res.sendStatus(500).json;
   }
 };
 

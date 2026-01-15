@@ -22,7 +22,7 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
 
   // Charger les messages de la catégorie (sujet)
   useEffect(() => {
-    fetch(`http://localhost:3310/api/message?subject_id=${subjectId}`)
+    fetch(`/api/message?subject_id=${subjectId}`)
       .then((res) => res.json())
       .then((data) => setMessages(data))
       .catch(console.error);
@@ -48,7 +48,7 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
     formData.append("content", newText);
     if (newFile) formData.append("image", newFile);
 
-    const res = await fetch(`http://localhost:3310/api/message/${id}`, {
+    const res = await fetch(`/api/message/${id}`, {
       method: "PUT",
       body: formData,
     });
@@ -76,7 +76,7 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
   const handleDelete = async (id: number) => {
     if (!window.confirm("Voulez-vous vraiment supprimer ce message ?")) return;
 
-    const res = await fetch(`http://localhost:3310/api/message/${id}`, {
+    const res = await fetch(`/api/message/${id}`, {
       method: "DELETE",
     });
     if (!res.ok) {

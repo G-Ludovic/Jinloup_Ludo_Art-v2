@@ -44,7 +44,7 @@ function MembersPage() {
   const handleDelete = async (id: number) => {
     if (!confirm("Supprimer ce membre ?")) return;
     try {
-      const res = await fetch(`http://localhost:3310/api/users/${id}`, {
+      const res = await fetch(`/api/users/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -70,7 +70,7 @@ function MembersPage() {
   const handleSave = async (id: number) => {
     setSaving(true);
     try {
-      const res = await fetch(`http://localhost:3310/api/users/${id}`, {
+      const res = await fetch(`/api/users/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

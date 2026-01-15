@@ -1,10 +1,10 @@
-// Load environment variables from .env file
+// Charger les variables d'environnement à partir du fichier .env
 import "dotenv/config";
 
 import fs from "node:fs";
 import path from "node:path";
 
-// Import database client
+// Importer le client de base de données
 import database from "../database/client";
 
 import type { AbstractSeeder } from "../database/fixtures/AbstractSeeder";
@@ -30,7 +30,7 @@ const seed = async () => {
       dependencyMap[SeederClass.toString()] = seeder;
     }
 
-    // Sort seeders according to their dependencies
+    // Trier les seeders en fonction de leurs dépendances
     const sortedSeeders: AbstractSeeder[] = [];
 
     // The recursive solver
@@ -48,30 +48,30 @@ const seed = async () => {
       }
     };
 
-    // Solve dependencies for each seeder
+    // Résoudre les dépendances pour chaque seeder
     for (const seeder of Object.values(dependencyMap)) {
       solveDependencies(seeder);
     }
 
-    // Truncate tables (starting from the depending ones)
+    // Tronquer les tables (en commençant par celles qui en dépendent)
 
     for (const seeder of sortedSeeders.toReversed()) {
-      // Use delete instead of truncate to bypass foreign key constraint
-      // Wait for the delete promise to complete
+      // Utiliser DELETE au lieu de TRUNCATE pour contourner la contrainte de clé étrangère
+      // Attendre la fin de la promesse DELETE
       await database.query(`delete from ${seeder.table}`);
     }
 
-    // Run each seeder
+    // Exécuter chaque seeder
 
     for (const seeder of sortedSeeders) {
       await seeder.run();
 
-      // Wait for all the insertion promises to complete
-      // We do want to wait in order to satisfy dependencies
+      // Attendre la fin de toutes les promesses d'insertion
+      // Nous souhaitons attendre afin de satisfaire les dépendances
       await Promise.all(seeder.promises);
     }
 
-    // Close the database connection
+    // Fermer la connexion à la base de données
     database.end();
 
     console.info(
@@ -83,5 +83,5 @@ const seed = async () => {
   }
 };
 
-// Run the seed function
+// Exécuter la fonction de seed
 seed();

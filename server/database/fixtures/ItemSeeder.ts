@@ -1,31 +1,31 @@
 import AbstractSeeder from "./AbstractSeeder";
 
-// Import seeders that must be executed before this one
-// Follow your foreign keys to find the right order ;)
+// Importez les seeders qui doivent être exécutés avant celui-ci
+// Suivez vos clés étrangères pour trouver le bon ordre ;)
 import UserSeeder from "./UserSeeder";
 
 class ItemSeeder extends AbstractSeeder {
   constructor() {
-    // Call the constructor of the parent class (AbstractSeeder) with appropriate options
+    // Appeler le constructeur de la classe parente (AbstractSeeder) avec les options appropriées
     super({ table: "item", truncate: true, dependencies: [UserSeeder] });
   }
 
-  // The run method - Populate the 'item' table with fake data
+  // La méthode run - Remplir la table 'item' avec des données fictives
 
   run() {
-    // Generate and insert fake data into the 'item' table
+    // Générer et insérer des données fictives dans la table 'item'
     for (let i = 0; i < 10; i += 1) {
-      // Generate fake item data
+      // Générer des données d'articles fictives
       const fakeItem = {
-        title: this.faker.lorem.word(), // Generate a fake title using faker library
-        user_id: this.getRef(`user_${i}`).insertId, // Get the insertId of the corresponding user from UserSeeder
+        title: this.faker.lorem.word(), // Générer un faux titre à l'aide de la bibliothèque Faker
+        user_id: this.getRef(`user_${i}`).insertId, // Récupérer l'insertId de l'utilisateur correspondant à partir de UserSeeder
       };
 
-      // Insert the fakeItem data into the 'item' table
+      // Insérer les données fakeItem dans la table 'item'
       this.insert(fakeItem); // insert into item(title, user_id) values (?, ?)
     }
   }
 }
 
-// Export the ItemSeeder class
+// Exporter la classe ItemSeeder
 export default ItemSeeder;
