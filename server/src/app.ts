@@ -64,8 +64,6 @@ if (fs.existsSync(publicFolderPath)) {
 // Error Middleware
 // --------------------
 const logErrors: ErrorRequestHandler = (err, req, res, next) => {
-  console.error("Error:", err);
-  console.error("Request:", req.method, req.path);
   if (!res.headersSent) {
     res.status(500).json({ message: "Internal Server Error" });
   }

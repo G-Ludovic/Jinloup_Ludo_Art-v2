@@ -27,6 +27,7 @@ function MembersPage() {
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [saveId, setSaveId] = useState<number | null>(null);
+  const [currentMember, setCurrentMember] = useState<Member | null>(null);
 
   // Récupération des membres
   const fetchMembers = useCallback(async () => {
@@ -81,19 +82,26 @@ function MembersPage() {
 
   // Sauvegarder la modification
   const handleSave = (id: number) => {
-    setSaveId(id);
-    setShowSaveModal(true);
+    const member = members.find((m) => m.id === id);
+    if (member) {
+      setCurrentMember(member);
+      setSaveId(id);
+      setShowSaveModal(true);
+    }
   };
 
   const confirmSave = async () => {
-    if (!saveId) return;
+    if (!saveId || !currentMember) return;
     setSaving(true);
     try {
       const res = await fetch(`/api/users/${saveId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ role: editedRole }),
+        body: JSON.stringify({
+          pseudo: currentMember.pseudo,
+          role: editedRole,
+        }),
       });
 
       if (!res.ok) throw new Error("Erreur lors de la mise à jour");
@@ -109,6 +117,7 @@ function MembersPage() {
       setSaving(false);
       setShowSaveModal(false);
       setSaveId(null);
+      setCurrentMember(null);
     }
   };
 

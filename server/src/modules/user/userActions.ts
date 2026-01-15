@@ -27,9 +27,7 @@ const browse: RequestHandler = async (req, res, next) => {
 const read: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id);
-    console.log("Reading user id:", userId);
     const user = await userRepository.read(userId);
-    console.log("User found:", user);
 
     if (!user) {
       res.sendStatus(404);
@@ -44,9 +42,7 @@ const read: RequestHandler = async (req, res, next) => {
 const edit: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id);
-    console.log("Edit user id:", userId);
     const { pseudo, role, bio, avatar } = req.body;
-    console.log("Edit data:", { pseudo, role, bio, avatar });
     if (!pseudo || !role) {
       res.status(400).json("Pseudo and role are required");
       return;
@@ -55,10 +51,8 @@ const edit: RequestHandler = async (req, res, next) => {
     const updateData: Partial<User> = { pseudo, role };
     if (bio !== undefined) updateData.bio = bio;
     if (avatar !== undefined) updateData.avatar = avatar;
-    console.log("Update data:", updateData);
 
     const affectedRows = await userRepository.updateUser(userId, updateData);
-    console.log("Affected rows:", affectedRows);
     if (affectedRows === 0) {
       res.sendStatus(404);
       return;
@@ -66,10 +60,8 @@ const edit: RequestHandler = async (req, res, next) => {
 
     // Return updated user
     const updatedUser = await userRepository.read(userId);
-    console.log("Updated user:", updatedUser);
     res.json(updatedUser);
   } catch (err) {
-    console.error("Edit error:", err);
     next(err);
   }
 };
@@ -179,18 +171,15 @@ const logout: RequestHandler = (req, res) => {
 const refreshToken: RequestHandler = async (req, res) => {
   try {
     const token = req.cookies.token;
-    console.log("Refresh token received:", token ? "present" : "missing");
     if (!token) throw new Error("jwt must be provided");
 
     const secretKey = process.env.APP_SECRET;
     if (!secretKey) throw new Error("APP_SECRET is not defined");
 
     const decoded = jwt.verify(token, secretKey) as JwtPayload;
-    console.log("Decoded token:", decoded);
 
     // Récupérer l'utilisateur complet depuis la DB
     const user = await userRepository.read(decoded.id);
-    console.log("User from DB for refresh:", user);
     if (!user) {
       res.sendStatus(404);
       return;
@@ -212,10 +201,6 @@ const refreshToken: RequestHandler = async (req, res) => {
       bio: user.bio,
     });
   } catch (err) {
-    console.error("Refresh token error:", (err as Error).message);
-    if ((err as Error).message !== "jwt must be provided") {
-      console.error((err as Error).message);
-    }
     res.sendStatus(500);
   }
 };

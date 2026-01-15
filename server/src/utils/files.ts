@@ -103,8 +103,6 @@ const removeImageFromServer = (filePath: string | null | undefined) => {
   fs.unlink(relativePath, (err) => {
     if (err && err.code !== "ENOENT") {
       console.error(`Erreur suppression fichier : ${err.message}`);
-    } else {
-      console.log(`Fichier supprimé : ${filePath}`);
     }
   });
 };
