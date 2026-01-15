@@ -14,7 +14,7 @@
 /* La colonne de gauche (posts) */
 .posts-forum {
   grid-column: 1;
-  background: var(--background-color-secondary);
+  background: var(--background-color-hover);
   border-radius: 8px;
   padding: 1rem;
   border: 1px solid rgb(255, 255, 255);

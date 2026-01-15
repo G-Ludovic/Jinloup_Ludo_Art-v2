@@ -27,7 +27,10 @@ const read: RequestHandler = async (req, res, next) => {
     const userId = Number(req.params.id);
     const user = await userRepository.read(userId);
 
-    if (!user) return res.sendStatus(404);
+    if (!user) {
+      res.sendStatus(404);
+      return;
+    }
     res.json(user);
   } catch (err) {
     next(err);
@@ -40,11 +43,15 @@ const add: RequestHandler = async (req, res) => {
     const { email, password, confirmPassword } =
       req.body as RegisterRequestBody;
 
-    if (!email || !password || !confirmPassword)
+    if (!email || !password || !confirmPassword) {
       res.status(400).json("Please fill all required fields");
+      return;
+    }
 
-    if (password !== confirmPassword)
+    if (password !== confirmPassword) {
       res.status(400).json("Passwords do not match");
+      return;
+    }
 
     const hashedPassword = await argon2.hash(password, {
       memoryCost: 2 ** 19,
@@ -57,13 +64,42 @@ const add: RequestHandler = async (req, res) => {
       password: hashedPassword,
     });
 
-    if (!user) throw res.sendStatus(500).json;
+    if (!user) {
+      res.sendStatus(500);
+      return;
+    }
 
     res
       .status(201)
       .json("Congratulations, your account has been created successfully !");
   } catch (err) {
     res.sendStatus(500).json;
+  }
+};
+
+// Connexion
+const login: RequestHandler = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await userRepository.readByEmail(email);
+
+    if (!user) throw new Error("This user doesn't exist");
+
+    const isPasswordValid = await argon2.verify(user.password, password);
+    if (!isPasswordValid) throw new Error("Invalid password");
+
+    const secretKey = process.env.APP_SECRET;
+    if (!secretKey) throw new Error("A secret must be provided");
+
+    const token = jwt.sign({ id: user.id, email: user.email }, secretKey, {
+      expiresIn: "1d",
+    });
+
+    res.cookie("token", token, { httpOnly: true, secure: false });
+    res.status(200).json("Congratulations, you're logged in !");
+  } catch (err) {
+    console.warn((err as Error).message);
+    res.sendStatus(500);
   }
 };
 
@@ -116,7 +152,10 @@ const refreshToken: RequestHandler = async (req, res) => {
 
     // Récupérer l'utilisateur complet depuis la DB
     const user = await userRepository.read(decoded.id);
-    if (!user) return res.sendStatus(404);
+    if (!user) {
+      res.sendStatus(404);
+      return;
+    }
 
     // Générer un nouveau token
     const newToken = jwt.sign({ id: user.id, email: user.email }, secretKey, {
@@ -125,14 +164,12 @@ const refreshToken: RequestHandler = async (req, res) => {
 
     res.cookie("token", newToken, { httpOnly: true });
     // On renvoie id, email & role
-    return res
-      .status(200)
-      .json({ id: user.id, email: user.email, role: user.role });
+    res.status(200).json({ id: user.id, email: user.email, role: user.role });
   } catch (err) {
     if ((err as Error).message !== "jwt must be provided") {
       console.error((err as Error).message);
     }
-    return res.sendStatus(500);
+    res.sendStatus(500);
   }
 };
 
@@ -140,7 +177,10 @@ const refreshToken: RequestHandler = async (req, res) => {
 const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const token = req.cookies?.token;
-    if (!token) return res.status(403).json("A token must be provided");
+    if (!token) {
+      res.status(403).json("A token must be provided");
+      return;
+    }
 
     const secretKey = process.env.APP_SECRET;
     if (!secretKey) throw new Error("APP_SECRET is not defined");
@@ -149,7 +189,7 @@ const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
     req.user = { id: decoded.id, email: decoded.email };
     next();
   } catch {
-    return res.status(403).json("Invalid or expired token");
+    res.status(403).json("Invalid or expired token");
   }
 };
 

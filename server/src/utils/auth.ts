@@ -13,9 +13,7 @@ interface AuthRequest extends Request {
   };
 }
 
-// =============================
 // 1. Hashage du mot de passe
-// =============================
 const hashPassword: RequestHandler = async (req, res, next) => {
   try {
     const { password } = req.body;
@@ -34,9 +32,7 @@ const hashPassword: RequestHandler = async (req, res, next) => {
   }
 };
 
-// =======================================
 // 2. Connexion + JWT avec rôle
-// =======================================
 const login: RequestHandler = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -79,9 +75,7 @@ const login: RequestHandler = async (req, res) => {
   }
 };
 
-// ==========================
 // 3. Déconnexion
-// ==========================
 const logout: RequestHandler = (req, res) => {
   try {
     res.clearCookie("token");
@@ -91,9 +85,7 @@ const logout: RequestHandler = (req, res) => {
   }
 };
 
-// ==========================
 // 4. Rafraîchir le token
-// ==========================
 const refreshToken: RequestHandler = (req, res) => {
   try {
     const token = req.cookies.token;
@@ -125,9 +117,7 @@ const refreshToken: RequestHandler = (req, res) => {
   }
 };
 
-// ==========================
 // 5. Middleware de vérification du token
-// ==========================
 const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const token = req.cookies.token;
@@ -154,19 +144,19 @@ const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
   }
 };
 
-// ==========================
 // 6. Middleware de vérification des rôles
-// ==========================
 const authorize =
   (roles: Role[]) => (req: AuthRequest, res: Response, next: NextFunction) => {
     if (!req.user) {
-      throw new Error("User not authenticated");
+      res.status(401).json({ message: "Authentication required" });
+      return;
     }
 
     if (!roles.includes(req.user.role)) {
-      return res
+      res
         .status(403)
         .json({ message: "Access forbidden: insufficient rights" });
+      return;
     }
 
     next();

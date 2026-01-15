@@ -16,8 +16,9 @@ const browse: RequestHandler = async (_req, res, next) => {
 const read: RequestHandler = async (req, res, next) => {
   try {
     const draw = await drawRepository.readById(req.params.id);
-    if (!draw) return res.status(404).json("This draw doesn't exist");
+    if (!draw) res.status(404).json("This draw doesn't exist");
     res.status(200).json(draw);
+    return;
   } catch (err) {
     next(err);
   }
@@ -30,7 +31,8 @@ const add: RequestHandler = async (req, res, next) => {
 
     if (!name || !image) {
       // ne pas casser le front : on reste sur un 400 avec une réponse simple
-      return res.status(400).json({});
+      res.status(400).json({});
+      return;
     }
 
     const insertId = await drawRepository.create({ name, image });
@@ -46,16 +48,16 @@ const edit: RequestHandler = async (req, res, next) => {
     const id = req.params.id;
     const { name, image } = req.body;
 
-    if (!name || !image) return res.status(400).json({});
+    if (!name || !image) res.status(400).json({});
 
     const existingDraw = await drawRepository.readById(id);
-    if (!existingDraw) return res.status(404).json({});
+    if (!existingDraw) res.status(404).json({});
 
     // supprimer l’ancienne image du serveur si elle existe
     if (existingDraw.image) files.removeImageFromServer(existingDraw.image);
 
     const updated = await drawRepository.update(id, { name, image });
-    if (!updated) return res.status(404).json({});
+    if (!updated) res.status(404).json({});
 
     res.status(204).json({});
   } catch (err) {
@@ -69,12 +71,12 @@ const destroy: RequestHandler = async (req, res, next) => {
     const id = req.params.id;
     const draw = await drawRepository.readById(id);
 
-    if (!draw) return res.status(404).json({});
+    if (!draw) res.status(404).json({});
 
     if (draw.image) files.removeImageFromServer(draw.image);
 
     const deleted = await drawRepository.delete(id);
-    if (!deleted) return res.status(404).json({});
+    if (!deleted) res.status(404).json({});
 
     res.status(204).json({});
   } catch (err) {

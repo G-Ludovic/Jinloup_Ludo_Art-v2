@@ -1,6 +1,6 @@
 import "./PrivacyPolicy.css";
 
-export default function PrivacyPolicy() {
+function PrivacyPolicy() {
   return (
     <main className="privacy-policy-page">
       <h1>Politique de confidentialité</h1>
@@ -145,3 +145,5 @@ export default function PrivacyPolicy() {
     </main>
   );
 }
+
+export default PrivacyPolicy;
