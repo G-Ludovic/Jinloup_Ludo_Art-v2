@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import { useAuth } from "../../services/AuthContext";
 import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
+import { useAuth } from "../../services/AuthContext";
 import "../../components/ConfirmationModal/ConfirmationModal.css";
 import "./SettingsPage.css";
 
