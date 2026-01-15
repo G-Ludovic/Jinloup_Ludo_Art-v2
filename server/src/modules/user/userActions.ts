@@ -158,14 +158,7 @@ const login: RequestHandler = async (req, res) => {
     });
 
     res.cookie("token", token, { httpOnly: true, secure: false });
-    res.status(200).json({
-      id: user.id,
-      email: user.email,
-      pseudo: user.pseudo,
-      role: user.role,
-      avatar: user.avatar,
-      bio: user.bio,
-    });
+    res.status(200).json("logged in");
   } catch (err) {
     console.warn((err as Error).message);
     res.sendStatus(500);
