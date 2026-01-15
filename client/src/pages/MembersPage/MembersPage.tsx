@@ -22,6 +22,10 @@ function MembersPage() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editedRole, setEditedRole] = useState<string>("");
   const [saving, setSaving] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const [saveId, setSaveId] = useState<number | null>(null);
 
   // Récupération des membres
   const fetchMembers = useCallback(async () => {
@@ -41,22 +45,30 @@ function MembersPage() {
   }, []);
 
   // Suppression d’un membre
-  const handleDelete = async (id: number) => {
-    if (!confirm("Supprimer ce membre ?")) return;
+  const handleDelete = (id: number) => {
+    setDeleteId(id);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteId) return;
     try {
-      const res = await fetch(`/api/users/${id}`, {
+      const res = await fetch(`/api/users/${deleteId}`, {
         method: "DELETE",
         credentials: "include",
       });
 
       if (res.ok) {
-        setMembers((prev) => prev.filter((m) => m.id !== id));
+        setMembers((prev) => prev.filter((m) => m.id !== deleteId));
         toast.success("Membre supprimé avec succès !");
       } else {
         toast.error("Erreur lors de la suppression du membre.");
       }
     } catch {
       toast.error("Impossible de supprimer ce membre.");
+    } finally {
+      setShowDeleteModal(false);
+      setDeleteId(null);
     }
   };
 
@@ -67,10 +79,16 @@ function MembersPage() {
   };
 
   // Sauvegarder la modification
-  const handleSave = async (id: number) => {
+  const handleSave = (id: number) => {
+    setSaveId(id);
+    setShowSaveModal(true);
+  };
+
+  const confirmSave = async () => {
+    if (!saveId) return;
     setSaving(true);
     try {
-      const res = await fetch(`/api/users/${id}`, {
+      const res = await fetch(`/api/users/${saveId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -80,7 +98,7 @@ function MembersPage() {
       if (!res.ok) throw new Error("Erreur lors de la mise à jour");
 
       setMembers((prev) =>
-        prev.map((m) => (m.id === id ? { ...m, role: editedRole } : m)),
+        prev.map((m) => (m.id === saveId ? { ...m, role: editedRole } : m)),
       );
       setEditingId(null);
       toast.success("Rôle mis à jour avec succès !");
@@ -88,6 +106,8 @@ function MembersPage() {
       toast.error(`${(err as Error).message}`);
     } finally {
       setSaving(false);
+      setShowSaveModal(false);
+      setSaveId(null);
     }
   };
 
@@ -179,6 +199,60 @@ function MembersPage() {
             ))}
           </tbody>
         </table>
+      )}
+
+      {showDeleteModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Confirmer la suppression</h3>
+            <p>
+              Êtes-vous sûr de vouloir supprimer ce membre ? Cette action
+              supprimera également tout son contenu associé.
+            </p>
+            <div className="modal-buttons">
+              <button
+                type="button"
+                className="btn-cancel"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                className="btn-confirm-delete"
+                onClick={confirmDelete}
+              >
+                Supprimer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showSaveModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Confirmer la modification</h3>
+            <p>Êtes-vous sûr de vouloir changer le rôle de ce membre ?</p>
+            <div className="modal-buttons">
+              <button
+                type="button"
+                className="btn-cancel"
+                onClick={() => setShowSaveModal(false)}
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                className="btn-confirm-save"
+                onClick={confirmSave}
+                disabled={saving}
+              >
+                {saving ? "..." : "Confirmer"}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
