@@ -1,6 +1,7 @@
 import argon2 from "argon2";
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
+import databaseClient from "../../../database/client";
 import userRepository from "./userRepository";
 
 interface AuthRequest extends Request {
@@ -25,13 +26,59 @@ const browse: RequestHandler = async (req, res, next) => {
 const read: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id);
+    console.log("Reading user id:", userId);
     const user = await userRepository.read(userId);
+    console.log("User found:", user);
 
     if (!user) {
       res.sendStatus(404);
       return;
     }
     res.json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const edit: RequestHandler = async (req, res, next) => {
+  try {
+    const userId = Number(req.params.id);
+    const { role } = req.body;
+    if (!role) {
+      res.status(400).json("Role is required");
+      return;
+    }
+    const affectedRows = await userRepository.updateRole(userId, role);
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+      return;
+    }
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const destroy: RequestHandler = async (req, res, next) => {
+  try {
+    const userId = Number(req.params.id);
+    // Delete associated data in order to avoid foreign key constraints
+    await databaseClient.query("DELETE FROM comment WHERE user_id = ?", [
+      userId,
+    ]);
+    await databaseClient.query("DELETE FROM message WHERE user_id = ?", [
+      userId,
+    ]);
+    await databaseClient.query("DELETE FROM subject WHERE user_id = ?", [
+      userId,
+    ]);
+    await databaseClient.query("DELETE FROM draw WHERE user_id = ?", [userId]);
+    const affectedRows = await userRepository.delete(userId);
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+      return;
+    }
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }
@@ -117,15 +164,18 @@ const logout: RequestHandler = (req, res) => {
 const refreshToken: RequestHandler = async (req, res) => {
   try {
     const token = req.cookies.token;
+    console.log("Refresh token received:", token ? "present" : "missing");
     if (!token) throw new Error("jwt must be provided");
 
     const secretKey = process.env.APP_SECRET;
     if (!secretKey) throw new Error("APP_SECRET is not defined");
 
     const decoded = jwt.verify(token, secretKey) as JwtPayload;
+    console.log("Decoded token:", decoded);
 
     // Récupérer l'utilisateur complet depuis la DB
     const user = await userRepository.read(decoded.id);
+    console.log("User from DB for refresh:", user);
     if (!user) {
       res.sendStatus(404);
       return;
@@ -140,6 +190,7 @@ const refreshToken: RequestHandler = async (req, res) => {
     // On renvoie id, email & role
     res.status(200).json({ id: user.id, email: user.email, role: user.role });
   } catch (err) {
+    console.error("Refresh token error:", (err as Error).message);
     if ((err as Error).message !== "jwt must be provided") {
       console.error((err as Error).message);
     }
@@ -170,6 +221,8 @@ const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
 export default {
   browse,
   read,
+  edit,
+  destroy,
   add,
   login,
   logout,

@@ -4,15 +4,15 @@ import "./MembersPage.css";
 
 interface Member {
   id: number;
-  username: string;
+  pseudo: string;
   email: string;
   role: string;
 }
 
 const roles = [
-  { label: "Alpha Loup/Louve", value: "alpha" },
-  { label: "Gardien Loup/Louve", value: "gardien" },
-  { label: "Jeune Loup/Louve", value: "jeune" },
+  { label: "Alpha Loup/Louve", value: "loup alpha" },
+  { label: "Gardien Loup/Louve", value: "loup gardien" },
+  { label: "Jeune Loup/Louve", value: "jeune loup" },
 ];
 
 function MembersPage() {
@@ -119,7 +119,7 @@ function MembersPage() {
             {members.map((m) => (
               <tr key={m.id}>
                 <td>{m.id}</td>
-                <td>{m.username}</td>
+                <td>{m.pseudo}</td>
                 <td>{m.email}</td>
                 <td>
                   {editingId === m.id ? (
