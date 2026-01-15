@@ -1,6 +1,6 @@
 import client from "./client";
 
-// Try to get a connection to the database
+// Tentative de connexion à la base de données
 client
   .getConnection()
   .then((connection) => {

@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - run: cd server && npm install && npm test
+      - run: cd client && npm install && npm test
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Vercel CLI
+        run: npm install -g vercel
+      - name: Deploy frontend to Vercel
+        run: |
+          cd client
+          vercel --token ${{ secrets.VERCEL_TOKEN }} --yes --prod
+      - name: Deploy backend to Render
+        run: |
+          curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_DEPLOY_KEY }}

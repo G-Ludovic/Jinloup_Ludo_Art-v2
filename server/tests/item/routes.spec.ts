@@ -1,31 +1,31 @@
-// Import the supertest library for making HTTP requests
+// Importer la bibliothèque supertest pour effectuer des requêtes HTTP
 import supertest from "supertest";
 
-// Import the Express application
+// Importer l'application Express
 import app from "../../src/app";
 
-// Import databaseClient
+// Importer le client de base de données
 import databaseClient from "../../database/client";
 
 import type { Result, Rows } from "../../database/client";
 
-// Restore all mocked functions after each test
+// Restaurez toutes les fonctions simulées après chaque test
 afterEach(() => {
   jest.restoreAllMocks();
 });
 
-// Test suite for the GET /api/items route
+// Suite de tests pour la route GET /api/items
 describe("GET /api/items", () => {
   it("should fetch items successfully", async () => {
-    // Mock empty rows returned from the database
+    // Simuler les lignes vides renvoyées par la base de données
     const rows = [] as Rows;
 
-    // Mock the implementation of the database query method
+    // Simuler l'implémentation de la méthode de requête de base de données
     jest
       .spyOn(databaseClient, "query")
       .mockImplementation(async () => [rows, []]);
 
-    // Send a GET request to the /api/items endpoint
+    // Envoyer une requête GET au point de terminaison /api/items
     const response = await supertest(app).get("/api/items");
 
     // Assertions
@@ -34,18 +34,18 @@ describe("GET /api/items", () => {
   });
 });
 
-// Test suite for the GET /api/items/:id route
+// Suite de tests pour la route GET /api/items/:id
 describe("GET /api/items/:id", () => {
   it("should fetch a single item successfully", async () => {
-    // Mock rows returned from the database
+    // Lignes fictives renvoyées par la base de données
     const rows = [{}] as Rows;
 
-    // Mock the implementation of the database query method
+    // Simuler l'implémentation de la méthode de requête de base de données
     jest
       .spyOn(databaseClient, "query")
       .mockImplementation(async () => [rows, []]);
 
-    // Send a GET request to the /api/items/:id endpoint
+    // Envoyer une requête GET au point de terminaison /api/items/:id
     const response = await supertest(app).get("/api/items/1");
 
     // Assertions
@@ -54,15 +54,15 @@ describe("GET /api/items/:id", () => {
   });
 
   it("should fail on invalid id", async () => {
-    // Mock empty rows returned from the database
+    // Simuler les lignes vides renvoyées par la base de données
     const rows = [] as Rows;
 
-    // Mock the implementation of the database query method
+    // Simuler l'implémentation de la méthode de requête de base de données
     jest
       .spyOn(databaseClient, "query")
       .mockImplementation(async () => [rows, []]);
 
-    // Send a GET request to the /api/items/:id endpoint with an invalid ID
+    // Envoyer une requête GET au point de terminaison /api/items/:id avec un ID invalide
     const response = await supertest(app).get("/api/items/0");
 
     // Assertions
@@ -71,22 +71,21 @@ describe("GET /api/items/:id", () => {
   });
 });
 
-// Test suite for the POST /api/items route
-// Doesn't pass: maybe something to change in app config :/
+// Suite de tests pour la route POST /api/items
 describe("POST /api/items", () => {
   it("should add a new item successfully", async () => {
-    // Mock result of the database query
+    // Résultat simulé de la requête de base de données
     const result = { insertId: 1 } as Result;
 
-    // Mock the implementation of the database query method
+    // Simuler l'implémentation de la méthode de requête de base de données
     jest
       .spyOn(databaseClient, "query")
       .mockImplementation(async () => [result, []]);
 
-    // Fake item data
+    // Données d'article fictives
     const fakeItem = { title: "foo", user_id: 0 };
 
-    // Send a POST request to the /api/items endpoint with a test item
+    // Envoyer une requête POST au point de terminaison /api/items avec un item de test
     const response = await supertest(app).post("/api/items").send(fakeItem);
 
     // Assertions
@@ -96,18 +95,18 @@ describe("POST /api/items", () => {
   });
 
   it("should fail on invalid request body", async () => {
-    // Mock result of the database query
+    // Résultat simulé de la requête de base de données
     const result = { insertId: 1 } as Result;
 
-    // Mock the implementation of the database query method
+    // Simuler l'implémentation de la méthode de requête de base de données
     jest
       .spyOn(databaseClient, "query")
       .mockImplementation(async () => [result, []]);
 
-    // Fake item data with missing user_id
+    // Données d'article fictives avec identifiant utilisateur manquant
     const fakeItem = { title: "foo" };
 
-    // Send a POST request to the /api/items endpoint with a test item
+    // Envoyer une requête POST au point de terminaison /api/items avec un item de test
     const response = await supertest(app).post("/api/items").send(fakeItem);
 
     // Assertions
@@ -116,22 +115,21 @@ describe("POST /api/items", () => {
   });
 });
 
-// Test suite for the PUT /api/items/:id route
-// This route is not yet implemented :/
+// Suite de tests pour la route PUT /api/items/:id
 describe("PUT /api/items/:id", () => {
   it("should update an existing item successfully", async () => {
-    // Mock result of the database query
+    // Résultat simulé de la requête de base de données
     const result = { affectedRows: 1 } as Result;
 
-    // Mock the implementation of the database query method
+    // Simuler l'implémentation de la méthode de requête de base de données
     jest
       .spyOn(databaseClient, "query")
       .mockImplementation(async () => [result, []]);
 
-    // Fake item data
+    // Données d'article fictives
     const fakeItem = { title: "foo", user_id: 0 };
 
-    // Send a PUT request to the /api/items/:id endpoint with a test item
+    // Envoyer une requête PUT au point de terminaison /api/items/:id avec un item de test
     const response = await supertest(app).put("/api/items/42").send(fakeItem);
 
     // Assertions
@@ -140,18 +138,18 @@ describe("PUT /api/items/:id", () => {
   });
 
   it("should fail on invalid request body", async () => {
-    // Mock result of the database query
+    // Résultat simulé de la requête de base de données
     const result = { affectedRows: 1 } as Result;
 
-    // Mock the implementation of the database query method
+    // Simuler l'implémentation de la méthode de requête de base de données
     jest
       .spyOn(databaseClient, "query")
       .mockImplementation(async () => [result, []]);
 
-    // Fake item data with missing user_id
+    // Données d'article fictives avec identifiant utilisateur manquant
     const fakeItem = { title: "foo" };
 
-    // Send a PUT request to the /api/items/:id endpoint with a test item
+    // Envoyer une requête PUT au point de terminaison /api/items/:id avec un item de test
     const response = await supertest(app).put("/api/items/42").send(fakeItem);
 
     // Assertions
@@ -160,18 +158,18 @@ describe("PUT /api/items/:id", () => {
   });
 
   it("should fail on invalid id", async () => {
-    // Mock result of the database query
+    // Résultat simulé de la requête de base de données
     const result = { affectedRows: 0 } as Result;
 
-    // Mock the implementation of the database query method
+    // Simuler l'implémentation de la méthode de requête de base de données
     jest
       .spyOn(databaseClient, "query")
       .mockImplementation(async () => [result, []]);
 
-    // Fake item data with missing user_id
+    // Données d'article fictives avec identifiant utilisateur manquant
     const fakeItem = { title: "foo", user_id: 0 };
 
-    // Send a PUT request to the /api/items/:id endpoint with a test item
+    // Envoyer une requête PUT au point de terminaison /api/items/:id avec un item de test
     const response = await supertest(app).put("/api/items/43").send(fakeItem);
 
     // Assertions
@@ -180,19 +178,18 @@ describe("PUT /api/items/:id", () => {
   });
 });
 
-// Test suite for the DELETE /api/items/:id route
-// This route is not yet implemented :/
+// Suite de tests pour la route DELETE /api/items/:id
 describe("DELETE /api/items/:id", () => {
   it("should delete an existing item successfully", async () => {
-    // Mock result of the database query
+    // Résultat simulé de la requête de base de données
     const result = { affectedRows: 1 } as Result;
 
-    // Mock the implementation of the database query method
+    // Simuler l'implémentation de la méthode de requête de base de données
     jest
       .spyOn(databaseClient, "query")
       .mockImplementation(async () => [result, []]);
 
-    // Send a DELETE request to the /api/items/:id endpoint
+    // Envoyer une requête DELETE au point de terminaison /api/items/:id
     const response = await supertest(app).delete("/api/items/42");
 
     // Assertions
@@ -201,15 +198,15 @@ describe("DELETE /api/items/:id", () => {
   });
 
   it("should fail on invalid id", async () => {
-    // Mock result of the database query
+    // Résultat simulé de la requête de base de données
     const result = { affectedRows: 0 } as Result;
 
-    // Mock the implementation of the database query method
+    // Simuler l'implémentation de la méthode de requête de base de données
     jest
       .spyOn(databaseClient, "query")
       .mockImplementation(async () => [result, []]);
 
-    // Send a DELETE request to the /api/items/:id endpoint
+    // Envoyer une requête DELETE au point de terminaison /api/items/:id
     const response = await supertest(app).delete("/api/items/43");
 
     // Assertions

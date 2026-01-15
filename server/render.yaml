@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: jinloup-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DB_HOST
+        scope: build,runtime
+      - key: DB_PORT
+        value: 3306
+      - key: DB_USER
+        scope: build,runtime
+      - key: DB_PASSWORD
+        scope: build,runtime
+      - key: DB_NAME
+        value: jinloup_ludo_art
+      - key: JWT_SECRET
+        scope: build,runtime

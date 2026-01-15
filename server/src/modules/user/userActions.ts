@@ -73,6 +73,42 @@ const add: RequestHandler = async (req, res) => {
       .status(201)
       .json("Congratulations, your account has been created successfully !");
   } catch (err) {
+    res.sendStatus(500).json;
+  }
+};
+
+// Connexion
+const login: RequestHandler = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await userRepository.readByEmail(email);
+
+    if (!user) throw new Error("This user doesn't exist");
+
+    const isPasswordValid = await argon2.verify(user.password, password);
+    if (!isPasswordValid) throw new Error("Invalid password");
+
+    const secretKey = process.env.APP_SECRET;
+    if (!secretKey) throw new Error("A secret must be provided");
+
+    const token = jwt.sign({ id: user.id, email: user.email }, secretKey, {
+      expiresIn: "1d",
+    });
+
+    res.cookie("token", token, { httpOnly: true, secure: false });
+    res.status(200).json("Congratulations, you're logged in !");
+  } catch (err) {
+    console.warn((err as Error).message);
+    res.sendStatus(500);
+  }
+};
+
+// Logout
+const logout: RequestHandler = (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.sendStatus(200);
+  } catch {
     res.sendStatus(500);
   }
 };
