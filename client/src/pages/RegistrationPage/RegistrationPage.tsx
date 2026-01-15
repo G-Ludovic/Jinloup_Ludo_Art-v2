@@ -11,7 +11,7 @@ function RegistrationPage() {
       return;
     }
 
-    fetch("${API_URL}/api/user", {
+    fetch("/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
