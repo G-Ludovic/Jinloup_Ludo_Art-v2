@@ -15,12 +15,6 @@ const browse: RequestHandler = async (_req, res, next) => {
 const read: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
-<<<<<<< HEAD
-    if (Number.isNaN(id) || id <= 0) return res.status(404).json({});
-
-    const item = await itemRepository.read(id);
-    if (!item) return res.status(404).json({});
-=======
     if (Number.isNaN(id) || id <= 0) {
       res.status(404).json({});
       return;
@@ -31,7 +25,6 @@ const read: RequestHandler = async (req, res, next) => {
       res.status(404).json({});
       return;
     }
->>>>>>> 3b2bebdc6d10183b410759dbf0a341809e675e6d
 
     res.json(item);
   } catch (err) {
@@ -51,12 +44,8 @@ const add: RequestHandler = async (req, res, next) => {
       !title ||
       user_id === undefined
     ) {
-<<<<<<< HEAD
-      return res.status(400).json({});
-=======
       res.status(400).json({});
       return;
->>>>>>> 3b2bebdc6d10183b410759dbf0a341809e675e6d
     }
 
     const insertId = await itemRepository.create({ title, user_id });
@@ -73,27 +62,16 @@ const edit: RequestHandler = async (req, res, next) => {
     const { title, user_id } = req.body;
 
     // Validation ID et corps
-<<<<<<< HEAD
-    if (Number.isNaN(id) || id <= 0) return res.status(404).json({});
-=======
     if (Number.isNaN(id) || id <= 0) {
       res.status(404).json({});
       return;
     }
->>>>>>> 3b2bebdc6d10183b410759dbf0a341809e675e6d
     if (
       !req.body ||
       Object.keys(req.body).length === 0 ||
       !title ||
       user_id === undefined
     ) {
-<<<<<<< HEAD
-      return res.status(400).json({});
-    }
-
-    const affectedRows = await itemRepository.update(id, { title, user_id });
-    if (affectedRows === 0) return res.status(404).json({});
-=======
       res.status(400).json({});
       return;
     }
@@ -103,7 +81,6 @@ const edit: RequestHandler = async (req, res, next) => {
       res.status(404).json({});
       return;
     }
->>>>>>> 3b2bebdc6d10183b410759dbf0a341809e675e6d
 
     res.status(204).json({});
   } catch (err) {
@@ -115,12 +92,6 @@ const edit: RequestHandler = async (req, res, next) => {
 const destroy: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
-<<<<<<< HEAD
-    if (Number.isNaN(id) || id <= 0) return res.status(404).json({});
-
-    const deleted = await itemRepository.delete(id);
-    if (deleted === 0) return res.status(404).json({});
-=======
     if (Number.isNaN(id) || id <= 0) {
       res.status(404).json({});
       return;
@@ -131,7 +102,6 @@ const destroy: RequestHandler = async (req, res, next) => {
       res.status(404).json({});
       return;
     }
->>>>>>> 3b2bebdc6d10183b410759dbf0a341809e675e6d
 
     res.status(204).json({});
   } catch (err) {

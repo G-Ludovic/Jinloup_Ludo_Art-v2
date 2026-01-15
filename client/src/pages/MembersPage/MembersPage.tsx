@@ -26,11 +26,7 @@ function MembersPage() {
   // Récupération des membres
   const fetchMembers = useCallback(async () => {
     try {
-<<<<<<< HEAD
-      const res = await fetch("${API_URL}/api/users", {
-=======
       const res = await fetch("/api/users", {
->>>>>>> 3b2bebdc6d10183b410759dbf0a341809e675e6d
         credentials: "include",
       });
       if (!res.ok) throw new Error("Erreur serveur");
@@ -48,7 +44,7 @@ function MembersPage() {
   const handleDelete = async (id: number) => {
     if (!confirm("Supprimer ce membre ?")) return;
     try {
-      const res = await fetch(`http://localhost:3310/api/users/${id}`, {
+      const res = await fetch(`/api/users/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -74,7 +70,7 @@ function MembersPage() {
   const handleSave = async (id: number) => {
     setSaving(true);
     try {
-      const res = await fetch(`http://localhost:3310/api/users/${id}`, {
+      const res = await fetch(`/api/users/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

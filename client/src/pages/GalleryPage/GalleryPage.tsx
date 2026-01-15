@@ -34,11 +34,7 @@ function GalleryPage() {
   // Chargement des dessins
   const loadDraws = useCallback(() => {
     setLoading(true);
-<<<<<<< HEAD
-    fetch("${API_URL}/api/draws", { credentials: "include" })
-=======
     fetch("/api/draws", { credentials: "include" })
->>>>>>> 3b2bebdc6d10183b410759dbf0a341809e675e6d
       .then((res) => res.json())
       .then((draws) => {
         setData(draws);
@@ -94,11 +90,7 @@ function GalleryPage() {
     const formData = new FormData(e.currentTarget);
     if (file) formData.set("image", file);
 
-<<<<<<< HEAD
-    fetch("${API_URL}/api/draws", {
-=======
     fetch("/api/draws", {
->>>>>>> 3b2bebdc6d10183b410759dbf0a341809e675e6d
       method: "POST",
       body: formData,
       credentials: "include",
@@ -118,7 +110,7 @@ function GalleryPage() {
 
   // Suppression
   const handleDelete = (id: number) => {
-    fetch(`http://localhost:3310/api/draws/${id}`, {
+    fetch(`/api/draws/${id}`, {
       method: "DELETE",
       credentials: "include",
     }).then((res) => {
@@ -145,7 +137,7 @@ function GalleryPage() {
     formData.append("name", newName);
     formData.append("image", newFile);
 
-    fetch(`http://localhost:3310/api/draws/${editingDraw.id}`, {
+    fetch(`/api/draws/${editingDraw.id}`, {
       method: "PUT",
       body: formData,
       credentials: "include",

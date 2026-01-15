@@ -10,11 +10,7 @@ function LoginPage() {
   const handleSubmit = (FormData: FormData) => {
     const data = Object.fromEntries(FormData);
 
-<<<<<<< HEAD
-    fetch("${API_URL}/api/login", {
-=======
     fetch("/api/login", {
->>>>>>> 3b2bebdc6d10183b410759dbf0a341809e675e6d
       method: "POST",
       credentials: "include",
       headers: {
@@ -27,11 +23,7 @@ function LoginPage() {
         setIsLogged(true);
 
         // On récupère l'utilisateur complet pour le rôle
-<<<<<<< HEAD
-        const refreshRes = await fetch("${API_URL}/api/refresh", {
-=======
         const refreshRes = await fetch("/api/refresh", {
->>>>>>> 3b2bebdc6d10183b410759dbf0a341809e675e6d
           credentials: "include",
         });
         if (refreshRes.ok) {
