@@ -15,6 +15,7 @@ import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import AuthorPage from "./pages/AuthorPage/AuthorPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import CopyrightPage from "./pages/CopyrightPage/CopyrightPage";
+import Etiquette from "./pages/Etiquette/Etiquette";
 import ForumPage from "./pages/ForumPage/ForumPage";
 import GalleryPage from "./pages/GalleryPage/GalleryPage";
 import HomePage from "./pages/HomePage/HomePage";
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
       {
         element: <TermsOfUse />,
         path: "/terms-of-use",
+      },
+      {
+        element: <Etiquette />,
+        path: "/etiquette",
       },
       {
         element: <CopyrightPage />,

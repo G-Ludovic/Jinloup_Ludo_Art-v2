@@ -27,7 +27,7 @@ function Footer() {
         </div>
 
         <div className="footer-column">
-          <Link to="*">Étiquette</Link>
+          <Link to="/etiquette">Étiquette</Link>
           <Link to="/terms-of-use">Conditions d'utilisation</Link>
         </div>
 
