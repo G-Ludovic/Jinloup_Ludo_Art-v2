@@ -115,7 +115,7 @@ function EditModal({
             onChange={(e) => setText(e.target.value)}
             maxLength={maxLength}
             placeholder="Nouveau titre (max 18 caractères)"
-            className={isTextModified ? "" : "input-error"}
+            className={isTextModified ? "input-valid" : "input-error"}
           />
         ) : (
           <textarea
@@ -125,7 +125,7 @@ function EditModal({
             rows={10}
             maxLength={maxLength}
             placeholder="Modifiez votre message..."
-            className={isTextModified ? "" : "input-error"}
+            className={isTextModified ? "input-valid" : "input-error"}
           />
         )}
 
@@ -138,12 +138,6 @@ function EditModal({
           {text.length}/{maxLength} caractères
         </p>
 
-        {!isTextModified && (
-          <p className="warning-msg">
-            ⚠️ Veuillez modifier le {mode === "gallery" ? "titre" : "texte"} ⚠️
-          </p>
-        )}
-
         {/* Drag & drop pour les deux modes */}
         <h3>
           {mode === "gallery"
@@ -153,7 +147,11 @@ function EditModal({
         <div
           ref={dropRef}
           className={`drop-zone ${
-            mode === "gallery" && !isImageModified ? "input-error" : ""
+            isImageModified
+              ? "input-valid"
+              : mode === "gallery" && !isImageModified
+                ? "input-error"
+                : ""
           }`}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
@@ -171,13 +169,6 @@ function EditModal({
           )}
           <input type="file" accept="image/*" onChange={handleFileChange} />
         </div>
-
-        {/* Avertissement obligatoire uniquement pour la galerie */}
-        {mode === "gallery" && !isImageModified && (
-          <p className="warning-msg">
-            ⚠️ Veuillez sélectionner une nouvelle image ⚠️
-          </p>
-        )}
 
         {/* Actions */}
         <div className="modal-actions">
