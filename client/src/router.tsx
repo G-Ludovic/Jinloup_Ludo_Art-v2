@@ -19,6 +19,7 @@ import Developers from "./pages/Developers/Developers";
 import Etiquette from "./pages/Etiquette/Etiquette";
 import ForumPage from "./pages/ForumPage/ForumPage";
 import GalleryPage from "./pages/GalleryPage/GalleryPage";
+import HelpCenter from "./pages/HelpCenter/HelpCenter";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import MembersPage from "./pages/MembersPage/MembersPage";
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
       {
         element: <Developers />,
         path: "/developers",
+      },
+      {
+        element: <HelpCenter />,
+        path: "/help-center",
       },
       {
         element: <CopyrightPage />,
