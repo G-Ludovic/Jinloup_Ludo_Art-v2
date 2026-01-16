@@ -77,6 +77,7 @@ router.get("/message", messageActions.browse);
 router.get("/message/:id", messageActions.read);
 router.post(
   "/message",
+  auth.verifyToken,
   files.imageUpload,
   files.presentationImage,
   messageActions.add,

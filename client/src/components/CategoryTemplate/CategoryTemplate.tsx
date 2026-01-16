@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useAuth } from "../../services/AuthContext";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import DiscussionForm from "../DiscussionForm/DiscussionForm";
 import SubjectCard from "../SubjectCard/SubjectCard";
@@ -22,7 +21,6 @@ interface CategoryTemplateProps {
 }
 
 function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
-  const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState<number | null>(null);
@@ -40,6 +38,7 @@ function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
     const res = await fetch("/api/message", {
       method: "POST",
       body: formData,
+      credentials: "include",
     });
     if (!res.ok) {
       toast.error("Erreur lors de l'envoi du message.");
@@ -58,6 +57,7 @@ function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
     const res = await fetch(`/api/message/${id}`, {
       method: "PUT",
       body: formData,
+      credentials: "include",
     });
     if (!res.ok) {
       toast.error("Erreur lors de la modification du message.");
@@ -90,6 +90,7 @@ function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
 
     const res = await fetch(`/api/message/${deleteId}`, {
       method: "DELETE",
+      credentials: "include",
     });
     if (!res.ok) {
       toast.error("Erreur lors de la suppression du message.");
@@ -104,11 +105,7 @@ function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
 
   return (
     <>
-      <DiscussionForm
-        subjectId={subjectId}
-        userId={user?.id || 0}
-        onAdd={handleAdd}
-      />
+      <DiscussionForm subjectId={subjectId} onAdd={handleAdd} />
 
       <div className="category-messages">
         <article className="category-article">

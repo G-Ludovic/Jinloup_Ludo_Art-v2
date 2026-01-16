@@ -61,11 +61,13 @@ class MessageRepository {
   }
 
   async create(body: Message) {
+    console.log("Inserting message:", body);
     const [result] = await databaseClient.query<Result>(
       `INSERT INTO message (content, file, sending_date, user_id, subject_id)
-       VALUES (?, ?, CURDATE(), ?, ?)`,
+       VALUES (?, ?, NOW(), ?, ?)`,
       [body.content, body.file ?? null, body.user_id, body.subject_id],
     );
+    console.log("Insert result:", result);
     return result.insertId;
   }
 

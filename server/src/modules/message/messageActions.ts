@@ -5,7 +5,14 @@ import messageRepository from "./messageRepository";
 const add: RequestHandler = async (req, res) => {
   try {
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
-    const { content, user_id, subject_id } = req.body;
+    const { content, subject_id } = req.body;
+    const user_id = req.user?.id;
+    console.log("Add message:", {
+      content,
+      subject_id,
+      user_id,
+      file: filePath,
+    });
 
     if (!content?.trim()) {
       res.status(400).json({ error: "Content is required" });
@@ -26,14 +33,20 @@ const add: RequestHandler = async (req, res) => {
       return;
     }
 
-    const newId = await messageRepository.create({
-      content,
-      file: filePath,
-      user_id: Number(user_id),
-      subject_id: Number(subject_id),
-    });
-
-    const createdMessage = await messageRepository.readById(newId); // Pas de String()
+    let newId: number;
+    try {
+      newId = await messageRepository.create({
+        content,
+        file: filePath,
+        user_id: Number(user_id),
+        subject_id: Number(subject_id),
+      });
+      console.log("Created message id:", newId);
+    } catch (createErr) {
+      console.error("Create error:", createErr);
+      res.status(500).json({ error: "Failed to create message" });
+      return;
+    }
 
     res.status(201).json({
       id: newId,

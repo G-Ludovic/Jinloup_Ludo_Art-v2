@@ -65,7 +65,7 @@ const login: RequestHandler = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // "false" en phase de développement et "true" en déploiement
+      secure: false, // "false" en phase de développement et "true" en déploiement
     });
 
     res.status(200).json("Congratulations, you're logged in !");
@@ -109,7 +109,7 @@ const refreshToken: RequestHandler = (req, res) => {
       expiresIn: "1d",
     });
 
-    res.cookie("token", newToken);
+    res.cookie("token", newToken, { httpOnly: true, secure: false });
     res.status(200).json({ id, email, role });
   } catch (err) {
     console.error((err as Error).message);

@@ -3,11 +3,10 @@ import "./DiscussionForm.css";
 
 interface DiscussionFormProps {
   subjectId: number;
-  userId: number;
   onAdd: (formData: FormData) => void;
 }
 
-function DiscussionForm({ subjectId, userId, onAdd }: DiscussionFormProps) {
+function DiscussionForm({ subjectId, onAdd }: DiscussionFormProps) {
   const [content, setContent] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -30,7 +29,6 @@ function DiscussionForm({ subjectId, userId, onAdd }: DiscussionFormProps) {
 
     const formData = new FormData();
     formData.append("content", content);
-    formData.append("user_id", userId.toString());
     formData.append("subject_id", subjectId.toString());
     if (file) formData.append("image", file);
 

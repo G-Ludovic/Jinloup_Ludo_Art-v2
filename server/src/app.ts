@@ -11,7 +11,7 @@ import authRoutes from "./modules/auth/authRoutes";
 import router from "./router";
 
 const app = express();
-const port = process.env.PORT || 18859;
+const port = process.env.APP_PORT || 18859;
 
 // --------------------
 // Middleware parsing
