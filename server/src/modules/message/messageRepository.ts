@@ -38,7 +38,7 @@ class MessageRepository {
 
   async readBySubjectId(subjectId: number) {
     const [rows] = await databaseClient.query(
-      `SELECT m.id, m.content, m.file, m.sending_date,
+      `SELECT m.id, m.content, m.file, m.sending_date, m.edited_at,
               m.user_id, m.subject_id,
               u.pseudo AS user_name,
               s.title AS subject_title
@@ -74,7 +74,7 @@ class MessageRepository {
   async update(id: string, body: Partial<Message>) {
     const [result] = await databaseClient.query<Result>(
       `UPDATE message 
-       SET content = ?, file = ?, sending_date = CURDATE() 
+       SET content = ?, file = ?, edited_at = NOW() 
        WHERE id = ?`,
       [body.content, body.file ?? null, id],
     );

@@ -11,6 +11,7 @@ interface Message {
   content: string;
   file?: string | null;
   sending_date?: string | null;
+  edited_at?: string | null;
   user_name?: string;
 }
 
@@ -73,6 +74,7 @@ function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
               content: updated.content,
               file: updated.file || msg.file,
               sending_date: updated.sending_date || msg.sending_date,
+              edited_at: updated.edited_at || msg.edited_at,
             }
           : msg,
       ),
@@ -116,6 +118,7 @@ function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
               text={msg.content}
               file={msg.file}
               sending_date={msg.sending_date}
+              edited_at={msg.edited_at}
               user_name={msg.user_name}
               onDelete={handleDelete}
               onEdit={handleEdit}
