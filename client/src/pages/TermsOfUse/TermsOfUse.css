@@ -1,0 +1,75 @@
+.terms-page {
+  background-color: var(--background-color-main);
+  padding-bottom: 2rem;
+}
+
+.terms-content {
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-family: "Inter", sans-serif;
+  color: var(--color-text);
+  background-color: white;
+  padding: 2rem;
+  margin: 2rem auto 0 auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.terms-page h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #3a4b3f;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  color: white;
+  font-family: var(--font-family-text);
+  padding: 16px;
+  margin: 0;
+}
+
+.last-updated {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.terms-content h2 {
+  color: var(--color-text-secondary);
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.terms-content p {
+  margin-bottom: 1rem;
+}
+
+.terms-content ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.terms-content li {
+  margin-bottom: 0.5rem;
+}
+
+.terms-content a {
+  color: var(--color-link);
+  text-decoration: underline;
+}
+
+.terms-content a:hover {
+  color: var(--color-hover-link);
+}
+
+@media (max-width: 968px) {
+  .terms-content {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .terms-content h2 {
+    font-size: 1.2rem;
+  }
+}

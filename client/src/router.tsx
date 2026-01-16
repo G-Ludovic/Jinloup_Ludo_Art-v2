@@ -24,6 +24,7 @@ import ModerationPanel from "./pages/ModerationPanel/ModerationPanel";
 import Page404 from "./pages/Page404/Page404";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
+import TermsOfUse from "./pages/TermsOfUse/TermsOfUse";
 import UserPanel from "./pages/UserPanel/UserPanel";
 
 const router = createBrowserRouter([
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
       {
         element: <PrivacyPolicy />,
         path: "/privacy-policy",
+      },
+      {
+        element: <TermsOfUse />,
+        path: "/terms-of-use",
       },
       {
         element: <CopyrightPage />,
