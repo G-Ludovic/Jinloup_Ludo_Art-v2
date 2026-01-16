@@ -32,7 +32,7 @@ function Footer() {
         </div>
 
         <div className="footer-column">
-          <Link to="*">Développeurs</Link>
+          <Link to="/developers">Développeurs</Link>
           <Link to="*">Centre d'aide</Link>
         </div>
       </section>

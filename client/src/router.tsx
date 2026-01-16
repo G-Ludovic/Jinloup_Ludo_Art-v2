@@ -15,6 +15,7 @@ import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import AuthorPage from "./pages/AuthorPage/AuthorPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import CopyrightPage from "./pages/CopyrightPage/CopyrightPage";
+import Developers from "./pages/Developers/Developers";
 import Etiquette from "./pages/Etiquette/Etiquette";
 import ForumPage from "./pages/ForumPage/ForumPage";
 import GalleryPage from "./pages/GalleryPage/GalleryPage";
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
       {
         element: <Etiquette />,
         path: "/etiquette",
+      },
+      {
+        element: <Developers />,
+        path: "/developers",
       },
       {
         element: <CopyrightPage />,
