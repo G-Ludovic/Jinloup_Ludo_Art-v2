@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router";
+import { useAuth } from "../../services/AuthContext";
 import "./DiscussionForm.css";
 
 interface DiscussionFormProps {
@@ -7,6 +9,7 @@ interface DiscussionFormProps {
 }
 
 function DiscussionForm({ subjectId, onAdd }: DiscussionFormProps) {
+  const { isLogged } = useAuth();
   const [content, setContent] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -39,6 +42,18 @@ function DiscussionForm({ subjectId, onAdd }: DiscussionFormProps) {
     setFile(null);
     setPreview(null);
   };
+
+  if (!isLogged) {
+    return (
+      <div className="login-prompt">
+        <p>Connectez-vous pour poster un message.</p>
+        <p>
+          <Link to="/login">Se connecter</Link> ou{" "}
+          <Link to="/registration">S'inscrire</Link>
+        </p>
+      </div>
+    );
+  }
 
   return (
     <form className="discussion-form" onSubmit={handleSubmit}>

@@ -1,11 +1,13 @@
 import type { FormEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Link } from "react-router";
 import { toast } from "react-toastify";
 import Card from "../../components/Card/Card.tsx";
 import { Carousel } from "../../components/Carousel/Carousel.tsx";
 import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal.tsx";
 import EditModal from "../../components/EditModal/EditModal.tsx";
 import { drawings } from "../../data/drawings.ts";
+import { useAuth } from "../../services/AuthContext";
 import "./GalleryPage.css";
 
 interface Drawing {
@@ -16,6 +18,7 @@ interface Drawing {
 }
 
 function GalleryPage() {
+  const { isLogged } = useAuth();
   const [data, setData] = useState<Drawing[]>([]);
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -175,70 +178,86 @@ function GalleryPage() {
 
         {/* Formulaire d'ajout */}
         <article className="add-draw">
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            encType="multipart/form-data"
-          >
-            <label htmlFor="name">
-              <h3>Nom de votre création</h3>
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Ex: Le Loup d'argent"
-              maxLength={18}
-              required
-            />
-
-            <div
-              ref={dropRef}
-              className="drop-zone"
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
+          {isLogged ? (
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              encType="multipart/form-data"
             >
-              {previewUrl ? (
-                <>
-                  <img src={previewUrl} alt="Aperçu" className="preview-img" />
-                  <p>╰┈➤ Glissez une nouvelle image ici pour la remplacer</p>
-                </>
-              ) : (
-                <p>╰┈➤ Glissez une image ici ou cliquez pour en ajouter une</p>
-              )}
+              <label htmlFor="name">
+                <h3>Nom de votre création</h3>
+              </label>
               <input
-                type="file"
-                name="image"
-                accept="image/*"
-                onChange={handleFileChange}
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Ex: Le Loup d'argent"
+                maxLength={18}
+                required
               />
+
+              <div
+                ref={dropRef}
+                className="drop-zone"
+                onDrop={handleDrop}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+              >
+                {previewUrl ? (
+                  <>
+                    <img
+                      src={previewUrl}
+                      alt="Aperçu"
+                      className="preview-img"
+                    />
+                    <p>╰┈➤ Glissez une nouvelle image ici pour la remplacer</p>
+                  </>
+                ) : (
+                  <p>
+                    ╰┈➤ Glissez une image ici ou cliquez pour en ajouter une
+                  </p>
+                )}
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
+              </div>
+
+              {file && (
+                <section>
+                  <h3>Détails du fichier :</h3>
+                  <table className="details-table">
+                    <tbody>
+                      <tr>
+                        <th>Nom :</th>
+                        <td>{file.name}</td>
+                      </tr>
+                      <tr>
+                        <th>Type :</th>
+                        <td>{file.type}</td>
+                      </tr>
+                      <tr>
+                        <th>Taille :</th>
+                        <td>{file.size.toLocaleString()} octets</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </section>
+              )}
+
+              <button type="submit">Valider</button>
+            </form>
+          ) : (
+            <div className="login-prompt-gallery">
+              <p>Connectez-vous pour ajouter une œuvre.</p>
+              <p>
+                <Link to="/login">Se connecter</Link> ou{" "}
+                <Link to="/registration">S'inscrire</Link>
+              </p>
             </div>
-
-            {file && (
-              <section>
-                <h3>Détails du fichier :</h3>
-                <table className="details-table">
-                  <tbody>
-                    <tr>
-                      <th>Nom :</th>
-                      <td>{file.name}</td>
-                    </tr>
-                    <tr>
-                      <th>Type :</th>
-                      <td>{file.type}</td>
-                    </tr>
-                    <tr>
-                      <th>Taille :</th>
-                      <td>{file.size.toLocaleString()} octets</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </section>
-            )}
-
-            <button type="submit">Valider</button>
-          </form>
+          )}
         </article>
 
         <hr />
