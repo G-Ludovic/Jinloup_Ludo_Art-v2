@@ -25,7 +25,7 @@ function UserPanel() {
     return [{ label: "Jeune Loup/Louve", value: "jeune loup" }];
   };
 
-  // Load current user data
+  // Charger les données de l'utilisateur actuel
   useEffect(() => {
     if (user) {
       setPseudo(user.pseudo || "");

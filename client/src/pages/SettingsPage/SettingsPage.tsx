@@ -31,7 +31,7 @@ function SettingsPage() {
     ];
   };
 
-  // Load current user data
+  // Charger les données de l'utilisateur actuel
   useEffect(() => {
     if (user) {
       setPseudo(user.pseudo || "");

@@ -69,28 +69,28 @@ class UserRepository {
   }
 
   async hasRelatedData(id: number) {
-    // Check if user has subjects
+    // Vérifier si l'utilisateur a des sujets
     const [subjects] = await databaseClient.query<Rows>(
       "SELECT COUNT(*) as count FROM subject WHERE user_id = ?",
       [id],
     );
     if (subjects[0].count > 0) return true;
 
-    // Check messages
+    // Vérifier les messages
     const [messages] = await databaseClient.query<Rows>(
       "SELECT COUNT(*) as count FROM message WHERE user_id = ?",
       [id],
     );
     if (messages[0].count > 0) return true;
 
-    // Check draws
+    // Vérifier les dessins
     const [draws] = await databaseClient.query<Rows>(
       "SELECT COUNT(*) as count FROM draw WHERE user_id = ?",
       [id],
     );
     if (draws[0].count > 0) return true;
 
-    // Check comments
+    // Vérifier les commentaires
     const [comments] = await databaseClient.query<Rows>(
       "SELECT COUNT(*) as count FROM comment WHERE user_id = ?",
       [id],

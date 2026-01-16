@@ -12,14 +12,14 @@ import validation from "./utils/validation";
 
 const router = express.Router();
 
-/** Items **/
+/** Articles **/
 router.get("/items", itemActions.browse);
 router.get("/items/:id", itemActions.read);
 router.post("/items", itemActions.add);
 router.put("/items/:id", itemActions.edit);
 router.delete("/items/:id", itemActions.destroy);
 
-/** Users **/
+/** Utilisateurs **/
 // Inscription (publique)
 router.post("/user", validation.userValidation, userActions.add);
 
@@ -45,7 +45,7 @@ router.delete(
 );
 router.get("/refresh", userActions.verifyToken, userActions.refreshToken);
 
-/** Draws **/
+/** Dessins **/
 router.get("/draws", drawActions.browse);
 router.get("/draws/:id", drawActions.read);
 router.put(
@@ -64,11 +64,11 @@ router.post(
 );
 router.delete("/draws/:id", auth.verifyToken, drawActions.destroy);
 
-/** Categories **/
+/** Catégories **/
 router.get("/categories", categoriesActions.browse);
 router.get("/categories/:id", categoriesActions.read);
 
-/** Subjects **/
+/** Sujets **/
 router.get("/subject", subjectActions.browse);
 router.get("/subject/:id", subjectActions.read);
 
