@@ -39,7 +39,6 @@ h1 {
 .category-section-forum h2 {
   font-family: var(--font-family-title);
   font-size: 1.5rem;
-  color: var(--primary-color);
   margin-bottom: 8px;
   color: white;
 }
@@ -47,7 +46,6 @@ h1 {
 .category-section-forum p {
   font-family: var(--font-family-text);
   font-size: 1rem;
-  color: var(--text-color);
 }
 
 a {
@@ -58,25 +56,31 @@ a {
 }
 
 :root {
-  /* Couleurs principales */
+  /* Couleurs de texte */
   --color-text: #050315;
   --color-text-secondary: #2a2a72;
+
+  /* Couleurs d'état */
   --color-success: rgb(30, 145, 30);
   --color-link: #3b3b98;
   --color-hover-link: #4e4ebf;
   --color-error: #d93025;
+
+  /* Couleurs de fond */
   --background-color-primary: #68766c;
   --background-color-secondary: #93b09c;
   --background-color-main: #e3eee6;
-  --primary-color: #0d2013;
-  --secondary-color: #2c5a3a;
-  --color-hover-primary: #4f7159;
-  --color-hover-secondary: rgb(63, 63, 63);
   --background-color-hover: #d5e7db;
   --background-color-hoverbutton: #5a5a5a;
   --background-color-button: #111;
 
-  /* Typography */
+  /* Couleurs primaires et secondaires */
+  --primary-color: #0d2013;
+  --secondary-color: #2c5a3a;
+  --color-hover-primary: #4f7159;
+  --color-hover-secondary: rgb(63, 63, 63);
+
+  /* Polices */
   --font-family-link: "Raleway", sans-serif;
   --font-family-title: "Poppins", sans-serif;
   --font-family-text: "Inter", sans-serif;

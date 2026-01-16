@@ -38,7 +38,7 @@ textarea {
   color: #5c5c5c;
   cursor: pointer;
   margin-bottom: 1rem;
-  transition: single-background 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .drop-zone.drag-active {
@@ -61,7 +61,7 @@ textarea {
   max-height: 200px;
   border-radius: 6px;
   margin-bottom: 0.5rem;
-  text-shadow: 2px 1px 6px rgb(455, 755, 255);
+  text-shadow: 2px 1px 6px rgba(255, 255, 255, 0.8);
 }
 
 .modal-actions {
