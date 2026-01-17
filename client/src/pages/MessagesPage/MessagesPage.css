@@ -16,28 +16,29 @@
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--color-text-secondary);
 }
 
 .tab-button {
   border: none;
   padding: 0.75rem 1.5rem;
   cursor: pointer;
-  background: #f5f5f5;
-  color: #666;
+  background: var(--background-color-button);
+  color: white;
   font-size: 1rem;
   border-radius: 8px 8px 0 0;
   transition: all 0.2s ease;
   margin-right: 0.25rem;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
 }
 
 .tab-button:hover {
-  background: #e0e0e0;
+  background: var(--background-color-hoverbutton);
 }
 
 .tab-button.active {
-  background: var(--background-color-button);
-  color: var(--color-text);
+  background: var(--color-hover-primary);
+  color: white;
   font-weight: 600;
 }
 

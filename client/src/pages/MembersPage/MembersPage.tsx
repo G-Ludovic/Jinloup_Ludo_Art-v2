@@ -39,6 +39,7 @@ function MembersPage() {
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState<number | null>(null);
   const [editingMember, setEditingMember] = useState<Member | null>(null);
+  const tableRef = useRef<HTMLTableElement>(null);
   const [editedPseudo, setEditedPseudo] = useState("");
   const [editedRoleValue, setEditedRoleValue] = useState("");
   const [editedBio, setEditedBio] = useState("");
@@ -169,6 +170,23 @@ function MembersPage() {
     setEditedPreviewUrl(null);
   };
 
+  // Fermer le dropdown au clic extérieur
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        tableRef.current &&
+        !tableRef.current.contains(event.target as Node)
+      ) {
+        setDropdownOpen(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   // Chargement initial
   useEffect(() => {
     fetchMembers();
@@ -183,14 +201,18 @@ function MembersPage() {
       {members.length === 0 ? (
         <p>Aucun membre trouvé.</p>
       ) : (
-        <table className="members-table">
+        <table
+          ref={tableRef}
+          className="members-table"
+          aria-label="Liste des membres"
+        >
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Pseudo</th>
-              <th>Email</th>
-              <th>Rôle</th>
-              <th>Actions</th>
+              <th scope="col">ID</th>
+              <th scope="col">Pseudo</th>
+              <th scope="col">Email</th>
+              <th scope="col">Rôle</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -217,7 +239,7 @@ function MembersPage() {
                       <div className="dropdown-menu">
                         <button
                           type="button"
-                          className="dropdown-item"
+                          className="dropdown-item modify"
                           onClick={() => handleEdit(m)}
                         >
                           Modifier

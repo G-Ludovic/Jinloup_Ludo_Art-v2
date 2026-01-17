@@ -13,13 +13,14 @@
 }
 
 .modal {
-  background: #fff;
+  background: var(--background-color-content);
   padding: 2rem;
   border-radius: 10px;
   max-width: 400px;
   width: 90%;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: var(--color-text);
 }
 
 .modal h3 {
@@ -31,7 +32,7 @@
 
 .modal p {
   margin-bottom: 1.5rem;
-  color: #666;
+  color: var(--color-text-secondary);
   font-size: 1rem;
   line-height: 1.5;
   font-family: var(--font-family-text, sans-serif);
@@ -55,12 +56,12 @@
 }
 
 .btn-confirm {
-  background: #2196f3;
+  background: var(--primary-color);
   color: #fff;
 }
 
 .btn-confirm:hover {
-  background: #1976d2;
+  background: var(--color-hover-primary);
 }
 
 .btn-confirm:disabled {
@@ -69,10 +70,19 @@
 }
 
 .btn-cancel {
-  background: #9e9e9e;
+  background: var(--secondary-color);
   color: #fff;
 }
 
 .btn-cancel:hover {
-  background: #757575;
+  background: var(--color-hover-secondary);
+}
+
+/* Dark mode styles */
+[data-theme="dark"] .modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .modal {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
