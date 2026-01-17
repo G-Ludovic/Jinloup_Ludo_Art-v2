@@ -71,7 +71,7 @@ const edit: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    // Return updated user
+    // Retourner l'utilisateur mis à jour
     const updatedUser = await userRepository.read(userId);
     res.json(updatedUser);
   } catch (err) {
@@ -82,7 +82,7 @@ const edit: RequestHandler = async (req, res, next) => {
 const destroy: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id);
-    // Delete associated data in order to avoid foreign key constraints
+    // Supprimer les données associées pour éviter les contraintes de clé étrangère
     await databaseClient.query("DELETE FROM comment WHERE user_id = ?", [
       userId,
     ]);

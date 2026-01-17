@@ -19,7 +19,7 @@ const cleanUploadsFolder = () => {
       try {
         fs.unlinkSync(filePath);
       } catch (err) {
-        console.warn(`Could not delete ${filePath}:`, err);
+        console.warn(`Impossible de supprimer ${filePath}:`, err);
       }
     }
     console.info("Uploads folder cleaned 🧹");
@@ -32,7 +32,7 @@ const seed = async () => {
   try {
     const dependencyMap: { [key: string]: AbstractSeeder } = {};
 
-    // Construct each seeder
+    // Construire chaque seeder
     const filePaths = fs
       .readdirSync(fixturesPath)
       .filter((filePath: string) => !filePath.startsWith("Abstract"));
@@ -50,7 +50,7 @@ const seed = async () => {
     // Trier les seeders en fonction de leurs dépendances
     const sortedSeeders: AbstractSeeder[] = [];
 
-    // The recursive solver
+    // Le solveur récursif
     const solveDependencies = (n: AbstractSeeder) => {
       for (const DependencyClass of n.dependencies) {
         const dependency = dependencyMap[DependencyClass.toString()];
@@ -99,7 +99,11 @@ const seed = async () => {
     );
   } catch (err) {
     const { message, stack } = err as Error;
-    console.error("Error filling the database:", message, stack);
+    console.error(
+      "Erreur lors du remplissage de la base de données:",
+      message,
+      stack,
+    );
   }
 };
 

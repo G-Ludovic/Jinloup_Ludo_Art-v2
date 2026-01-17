@@ -51,7 +51,7 @@
 @media screen and (min-width: 768px) {
   .page404 {
     display: flex;
-    background-color: white;
+    background-color: var(--color-text);
     margin: 0;
   }
 

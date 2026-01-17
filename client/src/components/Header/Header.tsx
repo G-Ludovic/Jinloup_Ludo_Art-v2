@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../services/AuthContext";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import "./Header.css";
 
 function Header() {
@@ -70,6 +71,7 @@ function Header() {
             Se déconnecter
           </button>
         )}
+        <ThemeToggle />
       </nav>
     </header>
   );

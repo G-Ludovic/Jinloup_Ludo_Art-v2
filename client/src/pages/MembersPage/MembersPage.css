@@ -1,12 +1,12 @@
 .members-container {
   padding: 2rem;
-  background-color: var(--background-color-main);
+  background: var(--main-background);
   flex: 1;
 }
 
 .members-container h2 {
   margin-bottom: 1.5rem;
-  color: #222;
+  color: var(--color-text-secondary);
   font-size: 1.4rem;
   text-align: center;
 }
@@ -31,7 +31,7 @@
 .members-table th {
   background: #f2f2f2;
   font-weight: 600;
-  color: #333;
+  color: var(--color-text-secondary);
 }
 
 .role {
@@ -264,7 +264,7 @@ select {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #333;
+  color: var(--color-text-secondary);
 }
 
 .edit-profile-form .form-group input,
@@ -360,7 +360,7 @@ select {
 
 .edit-profile-section h3 {
   margin-bottom: 1rem;
-  color: #333;
+  color: var(--color-text-secondary);
 }
 
 .edit-profile-form {

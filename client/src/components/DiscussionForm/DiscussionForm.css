@@ -1,20 +1,38 @@
 .discussion-form {
+  /* Variables de couleur pour faciliter la séparation light/dark */
+  --bg-overlay: rgba(255, 255, 255, 0.718), rgba(255, 255, 255, 0.612);
+  --border-color: #ddd;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --textarea-bg: #fff;
+  --textarea-border: #ccc;
+  --focus-color: #0096ff;
+  --focus-shadow: rgba(0, 150, 255, 0.15);
+  --file-label-bg: #f0f4f8;
+  --file-label-border: #ccc;
+  --file-label-hover-bg: #e8f3ff;
+  --file-label-hover-color: #0096ff;
+  --preview-border: #ccc;
+  --button-bg: #0096ff;
+  --button-color: #fff;
+  --button-hover-bg: #007bdb;
+  --login-bg: #fdfdfd;
+  --login-border: #ddd;
+  --login-link-color: #0096ff;
+
   display: flex;
   flex-direction: column;
   justify-self: center;
   gap: 2rem;
-  background: #fdfdfd;
-  border: 1px solid #ddd;
+  background: var(--login-bg);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 1.5rem;
   margin: 1.5rem 1.5rem 0 1.5rem;
   width: 100%;
   max-width: 1200px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.718),
-      rgba(255, 255, 255, 0.612)
-    ), url(/images/bc_discussion-form.webp);
+  box-shadow: 0 2px 8px var(--shadow-color);
+  background-image: linear-gradient(var(--bg-overlay)),
+    url(/images/bc_discussion-form.webp);
   background-size: cover;
   background-position: center;
 }
@@ -22,20 +40,21 @@
 /* Zone de texte */
 .discussion-form textarea {
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid var(--textarea-border);
   border-radius: 8px;
   padding: 0.75rem;
   font-size: 1rem;
   font-family: inherit;
   line-height: 1.5;
   transition: border-color 0.2s, box-shadow 0.2s;
-  background: #fff;
+  background: var(--textarea-bg);
+  color: var(--color-text);
 }
 
 .discussion-form textarea:focus {
   outline: none;
-  border-color: #0096ff;
-  box-shadow: 0 0 0 3px rgba(0, 150, 255, 0.15);
+  border-color: var(--focus-color);
+  box-shadow: 0 0 0 3px var(--focus-shadow);
 }
 
 /* Actions (image + bouton) */
@@ -51,21 +70,21 @@
 .file-label {
   display: inline-block;
   position: relative;
-  background: #f0f4f8;
-  border: 1px solid #ccc;
+  background: var(--file-label-bg);
+  border: 1px solid var(--file-label-border);
   border-radius: 8px;
   padding: 0.6rem 1rem;
   cursor: pointer;
   font-size: 0.95rem;
   font-weight: 500;
-  color: #333;
+  color: var(--color-text-secondary);
   transition: all 0.2s ease;
 }
 
 .file-label:hover {
-  background: #e8f3ff;
-  border-color: #0096ff;
-  color: #0096ff;
+  background: var(--file-label-hover-bg);
+  border-color: var(--file-label-hover-color);
+  color: var(--file-label-hover-color);
 }
 
 .file-label input[type="file"] {
@@ -78,7 +97,7 @@
   max-height: 120px;
   max-width: 180px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--preview-border);
   object-fit: cover;
   margin-top: 0.5rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -86,10 +105,10 @@
 
 /* Bouton principal */
 .discussion-form button[type="submit"] {
-  background: #0096ff;
+  background: var(--button-bg);
   border: none;
   border-radius: 8px;
-  color: #fff;
+  color: var(--button-color);
   font-size: 1rem;
   font-weight: 600;
   padding: 0.7rem 1.5rem;
@@ -98,7 +117,7 @@
 }
 
 .discussion-form button[type="submit"]:hover {
-  background: #007bdb;
+  background: var(--button-hover-bg);
 }
 
 .discussion-form button[type="submit"]:active {
@@ -129,8 +148,8 @@
 .login-prompt {
   text-align: center;
   padding: 2rem;
-  background: #fdfdfd;
-  border: 1px solid #ddd;
+  background: var(--login-bg);
+  border: 1px solid var(--login-border);
   border-radius: 12px;
   margin: 1.5rem 1.5rem 0 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -139,15 +158,37 @@
 .login-prompt p {
   margin: 0.5rem 0;
   font-size: 1.1rem;
-  color: #333;
+  color: var(--color-text-secondary);
 }
 
 .login-prompt a {
-  color: #0096ff;
+  color: var(--login-link-color);
   text-decoration: none;
   font-weight: 500;
 }
 
 .login-prompt a:hover {
   text-decoration: underline;
+}
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .discussion-form {
+  --bg-overlay: rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7);
+  --border-color: var(--color-text);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --textarea-bg: var(--background-color-secondary);
+  --textarea-border: var(--color-text-secondary);
+  --focus-color: #0096ff;
+  --focus-shadow: rgba(0, 150, 255, 0.15);
+  --file-label-bg: var(--background-color-secondary);
+  --file-label-border: var(--color-text-secondary);
+  --file-label-hover-bg: #e8f3ff;
+  --file-label-hover-color: #0096ff;
+  --preview-border: var(--color-text-secondary);
+  --button-bg: #0096ff;
+  --button-color: #fff;
+  --button-hover-bg: #007bdb;
+  --login-bg: var(--background-color-secondary);
+  --login-border: var(--color-text-secondary);
+  --login-link-color: #0096ff;
 }

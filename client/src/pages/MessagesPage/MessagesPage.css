@@ -1,12 +1,12 @@
 .messages-container {
   padding: 2rem;
-  background-color: var(--background-color-main);
+  background: var(--main-background);
   flex: 1;
 }
 
 .messages-container h2 {
   margin-bottom: 1.5rem;
-  color: #222;
+  color: var(--color-text-secondary);
   font-size: 1.4rem;
   text-align: center;
 }
@@ -37,7 +37,7 @@
 
 .tab-button.active {
   background: var(--background-color-button);
-  color: white;
+  color: var(--color-text);
   font-weight: 600;
 }
 
@@ -109,7 +109,7 @@
 .messages-table th {
   background: #f2f2f2;
   font-weight: 600;
-  color: #333;
+  color: var(--color-text-secondary);
 }
 
 /* Boutons */
@@ -187,7 +187,7 @@
 .modal-content h3 {
   margin-top: 0;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: var(--color-text-secondary);
   text-align: center;
 }
 

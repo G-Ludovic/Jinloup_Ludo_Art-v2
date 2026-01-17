@@ -1,5 +1,5 @@
 .presentations-layout {
-  background-color: var(--background-color-main);
+  background: var(--main-background);
   padding: 1rem;
 }
 
@@ -14,10 +14,18 @@
 /* La colonne de gauche (posts) */
 .posts-forum {
   grid-column: 1;
-  background: var(--background-color-hover);
+  background: var(--background-color-main);
   border-radius: 8px;
   padding: 1rem;
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid var(--color-text);
+}
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .posts-forum {
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+    url(/images/bc_subject.webp);
+  background-size: cover;
+  background-position: center;
 }
 
 /* La colonne de droite (online + latests posts) */

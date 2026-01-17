@@ -1,7 +1,7 @@
 .user-container {
   display: flex;
-  background-color: var(--background-color-main);
-  color: #222;
+  background: var(--main-background);
+  color: var(--color-text-secondary);
   font-family: var(--font-family-title);
   min-height: 100vh;
   flex-direction: column;
@@ -10,7 +10,7 @@
 /* la sidebar */
 .user-sidebar {
   background-color: #3a3a5f;
-  color: white;
+  color: var(--color-text);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -39,7 +39,7 @@
   border: none;
   border-radius: 6px;
   background-color: transparent;
-  color: white;
+  color: var(--color-text);
   text-align: left;
   cursor: pointer;
   font-family: inherit;
@@ -73,7 +73,7 @@
 
 .user-profile h3 {
   margin-bottom: 1.5rem;
-  color: #222;
+  color: var(--color-text-secondary);
   font-size: 1.4rem;
   text-align: center;
 }
@@ -95,7 +95,7 @@
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #333;
+  color: var(--color-text-secondary);
 }
 
 .form-group input,
@@ -172,7 +172,7 @@
 
 .user-stats h3 {
   margin-bottom: 1.5rem;
-  color: #333;
+  color: var(--color-text-secondary);
 }
 
 .stats-grid {
@@ -214,7 +214,7 @@
 
 .activity-chart h4 {
   margin: 0 0 1rem 0;
-  color: #333;
+  color: var(--color-text-secondary);
 }
 
 .chart-placeholder {

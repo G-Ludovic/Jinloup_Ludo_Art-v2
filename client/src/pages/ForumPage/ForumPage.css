@@ -4,7 +4,7 @@
   grid-auto-rows: 1fr 1fr;
   gap: 24px;
   padding: 16px;
-  background-color: var(--background-color-main);
+  background: var(--main-background);
 }
 
 .forum-main h3 {
@@ -24,7 +24,7 @@
 
 .forum-main thead {
   background-color: var(--background-color-hoverbutton);
-  color: white;
+  color: var(--color-text);
 }
 
 .forum-main th,

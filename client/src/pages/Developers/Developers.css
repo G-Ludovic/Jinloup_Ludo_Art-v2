@@ -1,5 +1,5 @@
 .developers-page {
-  background-color: var(--background-color-main);
+  background: var(--main-background);
   padding-bottom: 2rem;
 }
 
@@ -9,7 +9,7 @@
   line-height: 1.6;
   font-family: "Inter", sans-serif;
   color: var(--color-text);
-  background-color: white;
+  background: var(--background-color-content);
   padding: 2rem;
   margin: 2rem auto 0 auto;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -20,9 +20,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #3a4b3f;
+  background: var(--main-background);
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-  color: white;
+  color: var(--color-text);
   font-family: var(--font-family-text);
   padding: 16px;
   margin: 0;
@@ -146,7 +146,7 @@
 
 .contact-links a:hover {
   background-color: var(--color-link);
-  color: white;
+  color: var(--color-text);
 }
 
 .contact-links img {
@@ -184,7 +184,7 @@
 
 .tech-badge {
   background: var(--primary-color);
-  color: white;
+  color: var(--color-text);
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.9rem;

@@ -1,7 +1,7 @@
 /* Page général */
 .gallery-page {
   padding: 2rem;
-  background-color: var(--background-color-main);
+  background: var(--main-background);
   color: var(--color-text);
   font-family: var(--font-family-text);
   text-align: center;
@@ -22,7 +22,7 @@
 .login-prompt-gallery p {
   margin: 0.5rem 0;
   font-size: 1.1rem;
-  color: #333;
+  color: var(--color-text-secondary);
 }
 
 .login-prompt-gallery a {
@@ -72,7 +72,7 @@
 
 .add-draw button {
   background-color: var(--background-color-button);
-  color: white;
+  color: var(--color-text);
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 5px;
@@ -103,14 +103,14 @@
 
 .details-table th {
   background-color: var(--color-hover-primary);
-  color: white;
+  color: var(--color-text);
   font-weight: 600;
   width: 100px;
 }
 
 .details-table td {
-  background-color: white;
-  color: #333;
+  background-color: var(--color-text);
+  color: var(--color-text-secondary);
 }
 
 /* Aperçu d'image */
@@ -178,7 +178,7 @@
   padding: 0.5rem 1rem;
   border: none;
   background-color: var(--background-color-button);
-  color: white;
+  color: var(--color-text);
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -244,7 +244,7 @@
   border-radius: 4px;
   padding: 8px;
   background-color: var(--background-color-button);
-  color: white;
+  color: var(--color-text);
   margin-right: 0.5rem;
   cursor: pointer;
 }
@@ -258,7 +258,7 @@
   border-radius: 4px;
   padding: 8px;
   background-color: var(--color-success);
-  color: white;
+  color: var(--color-text);
   cursor: pointer;
 }
 
@@ -333,4 +333,53 @@ dialog {
   .carousel-article .indicators {
     display: none;
   }
+}
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .login-prompt-gallery {
+  background: var(--background-color-secondary);
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .login-prompt-gallery p {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .login-prompt-gallery a {
+  color: var(--color-link);
+}
+
+[data-theme="dark"] .add-draw form {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+    url(/images/bc_discussion-form.webp);
+  border-color: var(--color-text);
+}
+
+[data-theme="dark"] .add-draw input[type="text"],
+[data-theme="dark"] .add-draw input[type="file"] {
+  background-color: var(--background-color-secondary);
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .details-table td {
+  background-color: var(--background-color-secondary);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .draw-member .card {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+    url(/images/bc_discussion-form.webp);
+}
+
+[data-theme="dark"] .draw-member dialog {
+  background: var(--background-color-secondary);
+  border-color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .card {
+  background: var(--background-color-secondary);
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
 }

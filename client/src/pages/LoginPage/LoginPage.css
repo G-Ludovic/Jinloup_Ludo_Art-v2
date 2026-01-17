@@ -6,7 +6,7 @@
   padding: 24px;
   font-family: var(--font-family-text);
   color: var(--color-text);
-  background-color: var(--background-color-main);
+  background: var(--main-background);
 }
 
 .login-form {

@@ -12,7 +12,7 @@ const migrate = async () => {
   try {
     // Lire les instructions SQL à partir du fichier de schéma
     const sql = fs.readFileSync(schema, "utf8");
-    // Create a specific connection to the database
+    // Créer une connexion spécifique à la base de données
     const database = await mysql.createConnection({
       host: DB_HOST,
       port: Number.parseInt(DB_PORT as string) || 3306,

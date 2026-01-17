@@ -7,10 +7,16 @@ body {
 }
 
 main {
-  min-height: calc(100vh - 308px - 68px);
+  /* Define offsets for header and footer heights to ensure main takes full viewport height */
+  --main-offset-mobile: 358px;
+  /* Approximate header + footer height on mobile */
+  --main-offset-desktop: 286px;
+  /* Approximate header + footer height on desktop */
+
+  min-height: calc(100vh - var(--main-offset-mobile));
 
   @media screen and (min-width: 768px) {
-    min-height: calc(100vh - 236px - 50px);
+    min-height: calc(100vh - var(--main-offset-desktop));
   }
 }
 
@@ -18,7 +24,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #3a4b3f;
+  background-color: var(--background-color-h1);
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   color: white;
   font-family: var(--font-family-text);
@@ -31,7 +37,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   padding: 16px;
-  background-color: #3a4b3f;
+  background: var(--main-background);
   color: white;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }
@@ -46,6 +52,11 @@ h1 {
 .category-section-forum p {
   font-family: var(--font-family-text);
   font-size: 1rem;
+}
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .category-section-forum {
+  background: var(--main-background);
 }
 
 a {
@@ -68,11 +79,16 @@ a {
 
   /* Couleurs de fond */
   --background-color-primary: #68766c;
+  --header-background: linear-gradient(90deg, #3a4b3f, #2c3e2f);
+  --footer-background: linear-gradient(90deg, #3a4b3f, #2c3e2f);
   --background-color-secondary: #93b09c;
   --background-color-main: #e3eee6;
+  --main-background: linear-gradient(90deg, #c8d5cc, #b8c8bf);
   --background-color-hover: #d5e7db;
   --background-color-hoverbutton: #5a5a5a;
   --background-color-button: #111;
+  --background-color-content: #ffffff;
+  --background-color-h1: #3a4b3f;
 
   /* Couleurs primaires et secondaires */
   --primary-color: #0d2013;
@@ -84,4 +100,55 @@ a {
   --font-family-link: "Raleway", sans-serif;
   --font-family-title: "Poppins", sans-serif;
   --font-family-text: "Inter", sans-serif;
+}
+
+/* Variables pour le dark mode - Accessibilité optimisée */
+[data-theme="dark"] {
+  /* Couleurs de texte - Bon contraste sur fond sombre */
+  --color-text: #ffffff;
+  /* Blanc pur pour contraste maximum */
+  --color-text-secondary: #a0aec0;
+  /* Gris pour les titres secondaires */
+  /* Gris moyen pour contraste secondaire */
+
+  /* Couleurs d'état - Maintenues pour accessibilité */
+  --color-success: #28a745;
+  /* Vert accessible */
+  --color-link: #4dabf7;
+  /* Bleu clair accessible */
+  --color-hover-link: #74b9ff;
+  /* Bleu plus clair au survol */
+  --color-error: #dc3545;
+  /* Rouge accessible */
+
+  /* Couleurs de fond - Dégradé sombre pour les pages */
+  --background-color-primary: linear-gradient(90deg, #2a2d3a, #1f2029);
+  --header-background: linear-gradient(90deg, #2a2a2a, #1a1a1a, #0d0d0d);
+  --footer-background: linear-gradient(90deg, #2a2a2a, #1a1a1a, #0d0d0d);
+  /* Gris foncé mais pas noir */
+  --background-color-secondary: #4a5568;
+  /* Gris moyen foncé */
+  --background-color-main: #0f1419;
+  --main-background: linear-gradient(90deg, #2a2d3a, #1f2029);
+  /* Noir très foncé pour les posts */
+  --background-color-hover: #2d3748;
+  /* Légèrement plus clair au survol */
+  --background-color-hoverbutton: #4a5568;
+  /* Bouton au survol */
+  --background-color-button: #374151;
+  /* Bouton normal */
+  --background-color-content: #2a2d3a;
+  /* Fond des pages de contenu en dark */
+  --background-color-h1: #1a202c;
+  /* Fond des h1 en dark mode */
+
+  /* Couleurs primaires et secondaires - Maintenues cohérentes */
+  --primary-color: #2b6cb0;
+  /* Bleu accessible en dark */
+  --secondary-color: #38a169;
+  /* Vert accessible */
+  --color-hover-primary: #4299e1;
+  /* Bleu plus clair */
+  --color-hover-secondary: #48bb78;
+  /* Vert plus clair */
 }

@@ -4,7 +4,7 @@
 
 .home-main,
 .home-section {
-  background-color: var(--background-color-main);
+  background: var(--main-background);
   text-align: center;
 
   img {
@@ -22,5 +22,15 @@
     padding: 3rem 1.5rem 3rem;
     font-size: medium;
     line-height: 1.4;
+    color: var(--color-text);
+  }
+
+  img {
+    filter: brightness(1);
+  }
+
+  /* Styles pour le dark mode */
+  [data-theme="dark"] .home-main img {
+    filter: brightness(0.7);
   }
 }

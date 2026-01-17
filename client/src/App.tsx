@@ -3,10 +3,11 @@ import { Outlet } from "react-router";
 import { ToastContainer } from "react-toastify";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
+import { ThemeProvider } from "./services/ThemeContext";
 
 function App() {
   return (
-    <>
+    <ThemeProvider>
       <Header />
 
       <main>
@@ -14,7 +15,7 @@ function App() {
         <ToastContainer position="bottom-right" autoClose={2000} theme="dark" />
       </main>
       <Footer />
-    </>
+    </ThemeProvider>
   );
 }
 

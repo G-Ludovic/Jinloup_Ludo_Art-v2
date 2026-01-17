@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
   align-items: center;
-  background-color: var(--background-color-primary);
+  background: var(--footer-background);
   color: white;
   padding-top: 32px;
   padding-left: 24px;

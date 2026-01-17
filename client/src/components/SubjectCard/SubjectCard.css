@@ -123,3 +123,19 @@ small {
     max-height: 250px;
   }
 }
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .subject-card {
+  background: var(--main-background);
+  border-color: var(--color-text);
+}
+
+[data-theme="dark"] .message-content p {
+  background-color: var(--background-color-secondary);
+  border-color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .message-img {
+  background-color: var(--background-color-secondary);
+  border-color: var(--color-text-secondary);
+}
