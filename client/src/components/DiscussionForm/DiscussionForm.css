@@ -124,27 +124,7 @@
   transform: scale(0.98);
 }
 
-@media (max-width: 600px) {
-  .discussion-form {
-    padding: 1rem;
-  }
-
-  .form-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .file-label,
-  .discussion-form button[type="submit"] {
-    width: 100%;
-    text-align: center;
-  }
-
-  .preview-img {
-    max-width: 100%;
-  }
-}
-
+/* Message de connexion requis */
 .login-prompt {
   text-align: center;
   padding: 2rem;
@@ -172,6 +152,21 @@
 }
 
 /* Styles pour le dark mode */
+[data-theme="dark"] .login-prompt {
+  background: var(--background-color-secondary);
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .login-prompt p {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .login-prompt a {
+  color: var(--color-link);
+}
+
+/* Styles pour le dark mode */
 [data-theme="dark"] .discussion-form {
   --bg-overlay: rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7);
   --border-color: var(--color-text);
@@ -182,8 +177,8 @@
   --focus-shadow: rgba(0, 150, 255, 0.15);
   --file-label-bg: var(--background-color-secondary);
   --file-label-border: var(--color-text-secondary);
-  --file-label-hover-bg: #e8f3ff;
-  --file-label-hover-color: #0096ff;
+  --file-label-hover-bg: var(--color-hover-primary);
+  --file-label-hover-color: var(--color-text);
   --preview-border: var(--color-text-secondary);
   --button-bg: #0096ff;
   --button-color: #fff;
@@ -191,4 +186,29 @@
   --login-bg: var(--background-color-secondary);
   --login-border: var(--color-text-secondary);
   --login-link-color: #0096ff;
+}
+
+[data-theme="dark"] .file-label {
+  color: var(--color-text);
+}
+
+@media (max-width: 600px) {
+  .discussion-form {
+    padding: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .file-label,
+  .discussion-form button[type="submit"] {
+    width: 100%;
+    text-align: center;
+  }
+
+  .preview-img {
+    max-width: 100%;
+  }
 }

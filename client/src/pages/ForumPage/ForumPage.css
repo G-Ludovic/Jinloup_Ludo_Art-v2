@@ -24,7 +24,7 @@
 
 .forum-main thead {
   background-color: var(--background-color-hoverbutton);
-  color: var(--color-text);
+  color: var(--color-text-tertiary);
 }
 
 .forum-main th,

@@ -63,6 +63,16 @@
   transition: 0.1s ease-in-out;
 }
 
+.footer-column a:focus {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
+}
+
+.social-block a:focus {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
+}
+
 .social-block {
   margin: 20px 20px;
   display: flex;

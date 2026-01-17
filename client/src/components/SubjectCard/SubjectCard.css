@@ -50,8 +50,6 @@
   width: 100%;
   max-height: 250px;
   object-fit: contain;
-  background-color: #ffe6e6;
-  border: 1px solid grey;
   border-radius: 2px;
 }
 
@@ -126,16 +124,11 @@ small {
 
 /* Styles pour le dark mode */
 [data-theme="dark"] .subject-card {
-  background: var(--main-background);
   border-color: var(--color-text);
 }
 
 [data-theme="dark"] .message-content p {
-  background-color: var(--background-color-secondary);
+  background-color: var(--background-color-content);
   border-color: var(--color-text-secondary);
-}
-
-[data-theme="dark"] .message-img {
-  background-color: var(--background-color-secondary);
-  border-color: var(--color-text-secondary);
+  color: var(--color-text);
 }

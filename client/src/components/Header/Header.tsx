@@ -46,7 +46,7 @@ function Header() {
         )}
       </figure>
 
-      <nav className="header-nav">
+      <nav className="header-nav" aria-label="Navigation principale">
         <Link className="home-a" to="/">
           Accueil
         </Link>

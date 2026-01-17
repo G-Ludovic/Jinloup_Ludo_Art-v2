@@ -24,22 +24,30 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--background-color-h1);
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),
+    url(/images/banner-jinloup-ludo-art.webp);
+  background-size: cover;
+  background-position: center;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   color: white;
   font-family: var(--font-family-text);
-  padding: 16px;
+  padding: 48px 16px;
   margin: 0;
+  min-height: 120px;
 }
 
 .category-section-forum {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
-  background: var(--main-background);
+  padding: 48px 16px;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),
+    url(/images/banner-jinloup-ludo-art.webp);
+  background-size: cover;
+  background-position: center;
   color: white;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  min-height: 120px;
 }
 
 .category-section-forum h2 {
@@ -70,6 +78,7 @@ a {
   /* Couleurs de texte */
   --color-text: #050315;
   --color-text-secondary: #2a2a72;
+  --color-text-tertiary: #ffffff;
 
   /* Couleurs d'état */
   --color-success: rgb(30, 145, 30);
@@ -102,53 +111,28 @@ a {
   --font-family-text: "Inter", sans-serif;
 }
 
-/* Variables pour le dark mode - Accessibilité optimisée */
+/* Variables pour le dark mode */
 [data-theme="dark"] {
-  /* Couleurs de texte - Bon contraste sur fond sombre */
   --color-text: #ffffff;
-  /* Blanc pur pour contraste maximum */
-  --color-text-secondary: #a0aec0;
-  /* Gris pour les titres secondaires */
-  /* Gris moyen pour contraste secondaire */
-
-  /* Couleurs d'état - Maintenues pour accessibilité */
+  --color-text-secondary: #4f5864;
   --color-success: #28a745;
-  /* Vert accessible */
   --color-link: #4dabf7;
-  /* Bleu clair accessible */
   --color-hover-link: #74b9ff;
-  /* Bleu plus clair au survol */
   --color-error: #dc3545;
-  /* Rouge accessible */
-
-  /* Couleurs de fond - Dégradé sombre pour les pages */
   --background-color-primary: linear-gradient(90deg, #2a2d3a, #1f2029);
   --header-background: linear-gradient(90deg, #2a2a2a, #1a1a1a, #0d0d0d);
   --footer-background: linear-gradient(90deg, #2a2a2a, #1a1a1a, #0d0d0d);
-  /* Gris foncé mais pas noir */
   --background-color-secondary: #4a5568;
-  /* Gris moyen foncé */
   --background-color-main: #0f1419;
   --main-background: linear-gradient(90deg, #2a2d3a, #1f2029);
-  /* Noir très foncé pour les posts */
   --background-color-hover: #2d3748;
-  /* Légèrement plus clair au survol */
   --background-color-hoverbutton: #4a5568;
-  /* Bouton au survol */
+  --background-color-hoverbuttontwo: #626b7e;
   --background-color-button: #374151;
-  /* Bouton normal */
   --background-color-content: #2a2d3a;
-  /* Fond des pages de contenu en dark */
   --background-color-h1: #1a202c;
-  /* Fond des h1 en dark mode */
-
-  /* Couleurs primaires et secondaires - Maintenues cohérentes */
   --primary-color: #2b6cb0;
-  /* Bleu accessible en dark */
   --secondary-color: #38a169;
-  /* Vert accessible */
   --color-hover-primary: #4299e1;
-  /* Bleu plus clair */
   --color-hover-secondary: #48bb78;
-  /* Vert plus clair */
 }

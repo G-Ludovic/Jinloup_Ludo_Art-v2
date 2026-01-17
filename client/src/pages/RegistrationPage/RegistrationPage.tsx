@@ -28,7 +28,7 @@ function RegistrationPage() {
 
   return (
     <>
-      <h1>Veuillez créer votre compte</h1>
+      <h1>Créer votre compte</h1>
       <main className="registration-page">
         <form className="registration-form" action={handleSubmit}>
           <label htmlFor="email">Votre email</label>

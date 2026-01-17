@@ -115,6 +115,11 @@
     background-color: var(--background-color-hoverbutton);
   }
 
+  a:focus {
+    outline: 2px solid var(--color-link);
+    outline-offset: 2px;
+  }
+
   button {
     all: unset;
     cursor: pointer;
@@ -126,6 +131,11 @@
     img:hover {
       transition: opacity 0.3s ease;
       opacity: 50%;
+    }
+
+    &:focus {
+      outline: 2px solid var(--color-link);
+      outline-offset: 2px;
     }
   }
 

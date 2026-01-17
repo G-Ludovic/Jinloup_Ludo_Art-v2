@@ -328,3 +328,110 @@ tr:hover {
     font-size: 1rem;
   }
 }
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .tab-container {
+  border-bottom-color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .tab-button {
+  background: var(--background-color-secondary);
+  color: var(--color-text);
+  border: 1px solid var(--color-text-secondary);
+}
+
+[data-theme="dark"] .tab-button:hover {
+  background: var(--background-color-hover);
+  border-color: var(--color-hover-primary);
+}
+
+[data-theme="dark"] .tab-button.active {
+  background: var(--color-hover-primary);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .filters-container {
+  background: var(--background-color-secondary);
+  border: 1px solid var(--color-text-secondary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .filter-group label {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .filter-group select {
+  background: var(--background-color-content);
+  color: var(--color-text);
+  border-color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .btn-clear-filters {
+  background: var(--color-error);
+}
+
+[data-theme="dark"] .btn-clear-filters:hover {
+  background: #c62828;
+}
+
+[data-theme="dark"] .messages-table {
+  background: var(--background-color-content);
+  border: 1px solid var(--color-text-secondary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .messages-table th,
+[data-theme="dark"] .messages-table td {
+  border-bottom-color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .messages-table th {
+  background: var(--background-color-secondary);
+  color: var(--color-text);
+  border-top: 1px solid var(--color-text-secondary);
+}
+
+[data-theme="dark"] .btn-delete {
+  background: var(--color-error);
+}
+
+[data-theme="dark"] .btn-delete:hover {
+  background: #c62828;
+}
+
+[data-theme="dark"] .btn-view {
+  background: var(--color-link);
+}
+
+[data-theme="dark"] .btn-view:hover {
+  background: var(--color-hover-link);
+}
+
+[data-theme="dark"] .btn-close {
+  background: var(--background-color-button);
+}
+
+[data-theme="dark"] .btn-close:hover {
+  background: var(--background-color-hoverbutton);
+}
+
+[data-theme="dark"] .modal-overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .modal-content {
+  background: var(--background-color-content);
+  border: 1px solid var(--color-text-secondary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .message-content {
+  background: var(--background-color-secondary);
+  border: 1px solid var(--color-text-secondary);
+  color: var(--color-text);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] tr:hover {
+  background-color: var(--background-color-hover);
+}

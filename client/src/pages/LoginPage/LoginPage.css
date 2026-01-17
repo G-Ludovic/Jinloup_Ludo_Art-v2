@@ -83,6 +83,10 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+[data-theme="dark"] .login-form button:hover {
+  background-color: var(--background-color-hoverbuttontwo);
+}
+
 @media (max-width: 960px) {
   .login-page {
     display: flex;
