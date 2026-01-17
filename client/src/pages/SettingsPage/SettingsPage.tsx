@@ -115,7 +115,7 @@ function SettingsPage() {
       errors.email = "Veuillez saisir une adresse email valide.";
     }
 
-    if (!role) {
+    if (user?.role !== USER_ROLES.JEUNE && !role) {
       errors.role = "Veuillez sélectionner un rôle.";
     }
 
@@ -125,7 +125,16 @@ function SettingsPage() {
 
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
-  }, [pseudo, email, role, bio, validatePseudo, validateEmail, validateBio]);
+  }, [
+    pseudo,
+    email,
+    role,
+    bio,
+    user?.role,
+    validatePseudo,
+    validateEmail,
+    validateBio,
+  ]);
 
   // Handlers
   const handleFileChange = useCallback(
@@ -300,26 +309,28 @@ function SettingsPage() {
           )}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="role">Rôle</label>
-          <select
-            id="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            required
-          >
-            {availableRoles.map((r) => (
-              <option key={r.value} value={r.value}>
-                {r.label}
-              </option>
-            ))}
-          </select>
-          {formErrors.role && (
-            <span style={{ color: "red", fontSize: "0.9em" }}>
-              {formErrors.role}
-            </span>
-          )}
-        </div>
+        {user?.role !== USER_ROLES.JEUNE && (
+          <div className="form-group">
+            <label htmlFor="role">Rôle</label>
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              required
+            >
+              {availableRoles.map((r) => (
+                <option key={r.value} value={r.value}>
+                  {r.label}
+                </option>
+              ))}
+            </select>
+            {formErrors.role && (
+              <span style={{ color: "red", fontSize: "0.9em" }}>
+                {formErrors.role}
+              </span>
+            )}
+          </div>
+        )}
 
         <div className="form-group">
           <label htmlFor="bio">Biographie</label>

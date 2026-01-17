@@ -198,3 +198,7 @@
   background: var(--background-color-secondary);
   color: var(--color-text);
 }
+
+[data-theme="dark"] .form-group label {
+  color: var(--color-text);
+}

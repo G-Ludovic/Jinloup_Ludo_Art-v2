@@ -9,7 +9,7 @@
 
 /* la sidebar */
 .user-sidebar {
-  background-color: #3a3a5f;
+  background-color: var(--background-color-secondary);
   color: var(--color-text);
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@
 .user-sidebar h2 {
   margin-bottom: 1.2rem;
   font-size: 1rem;
-  color: #c0c0ff;
+  color: var(--color-link);
 }
 
 .user-sidebar ul {
@@ -49,7 +49,7 @@
 
 .user-sidebar li button:hover,
 .user-sidebar li button.active {
-  background-color: #5a5a8f;
+  background-color: var(--background-color-hover);
 }
 
 /* page entière */
@@ -81,7 +81,7 @@
 .profile-form {
   max-width: 600px;
   margin: 0 auto;
-  background: #fff;
+  background: var(--background-color-secondary);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
@@ -103,10 +103,12 @@
 .form-group textarea {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-text-secondary);
   border-radius: 6px;
   font-size: 1rem;
   font-family: var(--font-family-text, sans-serif);
+  background: var(--background-color-content);
+  color: var(--color-text);
 }
 
 .form-group textarea {
@@ -130,7 +132,7 @@
 
 .btn-upload {
   padding: 0.5rem 1rem;
-  background: #2196f3;
+  background: var(--primary-color);
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -140,13 +142,13 @@
 }
 
 .btn-upload:hover {
-  background: #1976d2;
+  background: var(--color-hover-primary);
 }
 
 .btn-save {
   width: 100%;
   padding: 0.75rem;
-  background: #4caf50;
+  background: var(--secondary-color);
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -157,7 +159,7 @@
 }
 
 .btn-save:hover {
-  background: #43a047;
+  background: var(--color-hover-secondary);
 }
 
 .btn-save:disabled {
@@ -183,7 +185,7 @@
 }
 
 .stat-card {
-  background: #fff;
+  background: var(--background-color-content);
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
@@ -206,7 +208,7 @@
 }
 
 .activity-chart {
-  background: #fff;
+  background: var(--background-color-content);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
@@ -222,10 +224,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f9f9f9;
-  border: 2px dashed #ddd;
+  background: var(--background-color-hover);
+  border: 2px dashed var(--color-text-secondary);
   border-radius: 8px;
-  color: #666;
+  color: var(--color-text-secondary);
 }
 
 /* Téléphones */
@@ -293,4 +295,31 @@
     align-items: center;
     padding: 1.5rem;
   }
+}
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .user-sidebar {
+  background-color: var(--background-color-secondary);
+}
+
+[data-theme="dark"] .user-sidebar h2 {
+  color: var(--color-link);
+}
+
+[data-theme="dark"] .user-sidebar li button:hover,
+[data-theme="dark"] .user-sidebar li button.active {
+  background-color: var(--background-color-hover);
+}
+
+[data-theme="dark"] .profile-form {
+  background: var(--background-color-secondary);
+  border: 1px solid var(--color-text-secondary);
+}
+
+[data-theme="dark"] .stat-card {
+  background: var(--background-color-content);
+}
+
+[data-theme="dark"] .activity-chart {
+  background: var(--background-color-content);
 }

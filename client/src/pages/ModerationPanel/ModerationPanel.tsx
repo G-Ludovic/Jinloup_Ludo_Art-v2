@@ -5,7 +5,7 @@ import MessagesPage from "../MessagesPage/MessagesPage";
 import SettingsPage from "../SettingsPage/SettingsPage";
 
 function ModerationPanel() {
-  const [activePage, setActivePage] = useState("dashboard");
+  const [activePage, setActivePage] = useState("members");
 
   return (
     <div className="moderation-container">
@@ -14,15 +14,6 @@ function ModerationPanel() {
         <h2>JinLoup Modération 🛡️</h2>
         <nav>
           <ul>
-            <li>
-              <button
-                type="button"
-                className={activePage === "dashboard" ? "active" : ""}
-                onClick={() => setActivePage("dashboard")}
-              >
-                Tableau de bord
-              </button>
-            </li>
             <li>
               <button
                 type="button"
@@ -47,7 +38,7 @@ function ModerationPanel() {
                 className={activePage === "settings" ? "active" : ""}
                 onClick={() => setActivePage("settings")}
               >
-                Paramètres
+                Profil
               </button>
             </li>
           </ul>
@@ -59,23 +50,6 @@ function ModerationPanel() {
         <header className="moderation-header">
           <h1>Bienvenue, Gardien Loup 🐺</h1>
         </header>
-
-        {activePage === "dashboard" && (
-          <section className="moderation-dashboard">
-            <div className="card-dashboard">
-              <h3>Membres</h3>
-              <p>24 loups inscrits</p>
-            </div>
-            <div className="card-dashboard">
-              <h3>Messages</h3>
-              <p>128 messages postés</p>
-            </div>
-            <div className="card-dashboard">
-              <h3>Signalements</h3>
-              <p>3 signalements en attente</p>
-            </div>
-          </section>
-        )}
 
         {activePage === "members" && <MembersPage />}
 
