@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   padding-bottom: 16px;
+  position: relative;
 }
 
 .header .p-logo {
