@@ -6,8 +6,10 @@ function TheEvents() {
   return (
     <>
       <header className="category-section-forum">
-        <h2>Évènements</h2>
-        <p>Retrouve les activités à venir</p>
+        <h1>
+          <strong>Évènements</strong>
+          <p>Retrouve les activités à venir</p>
+        </h1>
       </header>
 
       <main className="presentations-layout">

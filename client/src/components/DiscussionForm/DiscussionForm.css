@@ -12,9 +12,9 @@
   --file-label-hover-bg: #e8f3ff;
   --file-label-hover-color: #0096ff;
   --preview-border: #ccc;
-  --button-bg: #0096ff;
+  --button-bg: #00008b;
   --button-color: #fff;
-  --button-hover-bg: #007bdb;
+  --button-hover-bg: #000066;
   --login-bg: #fdfdfd;
   --login-border: #ddd;
   --login-link-color: #0096ff;
@@ -180,9 +180,9 @@
   --file-label-hover-bg: var(--color-hover-primary);
   --file-label-hover-color: var(--color-text);
   --preview-border: var(--color-text-secondary);
-  --button-bg: #0096ff;
+  --button-bg: #0066cc;
   --button-color: #fff;
-  --button-hover-bg: #007bdb;
+  --button-hover-bg: #0055aa;
   --login-bg: var(--background-color-secondary);
   --login-border: var(--color-text-secondary);
   --login-link-color: #0096ff;

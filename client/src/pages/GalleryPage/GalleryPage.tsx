@@ -222,6 +222,7 @@ function GalleryPage() {
                   name="image"
                   accept="image/*"
                   onChange={handleFileChange}
+                  aria-label="Sélectionner une image à uploader"
                 />
               </div>
 

@@ -57,7 +57,14 @@ function DiscussionForm({ subjectId, onAdd }: DiscussionFormProps) {
 
   return (
     <form className="discussion-form" onSubmit={handleSubmit}>
+      <label
+        htmlFor="discussion-content"
+        style={{ display: "block", marginBottom: "0.5rem", fontWeight: "bold" }}
+      >
+        Contenu de votre message
+      </label>
       <textarea
+        id="discussion-content"
         name="content"
         placeholder="Écris ton message ici..."
         value={content}

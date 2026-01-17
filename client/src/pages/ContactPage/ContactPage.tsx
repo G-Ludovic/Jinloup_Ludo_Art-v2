@@ -34,9 +34,10 @@ const ContactPage: React.FC = () => {
             <p className="success-message">Merci pour votre message !</p>
           ) : (
             <form onSubmit={handleSubmit} className="contact-form">
-              <label>
+              <label htmlFor="name">
                 <p>Pseudo</p>
                 <input
+                  id="name"
                   type="text"
                   name="name"
                   placeholder="Nanouk"
@@ -46,9 +47,10 @@ const ContactPage: React.FC = () => {
                 />
               </label>
 
-              <label>
+              <label htmlFor="email">
                 <p>Email</p>
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   placeholder="loup@gmail.com"
@@ -58,17 +60,18 @@ const ContactPage: React.FC = () => {
                 />
               </label>
 
-              <label>
+              <label htmlFor="message">
                 <p>Message</p>
                 <textarea
+                  id="message"
                   name="message"
                   placeholder="Votre message ici..."
                   value={formData.message}
                   onChange={handleChange}
                   required
                 />
-                <button type="submit">Envoyer</button>
               </label>
+              <button type="submit">Envoyer</button>
             </form>
           )}
         </div>

@@ -14,7 +14,7 @@ function AdminPanel() {
         className="admin-sidebar"
         aria-label="Navigation du panel d'administration"
       >
-        <h2>JinLoup Panel ⛩️</h2>
+        <h2>Espace Administrateur ⛩️</h2>
         <nav aria-label="Sections du panel admin">
           <ul>
             <li>

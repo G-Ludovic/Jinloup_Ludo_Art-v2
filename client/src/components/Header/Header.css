@@ -48,6 +48,7 @@
   justify-items: center;
   background-color: #9c88ff;
   /* Violet pour profil utilisateur */
+  color: black;
   border-radius: 6px;
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
   padding: 6px;

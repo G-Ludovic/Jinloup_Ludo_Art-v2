@@ -6,7 +6,7 @@
 
 .messages-container h2 {
   margin-bottom: 1.5rem;
-  color: var(--color-text-secondary);
+  color: var(--color-text);
   font-size: 1.4rem;
   text-align: center;
 }
@@ -110,7 +110,7 @@
 .messages-table th {
   background: #f2f2f2;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--color-text);
 }
 
 /* Boutons */
@@ -121,14 +121,15 @@
   cursor: pointer;
   color: #fff;
   font-size: 0.85rem;
+  font-weight: 600;
   transition: background-color 0.2s ease;
   display: inline-block;
   width: 100%;
-  background: #f44336;
+  background: #d32f2f;
 }
 
 .btn-delete:hover {
-  background: #e53935;
+  background: #b71c1c;
 }
 
 .btn-view {
@@ -188,7 +189,7 @@
 .modal-content h3 {
   margin-top: 0;
   margin-bottom: 1.5rem;
-  color: var(--color-text-secondary);
+  color: var(--color-text);
   text-align: center;
 }
 

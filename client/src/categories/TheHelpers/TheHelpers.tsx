@@ -6,8 +6,10 @@ function TheHelpers() {
   return (
     <>
       <header className="category-section-forum">
-        <h2>Aides entre nous</h2>
-        <p>Besoin de soutien ?</p>
+        <h1>
+          <strong>Aides entre nous</strong>
+          <p>Besoin de soutien ?</p>
+        </h1>
       </header>
 
       <main className="presentations-layout">

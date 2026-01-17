@@ -35,11 +35,11 @@
     max-width: 800px;
     margin: 0 auto;
 
-    h3 {
+    h2 {
       font-family: var(--font-family-title);
       font-size: 1.8rem;
       margin-bottom: 1.5rem;
-      color: var(--color-text-secondary);
+      color: var(--color-text);
       text-align: center;
     }
 
@@ -78,7 +78,7 @@
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
       }
 
-      h4 {
+      h3 {
         font-family: var(--font-family-title);
         font-size: 1.2rem;
         margin-bottom: 0.5rem;

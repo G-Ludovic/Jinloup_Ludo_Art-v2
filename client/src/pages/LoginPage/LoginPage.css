@@ -63,7 +63,7 @@
 
 .login-form p a {
   font-weight: bold;
-  color: var(--secondary-color);
+  color: black;
   text-decoration: underline;
 }
 

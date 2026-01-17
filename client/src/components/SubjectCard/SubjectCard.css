@@ -127,8 +127,36 @@ small {
   border-color: var(--color-text);
 }
 
+[data-theme="dark"] .user-name {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] small {
+  color: var(--color-text);
+}
+
 [data-theme="dark"] .message-content p {
   background-color: var(--background-color-content);
   border-color: var(--color-text-secondary);
   color: var(--color-text);
+}
+
+/* Améliorer le contraste des boutons en mode dark */
+[data-theme="dark"] .actions button:first-child {
+  background: #1e40af;
+  /* Bleu plus foncé pour meilleur contraste */
+  color: white;
+}
+
+[data-theme="dark"] .actions button:first-child:hover {
+  background: #1d4ed8;
+  /* Hover plus foncé */
+}
+
+[data-theme="dark"] .actions button:last-child {
+  background: var(--color-error);
+}
+
+[data-theme="dark"] .actions button:last-child:hover {
+  background: #b02018;
 }

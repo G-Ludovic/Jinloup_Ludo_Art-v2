@@ -6,8 +6,10 @@ function Trombinoscope() {
   return (
     <>
       <header className="category-section-forum">
-        <h2>Trombinoscope</h2>
-        <p>Ajoute ta photo !</p>
+        <h1>
+          <strong>Trombinoscope</strong>
+          <p>Ajoute ta photo !</p>
+        </h1>
       </header>
 
       <main className="presentations-layout">

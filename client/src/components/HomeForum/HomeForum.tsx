@@ -56,7 +56,7 @@ function HomeForum() {
 
   return (
     <article className="home-forum">
-      <h3>Bienvenue sur le forum de Jinloup Ludo Art !</h3>
+      <h2>Bienvenue sur le forum de Jinloup Ludo Art !</h2>
 
       <table>
         <thead>

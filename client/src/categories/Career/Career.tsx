@@ -6,8 +6,10 @@ function Career() {
   return (
     <>
       <header className="category-section-forum">
-        <h2>Une carrière ?</h2>
-        <p>Parlons avenir pro !</p>
+        <h1>
+          <strong>Une carrière ?</strong>
+          <p>Parlons avenir pro !</p>
+        </h1>
       </header>
 
       <main className="presentations-layout">

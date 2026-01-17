@@ -11,7 +11,7 @@ function HomePage() {
       <main id="main-content" className="home-main">
         <section id="welcome" className="home-section">
           <article>
-            <h3>Découvrez l'Art de Jinloup</h3>
+            <h2>Découvrez l'Art de Jinloup</h2>
             <blockquote className="welcome-quote">
               "Bienvenue sur Jinloup Ludo Art, un espace dédié à l'art et au
               dessin. Ici, chaque trait de crayon raconte une histoire, chaque
@@ -23,28 +23,28 @@ function HomePage() {
             </blockquote>
             <div className="welcome-highlights">
               <div className="highlight-item">
-                <h4>🎨 Explorez des Galeries Uniques</h4>
+                <h2>🎨 Explorez des Galeries Uniques</h2>
                 <p>
                   Découvrez une collection d'œuvres originales qui inspirent et
                   émerveillent.
                 </p>
               </div>
               <div className="highlight-item">
-                <h4>💬 Participez à la Communauté</h4>
+                <h2>💬 Participez à la Communauté</h2>
                 <p>
                   Échangez avec des artistes passionnés, partagez vos créations
                   et recevez des conseils.
                 </p>
               </div>
               <div className="highlight-item">
-                <h4>🚀 Libérez Votre Imagination</h4>
+                <h2>🚀 Libérez Votre Imagination</h2>
                 <p>
                   Laissez libre cours à votre créativité dans un environnement
                   stimulant et bienveillant.
                 </p>
               </div>
               <div className="highlight-item">
-                <h4>📚 Apprenez et Évoluez</h4>
+                <h2>📚 Apprenez et Évoluez</h2>
                 <p>
                   Développez vos compétences artistiques grâce à des ressources
                   et des échanges constructifs.

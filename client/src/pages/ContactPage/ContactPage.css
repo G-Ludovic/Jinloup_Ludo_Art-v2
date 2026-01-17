@@ -97,6 +97,22 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Styles pour le dark mode */
+[data-theme="dark"] .contact-container {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .contact-form input,
+[data-theme="dark"] .contact-form textarea {
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .contact-form input::placeholder,
+[data-theme="dark"] .contact-form textarea::placeholder {
+  color: var(--color-text-secondary);
+}
+
 @media (max-width: 968px) {
   .form-grid {
     display: flex;

@@ -72,7 +72,7 @@
 
 .add-draw button {
   background-color: var(--background-color-button);
-  color: var(--color-text);
+  color: white;
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 5px;
@@ -110,7 +110,7 @@
 
 .details-table td {
   background-color: var(--color-text);
-  color: var(--color-text-secondary);
+  color: var(--color-text-tertiary);
 }
 
 /* Aperçu d'image */

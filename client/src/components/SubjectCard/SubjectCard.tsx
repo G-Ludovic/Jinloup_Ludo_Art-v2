@@ -55,7 +55,9 @@ export default function SubjectCard({
         {file && (
           <img
             src={`http://localhost:3310${file}`}
-            alt="message"
+            alt={
+              user_name ? `Image partagée par ${user_name}` : "Image partagée"
+            }
             className="message-img"
           />
         )}
@@ -63,10 +65,18 @@ export default function SubjectCard({
       </div>
 
       <div className="actions">
-        <button type="button" onClick={() => setIsModalOpen(true)}>
+        <button
+          type="button"
+          className="edit-button"
+          onClick={() => setIsModalOpen(true)}
+        >
           ✏️ Modifier
         </button>
-        <button type="button" onClick={() => onDelete(id)}>
+        <button
+          type="button"
+          className="delete-button"
+          onClick={() => onDelete(id)}
+        >
           ❌ Supprimer
         </button>
       </div>

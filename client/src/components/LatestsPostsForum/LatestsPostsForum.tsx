@@ -47,7 +47,7 @@ function LatestsPostsForum() {
 
   return (
     <article className="latest-posts-forum">
-      <h3>Derniers messages</h3>
+      <h2>Derniers messages</h2>
 
       <table>
         <thead>

@@ -11,7 +11,7 @@ function Card({ name, image, text }: CardProps) {
         <img src={image} alt={name} className="card-image" />
       </article>
       <article className="card-content">
-        <h4 className="card-title">{name}</h4>
+        <h3 className="card-title">{name}</h3>
         {text && <p className="card-text">{text}</p>}
       </article>
     </section>

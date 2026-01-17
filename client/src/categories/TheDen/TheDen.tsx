@@ -6,8 +6,10 @@ function TheDen() {
   return (
     <>
       <header className="category-section-forum">
-        <h2>La Tanière</h2>
-        <p>Discutons librement</p>
+        <h1>
+          <strong>La Tanière</strong>
+          <p>Discutons librement</p>
+        </h1>
       </header>
 
       <main className="presentations-layout">

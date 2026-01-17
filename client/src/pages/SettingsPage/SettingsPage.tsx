@@ -268,6 +268,7 @@ function SettingsPage() {
               accept="image/*"
               onChange={handleFileChange}
               style={{ display: "none" }}
+              aria-label="Sélectionner un fichier image pour l'avatar"
             />
           </div>
           {formErrors.avatar && (

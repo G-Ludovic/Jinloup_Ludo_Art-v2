@@ -6,8 +6,10 @@ function YourCreations() {
   return (
     <>
       <header className="category-section-forum">
-        <h2>Vos créations</h2>
-        <p>Partage tes dessins</p>
+        <h1>
+          <strong>Vos créations</strong>
+          <p>Partage tes dessins</p>
+        </h1>
       </header>
 
       <main className="presentations-layout">

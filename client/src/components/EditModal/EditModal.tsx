@@ -26,7 +26,7 @@ function EditModal({
   const dropRef = useRef<HTMLDivElement>(null);
 
   const maxLength = mode === "gallery" ? 18 : 5000;
-  const labelText = mode === "gallery" ? "Titre : " : "";
+  const labelText = mode === "gallery" ? "Titre : " : "Contenu du message : ";
 
   // Réinitialiser le contenu à l’ouverture
   useEffect(() => {
@@ -167,7 +167,12 @@ function EditModal({
           ) : (
             <p>⤿ Glissez une image ici ou cliquez pour en ajouter une</p>
           )}
-          <input type="file" accept="image/*" onChange={handleFileChange} />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            aria-label="Sélectionner une image"
+          />
         </div>
 
         {/* Actions */}

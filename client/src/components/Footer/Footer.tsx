@@ -14,14 +14,6 @@ function Footer() {
 
       <nav className="footer-links" aria-label="Liens du footer">
         <div className="footer-column">
-          <article className="footer-title">
-            <h3>Jinloup Ludo Art</h3>
-          </article>
-          <Link to="/author">À propos</Link>
-          <Link to="/contact">Contact</Link>
-        </div>
-
-        <div className="footer-column">
           <Link to="/privacy-policy">Politique de confidentialité</Link>
           <Link to="/copyright">Droits d'auteur</Link>
         </div>
@@ -34,6 +26,10 @@ function Footer() {
         <div className="footer-column">
           <Link to="/developers">Développeurs</Link>
           <Link to="/help-center">Centre d'aide</Link>
+        </div>
+
+        <div className="footer-column">
+          <Link to="/author">À propos</Link>
         </div>
       </nav>
 

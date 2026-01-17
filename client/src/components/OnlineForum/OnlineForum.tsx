@@ -18,7 +18,7 @@ const grades: Grade[] = [
 function OnlineForum() {
   return (
     <article className="onligne-forum">
-      <h3>Qui est en ligne ?</h3>
+      <h2>Qui est en ligne ?</h2>
       <table>
         <thead>
           <tr>
@@ -30,7 +30,7 @@ function OnlineForum() {
         <tbody>
           {grades.map((gra) => (
             <tr key={gra.id}>
-              <th scope="row">{gra.logo}</th>
+              <th scope="row">{gra.name}</th>
               <td>{gra.name}</td>
               <td>: {gra.onLigne}</td>
             </tr>

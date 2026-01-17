@@ -33,7 +33,7 @@ function Developers() {
             <h3>Compétences Techniques</h3>
             <div className="skills-grid">
               <div className="skill-category">
-                <h4>Frontend</h4>
+                <h3>Frontend</h3>
                 <ul>
                   <li>React / TypeScript</li>
                   <li>HTML5 / CSS3</li>
@@ -43,7 +43,7 @@ function Developers() {
               </div>
 
               <div className="skill-category">
-                <h4>Backend</h4>
+                <h3>Backend</h3>
                 <ul>
                   <li>Node.js / Express</li>
                   <li>MySQL</li>
@@ -53,7 +53,7 @@ function Developers() {
               </div>
 
               <div className="skill-category">
-                <h4>Outils & Méthodes</h4>
+                <h3>Outils & Méthodes</h3>
                 <ul>
                   <li>Git / GitHub</li>
                   <li>Docker / CI/CD</li>
@@ -63,7 +63,7 @@ function Developers() {
               </div>
 
               <div className="skill-category">
-                <h4>Créatif</h4>
+                <h3>Créatif</h3>
                 <ul>
                   <li>Gimp / Krita</li>
                   <li>Animation 2D</li>

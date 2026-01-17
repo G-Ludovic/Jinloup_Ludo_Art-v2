@@ -84,7 +84,9 @@ textarea {
 }
 
 .btn-cancel {
-  background-color: #e0e0e0;
+  background-color: black !important;
+  color: #fff !important;
+  opacity: 0.9;
 }
 
 .btn-confirm:hover {
@@ -115,7 +117,7 @@ textarea {
 
 .char-counter {
   font-size: 0.85rem;
-  color: gray;
+  color: var(--color-text-secondary);
   text-align: right;
   margin-top: 4px;
 }

@@ -40,7 +40,12 @@ function RegistrationPage() {
           />
 
           <label htmlFor="password">Votre mot de passe</label>
-          <input type="password" name="password" placeholder="************" />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="************"
+          />
 
           <label htmlFor="confirm-password">Confirmez votre mot de passe</label>
           <input
@@ -58,7 +63,7 @@ function RegistrationPage() {
         </form>
         <div className="illustration-registration">
           <img
-            src="\images\loup_manuscrit.webp"
+            src="/images/loup_manuscrit.webp"
             alt="illustration d'un portrait de jeune louveteau pour l'enregistrement sur le site"
           />
         </div>

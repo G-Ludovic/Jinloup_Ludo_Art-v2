@@ -64,7 +64,7 @@
 
 .registration-form a {
   font-weight: bold;
-  color: var(--secondary-color);
+  color: black;
   text-decoration: underline;
 }
 

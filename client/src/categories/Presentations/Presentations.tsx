@@ -6,8 +6,10 @@ function Presentations() {
   return (
     <>
       <header className="category-section-forum">
-        <h2>Présentations</h2>
-        <p>Ici tu peux te présenter à la communauté.</p>
+        <h1>
+          <strong>Présentations</strong>
+          <p>Ici tu peux te présenter à la communauté.</p>
+        </h1>
       </header>
 
       <main className="presentations-layout">
