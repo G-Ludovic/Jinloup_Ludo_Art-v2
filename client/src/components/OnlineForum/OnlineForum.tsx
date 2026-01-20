@@ -1,21 +1,44 @@
+import { useEffect, useState } from "react";
+import { loadOnlineStats } from "../../api";
 import "./OnlineForum.css";
 
 type Grade = {
   id: string;
-  logo: string;
   name: string;
-  onLigne: number;
+  online: number;
+  total: number;
 };
 
-const grades: Grade[] = [
-  { id: "g1", logo: "logo 1", name: "Admin", onLigne: 2 },
-  { id: "g2", logo: "logo 2", name: "Modérateur", onLigne: 1 },
-  { id: "g3", logo: "logo 3", name: "Grand Loup", onLigne: 0 },
-  { id: "g4", logo: "logo 4", name: "Loup", onLigne: 3 },
-  { id: "g5", logo: "logo 5", name: "Louveteau", onLigne: 4 },
-];
+const roleMapping: Record<string, string> = {
+  "loup alpha": "Admin",
+  "loup gardien": "Modérateur",
+  "jeune loup": "Membre",
+};
 
 function OnlineForum() {
+  const [grades, setGrades] = useState<Grade[]>([]);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      const stats = await loadOnlineStats();
+      if (stats) {
+        const dynamicGrades = stats.map(
+          (
+            stat: { role: string; total: number; online: number },
+            index: number,
+          ) => ({
+            id: `g${index + 1}`,
+            name: roleMapping[stat.role] || stat.role,
+            online: stat.online,
+            total: stat.total,
+          }),
+        );
+        setGrades(dynamicGrades);
+      }
+    };
+    fetchStats();
+  }, []);
+
   return (
     <article className="onligne-forum">
       <h2>Qui est en ligne ?</h2>
@@ -24,7 +47,7 @@ function OnlineForum() {
           <tr>
             <th scope="col">Indicateur</th>
             <th scope="col">Grades</th>
-            <th scope="col">En ligne</th>
+            <th scope="col">En ligne / Total</th>
           </tr>
         </thead>
         <tbody>
@@ -32,7 +55,9 @@ function OnlineForum() {
             <tr key={gra.id}>
               <th scope="row">{gra.name}</th>
               <td>{gra.name}</td>
-              <td>: {gra.onLigne}</td>
+              <td>
+                : {gra.online} / {gra.total}
+              </td>
             </tr>
           ))}
         </tbody>

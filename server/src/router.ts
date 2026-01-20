@@ -44,6 +44,7 @@ router.delete(
   userActions.destroy,
 );
 router.get("/refresh", userActions.verifyToken, userActions.refreshToken);
+router.get("/online-stats", userActions.getOnlineStats);
 
 /** Dessins **/
 router.get("/draws", drawActions.browse);

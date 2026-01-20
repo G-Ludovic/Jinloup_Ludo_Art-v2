@@ -36,3 +36,7 @@ export async function loadDraws() {
   const draws = await fetchAPI("/api/draws");
   if (draws) console.log("Dessins récupérés :", draws);
 }
+
+export async function loadOnlineStats() {
+  return await fetchAPI("/api/online-stats");
+}

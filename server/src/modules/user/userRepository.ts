@@ -68,6 +68,28 @@ class UserRepository {
     return result.affectedRows;
   }
 
+  async countByRole() {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT role, COUNT(*) as count FROM user GROUP BY role",
+    );
+    return rows as { role: string; count: number }[];
+  }
+
+  async countOnlineByRole() {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT role, COUNT(*) as count FROM user WHERE last_active > NOW() - INTERVAL 5 MINUTE GROUP BY role",
+    );
+    return rows as { role: string; count: number }[];
+  }
+
+  async updateLastActive(id: number) {
+    const [result] = await databaseClient.query<Result>(
+      "UPDATE user SET last_active = NOW() WHERE id = ?",
+      [id],
+    );
+    return result.affectedRows;
+  }
+
   async hasRelatedData(id: number) {
     // Vérifier si l'utilisateur a des sujets
     const [subjects] = await databaseClient.query<Rows>(

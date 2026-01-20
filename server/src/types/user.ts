@@ -8,4 +8,5 @@ export interface User {
   password?: string;
   role?: string;
   registration_date?: string;
+  last_active?: string;
 }

@@ -155,6 +155,9 @@ const login: RequestHandler = async (req, res) => {
     const isPasswordValid = await argon2.verify(user.password, password);
     if (!isPasswordValid) throw new Error("Invalid password");
 
+    // Update last_active
+    await userRepository.updateLastActive(user.id);
+
     const secretKey = process.env.APP_SECRET;
     if (!secretKey) throw new Error("A secret must be provided");
 
@@ -226,6 +229,25 @@ const refreshToken: RequestHandler = async (req, res) => {
   }
 };
 
+// Obtenir les statistiques en ligne (comptes par rôle)
+const getOnlineStats: RequestHandler = async (req, res, next) => {
+  try {
+    const onlineStats = await userRepository.countOnlineByRole();
+    const totalStats = await userRepository.countByRole();
+    const stats = totalStats.map((total) => {
+      const online = onlineStats.find((o) => o.role === total.role);
+      return {
+        role: total.role,
+        total: total.count,
+        online: online ? online.count : 0,
+      };
+    });
+    res.json(stats);
+  } catch (err) {
+    next(err);
+  }
+};
+
 // Middleware pour protéger les routes
 const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
@@ -255,5 +277,6 @@ export default {
   login,
   logout,
   refreshToken,
+  getOnlineStats,
   verifyToken,
 };
