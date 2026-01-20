@@ -22,11 +22,34 @@ function Header() {
   return (
     <header className="header">
       <figure className="p-logo">
-        <img
-          className="img-logo"
-          src="/images/logo-jinloup-ludo-art.webp"
-          alt="logo du site"
-        />
+        <div className="logo-and-card">
+          <img
+            className="img-logo"
+            src="/images/logo-jinloup-ludo-art.webp"
+            alt="logo du site"
+          />
+
+          {isLogged && (
+            <div className="user-card">
+              <img
+                className="user-avatar"
+                src={
+                  user?.avatar
+                    ? `http://localhost:3310${user.avatar}`
+                    : "/images/user-circle.png"
+                }
+                alt="avatar utilisateur"
+              />
+              <div className="user-info">
+                <span className="user-pseudo">
+                  {user?.pseudo || user?.email}
+                </span>
+                <span className="user-grade">{user?.role}</span>
+                <span className="user-status">Connecté</span>
+              </div>
+            </div>
+          )}
+        </div>
 
         {isLogged && user?.role === "loup alpha" && (
           <Link className="admin-a" to="/admin">
