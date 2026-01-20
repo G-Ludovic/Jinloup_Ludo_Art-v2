@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { loadOnlineStats } from "../../api";
 import "./OnlineForum.css";
 
+type Stat = {
+  role: string;
+  total: number;
+  online: number;
+};
+
 type Grade = {
   id: string;
   name: string;
@@ -22,17 +28,20 @@ function OnlineForum() {
     const fetchStats = async () => {
       const stats = await loadOnlineStats();
       if (stats) {
-        const dynamicGrades = stats.map(
-          (
-            stat: { role: string; total: number; online: number },
-            index: number,
-          ) => ({
-            id: `g${index + 1}`,
-            name: roleMapping[stat.role] || stat.role,
-            online: stat.online,
-            total: stat.total,
-          }),
-        );
+        const typedStats = stats as Stat[];
+        const dynamicGrades = typedStats
+          .filter((stat) => stat.online > 0)
+          .map(
+            (
+              stat: { role: string; total: number; online: number },
+              index: number,
+            ) => ({
+              id: `g${index + 1}`,
+              name: roleMapping[stat.role] || stat.role,
+              online: stat.online,
+              total: stat.total,
+            }),
+          );
         setGrades(dynamicGrades);
       }
     };
