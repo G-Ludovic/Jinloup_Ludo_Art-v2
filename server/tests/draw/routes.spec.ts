@@ -1,6 +1,25 @@
 import supertest from "supertest";
 import databaseClient from "../../database/client";
 import type { Result, Rows } from "../../database/client";
+import auth from "../../src/utils/auth";
+
+process.env.APP_SECRET = "test_secret";
+
+interface AuthRequest {
+  user?: { id: number; email: string; role: string };
+}
+
+// Mock verifyToken avant import de app
+jest
+  .spyOn(auth, "verifyToken")
+  .mockImplementation((req, res, next): Response | undefined => {
+    // Injecte un utilisateur fictif pour les tests
+    (req as AuthRequest).user = { id: 1, email: "mock@mail.com", role: "user" };
+    next();
+    return undefined;
+  });
+
+// Puis on importe app
 import app from "../../src/app";
 
 afterEach(() => {
@@ -112,7 +131,7 @@ describe("DELETE /api/draws/:id", () => {
       .spyOn(databaseClient, "query")
       // 1er appel -> readById
       .mockResolvedValueOnce([
-        [{ id: 1, name: "ToDelete", image: "wolf.png" }] as Rows,
+        [{ id: 1, name: "ToDelete", image: "wolf.png", user_id: 1 }] as Rows,
         [],
       ])
       // 2e appel -> delete

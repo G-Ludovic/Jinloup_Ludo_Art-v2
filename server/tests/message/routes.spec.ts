@@ -1,6 +1,25 @@
 import supertest from "supertest";
 import databaseClient from "../../database/client";
 import type { Result, Rows } from "../../database/client";
+import auth from "../../src/utils/auth";
+
+process.env.APP_SECRET = "test_secret";
+
+interface AuthRequest {
+  user?: { id: number; email: string; role: string };
+}
+
+// Mock verifyToken avant import de app
+jest
+  .spyOn(auth, "verifyToken")
+  .mockImplementation((req, res, next): Response | undefined => {
+    // Injecte un utilisateur fictif pour les tests
+    (req as AuthRequest).user = { id: 1, email: "mock@mail.com", role: "user" };
+    next();
+    return undefined;
+  });
+
+// Puis on importe app
 import app from "../../src/app";
 
 afterEach(() => {
@@ -63,9 +82,11 @@ describe("POST /api/message", () => {
 
     jest
       .spyOn(databaseClient, "query")
-      // 1er appel : INSERT
+      // 1er appel : checkSubjectExists
+      .mockResolvedValueOnce([[{ "1": 1 }] as Rows, []])
+      // 2e appel : INSERT
       .mockResolvedValueOnce([result, []])
-      // 2e appel : SELECT readById
+      // 3e appel : SELECT readById
       .mockResolvedValueOnce([
         [{ id: 1, content: "Hello", user_id: 1, subject_id: 2 }] as Rows,
         [],
@@ -157,7 +178,7 @@ describe("DELETE /api/message/:id", () => {
       .spyOn(databaseClient, "query")
       // 1. readById
       .mockResolvedValueOnce([
-        [{ id: 1, content: "To delete", file: null }] as Rows,
+        [{ id: 1, content: "To delete", file: null, user_id: 1 }] as Rows,
         [],
       ])
       // 2. delete()
