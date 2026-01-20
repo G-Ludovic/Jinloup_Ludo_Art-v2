@@ -283,4 +283,7 @@
 [data-theme="dark"] .category-card {
   background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
     url(/images/bc_subject.webp);
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--color-text-secondary);
 }
