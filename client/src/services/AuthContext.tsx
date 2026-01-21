@@ -28,7 +28,14 @@ export const AuthProvider = ({ children }: Children) => {
           localStorage.setItem("token", data.token);
         }
         setIsLogged(true);
-        setUser({ id: data.id, email: data.email, role: data.role });
+        setUser({
+          id: data.id,
+          email: data.email,
+          pseudo: data.pseudo,
+          avatar: data.avatar,
+          bio: data.bio,
+          role: data.role,
+        });
       } catch (err) {
         console.error("Failed to refresh user", err);
       }
@@ -66,7 +73,14 @@ export const AuthProvider = ({ children }: Children) => {
         localStorage.setItem("token", userData.token);
       }
       setIsLogged(true);
-      setUser({ id: userData.id, email: userData.email, role: userData.role });
+      setUser({
+        id: userData.id,
+        email: userData.email,
+        pseudo: userData.pseudo,
+        avatar: userData.avatar,
+        bio: userData.bio,
+        role: userData.role,
+      });
     } catch (err) {
       console.error(err);
       throw err; // on peux aussi gérer une popup erreur côté UI (à voir plus tard)
