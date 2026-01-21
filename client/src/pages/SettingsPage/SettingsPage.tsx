@@ -7,7 +7,7 @@ import "./SettingsPage.css";
 
 // Constants
 const MAX_AVATAR_SIZE = 5 * 1024 * 1024; // 5MB
-const API_BASE_URL = "/api/users";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
 
 // User roles constants
 const USER_ROLES = {
@@ -206,10 +206,11 @@ function SettingsPage() {
     }
 
     try {
-      const res = await fetch(`${API_BASE_URL}/${user.id}`, {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_URL}/api/users/${user.id}`, {
         method: "PUT",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
         body: formData,
-        credentials: "include",
       });
 
       if (res.ok) {
