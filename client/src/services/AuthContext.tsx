@@ -24,26 +24,12 @@ export const AuthProvider = ({ children }: Children) => {
         if (!res.ok) return;
 
         const data = await res.json();
-        if (data.token) {
-          localStorage.setItem("token", data.token);
+        const { token: newToken, ...userWithoutToken } = data;
+        if (newToken) {
+          localStorage.setItem("token", newToken);
         }
         setIsLogged(true);
-        console.log("Setting user in refresh:", {
-          id: data.id,
-          email: data.email,
-          pseudo: data.pseudo,
-          avatar: data.avatar,
-          bio: data.bio,
-          role: data.role,
-        });
-        setUser({
-          id: data.id,
-          email: data.email,
-          pseudo: data.pseudo,
-          avatar: data.avatar,
-          bio: data.bio,
-          role: data.role,
-        });
+        setUser(userWithoutToken);
       } catch (err) {
         console.error("Failed to refresh user", err);
       }
@@ -77,27 +63,12 @@ export const AuthProvider = ({ children }: Children) => {
       if (!refreshRes.ok) throw new Error("Failed to fetch user");
 
       const userData = await refreshRes.json();
-      console.log("userData in login:", userData);
-      if (userData.token) {
-        localStorage.setItem("token", userData.token);
+      const { token: newToken, ...userWithoutToken } = userData;
+      if (newToken) {
+        localStorage.setItem("token", newToken);
       }
       setIsLogged(true);
-      console.log("Setting user in login:", {
-        id: userData.id,
-        email: userData.email,
-        pseudo: userData.pseudo,
-        avatar: userData.avatar,
-        bio: userData.bio,
-        role: userData.role,
-      });
-      setUser({
-        id: userData.id,
-        email: userData.email,
-        pseudo: userData.pseudo,
-        avatar: userData.avatar,
-        bio: userData.bio,
-        role: userData.role,
-      });
+      setUser(userWithoutToken);
     } catch (err) {
       console.error(err);
       throw err; // on peux aussi gérer une popup erreur côté UI (à voir plus tard)
