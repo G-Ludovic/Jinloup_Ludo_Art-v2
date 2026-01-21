@@ -6,6 +6,8 @@ import SubjectCard from "../SubjectCard/SubjectCard";
 import "../ConfirmationModal/ConfirmationModal.css";
 import "./CategoryTemplate.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
+
 interface Message {
   id: number;
   content: string;
@@ -28,7 +30,10 @@ function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
 
   // Charger les messages de la catégorie (sujet)
   useEffect(() => {
-    fetch(`/api/message?subject_id=${subjectId}`)
+    const token = localStorage.getItem("token");
+    fetch(`${API_URL}/api/message?subject_id=${subjectId}`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
       .then((res) => res.json())
       .then((data) => setMessages(data))
       .catch(() => toast.error("Erreur lors du chargement des messages."));
@@ -36,10 +41,11 @@ function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
 
   // Ajouter un nouveau message
   const handleAdd = async (formData: FormData) => {
-    const res = await fetch("/api/message", {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${API_URL}/api/message`, {
       method: "POST",
       body: formData,
-      credentials: "include",
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
     if (!res.ok) {
       toast.error("Erreur lors de l'envoi du message.");
@@ -55,10 +61,11 @@ function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
     formData.append("content", newText);
     if (newFile) formData.append("image", newFile);
 
-    const res = await fetch(`/api/message/${id}`, {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${API_URL}/api/message/${id}`, {
       method: "PUT",
       body: formData,
-      credentials: "include",
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
     if (!res.ok) {
       toast.error("Erreur lors de la modification du message.");
@@ -90,9 +97,10 @@ function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
   const confirmDelete = async () => {
     if (!deleteId) return;
 
-    const res = await fetch(`/api/message/${deleteId}`, {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${API_URL}/api/message/${deleteId}`, {
       method: "DELETE",
-      credentials: "include",
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
     if (!res.ok) {
       toast.error("Erreur lors de la suppression du message.");
