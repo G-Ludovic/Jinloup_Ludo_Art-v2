@@ -23,6 +23,12 @@ function LoginPage() {
         const loginData = await res.json();
         console.log("Login response:", loginData);
         const token = loginData.token;
+        console.log("Token:", token);
+        if (!token) {
+          console.error("No token received from login");
+          toast.error("Erreur d'authentification");
+          return;
+        }
         localStorage.setItem("token", token);
         toast.success("Félicitations, vous êtes connecté !");
         setIsLogged(true);
