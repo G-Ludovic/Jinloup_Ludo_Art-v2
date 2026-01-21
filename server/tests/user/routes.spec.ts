@@ -96,7 +96,7 @@ describe("POST /api/user", () => {
 
 // POST /api/login
 describe("POST /api/login", () => {
-  it("should log in successfully and set cookie", async () => {
+  it("should log in successfully and return token", async () => {
     const fakeUser = { id: 1, email: "john@mail.com", password: "hashed_pwd" };
 
     jest
@@ -111,8 +111,8 @@ describe("POST /api/login", () => {
       .send({ email: "john@mail.com", password: "test123" });
 
     expect(response.status).toBe(200);
-    expect(response.headers["set-cookie"]).toBeDefined();
-    expect(response.text).toContain("logged in");
+    expect(response.body).toHaveProperty("message");
+    expect(response.body).toHaveProperty("token", "fakeToken");
   });
 });
 

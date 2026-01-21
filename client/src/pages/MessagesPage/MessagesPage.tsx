@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
 import "./MessagesPage.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
+
 interface Message {
   id: number;
   content: string;
@@ -52,8 +54,9 @@ function MessagesPage() {
   // Récupération des messages
   const fetchMessages = useCallback(async () => {
     try {
-      const res = await fetch("/api/message", {
-        credentials: "include",
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_URL}/api/message`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       if (!res.ok) throw new Error("Erreur serveur");
       const data = await res.json();
@@ -91,8 +94,9 @@ function MessagesPage() {
   // Récupération des dessins
   const fetchDrawings = useCallback(async () => {
     try {
-      const res = await fetch("/api/draws", {
-        credentials: "include",
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_URL}/api/draws`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       if (!res.ok) throw new Error("Erreur serveur");
       const data = await res.json();
@@ -144,9 +148,10 @@ function MessagesPage() {
         deleteType === "message"
           ? `/api/message/${deleteId}`
           : `/api/draws/${deleteId}`;
-      const res = await fetch(endpoint, {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_URL}${endpoint}`, {
         method: "DELETE",
-        credentials: "include",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
 
       if (res.ok) {

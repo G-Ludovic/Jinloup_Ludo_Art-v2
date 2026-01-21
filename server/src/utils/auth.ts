@@ -62,16 +62,18 @@ const login: RequestHandler = async (req, res) => {
     }
 
     const token = jwt.sign(payload, secretKey, { expiresIn: "1d" });
+    console.log("Generated token:", token);
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false, // "false" en phase de développement et "true" en déploiement
-    });
-
-    res.status(200).json("Congratulations, you're logged in !");
+    // Pour cross-origin, on retourne le token au lieu de le mettre en cookie
+    res
+      .status(200)
+      .json({
+        message: "Congratulations, you're logged in with token!",
+        token,
+      });
   } catch (err) {
-    console.warn((err as Error).message);
-    res.sendStatus(500);
+    console.error("Login error:", (err as Error).message);
+    res.status(500).json({ error: (err as Error).message });
   }
 };
 
@@ -88,7 +90,12 @@ const logout: RequestHandler = (req, res) => {
 // 4. Rafraîchir le token
 const refreshToken: RequestHandler = (req, res) => {
   try {
-    const token = req.cookies.token;
+    console.log("Headers:", req.headers.authorization);
+    let token = req.headers.authorization?.replace("Bearer ", "");
+    console.log("Token after replace:", token);
+    if (!token) {
+      token = req.cookies.token;
+    }
     if (!token) {
       throw new Error("A token must be provided");
     }
@@ -109,8 +116,7 @@ const refreshToken: RequestHandler = (req, res) => {
       expiresIn: "1d",
     });
 
-    res.cookie("token", newToken, { httpOnly: true, secure: false });
-    res.status(200).json({ id, email, role });
+    res.status(200).json({ id, email, role, token: newToken });
   } catch (err) {
     console.error((err as Error).message);
     res.sendStatus(500);
@@ -120,7 +126,12 @@ const refreshToken: RequestHandler = (req, res) => {
 // 5. Middleware de vérification du token
 const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
-    const token = req.cookies.token;
+    // Essayer d'abord dans les headers Authorization (pour cross-origin)
+    let token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) {
+      // Sinon dans les cookies (pour développement local)
+      token = req.cookies.token;
+    }
     if (!token) {
       throw new Error("A token must be provided");
     }

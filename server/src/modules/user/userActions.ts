@@ -169,8 +169,9 @@ const login: RequestHandler = async (req, res) => {
       },
     );
 
-    res.cookie("token", token, { httpOnly: true, secure: false });
-    res.status(200).json("logged in");
+    res
+      .status(200)
+      .json({ message: "Congratulations, you're logged in !", token });
   } catch (err) {
     console.warn((err as Error).message);
     res.sendStatus(500);
@@ -190,7 +191,10 @@ const logout: RequestHandler = (req, res) => {
 // Refresh Token
 const refreshToken: RequestHandler = async (req, res) => {
   try {
-    const token = req.cookies.token;
+    let token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) {
+      token = req.cookies.token;
+    }
     if (!token) throw new Error("jwt must be provided");
 
     const secretKey = process.env.APP_SECRET;
@@ -214,8 +218,7 @@ const refreshToken: RequestHandler = async (req, res) => {
       },
     );
 
-    res.cookie("token", newToken, { httpOnly: true });
-    // On renvoie les infos complètes de l'utilisateur
+    // On renvoie les infos complètes de l'utilisateur avec le nouveau token
     res.status(200).json({
       id: user.id,
       email: user.email,
@@ -223,6 +226,7 @@ const refreshToken: RequestHandler = async (req, res) => {
       avatar: user.avatar,
       bio: user.bio,
       role: user.role,
+      token: newToken,
     });
   } catch (err) {
     res.sendStatus(500);
@@ -251,7 +255,10 @@ const getOnlineStats: RequestHandler = async (req, res, next) => {
 // Middleware pour protéger les routes
 const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
-    const token = req.cookies?.token;
+    let token = req.headers.authorization?.replace("Bearer ", "");
+    if (!token) {
+      token = req.cookies?.token;
+    }
     if (!token) {
       res.status(403).json("A token must be provided");
       return;

@@ -14,23 +14,42 @@ function LoginPage() {
 
     fetch(`${API_URL}/api/login`, {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     }).then(async (res) => {
       if (res.ok) {
+        const loginData = await res.json();
+        console.log("Login response:", loginData);
+        const token = loginData.token;
+        console.log("Token:", token);
+        if (!token) {
+          console.error("No token received from login");
+          toast.error("Erreur d'authentification");
+          return;
+        }
+        localStorage.setItem("token", token);
         toast.success("Félicitations, vous êtes connecté !");
         setIsLogged(true);
 
         // On récupère l'utilisateur complet pour le rôle
         const refreshRes = await fetch(`${API_URL}/api/refresh`, {
-          credentials: "include",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
         if (refreshRes.ok) {
           const userData = await refreshRes.json();
-          setUser(userData);
+          console.log("Refresh response:", userData);
+          if (userData.token) {
+            localStorage.setItem("token", userData.token);
+          }
+          setUser({
+            id: userData.id,
+            email: userData.email,
+            role: userData.role,
+          });
 
           // Si l'utilisateur est admin, on redirige vers le Panel Admin
           if (userData.role === "loup alpha") {
