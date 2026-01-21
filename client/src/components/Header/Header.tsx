@@ -8,6 +8,8 @@ function Header() {
   const { isLogged, user, setIsLogged, setUser } = useAuth();
   const navigate = useNavigate();
 
+  console.log("Header user:", user);
+
   const handleLogout = async () => {
     const token = localStorage.getItem("token");
     const res = await fetch(`${API_URL}/api/logout`, {
