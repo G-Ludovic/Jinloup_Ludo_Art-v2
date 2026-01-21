@@ -111,9 +111,7 @@ function MembersPage() {
     setEditedRoleValue(member.role || "");
     setEditedBio(""); // On pourrait récupérer la bio si disponible
     setEditedAvatarFile(null);
-    setEditedPreviewUrl(
-      member.avatar ? `http://localhost:3310${member.avatar}` : null,
-    );
+    setEditedPreviewUrl(member.avatar ? `${API_URL}${member.avatar}` : null);
     setDropdownOpen(null); // Fermer le dropdown
   };
 
