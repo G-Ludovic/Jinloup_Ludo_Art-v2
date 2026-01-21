@@ -10,6 +10,8 @@ import { drawings } from "../../data/drawings.ts";
 import { useAuth } from "../../services/AuthContext";
 import "./GalleryPage.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
+
 interface Drawing {
   id: number;
   name: string;
@@ -41,7 +43,10 @@ function GalleryPage() {
   // Chargement des dessins
   const loadDraws = useCallback(() => {
     setLoading(true);
-    fetch("/api/draws", { credentials: "include" })
+    const token = localStorage.getItem("token");
+    fetch(`${API_URL}/api/draws`, {
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    })
       .then((res) => res.json())
       .then((draws) => {
         setData(draws);
@@ -97,10 +102,11 @@ function GalleryPage() {
     const formData = new FormData(e.currentTarget);
     if (file) formData.set("image", file);
 
-    fetch("/api/draws", {
+    const token = localStorage.getItem("token");
+    fetch(`${API_URL}/api/draws`, {
       method: "POST",
       body: formData,
-      credentials: "include",
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
     }).then((res) => {
       if (res.ok) {
         toast.success("Dessin ajouté avec succès !");
@@ -124,9 +130,10 @@ function GalleryPage() {
   const confirmDelete = async () => {
     if (!deleteId) return;
 
-    const res = await fetch(`/api/draws/${deleteId}`, {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${API_URL}/api/draws/${deleteId}`, {
       method: "DELETE",
-      credentials: "include",
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
     if (res.ok) {
       toast.success("Dessin supprimé !");
@@ -152,10 +159,11 @@ function GalleryPage() {
     formData.append("name", newName);
     if (newFile) formData.append("image", newFile);
 
-    fetch(`/api/draws/${editingDraw.id}`, {
+    const token = localStorage.getItem("token");
+    fetch(`${API_URL}/api/draws/${editingDraw.id}`, {
       method: "PUT",
       body: formData,
-      credentials: "include",
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
     }).then((res) => {
       if (res.ok) {
         toast.success("Dessin modifié avec succès !");
@@ -273,7 +281,7 @@ function GalleryPage() {
             data.map((el) => (
               <div key={el.id} className="card">
                 <a
-                  href={`http://localhost:3310${el.image}`}
+                  href={`${API_URL}${el.image}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="click-link"
@@ -281,7 +289,7 @@ function GalleryPage() {
                 >
                   <Card
                     name={el.name}
-                    image={`http://localhost:3310${el.image}`}
+                    image={`${API_URL}${el.image}`}
                     text={el.user_name ? `Par ${el.user_name}` : ""}
                   />
                 </a>
