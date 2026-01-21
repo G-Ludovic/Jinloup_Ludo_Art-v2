@@ -123,6 +123,7 @@ function MembersPage() {
   const confirmSaveProfile = async () => {
     if (!editingMember) return;
     console.log("API_URL in MembersPage:", API_URL);
+    console.log("About to fetch:", `${API_URL}/api/users/${editingMember.id}`);
     setSaving(true);
     const formData = new FormData();
     formData.append("pseudo", editedPseudo);
