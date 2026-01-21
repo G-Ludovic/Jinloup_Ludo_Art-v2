@@ -13,14 +13,22 @@ export const AuthProvider = ({ children }: Children) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
         const res = await fetch(`${API_URL}/api/refresh`, {
-          credentials: "include",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
         if (!res.ok) return;
 
         const data = await res.json();
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+        }
         setIsLogged(true);
-        setUser(data); // data contient id, email et role
+        setUser({ id: data.id, email: data.email, role: data.role });
       } catch (err) {
         console.error("Failed to refresh user", err);
       }
@@ -34,23 +42,31 @@ export const AuthProvider = ({ children }: Children) => {
     try {
       const res = await fetch(`${API_URL}/api/login`, {
         method: "POST",
-        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
       if (!res.ok) throw new Error("Login failed");
 
+      const data = await res.json();
+      const token = data.token;
+      localStorage.setItem("token", token);
+
       // Après login, on refresh pour récupérer l'utilisateur complet avec son role
       const refreshRes = await fetch(`${API_URL}/api/refresh`, {
-        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (!refreshRes.ok) throw new Error("Failed to fetch user");
 
-      const data = await refreshRes.json();
+      const userData = await refreshRes.json();
+      if (userData.token) {
+        localStorage.setItem("token", userData.token);
+      }
       setIsLogged(true);
-      setUser(data);
+      setUser({ id: userData.id, email: userData.email, role: userData.role });
     } catch (err) {
       console.error(err);
       throw err; // on peux aussi gérer une popup erreur côté UI (à voir plus tard)
@@ -59,12 +75,14 @@ export const AuthProvider = ({ children }: Children) => {
 
   const logout = async () => {
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch(`${API_URL}/api/logout`, {
         method: "POST",
-        credentials: "include",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
 
       if (res.ok) {
+        localStorage.removeItem("token");
         setIsLogged(false);
         setUser(null);
       }

@@ -36,3 +36,12 @@ export async function loadDraws() {
 export async function loadOnlineStats() {
   return await fetchAPI("/api/online-stats");
 }
+
+export async function fetchAuth(endpoint: string, options: RequestInit = {}) {
+  const token = localStorage.getItem("token");
+  const headers = {
+    ...options.headers,
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+  return await fetch(`${API_URL}${endpoint}`, { ...options, headers });
+}
