@@ -86,7 +86,9 @@ const logout: RequestHandler = (req, res) => {
 // 4. Rafraîchir le token
 const refreshToken: RequestHandler = (req, res) => {
   try {
+    console.log("Headers:", req.headers.authorization);
     let token = req.headers.authorization?.replace("Bearer ", "");
+    console.log("Token after replace:", token);
     if (!token) {
       token = req.cookies.token;
     }
