@@ -7,12 +7,6 @@ const add: RequestHandler = async (req, res) => {
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
     const { content, subject_id } = req.body;
     const user_id = req.user?.id;
-    console.log("Add message:", {
-      content,
-      subject_id,
-      user_id,
-      file: filePath,
-    });
 
     if (!content?.trim()) {
       res.status(400).json({ error: "Content is required" });
@@ -38,10 +32,9 @@ const add: RequestHandler = async (req, res) => {
       newId = await messageRepository.create({
         content,
         file: filePath,
-        user_id: Number(user_id),
-        subject_id: Number(subject_id),
+        user_id: Number(user_id), // Utilise la vraie valeur
+        subject_id: Number(subject_id), // Utilise la vraie valeur
       });
-      console.log("Created message id:", newId);
     } catch (createErr) {
       console.error("Create error:", createErr);
       res.status(500).json({ error: "Failed to create message" });
@@ -54,8 +47,8 @@ const add: RequestHandler = async (req, res) => {
       file: filePath,
       sending_date: new Date().toISOString(),
       validated: false,
-      user_id: Number(user_id), // Utilise la vraie valeur
-      subject_id: Number(subject_id), // Utilise la vraie valeur
+      user_id: Number(user_id),
+      subject_id: Number(subject_id),
     });
   } catch (err) {
     console.error("Error creating message:", err);

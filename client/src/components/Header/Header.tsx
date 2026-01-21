@@ -53,17 +53,17 @@ function Header() {
 
         {isLogged && user?.role === "loup alpha" && (
           <Link className="admin-a" to="/admin">
-            🔑 Panel Admin 🔑
+            🔑 Mon espace Admin 🔑
           </Link>
         )}
         {isLogged && user?.role === "loup gardien" && (
           <Link className="moderation-a" to="/moderation">
-            🛡️ Panel Modération 🛡️
+            🛡️ Mon espace Modération 🛡️
           </Link>
         )}
         {isLogged && user?.role === "jeune loup" && (
           <Link className="profile-a" to="/profile">
-            🌙 Mon Profil 🌙
+            🌙 Mon espace Membre 🌙
           </Link>
         )}
       </figure>

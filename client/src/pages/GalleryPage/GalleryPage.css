@@ -383,3 +383,11 @@ dialog {
   border-color: var(--color-text-secondary);
   color: var(--color-text);
 }
+
+[data-theme="dark"] .card-text {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .delete-button {
+  background-color: #1e7e34;
+}

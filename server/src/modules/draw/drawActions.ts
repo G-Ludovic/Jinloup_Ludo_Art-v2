@@ -6,15 +6,6 @@ import drawRepository from "./drawRepository";
 const browse: RequestHandler = async (_req, res, next) => {
   try {
     const draws = await drawRepository.readAll();
-    console.log(`API /draws: returning ${draws.length} drawings`);
-    if (draws.length > 0) {
-      console.log("Sample drawing:", {
-        id: draws[0].id,
-        name: draws[0].name,
-        user_name: draws[0].user_name,
-        user_id: draws[0].user_id,
-      });
-    }
     res.status(200).json(draws);
   } catch (err) {
     next(err);

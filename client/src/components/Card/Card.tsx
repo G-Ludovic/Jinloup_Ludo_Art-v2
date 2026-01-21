@@ -8,7 +8,11 @@ function Card({ name, image, text }: CardProps) {
   return (
     <section className="main-card">
       <article className="card-image-container">
-        <img src={image} alt={name} className="card-image" />
+        <img
+          src={image}
+          alt={`Artwork titled ${name}`}
+          className="card-image"
+        />
       </article>
       <article className="card-content">
         <h3 className="card-title">{name}</h3>

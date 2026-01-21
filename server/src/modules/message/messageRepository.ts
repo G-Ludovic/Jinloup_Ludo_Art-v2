@@ -24,12 +24,12 @@ class MessageRepository {
         u.pseudo AS user_name,
         m.subject_id,
         s.title AS subject_title,
-        s.category_id,            -- Ajout clé étrangère vers la catégorie
-        c.name AS category_name   -- Nom de la catégorie correspondante
+        s.category_id,
+        c.name AS category_name
      FROM message m
      JOIN user u ON m.user_id = u.id
      JOIN subject s ON m.subject_id = s.id
-     JOIN category c ON s.category_id = c.id  -- Liaison vers la catégorie
+     JOIN category c ON s.category_id = c.id
      ORDER BY m.id DESC`,
     );
 
@@ -61,13 +61,11 @@ class MessageRepository {
   }
 
   async create(body: Message) {
-    console.log("Inserting message:", body);
     const [result] = await databaseClient.query<Result>(
       `INSERT INTO message (content, file, sending_date, user_id, subject_id)
        VALUES (?, ?, NOW(), ?, ?)`,
       [body.content, body.file ?? null, body.user_id, body.subject_id],
     );
-    console.log("Insert result:", result);
     return result.insertId;
   }
 

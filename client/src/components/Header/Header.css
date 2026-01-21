@@ -203,12 +203,14 @@
 }
 
 .user-status {
-  color: #4caf50;
-  /* Vert pour connecté */
+  background-color: #2e7d32;
+  color: white;
   font-size: 0.8rem;
   display: flex;
   align-items: center;
   gap: 6px;
+  border-radius: 4px;
+  padding: 2px 4px;
 }
 
 .user-status::before {

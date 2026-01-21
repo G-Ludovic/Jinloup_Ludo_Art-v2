@@ -101,7 +101,8 @@ describe("POST /api/login", () => {
 
     jest
       .spyOn(databaseClient, "query")
-      .mockResolvedValueOnce([[fakeUser] as Rows, []]);
+      .mockResolvedValueOnce([[fakeUser] as Rows, []])
+      .mockResolvedValueOnce([{ affectedRows: 1 } as Result, []]);
     jest.spyOn(argon2, "verify").mockResolvedValueOnce(true);
     jest.spyOn(jwt, "sign").mockImplementation(() => "fakeToken");
 

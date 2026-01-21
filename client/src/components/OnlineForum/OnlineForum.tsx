@@ -29,23 +29,26 @@ function OnlineForum() {
       const stats = await loadOnlineStats();
       if (stats) {
         const typedStats = stats as Stat[];
-        const dynamicGrades = typedStats
-          .filter((stat) => stat.online > 0)
-          .map(
-            (
-              stat: { role: string; total: number; online: number },
-              index: number,
-            ) => ({
-              id: `g${index + 1}`,
-              name: roleMapping[stat.role] || stat.role,
-              online: stat.online,
-              total: stat.total,
-            }),
-          );
+        const dynamicGrades = typedStats.map(
+          (
+            stat: { role: string; total: number; online: number },
+            index: number,
+          ) => ({
+            id: `g${index + 1}`,
+            name: roleMapping[stat.role] || stat.role,
+            online: stat.online,
+            total: stat.total,
+          }),
+        );
         setGrades(dynamicGrades);
       }
     };
     fetchStats();
+
+    // Mettre à jour les stats toutes les 60 secondes
+    const interval = setInterval(fetchStats, 60000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (

@@ -11,7 +11,6 @@ function HomePage() {
       <main id="main-content" className="home-main">
         <section id="welcome" className="home-section">
           <article>
-            <h2>Découvrez l'Art de Jinloup</h2>
             <blockquote className="welcome-quote">
               "Bienvenue sur Jinloup Ludo Art, un espace dédié à l'art et au
               dessin. Ici, chaque trait de crayon raconte une histoire, chaque
