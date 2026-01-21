@@ -28,6 +28,14 @@ export const AuthProvider = ({ children }: Children) => {
           localStorage.setItem("token", data.token);
         }
         setIsLogged(true);
+        console.log("Setting user in refresh:", {
+          id: data.id,
+          email: data.email,
+          pseudo: data.pseudo,
+          avatar: data.avatar,
+          bio: data.bio,
+          role: data.role,
+        });
         setUser({
           id: data.id,
           email: data.email,
