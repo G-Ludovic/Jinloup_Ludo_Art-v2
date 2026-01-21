@@ -77,6 +77,7 @@ export const AuthProvider = ({ children }: Children) => {
       if (!refreshRes.ok) throw new Error("Failed to fetch user");
 
       const userData = await refreshRes.json();
+      console.log("userData in login:", userData);
       if (userData.token) {
         localStorage.setItem("token", userData.token);
       }
