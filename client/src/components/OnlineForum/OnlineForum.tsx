@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { loadOnlineStats } from "../../api";
 import "./OnlineForum.css";
 
@@ -24,32 +24,33 @@ const roleMapping: Record<string, string> = {
 function OnlineForum() {
   const [grades, setGrades] = useState<Grade[]>([]);
 
+  const fetchStats = useCallback(async () => {
+    const stats = await loadOnlineStats();
+    if (stats) {
+      const typedStats = stats as Stat[];
+      const dynamicGrades = typedStats.map(
+        (
+          stat: { role: string; total: number; online: number },
+          index: number,
+        ) => ({
+          id: `g${index + 1}`,
+          name: roleMapping[stat.role] || stat.role,
+          online: stat.online,
+          total: stat.total,
+        }),
+      );
+      setGrades(dynamicGrades);
+    }
+  }, []);
+
   useEffect(() => {
-    const fetchStats = async () => {
-      const stats = await loadOnlineStats();
-      if (stats) {
-        const typedStats = stats as Stat[];
-        const dynamicGrades = typedStats.map(
-          (
-            stat: { role: string; total: number; online: number },
-            index: number,
-          ) => ({
-            id: `g${index + 1}`,
-            name: roleMapping[stat.role] || stat.role,
-            online: stat.online,
-            total: stat.total,
-          }),
-        );
-        setGrades(dynamicGrades);
-      }
-    };
     fetchStats();
 
-    // Mettre à jour les stats toutes les 60 secondes
-    const interval = setInterval(fetchStats, 60000);
+    // Mettre à jour les stats toutes les 10 secondes
+    const interval = setInterval(fetchStats, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [fetchStats]);
 
   return (
     <article className="onligne-forum">

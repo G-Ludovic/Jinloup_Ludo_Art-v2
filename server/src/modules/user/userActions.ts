@@ -43,6 +43,10 @@ const read: RequestHandler = async (req, res, next) => {
 const edit: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id);
+    if (req.user?.id !== userId) {
+      res.status(403).json("You can only edit your own profile");
+      return;
+    }
     const { pseudo, role, bio, avatar } = req.body;
     if (!pseudo || !role) {
       res.status(400).json("Pseudo and role are required");
