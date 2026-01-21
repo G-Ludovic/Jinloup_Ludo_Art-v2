@@ -16,6 +16,13 @@
   white-space: pre-wrap;
 }
 
+.user-name {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
 .message-content p {
   margin: 0;
   line-height: 1.6;
@@ -43,8 +50,6 @@
   width: 100%;
   max-height: 250px;
   object-fit: contain;
-  background-color: #ffe6e6;
-  border: 1px solid grey;
   border-radius: 2px;
 }
 
@@ -115,4 +120,43 @@ small {
   .message-img {
     max-height: 250px;
   }
+}
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .subject-card {
+  border-color: var(--color-text);
+}
+
+[data-theme="dark"] .user-name {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] small {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .message-content p {
+  background-color: var(--background-color-content);
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
+}
+
+/* Améliorer le contraste des boutons en mode dark */
+[data-theme="dark"] .actions button:first-child {
+  background: #1e40af;
+  /* Bleu plus foncé pour meilleur contraste */
+  color: white;
+}
+
+[data-theme="dark"] .actions button:first-child:hover {
+  background: #1d4ed8;
+  /* Hover plus foncé */
+}
+
+[data-theme="dark"] .actions button:last-child {
+  background: var(--color-error);
+}
+
+[data-theme="dark"] .actions button:last-child:hover {
+  background: #b02018;
 }

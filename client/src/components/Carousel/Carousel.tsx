@@ -25,7 +25,11 @@ export const Carousel = ({ data }: CarouselProps) => {
 
   return (
     <div className="carousel">
-      <BsArrowLeftCircleFill className="arrow arrow-left" onClick={prevSlide} />
+      <BsArrowLeftCircleFill
+        className="arrow arrow-left"
+        onClick={prevSlide}
+        aria-label="Slide précédente"
+      />
 
       {data.map((item, index) => (
         <a
@@ -33,19 +37,34 @@ export const Carousel = ({ data }: CarouselProps) => {
           href={item.art}
           target="_blank"
           rel="noopener noreferrer"
-          title={`Voir ${item.name} en grand`}
+          title={
+            item.name
+              ? `Voir ${item.name} en grand`
+              : `Voir dessin #${item.id} en grand`
+          }
         >
           <img
             src={item.art}
-            alt={item.name || `Dessin #${item.id}`}
+            alt={
+              slide === index
+                ? item.name
+                  ? `Voir ${item.name} en grand`
+                  : `Voir dessin #${item.id} en grand`
+                : ""
+            }
             className={slide === index ? "slide" : "slide slide-hidden"}
+            aria-hidden={slide !== index}
           />
+          <span style={{ position: "absolute", left: "-10000px" }}>
+            {item.name || `Dessin #${item.id}`}
+          </span>
         </a>
       ))}
 
       <BsArrowRightCircleFill
         className="arrow arrow-right"
         onClick={nextSlide}
+        aria-label="Slide suivante"
       />
 
       <span className="indicators">
@@ -57,6 +76,7 @@ export const Carousel = ({ data }: CarouselProps) => {
             className={
               slide === index ? "indicator" : "indicator indicator-inactive"
             }
+            aria-label={`Aller à la slide ${index + 1}`}
           />
         ))}
       </span>

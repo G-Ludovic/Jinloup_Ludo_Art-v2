@@ -24,12 +24,12 @@ class MessageRepository {
         u.pseudo AS user_name,
         m.subject_id,
         s.title AS subject_title,
-        s.category_id,            -- Ajout clé étrangère vers la catégorie
-        c.name AS category_name   -- Nom de la catégorie correspondante
+        s.category_id,
+        c.name AS category_name
      FROM message m
      JOIN user u ON m.user_id = u.id
      JOIN subject s ON m.subject_id = s.id
-     JOIN category c ON s.category_id = c.id  -- Liaison vers la catégorie
+     JOIN category c ON s.category_id = c.id
      ORDER BY m.id DESC`,
     );
 
@@ -38,7 +38,7 @@ class MessageRepository {
 
   async readBySubjectId(subjectId: number) {
     const [rows] = await databaseClient.query(
-      `SELECT m.id, m.content, m.file, m.sending_date,
+      `SELECT m.id, m.content, m.file, m.sending_date, m.edited_at,
               m.user_id, m.subject_id,
               u.pseudo AS user_name,
               s.title AS subject_title
@@ -63,7 +63,7 @@ class MessageRepository {
   async create(body: Message) {
     const [result] = await databaseClient.query<Result>(
       `INSERT INTO message (content, file, sending_date, user_id, subject_id)
-       VALUES (?, ?, CURDATE(), ?, ?)`,
+       VALUES (?, ?, NOW(), ?, ?)`,
       [body.content, body.file ?? null, body.user_id, body.subject_id],
     );
     return result.insertId;
@@ -72,7 +72,7 @@ class MessageRepository {
   async update(id: string, body: Partial<Message>) {
     const [result] = await databaseClient.query<Result>(
       `UPDATE message 
-       SET content = ?, file = ?, sending_date = CURDATE() 
+       SET content = ?, file = ?, edited_at = NOW() 
        WHERE id = ?`,
       [body.content, body.file ?? null, id],
     );
@@ -85,6 +85,14 @@ class MessageRepository {
       [id],
     );
     return result.affectedRows;
+  }
+
+  async checkSubjectExists(subjectId: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT id FROM subject WHERE id = ?",
+      [subjectId],
+    );
+    return rows.length > 0;
   }
 }
 

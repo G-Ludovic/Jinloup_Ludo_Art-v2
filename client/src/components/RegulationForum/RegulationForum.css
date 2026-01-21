@@ -23,3 +23,16 @@
   text-shadow: 2px 1px 6px rgb(455, 755, 255);
   transition: background-color 0.3s, backdrop-filter 0.3s;
 }
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .regulation-forum {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+    url(/images/bc_regulation.webp);
+}
+
+[data-theme="dark"] .regulation-forum p,
+[data-theme="dark"] .regulation-forum h3,
+[data-theme="dark"] .regulation-forum td,
+[data-theme="dark"] .regulation-forum th {
+  text-shadow: 2px 1px 6px rgba(0, 0, 0, 0.8);
+}

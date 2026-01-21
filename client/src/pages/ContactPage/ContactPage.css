@@ -1,5 +1,5 @@
 .contact-page-main {
-  background-color: var(--background-color-main);
+  background: var(--main-background);
 }
 
 .form-grid {
@@ -17,7 +17,7 @@
   width: 100%;
   padding: 24px;
   font-family: var(--font-family-title);
-  color: #333;
+  color: var(--color-text-secondary);
   background-color: var(--background-color-secondary);
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -95,6 +95,22 @@
   object-fit: contain;
   border-radius: 6px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .contact-container {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .contact-form input,
+[data-theme="dark"] .contact-form textarea {
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .contact-form input::placeholder,
+[data-theme="dark"] .contact-form textarea::placeholder {
+  color: var(--color-text-secondary);
 }
 
 @media (max-width: 968px) {

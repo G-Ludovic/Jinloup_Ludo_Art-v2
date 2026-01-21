@@ -2,6 +2,7 @@ import databaseClient, {
   type Rows,
   type Result,
 } from "../../../database/client";
+import type { User } from "../../types/user";
 
 class UserRepository {
   async readAll() {
@@ -50,29 +51,68 @@ class UserRepository {
     return result.affectedRows;
   }
 
+  async updateUser(id: number, data: Partial<User>) {
+    const fields = [];
+    const values = [];
+    for (const [key, value] of Object.entries(data)) {
+      if (value !== undefined) {
+        fields.push(`${key} = ?`);
+        values.push(value);
+      }
+    }
+    if (fields.length === 0) return 0;
+
+    values.push(id);
+    const query = `UPDATE user SET ${fields.join(", ")} WHERE id = ?`;
+    const [result] = await databaseClient.query<Result>(query, values);
+    return result.affectedRows;
+  }
+
+  async countByRole() {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT role, COUNT(*) as count FROM user GROUP BY role",
+    );
+    return rows as { role: string; count: number }[];
+  }
+
+  async countOnlineByRole() {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT role, COUNT(*) as count FROM user WHERE last_active > NOW() - INTERVAL 5 MINUTE GROUP BY role",
+    );
+    return rows as { role: string; count: number }[];
+  }
+
+  async updateLastActive(id: number) {
+    const [result] = await databaseClient.query<Result>(
+      "UPDATE user SET last_active = NOW() WHERE id = ?",
+      [id],
+    );
+    return result.affectedRows;
+  }
+
   async hasRelatedData(id: number) {
-    // Check if user has subjects
+    // Vérifier si l'utilisateur a des sujets
     const [subjects] = await databaseClient.query<Rows>(
       "SELECT COUNT(*) as count FROM subject WHERE user_id = ?",
       [id],
     );
     if (subjects[0].count > 0) return true;
 
-    // Check messages
+    // Vérifier les messages
     const [messages] = await databaseClient.query<Rows>(
       "SELECT COUNT(*) as count FROM message WHERE user_id = ?",
       [id],
     );
     if (messages[0].count > 0) return true;
 
-    // Check draws
+    // Vérifier les dessins
     const [draws] = await databaseClient.query<Rows>(
       "SELECT COUNT(*) as count FROM draw WHERE user_id = ?",
       [id],
     );
     if (draws[0].count > 0) return true;
 
-    // Check comments
+    // Vérifier les commentaires
     const [comments] = await databaseClient.query<Rows>(
       "SELECT COUNT(*) as count FROM comment WHERE user_id = ?",
       [id],

@@ -42,3 +42,23 @@
   transform: scale(1.01);
   box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
 }
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .latest-posts-forum {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+    url(/images/bc_lastests_posts.webp);
+}
+
+[data-theme="dark"] .latest-posts-forum h3,
+[data-theme="dark"] .latest-posts-forum td,
+[data-theme="dark"] .latest-posts-forum th {
+  text-shadow: 2px 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .latest-posts-forum td:last-child {
+  color: #aaa;
+}
+
+[data-theme="dark"] .latest-posts-forum tbody tr:hover {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}

@@ -6,8 +6,10 @@ function TheHelpers() {
   return (
     <>
       <header className="category-section-forum">
-        <h2>Aides entre nous</h2>
-        <p>Besoin de soutien ?</p>
+        <h1>
+          <strong>Aides entre nous</strong>
+          <p>Besoin de soutien ?</p>
+        </h1>
       </header>
 
       <main className="presentations-layout">
@@ -17,7 +19,6 @@ function TheHelpers() {
               title="Coup de patte"
               description="Besoin d’aide ou envie d’aider un autre membre ? C’est ici !"
               subjectId={7}
-              userId={3}
             />
           </article>
 

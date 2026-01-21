@@ -1,75 +1,4 @@
--- CREATE TABLE user (
---   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
---   pseudo VARCHAR(50) NOT NULL,
---   avatar VARCHAR(255),
---   location VARCHAR(100),
---   bio TEXT,
---   email VARCHAR(255) NOT NULL UNIQUE,
---   password VARCHAR(500) NOT NULL,
---   registration_date DATE NOT NULL
--- );
-
--- CREATE TABLE draw (
---   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
---   name VARCHAR(100) NOT NULL UNIQUE,
---   image VARCHAR(255)
--- );
-
--- CREATE TABLE subject (
---   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
---   title VARCHAR(100) NOT NULL,
---   category VARCHAR(50),
---   creation_date DATE NOT NULL,
---   user_id INT UNSIGNED NOT NULL,
---   FOREIGN KEY (user_id) REFERENCES `user`(id)
--- );
-
--- CREATE TABLE comment (
---   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
---   draw_date DATE NOT NULL,
---   user_id INT UNSIGNED NOT NULL,
---   draw_id INT UNSIGNED NOT NULL,
---   FOREIGN KEY (user_id) REFERENCES `user`(id),
---   FOREIGN KEY (draw_id) REFERENCES draw(id)
--- );
-
--- CREATE TABLE message (
---   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
---   content TEXT NOT NULL,
---   sending_date DATE NOT NULL,
---   user_id INT UNSIGNED NOT NULL,
---   subject_id INT UNSIGNED NOT NULL,
---   FOREIGN KEY (user_id) REFERENCES `user`(id),
---   FOREIGN KEY (subject_id) REFERENCES subject(id)
--- );
-
--- CREATE TABLE category (
---   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
---   name VARCHAR(100) NOT NULL,
---   message TEXT NOT NULL
--- );
-
--- INSERT INTO user (id, pseudo, avatar, location, bio, email, password, registration_date)
--- VALUES
---   (1, "Jdoe", "###", "2, rue fantôme, 99 999 Lost", "Je suis un fantôme", "johndoe@gmail.com", "$argon2id$v=19$m=16,t=2,p=1$WmRCS21yeTVMSGFlYkFiSA$BD49Ws1JoGxpCr0lF5Mkxw", "2025-05-25"),
---   (2, "PetitLoup", "###", "12, run de la neige, 59 999 Toundra", "Je suis un petit loup mignon", "petitloup@gmail.com", "$argon2id$v=19$m=16,t=2,p=1$NFpuWXFyYldKZTVXaDd3Yw$sEPJMkW3cOEiBNgK6rQOSg", "2024-06-14"),
---   (3, "Jinloup", "###", "25, rue de la montagne, 59 999 Toundra", "Le secret du loup", "jinshi.wolf@gmail.com", "$argon2id$v=19$m=16,t=2,p=1$cEdpRHRQdnR1YzZCQ05tVg$STyFmxsSPaX2akYNWNEZ9A", "2020-01-22"),
---   (4, "Kitsune", "###", "58, rue de la renardière, 79 999 Fox", "Le secret de la renarde", "kitsunekiss@gmail.com", "$argon2id$v=19$m=16,t=2,p=1$Rmg2MnVtaGd5dG1xdGtmbA$cmHBOEOuGivPybVLLMEAwg", "2025-01-06");
-
--- INSERT INTO category (name, message) VALUES
---   ("Présentations", "Présente-toi ici"),
---   ("Trombinoscope", "Ajoute ta photo !"),
---   ("Vos créations", "Partage tes dessins"),
---   ("Vos passions", "Parle de ce que tu aimes"),
---   ("La Tanière", "Discutons librement"),
---   ("Évènements", "Retrouve les activités à venir"),
---   ("Aides entre nous", "Besoin de soutien ?"),
---   ("Une carrière ?", "Parlons avenir pro !");
-
--- ========================================
--- Schéma complet pour Aiven
--- Supprime toutes les tables existantes
--- ========================================
+-- Schema de Jinloup_Ludo_Art Database
 
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS message;
@@ -97,7 +26,8 @@ CREATE TABLE user (
   email VARCHAR(255) NOT NULL UNIQUE,
   password VARCHAR(500) NOT NULL,
   role ENUM('loup alpha', 'loup gardien', 'jeune loup') DEFAULT 'jeune loup',
-  registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
+  registration_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  last_active TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE category (
@@ -154,10 +84,10 @@ INSERT INTO item (name, description, price) VALUES
 -- Users
 INSERT INTO user (id, pseudo, avatar, location, bio, email, password, registration_date, role)
 VALUES
-  (1, 'Jdoe', '###', '2, rue fantôme, 99 999 Lost', 'Je suis un fantôme', 'johndoe@gmail.com', '$argon2id$v=19$m=16,t=2,p=1$WmRCS21yeTVMSGFlYkFiSA$BD49Ws1JoGxpCr0lF5Mkxw', '2025-05-25 00:00:00', 'loup gardien'),
-  (2, 'PetitLoup', '###', '12, run de la neige, 59 999 Toundra', 'Je suis un petit loup mignon', 'petitloup@gmail.com', '$argon2id$v=19$m=16,t=2,p=1$NFpuWXFyYldKZTVXaDd3Yw$sEPJMkW3cOEiBNgK6rQOSg', '2024-06-14 00:00:00', 'jeune loup'),
+  (1, 'Jdoe', '###', '2, rue fantôme, 99 999 Lost', 'Je suis un fantôme', 'johndoe@gmail.com', '$argon2id$v=19$m=16,t=2,p=1$WmRCS21yeTVMSGFlYkFiSA$BD49Ws1JoGxpCr0lF5Mkxw', '2025-05-25 00:00:00', 'jeune loup'),
+  (2, 'PetitLoup', '###', '12, run de la neige, 59 999 Toundra', 'Je suis un petit loup mignon', 'petitloup@gmail.com', '$argon2id$v=19$m=16,t=2,p=1$NFpuWXFyYldKZTVXaDd3Yw$sEPJMkW3cOEiBNgK6rQOSg', '2024-06-14 00:00:00', 'loup gardien'),
   (3, 'Jinloup', '###', '25, rue de la montagne, 59 999 Toundra', 'Le secret du loup', 'jinshi.wolf@gmail.com', '$argon2d$v=19$m=16,t=2,p=1$THBzUlRGaTcxOWtSdzd3aA$YzIgD5uXbC0sDQIMhkGd8Q', '2020-01-22 00:00:00', 'loup alpha'),
-  (4, 'Kitsune', '###', '58, rue de la renardière, 79 999 Fox', 'Le secret de la renarde', 'kitsunekiss@gmail.com', '$argon2id$v=19$m=16,t=2,p=1$Rmg2MnVtaGd5dG1xdGtmbA$cmHBOEOuGivPybVLLMEAwg', '2025-01-06 00:00:00', 'jeune loup');
+  (4, 'Kitsune', '###', '58, rue de la renardière, 79 999 Fox', 'Le secret de la renarde', 'kitsunekiss@gmail.com', '$argon2d$v=19$m=16,t=2,p=1$MkxDVDdOc3hWOVpGTnB0NA$IoknlDz4vSmaP0Y/dqbdwg', '2025-01-06 00:00:00', 'jeune loup');
 
 -- Categories
 INSERT INTO category (name, description)
@@ -182,3 +112,6 @@ VALUES
 ('Retrouve les activités à venir', 2, 6, '2025-12-18 11:00:00'),
 ('Besoin de soutien ?', 3, 7, '2025-12-18 11:01:00'),
 ('Parlons avenir pro !', 4, 8, '2025-12-18 11:02:00');
+
+-- Migration: Attribuer les dessins existants sans user_id à Jinloup (admin)
+UPDATE draw SET user_id = 3 WHERE user_id IS NULL;

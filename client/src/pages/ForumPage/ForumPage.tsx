@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Career from "../../categories/Career/Career";
 import Presentations from "../../categories/Presentations/Presentations";
 import TheDen from "../../categories/TheDen/TheDen";
@@ -21,16 +20,6 @@ type Categorie = {
 };
 
 function ForumPage() {
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await fetch("/api/categories");
-      const data = await response.json();
-      console.log("Fetched categories:", data);
-    };
-
-    fetchCategories();
-  }, []);
-
   const renderCategoryComponent = (cat: Categorie) => {
     switch (cat.name.toLowerCase()) {
       case "1":

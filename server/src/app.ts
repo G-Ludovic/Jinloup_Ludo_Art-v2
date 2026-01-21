@@ -11,7 +11,7 @@ import authRoutes from "./modules/auth/authRoutes";
 import router from "./router";
 
 const app = express();
-const port = process.env.PORT || 18859;
+const port = process.env.APP_PORT || 18859;
 
 // --------------------
 // Middleware parsing
@@ -64,8 +64,6 @@ if (fs.existsSync(publicFolderPath)) {
 // Error Middleware
 // --------------------
 const logErrors: ErrorRequestHandler = (err, req, res, next) => {
-  console.error("Error:", err);
-  console.error("Request:", req.method, req.path);
   if (!res.headersSent) {
     res.status(500).json({ message: "Internal Server Error" });
   }

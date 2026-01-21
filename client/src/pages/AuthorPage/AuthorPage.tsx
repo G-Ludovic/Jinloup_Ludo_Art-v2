@@ -2,7 +2,7 @@ import "./AuthorPage.css";
 
 function AuthorPage() {
   return (
-    <>
+    <main className="author-page">
       <h1>À propos</h1>
       <section className="author-main">
         <article className="presentation-author">
@@ -38,7 +38,7 @@ function AuthorPage() {
           />
         </article>
       </section>
-    </>
+    </main>
   );
 }
 

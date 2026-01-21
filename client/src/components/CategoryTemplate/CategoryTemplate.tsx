@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import DiscussionForm from "../DiscussionForm/DiscussionForm";
 import SubjectCard from "../SubjectCard/SubjectCard";
+import "../ConfirmationModal/ConfirmationModal.css";
 import "./CategoryTemplate.css";
 
 interface Message {
@@ -8,24 +11,27 @@ interface Message {
   content: string;
   file?: string | null;
   sending_date?: string | null;
+  edited_at?: string | null;
+  user_name?: string;
 }
 
 interface CategoryTemplateProps {
   title: string;
   description: string;
   subjectId: number;
-  userId: number;
 }
 
-function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
+function CategoryTemplate({ subjectId }: CategoryTemplateProps) {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
 
   // Charger les messages de la catégorie (sujet)
   useEffect(() => {
     fetch(`/api/message?subject_id=${subjectId}`)
       .then((res) => res.json())
       .then((data) => setMessages(data))
-      .catch(console.error);
+      .catch(() => toast.error("Erreur lors du chargement des messages."));
   }, [subjectId]);
 
   // Ajouter un nouveau message
@@ -33,9 +39,10 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
     const res = await fetch("/api/message", {
       method: "POST",
       body: formData,
+      credentials: "include",
     });
     if (!res.ok) {
-      console.error("Erreur lors de l'ajout du message");
+      toast.error("Erreur lors de l'envoi du message.");
       return;
     }
     const newMsg = await res.json();
@@ -51,9 +58,10 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
     const res = await fetch(`/api/message/${id}`, {
       method: "PUT",
       body: formData,
+      credentials: "include",
     });
     if (!res.ok) {
-      console.error("Erreur lors de la modification du message");
+      toast.error("Erreur lors de la modification du message.");
       return;
     }
 
@@ -66,6 +74,7 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
               content: updated.content,
               file: updated.file || msg.file,
               sending_date: updated.sending_date || msg.sending_date,
+              edited_at: updated.edited_at || msg.edited_at,
             }
           : msg,
       ),
@@ -73,23 +82,32 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
   };
 
   // Supprimer un message
-  const handleDelete = async (id: number) => {
-    if (!window.confirm("Voulez-vous vraiment supprimer ce message ?")) return;
+  const handleDelete = (id: number) => {
+    setDeleteId(id);
+    setShowDeleteModal(true);
+  };
 
-    const res = await fetch(`/api/message/${id}`, {
+  const confirmDelete = async () => {
+    if (!deleteId) return;
+
+    const res = await fetch(`/api/message/${deleteId}`, {
       method: "DELETE",
+      credentials: "include",
     });
     if (!res.ok) {
-      console.error("Erreur lors de la suppression");
+      toast.error("Erreur lors de la suppression du message.");
       return;
     }
 
-    setMessages((prev) => prev.filter((msg) => msg.id !== id));
+    setMessages((prev) => prev.filter((msg) => msg.id !== deleteId));
+    setShowDeleteModal(false);
+    setDeleteId(null);
+    toast.success("Message supprimé du forum.");
   };
 
   return (
     <>
-      <DiscussionForm subjectId={subjectId} userId={userId} onAdd={handleAdd} />
+      <DiscussionForm subjectId={subjectId} onAdd={handleAdd} />
 
       <div className="category-messages">
         <article className="category-article">
@@ -100,12 +118,23 @@ function CategoryTemplate({ subjectId, userId }: CategoryTemplateProps) {
               text={msg.content}
               file={msg.file}
               sending_date={msg.sending_date}
+              edited_at={msg.edited_at}
+              user_name={msg.user_name}
               onDelete={handleDelete}
               onEdit={handleEdit}
             />
           ))}
         </article>
       </div>
+
+      <ConfirmationModal
+        isOpen={showDeleteModal}
+        title="Confirmer la suppression"
+        message="Êtes-vous sûr de vouloir supprimer ce message ? Cette action est irréversible."
+        confirmLabel="Supprimer"
+        onConfirm={confirmDelete}
+        onCancel={() => setShowDeleteModal(false)}
+      />
     </>
   );
 }

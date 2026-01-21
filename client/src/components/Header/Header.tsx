@@ -22,20 +22,53 @@ function Header() {
   return (
     <header className="header">
       <figure className="p-logo">
-        <img
-          className="img-logo"
-          src="/images/logo-jinloup-ludo-art.webp"
-          alt="logo du site"
-        />
+        <div className="logo-and-card">
+          <img
+            className="img-logo"
+            src="/images/logo-jinloup-ludo-art.webp"
+            alt="logo du site"
+          />
+
+          {isLogged && (
+            <div className="user-card">
+              <img
+                className="user-avatar"
+                src={
+                  user?.avatar
+                    ? `http://localhost:3310${user.avatar}`
+                    : "/images/user-circle.png"
+                }
+                alt="avatar utilisateur"
+              />
+              <div className="user-info">
+                <span className="user-pseudo">
+                  {user?.pseudo || user?.email}
+                </span>
+                <span className="user-grade">{user?.role}</span>
+                <span className="user-status">Connecté</span>
+              </div>
+            </div>
+          )}
+        </div>
 
         {isLogged && user?.role === "loup alpha" && (
           <Link className="admin-a" to="/admin">
-            🔑 Panel Admin 🔑
+            🔑 Mon espace Admin 🔑
+          </Link>
+        )}
+        {isLogged && user?.role === "loup gardien" && (
+          <Link className="moderation-a" to="/moderation">
+            🛡️ Mon espace Modération 🛡️
+          </Link>
+        )}
+        {isLogged && user?.role === "jeune loup" && (
+          <Link className="profile-a" to="/profile">
+            🌙 Mon espace Membre 🌙
           </Link>
         )}
       </figure>
 
-      <nav className="header-nav">
+      <nav className="header-nav" aria-label="Navigation principale">
         <Link className="home-a" to="/">
           Accueil
         </Link>

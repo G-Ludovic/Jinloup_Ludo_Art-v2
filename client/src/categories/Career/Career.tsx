@@ -6,8 +6,10 @@ function Career() {
   return (
     <>
       <header className="category-section-forum">
-        <h2>Une carrière ?</h2>
-        <p>Parlons avenir pro !</p>
+        <h1>
+          <strong>Une carrière ?</strong>
+          <p>Parlons avenir pro !</p>
+        </h1>
       </header>
 
       <main className="presentations-layout">
@@ -17,7 +19,6 @@ function Career() {
               title="Carrière et projets"
               description="Partage ton parcours professionnel, tes formations ou tes ambitions."
               subjectId={8}
-              userId={3}
             />
           </article>
 

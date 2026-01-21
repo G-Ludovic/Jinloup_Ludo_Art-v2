@@ -12,30 +12,26 @@ function Footer() {
         />
       </div>
 
-      <section className="footer-links">
-        <div className="footer-column">
-          <article className="footer-title">
-            <h3>Jinloup Ludo Art</h3>
-          </article>
-          <Link to="/author">À propos</Link>
-          <Link to="/contact">Contact</Link>
-        </div>
-
+      <nav className="footer-links" aria-label="Liens du footer">
         <div className="footer-column">
           <Link to="/privacy-policy">Politique de confidentialité</Link>
           <Link to="/copyright">Droits d'auteur</Link>
         </div>
 
         <div className="footer-column">
-          <Link to="*">Étiquette</Link>
-          <Link to="*">Conditions d'utilisation</Link>
+          <Link to="/etiquette">Étiquette</Link>
+          <Link to="/terms-of-use">Conditions d'utilisation</Link>
         </div>
 
         <div className="footer-column">
-          <Link to="*">Développeurs</Link>
-          <Link to="*">Centre d'aide</Link>
+          <Link to="/developers">Développeurs</Link>
+          <Link to="/help-center">Centre d'aide</Link>
         </div>
-      </section>
+
+        <div className="footer-column">
+          <Link to="/author">À propos</Link>
+        </div>
+      </nav>
 
       <section>
         <div className="footer-column social-block">
@@ -43,6 +39,7 @@ function Footer() {
             href="https://github.com/G-Ludovic"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Visiter GitHub (ouvre dans un nouvel onglet)"
           >
             <img src="/images/github-mark.svg" alt="logo GitHub" />
           </a>
@@ -50,6 +47,7 @@ function Footer() {
             href="https://linkedin.com/in/ludovic-galicher-69ba9932a"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Visiter LinkedIn (ouvre dans un nouvel onglet)"
           >
             <img src="/images/linkedin.webp" alt="logo Linkedin" />
           </a>

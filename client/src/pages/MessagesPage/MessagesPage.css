@@ -1,0 +1,439 @@
+.messages-container {
+  padding: 2rem;
+  background: var(--main-background);
+  flex: 1;
+}
+
+.messages-container h2 {
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+/* Onglets */
+.tab-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--color-text-secondary);
+}
+
+.tab-button {
+  border: none;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  background: var(--background-color-button);
+  color: white;
+  font-size: 1rem;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.2s ease;
+  margin-right: 0.25rem;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+}
+
+.tab-button:hover {
+  background: var(--background-color-hoverbutton);
+}
+
+.tab-button.active {
+  background: var(--color-hover-primary);
+  color: white;
+  font-weight: 600;
+}
+
+/* Filtres */
+.filters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+}
+
+.filter-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.filter-group select {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+.btn-clear-filters {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 0.9rem;
+  background: #666;
+  align-self: flex-end;
+}
+
+.btn-clear-filters:hover {
+  background: #555;
+}
+
+.messages-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-size: 0.95rem;
+}
+
+.messages-table th,
+.messages-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.messages-table th {
+  background: #f2f2f2;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Boutons */
+.btn-delete {
+  border: none;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  display: inline-block;
+  width: 100%;
+  background: #d32f2f;
+}
+
+.btn-delete:hover {
+  background: #b71c1c;
+}
+
+.btn-view {
+  border: none;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 0.75rem;
+  background: #2196f3;
+  margin-left: 0.5rem;
+}
+
+.btn-view:hover {
+  background: #1976d2;
+}
+
+.btn-close {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 0.9rem;
+  background: #666;
+  margin-top: 1rem;
+}
+
+.btn-close:hover {
+  background: #555;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.message-details p {
+  margin: 0.5rem 0;
+  line-height: 1.4;
+}
+
+.message-details strong {
+  color: #555;
+}
+
+.message-content {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border: 1px solid #ddd;
+}
+
+/* Modal pour les images */
+.image-modal {
+  max-width: 800px;
+}
+
+.image-modal .drawing-details {
+  text-align: center;
+}
+
+.image-modal .image-container {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.image-modal img {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Mobile / petits écrans */
+@media (max-width: 480px) {
+  .messages-container {
+    padding: 1rem;
+  }
+
+  .messages-container h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .messages-table {
+    font-size: 0.8rem;
+    border-radius: 8px;
+  }
+
+  .messages-table th,
+  .messages-table td {
+    padding: 0.6rem 0.4rem;
+  }
+
+  .btn-delete {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .btn-view {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .filters-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .filter-group {
+    min-width: auto;
+  }
+
+  .modal-content {
+    padding: 1rem;
+    width: 95%;
+  }
+}
+
+/* Tablette */
+@media (min-width: 481px) and (max-width: 768px) {
+  .messages-container {
+    padding: 1.5rem;
+  }
+
+  .messages-container h2 {
+    font-size: 1.2rem;
+  }
+
+  .messages-table {
+    font-size: 0.85rem;
+  }
+
+  .btn-delete {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.7rem;
+  }
+
+  .btn-view {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .filters-container {
+    gap: 0.75rem;
+  }
+
+  .filter-group {
+    min-width: 150px;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+    width: 85%;
+  }
+}
+
+/* Grand écran */
+@media (min-width: 1024px) {
+  .messages-container {
+    padding: 2rem 3rem;
+  }
+
+  .messages-table {
+    font-size: 1rem;
+  }
+}
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .tab-container {
+  border-bottom-color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .tab-button {
+  background: var(--background-color-secondary);
+  color: var(--color-text);
+  border: 1px solid var(--color-text-secondary);
+}
+
+[data-theme="dark"] .tab-button:hover {
+  background: var(--background-color-hover);
+  border-color: var(--color-hover-primary);
+}
+
+[data-theme="dark"] .tab-button.active {
+  background: var(--color-hover-primary);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .filters-container {
+  background: var(--background-color-secondary);
+  border: 1px solid var(--color-text-secondary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .filter-group label {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .filter-group select {
+  background: var(--background-color-content);
+  color: var(--color-text);
+  border-color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .btn-clear-filters {
+  background: var(--color-error);
+}
+
+[data-theme="dark"] .btn-clear-filters:hover {
+  background: #c62828;
+}
+
+[data-theme="dark"] .messages-table {
+  background: var(--background-color-content);
+  border: 1px solid var(--color-text-secondary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .messages-table th,
+[data-theme="dark"] .messages-table td {
+  border-bottom-color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .messages-table th {
+  background: var(--background-color-secondary);
+  color: var(--color-text);
+  border-top: 1px solid var(--color-text-secondary);
+}
+
+[data-theme="dark"] .btn-delete {
+  background: var(--color-error);
+}
+
+[data-theme="dark"] .btn-delete:hover {
+  background: #c62828;
+}
+
+[data-theme="dark"] .btn-view {
+  background: var(--color-link);
+}
+
+[data-theme="dark"] .btn-view:hover {
+  background: var(--color-hover-link);
+}
+
+[data-theme="dark"] .btn-close {
+  background: var(--background-color-button);
+}
+
+[data-theme="dark"] .btn-close:hover {
+  background: var(--background-color-hoverbutton);
+}
+
+[data-theme="dark"] .modal-overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .modal-content {
+  background: var(--background-color-content);
+  border: 1px solid var(--color-text-secondary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .message-content {
+  background: var(--background-color-secondary);
+  border: 1px solid var(--color-text-secondary);
+  color: var(--color-text);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] tr:hover {
+  background-color: var(--background-color-hover);
+}

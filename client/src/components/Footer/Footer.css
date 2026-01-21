@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
   align-items: center;
-  background-color: var(--background-color-primary);
+  background: var(--footer-background);
   color: white;
   padding-top: 32px;
   padding-left: 24px;
@@ -61,6 +61,16 @@
   color: var(--accent-color, #c5d1d4);
   scale: 1.06;
   transition: 0.1s ease-in-out;
+}
+
+.footer-column a:focus {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
+}
+
+.social-block a:focus {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
 }
 
 .social-block {

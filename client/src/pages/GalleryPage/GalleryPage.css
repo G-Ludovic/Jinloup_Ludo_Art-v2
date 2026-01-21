@@ -1,10 +1,38 @@
 /* Page général */
 .gallery-page {
   padding: 2rem;
-  background-color: var(--background-color-main);
+  background: var(--main-background);
   color: var(--color-text);
   font-family: var(--font-family-text);
   text-align: center;
+}
+
+/* Invitation à se connecter ou s'inscrire */
+.login-prompt-gallery {
+  text-align: center;
+  padding: 2rem;
+  background: #fdfdfd;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin: 1rem auto;
+  max-width: 400px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-prompt-gallery p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+}
+
+.login-prompt-gallery a {
+  color: #0096ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-prompt-gallery a:hover {
+  text-decoration: underline;
 }
 
 /* Formulaire du dessin */
@@ -75,14 +103,14 @@
 
 .details-table th {
   background-color: var(--color-hover-primary);
-  color: white;
+  color: var(--color-text);
   font-weight: 600;
   width: 100px;
 }
 
 .details-table td {
-  background-color: white;
-  color: #333;
+  background-color: var(--color-text);
+  color: var(--color-text-tertiary);
 }
 
 /* Aperçu d'image */
@@ -124,10 +152,11 @@
 /* Modale de modification */
 .draw-member dialog {
   border: none;
-  border-radius: 8px;
+  border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-  background-color: var(--background-color-secondary);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(135, 206, 235, 0.3);
   max-width: 400px;
   width: 90%;
   font-family: var(--font-family-text);
@@ -149,7 +178,7 @@
   padding: 0.5rem 1rem;
   border: none;
   background-color: var(--background-color-button);
-  color: white;
+  color: var(--color-text);
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -168,25 +197,39 @@
 
 /* Composant Carte */
 .card {
-  background-color: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  background-color: var(--background-color-secondary);
-  padding: 1rem;
-  max-width: 250px;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 1.2rem;
+  max-width: 280px;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, margin-top 0.3s ease,
+    margin-bottom 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-top: 1.2rem;
+  margin-bottom: 0.8rem;
 }
 
 .card img {
   width: 100%;
-  max-height: 200px;
+  max-height: 220px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover img {
+  transform: scale(1.05);
 }
 
 .card p {
@@ -290,4 +333,61 @@ dialog {
   .carousel-article .indicators {
     display: none;
   }
+}
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .login-prompt-gallery {
+  background: var(--background-color-secondary);
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .login-prompt-gallery p {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .login-prompt-gallery a {
+  color: var(--color-link);
+}
+
+[data-theme="dark"] .add-draw form {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+    url(/images/bc_discussion-form.webp);
+  border-color: var(--color-text);
+}
+
+[data-theme="dark"] .add-draw input[type="text"],
+[data-theme="dark"] .add-draw input[type="file"] {
+  background-color: var(--background-color-secondary);
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .details-table td {
+  background-color: var(--background-color-secondary);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .draw-member .card {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+    url(/images/bc_discussion-form.webp);
+}
+
+[data-theme="dark"] .draw-member dialog {
+  background: var(--background-color-secondary);
+  border-color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .card {
+  background: var(--background-color-secondary);
+  border-color: var(--color-text-secondary);
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .card-text {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] .delete-button {
+  background-color: #1e7e34;
 }

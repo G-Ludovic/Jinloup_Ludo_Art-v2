@@ -18,21 +18,21 @@ export async function fetchAPI(endpoint: string) {
 }
 
 export async function loadSubjects() {
-  const subjects = await fetchAPI("/api/subject");
-  if (subjects) console.log("Sujets récupérés :", subjects);
+  await fetchAPI("/api/subject");
 }
 
 export async function loadMessages() {
-  const messages = await fetchAPI("/api/message");
-  if (messages) console.log("Messages récupérés :", messages);
+  await fetchAPI("/api/message");
 }
 
 export async function loadCategories() {
-  const categories = await fetchAPI("/api/categories");
-  if (categories) console.log("Catégories récupérées :", categories);
+  await fetchAPI("/api/categories");
 }
 
 export async function loadDraws() {
-  const draws = await fetchAPI("/api/draws");
-  if (draws) console.log("Dessins récupérés :", draws);
+  await fetchAPI("/api/draws");
+}
+
+export async function loadOnlineStats() {
+  return await fetchAPI("/api/online-stats");
 }

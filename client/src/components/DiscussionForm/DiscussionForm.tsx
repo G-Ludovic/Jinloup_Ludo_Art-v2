@@ -1,13 +1,15 @@
 import { useState } from "react";
+import { Link } from "react-router";
+import { useAuth } from "../../services/AuthContext";
 import "./DiscussionForm.css";
 
 interface DiscussionFormProps {
   subjectId: number;
-  userId: number;
   onAdd: (formData: FormData) => void;
 }
 
-function DiscussionForm({ subjectId, userId, onAdd }: DiscussionFormProps) {
+function DiscussionForm({ subjectId, onAdd }: DiscussionFormProps) {
+  const { isLogged } = useAuth();
   const [content, setContent] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -30,7 +32,6 @@ function DiscussionForm({ subjectId, userId, onAdd }: DiscussionFormProps) {
 
     const formData = new FormData();
     formData.append("content", content);
-    formData.append("user_id", userId.toString());
     formData.append("subject_id", subjectId.toString());
     if (file) formData.append("image", file);
 
@@ -42,9 +43,28 @@ function DiscussionForm({ subjectId, userId, onAdd }: DiscussionFormProps) {
     setPreview(null);
   };
 
+  if (!isLogged) {
+    return (
+      <div className="login-prompt">
+        <p>Connectez-vous pour poster un message.</p>
+        <p>
+          <Link to="/login">Se connecter</Link> ou{" "}
+          <Link to="/registration">S'inscrire</Link>
+        </p>
+      </div>
+    );
+  }
+
   return (
     <form className="discussion-form" onSubmit={handleSubmit}>
+      <label
+        htmlFor="discussion-content"
+        style={{ display: "block", marginBottom: "0.5rem", fontWeight: "bold" }}
+      >
+        Contenu de votre message
+      </label>
       <textarea
+        id="discussion-content"
         name="content"
         placeholder="Écris ton message ici..."
         value={content}

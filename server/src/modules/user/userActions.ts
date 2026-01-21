@@ -2,6 +2,8 @@ import argon2 from "argon2";
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import databaseClient from "../../../database/client";
+import type { User } from "../../types/user";
+import files from "../../utils/files";
 import userRepository from "./userRepository";
 
 interface AuthRequest extends Request {
@@ -26,9 +28,7 @@ const browse: RequestHandler = async (req, res, next) => {
 const read: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id);
-    console.log("Reading user id:", userId);
     const user = await userRepository.read(userId);
-    console.log("User found:", user);
 
     if (!user) {
       res.sendStatus(404);
@@ -43,17 +43,37 @@ const read: RequestHandler = async (req, res, next) => {
 const edit: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id);
-    const { role } = req.body;
-    if (!role) {
-      res.status(400).json("Role is required");
+    const { pseudo, role, bio, avatar } = req.body;
+    if (!pseudo || !role) {
+      res.status(400).json("Pseudo and role are required");
       return;
     }
-    const affectedRows = await userRepository.updateRole(userId, role);
+
+    // Récupérer l'ancien user pour supprimer l'ancien avatar si nécessaire
+    const oldUser = await userRepository.read(userId);
+    if (!oldUser) {
+      res.sendStatus(404);
+      return;
+    }
+
+    // Si un nouvel avatar est uploadé, supprimer l'ancien
+    if (avatar && oldUser.avatar) {
+      files.removeImageFromServer(oldUser.avatar);
+    }
+
+    const updateData: Partial<User> = { pseudo, role };
+    if (bio !== undefined) updateData.bio = bio;
+    if (avatar !== undefined) updateData.avatar = avatar;
+
+    const affectedRows = await userRepository.updateUser(userId, updateData);
     if (affectedRows === 0) {
       res.sendStatus(404);
       return;
     }
-    res.sendStatus(204);
+
+    // Retourner l'utilisateur mis à jour
+    const updatedUser = await userRepository.read(userId);
+    res.json(updatedUser);
   } catch (err) {
     next(err);
   }
@@ -62,7 +82,7 @@ const edit: RequestHandler = async (req, res, next) => {
 const destroy: RequestHandler = async (req, res, next) => {
   try {
     const userId = Number(req.params.id);
-    // Delete associated data in order to avoid foreign key constraints
+    // Supprimer les données associées pour éviter les contraintes de clé étrangère
     await databaseClient.query("DELETE FROM comment WHERE user_id = ?", [
       userId,
     ]);
@@ -135,15 +155,22 @@ const login: RequestHandler = async (req, res) => {
     const isPasswordValid = await argon2.verify(user.password, password);
     if (!isPasswordValid) throw new Error("Invalid password");
 
+    // Update last_active
+    await userRepository.updateLastActive(user.id);
+
     const secretKey = process.env.APP_SECRET;
     if (!secretKey) throw new Error("A secret must be provided");
 
-    const token = jwt.sign({ id: user.id, email: user.email }, secretKey, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { id: user.id, email: user.email, role: user.role },
+      secretKey,
+      {
+        expiresIn: "1d",
+      },
+    );
 
     res.cookie("token", token, { httpOnly: true, secure: false });
-    res.status(200).json("Congratulations, you're logged in !");
+    res.status(200).json("logged in");
   } catch (err) {
     console.warn((err as Error).message);
     res.sendStatus(500);
@@ -164,37 +191,60 @@ const logout: RequestHandler = (req, res) => {
 const refreshToken: RequestHandler = async (req, res) => {
   try {
     const token = req.cookies.token;
-    console.log("Refresh token received:", token ? "present" : "missing");
     if (!token) throw new Error("jwt must be provided");
 
     const secretKey = process.env.APP_SECRET;
     if (!secretKey) throw new Error("APP_SECRET is not defined");
 
     const decoded = jwt.verify(token, secretKey) as JwtPayload;
-    console.log("Decoded token:", decoded);
 
     // Récupérer l'utilisateur complet depuis la DB
     const user = await userRepository.read(decoded.id);
-    console.log("User from DB for refresh:", user);
     if (!user) {
       res.sendStatus(404);
       return;
     }
 
     // Générer un nouveau token
-    const newToken = jwt.sign({ id: user.id, email: user.email }, secretKey, {
-      expiresIn: "1d",
-    });
+    const newToken = jwt.sign(
+      { id: user.id, email: user.email, role: user.role },
+      secretKey,
+      {
+        expiresIn: "1d",
+      },
+    );
 
     res.cookie("token", newToken, { httpOnly: true });
-    // On renvoie id, email & role
-    res.status(200).json({ id: user.id, email: user.email, role: user.role });
+    // On renvoie les infos complètes de l'utilisateur
+    res.status(200).json({
+      id: user.id,
+      email: user.email,
+      pseudo: user.pseudo,
+      avatar: user.avatar,
+      bio: user.bio,
+      role: user.role,
+    });
   } catch (err) {
-    console.error("Refresh token error:", (err as Error).message);
-    if ((err as Error).message !== "jwt must be provided") {
-      console.error((err as Error).message);
-    }
     res.sendStatus(500);
+  }
+};
+
+// Obtenir les statistiques en ligne (comptes par rôle)
+const getOnlineStats: RequestHandler = async (req, res, next) => {
+  try {
+    const onlineStats = await userRepository.countOnlineByRole();
+    const totalStats = await userRepository.countByRole();
+    const stats = totalStats.map((total) => {
+      const online = onlineStats.find((o) => o.role === total.role);
+      return {
+        role: total.role,
+        total: total.count,
+        online: online ? online.count : 0,
+      };
+    });
+    res.json(stats);
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -227,5 +277,6 @@ export default {
   login,
   logout,
   refreshToken,
+  getOnlineStats,
   verifyToken,
 };

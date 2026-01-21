@@ -29,3 +29,16 @@
   transform: none;
   box-shadow: none;
 }
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .onligne-forum {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+    url(/images/bc_online.webp);
+}
+
+[data-theme="dark"] .onligne-forum p,
+[data-theme="dark"] .onligne-forum h3,
+[data-theme="dark"] .onligne-forum td,
+[data-theme="dark"] .onligne-forum th {
+  text-shadow: 2px 1px 6px rgba(0, 0, 0, 0.8);
+}

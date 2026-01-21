@@ -7,47 +7,57 @@ body {
 }
 
 main {
-  min-height: calc(100vh - 308px - 68px);
+  /* Define offsets for header and footer heights to ensure main takes full viewport height */
+  --main-offset-mobile: 358px;
+  /* Approximate header + footer height on mobile */
+  --main-offset-desktop: 286px;
+  /* Approximate header + footer height on desktop */
+
+  min-height: calc(100vh - var(--main-offset-mobile));
 
   @media screen and (min-width: 768px) {
-    min-height: calc(100vh - 236px - 50px);
+    min-height: calc(100vh - var(--main-offset-desktop));
   }
 }
 
 h1 {
   display: flex;
-  flex-direction: column;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),
+    url(/images/banner-jinloup-ludo-art.webp);
+  background-size: cover;
+  background-position: center;
+  min-height: 120px;
   align-items: center;
-  background-color: #3a4b3f;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  justify-content: center;
   color: white;
-  font-family: var(--font-family-text);
-  padding: 16px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-family-title);
   margin: 0;
+  padding: 1rem;
 }
 
-.category-section-forum {
+.category-section-forum h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
-  background-color: #3a4b3f;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),
+    url(/images/banner-jinloup-ludo-art.webp);
+  background-size: cover;
+  background-position: center;
   color: white;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-}
-
-.category-section-forum h2 {
-  font-family: var(--font-family-title);
-  font-size: 1.5rem;
-  color: var(--primary-color);
-  margin-bottom: 8px;
-  color: white;
 }
 
 .category-section-forum p {
   font-family: var(--font-family-text);
   font-size: 1rem;
-  color: var(--text-color);
+}
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .category-section-forum {
+  background: var(--main-background);
 }
 
 a {
@@ -58,26 +68,64 @@ a {
 }
 
 :root {
-  /* Couleurs principales */
+  /* Couleurs de texte */
   --color-text: #050315;
   --color-text-secondary: #2a2a72;
+  --color-text-tertiary: #ffffff;
+
+  /* Couleurs d'état */
   --color-success: rgb(30, 145, 30);
   --color-link: #3b3b98;
   --color-hover-link: #4e4ebf;
   --color-error: #d93025;
+
+  /* Couleurs de fond */
   --background-color-primary: #68766c;
+  --header-background: linear-gradient(90deg, #3a4b3f, #2c3e2f);
+  --footer-background: linear-gradient(90deg, #3a4b3f, #2c3e2f);
   --background-color-secondary: #93b09c;
   --background-color-main: #e3eee6;
+  --main-background: linear-gradient(90deg, #c8d5cc, #b8c8bf);
+  --background-color-hover: #d5e7db;
+  --background-color-hoverbutton: #5a5a5a;
+  --background-color-button: #111;
+  --background-color-content: #ffffff;
+  --background-color-h1: #3a4b3f;
+
+  /* Couleurs primaires et secondaires */
   --primary-color: #0d2013;
   --secondary-color: #2c5a3a;
   --color-hover-primary: #4f7159;
   --color-hover-secondary: rgb(63, 63, 63);
-  --background-color-hover: #d5e7db;
-  --background-color-hoverbutton: #5a5a5a;
-  --background-color-button: #111;
 
-  /* Typography */
+  /* Polices */
   --font-family-link: "Raleway", sans-serif;
   --font-family-title: "Poppins", sans-serif;
   --font-family-text: "Inter", sans-serif;
+}
+
+/* Variables pour le dark mode */
+[data-theme="dark"] {
+  --color-text: #ffffff;
+  --color-text-secondary: #4f5864;
+  --color-success: #28a745;
+  --color-link: #4dabf7;
+  --color-hover-link: #74b9ff;
+  --color-error: #dc3545;
+  --background-color-primary: linear-gradient(90deg, #2a2d3a, #1f2029);
+  --header-background: linear-gradient(90deg, #2a2a2a, #1a1a1a, #0d0d0d);
+  --footer-background: linear-gradient(90deg, #2a2a2a, #1a1a1a, #0d0d0d);
+  --background-color-secondary: #4a5568;
+  --background-color-main: #0f1419;
+  --main-background: linear-gradient(90deg, #2a2d3a, #1f2029);
+  --background-color-hover: #2d3748;
+  --background-color-hoverbutton: #4a5568;
+  --background-color-hoverbuttontwo: #626b7e;
+  --background-color-button: #374151;
+  --background-color-content: #2a2d3a;
+  --background-color-h1: #1a202c;
+  --primary-color: #2b6cb0;
+  --secondary-color: #38a169;
+  --color-hover-primary: #4299e1;
+  --color-hover-secondary: #48bb78;
 }

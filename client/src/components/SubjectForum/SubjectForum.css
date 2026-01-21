@@ -1,7 +1,7 @@
 .subject-forum {
   color: var(--color-text);
   font-family: var(--font-family-text);
-  padding: 16px;
+  padding: 12px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background-image: linear-gradient(
@@ -13,7 +13,7 @@
 }
 
 .subject-forum h3 {
-  margin-bottom: 12px;
+  margin-bottom: 18px;
   text-shadow: 2px 1px 6px rgb(255, 255, 255);
 }
 
@@ -24,7 +24,6 @@
 
 .subject-forum th,
 .subject-forum td {
-  padding: 8px;
   text-align: left;
 }
 
@@ -70,4 +69,27 @@
   );
   transform: scale(1.01);
   box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .subject-forum {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+    url(/images/bc_subject.webp);
+}
+
+[data-theme="dark"] .subject-forum h3 {
+  text-shadow: 2px 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .subject-forum th {
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .subject-forum tbody td:last-child {
+  color: #aaa;
+}
+
+[data-theme="dark"] .subject-forum tbody tr:hover {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
 }

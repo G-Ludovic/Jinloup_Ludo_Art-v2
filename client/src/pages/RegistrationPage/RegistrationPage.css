@@ -6,7 +6,7 @@
   align-items: center;
   font-family: var(--font-family-title);
   color: var(--color-text);
-  background-color: var(--background-color-main);
+  background: var(--main-background);
 }
 
 .registration-form {
@@ -64,7 +64,7 @@
 
 .registration-form a {
   font-weight: bold;
-  color: var(--secondary-color);
+  color: black;
   text-decoration: underline;
 }
 
@@ -83,6 +83,10 @@
   object-fit: contain;
   border-radius: 6px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .registration-form button:hover {
+  background-color: var(--background-color-hoverbuttontwo);
 }
 
 @media (max-width: 968px) {

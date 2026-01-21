@@ -9,13 +9,30 @@ import database from "../database/client";
 
 import type { AbstractSeeder } from "../database/fixtures/AbstractSeeder";
 
+// Fonction pour nettoyer le dossier uploads
+const cleanUploadsFolder = () => {
+  const uploadsPath = path.join(process.cwd(), "public/uploads");
+  if (fs.existsSync(uploadsPath)) {
+    const files = fs.readdirSync(uploadsPath);
+    for (const file of files) {
+      const filePath = path.join(uploadsPath, file);
+      try {
+        fs.unlinkSync(filePath);
+      } catch (err) {
+        console.warn(`Impossible de supprimer ${filePath}:`, err);
+      }
+    }
+    console.info("Uploads folder cleaned 🧹");
+  }
+};
+
 const fixturesPath = path.join(__dirname, "../database/fixtures");
 
 const seed = async () => {
   try {
     const dependencyMap: { [key: string]: AbstractSeeder } = {};
 
-    // Construct each seeder
+    // Construire chaque seeder
     const filePaths = fs
       .readdirSync(fixturesPath)
       .filter((filePath: string) => !filePath.startsWith("Abstract"));
@@ -33,7 +50,7 @@ const seed = async () => {
     // Trier les seeders en fonction de leurs dépendances
     const sortedSeeders: AbstractSeeder[] = [];
 
-    // The recursive solver
+    // Le solveur récursif
     const solveDependencies = (n: AbstractSeeder) => {
       for (const DependencyClass of n.dependencies) {
         const dependency = dependencyMap[DependencyClass.toString()];
@@ -61,6 +78,9 @@ const seed = async () => {
       await database.query(`delete from ${seeder.table}`);
     }
 
+    // Nettoyer le dossier uploads
+    cleanUploadsFolder();
+
     // Exécuter chaque seeder
 
     for (const seeder of sortedSeeders) {
@@ -79,7 +99,11 @@ const seed = async () => {
     );
   } catch (err) {
     const { message, stack } = err as Error;
-    console.error("Error filling the database:", message, stack);
+    console.error(
+      "Erreur lors du remplissage de la base de données:",
+      message,
+      stack,
+    );
   }
 };
 

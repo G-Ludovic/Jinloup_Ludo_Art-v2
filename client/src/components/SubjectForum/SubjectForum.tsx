@@ -41,7 +41,7 @@ function SubjectForum() {
 
   return (
     <article className="subject-forum">
-      <h3>Derniers sujets</h3>
+      <h2>Derniers sujets</h2>
       {subjects.length === 0 ? (
         <p>Aucun sujet disponible pour le moment.</p>
       ) : (

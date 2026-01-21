@@ -7,6 +7,8 @@ interface Props {
   text?: string;
   file?: string | null;
   sending_date?: string | null;
+  edited_at?: string | null;
+  user_name?: string;
   onDelete: (id: number) => void;
   onEdit: (id: number, newText: string, newFile?: File) => void;
 }
@@ -16,12 +18,14 @@ export default function SubjectCard({
   text = "",
   file,
   sending_date,
+  edited_at,
+  user_name,
   onDelete,
   onEdit,
 }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const formattedDate = sending_date
+  const formattedSendingDate = sending_date
     ? new Date(sending_date).toLocaleString("fr-FR", {
         day: "2-digit",
         month: "2-digit",
@@ -31,25 +35,48 @@ export default function SubjectCard({
       })
     : null;
 
+  const displayDate = edited_at
+    ? `Modifié le ${new Date(edited_at).toLocaleString("fr-FR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      })}`
+    : formattedSendingDate
+      ? `Posté le ${formattedSendingDate}`
+      : null;
+
   return (
     <div className="subject-card">
       <div className="message-content">
+        {user_name && <strong className="user-name">Par {user_name}</strong>}
         <p>{text}</p>
         {file && (
           <img
             src={`http://localhost:3310${file}`}
-            alt="message"
+            alt={
+              user_name ? `Image partagée par ${user_name}` : "Image partagée"
+            }
             className="message-img"
           />
         )}
-        {formattedDate && <small>Posté le {formattedDate}</small>}
+        {displayDate && <small>{displayDate}</small>}
       </div>
 
       <div className="actions">
-        <button type="button" onClick={() => setIsModalOpen(true)}>
+        <button
+          type="button"
+          className="edit-button"
+          onClick={() => setIsModalOpen(true)}
+        >
           ✏️ Modifier
         </button>
-        <button type="button" onClick={() => onDelete(id)}>
+        <button
+          type="button"
+          className="delete-button"
+          onClick={() => onDelete(id)}
+        >
           ❌ Supprimer
         </button>
       </div>

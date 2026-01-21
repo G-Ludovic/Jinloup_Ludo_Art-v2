@@ -5,7 +5,8 @@ import messageRepository from "./messageRepository";
 const add: RequestHandler = async (req, res) => {
   try {
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
-    const { content, user_id, subject_id } = req.body;
+    const { content, subject_id } = req.body;
+    const user_id = req.user?.id;
 
     if (!content?.trim()) {
       res.status(400).json({ error: "Content is required" });
@@ -17,14 +18,28 @@ const add: RequestHandler = async (req, res) => {
       return;
     }
 
-    const newId = await messageRepository.create({
-      content,
-      file: filePath,
-      user_id: Number(user_id),
-      subject_id: Number(subject_id),
-    });
+    // Vérifier que le sujet existe
+    const subjectExists = await messageRepository.checkSubjectExists(
+      Number(subject_id),
+    );
+    if (!subjectExists) {
+      res.status(400).json({ error: "Invalid subject ID" });
+      return;
+    }
 
-    const createdMessage = await messageRepository.readById(newId); // Pas de String()
+    let newId: number;
+    try {
+      newId = await messageRepository.create({
+        content,
+        file: filePath,
+        user_id: Number(user_id), // Utilise la vraie valeur
+        subject_id: Number(subject_id), // Utilise la vraie valeur
+      });
+    } catch (createErr) {
+      console.error("Create error:", createErr);
+      res.status(500).json({ error: "Failed to create message" });
+      return;
+    }
 
     res.status(201).json({
       id: newId,
@@ -32,8 +47,8 @@ const add: RequestHandler = async (req, res) => {
       file: filePath,
       sending_date: new Date().toISOString(),
       validated: false,
-      user_id: Number(user_id), // Utilise la vraie valeur
-      subject_id: Number(subject_id), // Utilise la vraie valeur
+      user_id: Number(user_id),
+      subject_id: Number(subject_id),
     });
   } catch (err) {
     console.error("Error creating message:", err);
@@ -116,6 +131,19 @@ const destroy: RequestHandler = async (req, res) => {
     const message = await messageRepository.readById(Number(id));
     if (!message) {
       res.status(404).json("Message not found");
+      return;
+    }
+
+    // Vérifier que l'utilisateur peut supprimer ce message
+    const userRole = req.user?.role;
+    const isOwner = message.user_id === req.user?.id;
+    const canDelete =
+      userRole === "loup alpha" || userRole === "loup gardien" || isOwner;
+
+    if (!canDelete) {
+      res
+        .status(403)
+        .json({ message: "Access forbidden: insufficient rights" });
       return;
     }
 

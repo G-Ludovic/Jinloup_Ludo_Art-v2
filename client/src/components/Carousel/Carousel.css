@@ -72,3 +72,29 @@
 .indicator-inactive {
   background-color: grey;
 }
+
+/* Styles pour le dark mode */
+[data-theme="dark"] .slide {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+    url(/images/bc_post-file.webp);
+  border-color: var(--color-text);
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .arrow {
+  color: var(--color-text);
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.8));
+}
+
+[data-theme="dark"] .arrow:hover {
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .indicator {
+  background-color: var(--color-text);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .indicator-inactive {
+  background-color: var(--color-text-secondary);
+}

@@ -9,18 +9,13 @@
 }
 
 .modal-content {
-  background: #fff;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
   padding: 1.5rem;
   width: 450px;
   max-width: 90%;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.918),
-      rgba(255, 255, 255, 0.612)
-    ), url(/images/bc_discussion-form.webp);
-  background-size: cover;
-  background-position: center;
+  border: 2px solid rgba(135, 206, 235, 0.3);
   font-family: var(--font-family-text);
   color: var(--color-text);
 }
@@ -43,7 +38,7 @@ textarea {
   color: #5c5c5c;
   cursor: pointer;
   margin-bottom: 1rem;
-  transition: single-background 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
 .drop-zone.drag-active {
@@ -66,7 +61,7 @@ textarea {
   max-height: 200px;
   border-radius: 6px;
   margin-bottom: 0.5rem;
-  text-shadow: 2px 1px 6px rgb(455, 755, 255);
+  text-shadow: 2px 1px 6px rgba(255, 255, 255, 0.8);
 }
 
 .modal-actions {
@@ -89,7 +84,9 @@ textarea {
 }
 
 .btn-cancel {
-  background-color: #e0e0e0;
+  background-color: black !important;
+  color: #fff !important;
+  opacity: 0.9;
 }
 
 .btn-confirm:hover {
@@ -104,6 +101,14 @@ textarea {
   border: 2px solid red;
 }
 
+.input-valid {
+  border: 2px solid green;
+}
+
+.drop-zone.input-valid {
+  border: 2px solid green;
+}
+
 .warning-msg {
   color: red;
   font-size: 0.85rem;
@@ -112,7 +117,7 @@ textarea {
 
 .char-counter {
   font-size: 0.85rem;
-  color: gray;
+  color: var(--color-text-secondary);
   text-align: right;
   margin-top: 4px;
 }

@@ -1,0 +1,229 @@
+.developers-page {
+  background: var(--main-background);
+  padding-bottom: 2rem;
+}
+
+.developers-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-family: "Inter", sans-serif;
+  color: var(--color-text);
+  background: var(--background-color-content);
+  padding: 2rem;
+  margin: 2rem auto 0 auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.developers-page h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-family-text);
+  padding: 16px;
+  margin: 0;
+}
+
+.last-updated {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.developer-profile {
+  margin-bottom: 3rem;
+}
+
+.developer-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--background-color-secondary),
+    var(--background-color-main)
+  );
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.developer-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.developer-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--primary-color);
+  font-size: 2rem;
+}
+
+.developer-role {
+  color: var(--secondary-color);
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.developer-title {
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin: 0;
+}
+
+.developer-bio h3 {
+  color: var(--secondary-color);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.skill-category {
+  background: var(--background-color-main);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.skill-category h4 {
+  margin: 0 0 1rem 0;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+.skill-category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skill-category li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 0.95rem;
+}
+
+.skill-category li:last-child {
+  border-bottom: none;
+}
+
+.contact-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.contact-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-link);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-link);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.contact-links a:hover {
+  background-color: var(--color-link);
+  color: var(--color-text);
+}
+
+.contact-links img {
+  width: 20px;
+  height: 20px;
+}
+
+.project-info,
+.contribute {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: linear-gradient(
+    135deg,
+    var(--background-color-main),
+    var(--background-color-secondary)
+  );
+  border-radius: 12px;
+  border-left: 4px solid var(--secondary-color);
+}
+
+.project-info h3,
+.contribute h3 {
+  color: var(--secondary-color);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.tech-badge {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.contribute ul {
+  margin-left: 1.5rem;
+}
+
+.developers-content a {
+  color: var(--color-link);
+  text-decoration: underline;
+}
+
+.developers-content a:hover {
+  color: var(--color-hover-link);
+}
+
+@media (max-width: 768px) {
+  .developers-content {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .developer-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .developer-avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-links {
+    justify-content: center;
+  }
+}

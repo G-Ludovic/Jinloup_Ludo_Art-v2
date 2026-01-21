@@ -1,31 +1,28 @@
 import { useState } from "react";
 import "./AdminPanel.css";
 import MembersPage from "../MembersPage/MembersPage";
+import MessagesPage from "../MessagesPage/MessagesPage";
+import SettingsPage from "../SettingsPage/SettingsPage";
 
 function AdminPanel() {
-  const [activePage, setActivePage] = useState("dashboard");
+  const [activePage, setActivePage] = useState("members");
 
   return (
     <div className="admin-container">
       {/* Sidebar */}
-      <aside className="admin-sidebar">
-        <h2>JinLoup Panel ⛩️</h2>
-        <nav>
+      <aside
+        className="admin-sidebar"
+        aria-label="Navigation du panel d'administration"
+      >
+        <h2>Espace Administrateur ⛩️</h2>
+        <nav aria-label="Sections du panel admin">
           <ul>
-            <li>
-              <button
-                type="button"
-                className={activePage === "dashboard" ? "active" : ""}
-                onClick={() => setActivePage("dashboard")}
-              >
-                Tableau de bord
-              </button>
-            </li>
             <li>
               <button
                 type="button"
                 className={activePage === "members" ? "active" : ""}
                 onClick={() => setActivePage("members")}
+                aria-pressed={activePage === "members"}
               >
                 Membres
               </button>
@@ -33,10 +30,21 @@ function AdminPanel() {
             <li>
               <button
                 type="button"
-                className={activePage === "settings" ? "active" : ""}
-                onClick={() => setActivePage("settings")}
+                className={activePage === "messages" ? "active" : ""}
+                onClick={() => setActivePage("messages")}
+                aria-pressed={activePage === "messages"}
               >
-                Paramètres
+                Messages
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                className={activePage === "profile" ? "active" : ""}
+                onClick={() => setActivePage("profile")}
+                aria-pressed={activePage === "profile"}
+              >
+                Profil
               </button>
             </li>
           </ul>
@@ -49,24 +57,11 @@ function AdminPanel() {
           <h1>Bienvenue, Alpha Loup 🐺</h1>
         </header>
 
-        {activePage === "dashboard" && (
-          <section className="admin-dashboard">
-            <div className="card-dashboard">
-              <h3>Membres</h3>
-              <p>24 loups inscrits</p>
-            </div>
-            <div className="card-dashboard">
-              <h3>Modérateurs</h3>
-              <p>3 gardiens actifs</p>
-            </div>
-            <div className="card-dashboard">
-              <h3>Messages</h3>
-              <p>128 messages postés</p>
-            </div>
-          </section>
-        )}
-
         {activePage === "members" && <MembersPage />}
+
+        {activePage === "messages" && <MessagesPage />}
+
+        {activePage === "profile" && <SettingsPage />}
       </main>
     </div>
   );

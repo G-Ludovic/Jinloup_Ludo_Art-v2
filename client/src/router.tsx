@@ -1,4 +1,4 @@
-// Importez les modules nécessaires depuis React et React Router
+﻿// Importez les modules nécessaires depuis React et React Router
 import { createBrowserRouter } from "react-router";
 
 // Importer le composant principal de l'application et les différentes pages et catégories
@@ -15,14 +15,20 @@ import AdminPanel from "./pages/AdminPanel/AdminPanel";
 import AuthorPage from "./pages/AuthorPage/AuthorPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import CopyrightPage from "./pages/CopyrightPage/CopyrightPage";
+import Developers from "./pages/Developers/Developers";
+import Etiquette from "./pages/Etiquette/Etiquette";
 import ForumPage from "./pages/ForumPage/ForumPage";
 import GalleryPage from "./pages/GalleryPage/GalleryPage";
+import HelpCenter from "./pages/HelpCenter/HelpCenter";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import MembersPage from "./pages/MembersPage/MembersPage";
+import ModerationPanel from "./pages/ModerationPanel/ModerationPanel";
 import Page404 from "./pages/Page404/Page404";
 import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
+import TermsOfUse from "./pages/TermsOfUse/TermsOfUse";
+import UserPanel from "./pages/UserPanel/UserPanel";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +100,22 @@ const router = createBrowserRouter([
         path: "/privacy-policy",
       },
       {
+        element: <TermsOfUse />,
+        path: "/terms-of-use",
+      },
+      {
+        element: <Etiquette />,
+        path: "/etiquette",
+      },
+      {
+        element: <Developers />,
+        path: "/developers",
+      },
+      {
+        element: <HelpCenter />,
+        path: "/help-center",
+      },
+      {
         element: <CopyrightPage />,
         path: "/copyright",
       },
@@ -104,6 +126,14 @@ const router = createBrowserRouter([
       {
         element: <AdminPanel />,
         path: "/admin",
+      },
+      {
+        element: <ModerationPanel />,
+        path: "/moderation",
+      },
+      {
+        element: <UserPanel />,
+        path: "/profile",
       },
       {
         element: <MembersPage />,

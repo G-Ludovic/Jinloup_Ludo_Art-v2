@@ -6,7 +6,7 @@
   padding: 24px;
   font-family: var(--font-family-text);
   color: var(--color-text);
-  background-color: var(--background-color-main);
+  background: var(--main-background);
 }
 
 .login-form {
@@ -63,7 +63,7 @@
 
 .login-form p a {
   font-weight: bold;
-  color: var(--secondary-color);
+  color: black;
   text-decoration: underline;
 }
 
@@ -81,6 +81,10 @@
   height: 600px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .login-form button:hover {
+  background-color: var(--background-color-hoverbuttontwo);
 }
 
 @media (max-width: 960px) {
