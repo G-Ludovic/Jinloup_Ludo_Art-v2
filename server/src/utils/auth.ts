@@ -67,7 +67,10 @@ const login: RequestHandler = async (req, res) => {
     // Pour cross-origin, on retourne le token au lieu de le mettre en cookie
     res
       .status(200)
-      .json({ message: "Congratulations, you're logged in !", token });
+      .json({
+        message: "Congratulations, you're logged in with token!",
+        token,
+      });
   } catch (err) {
     console.error("Login error:", (err as Error).message);
     res.status(500).json({ error: (err as Error).message });
