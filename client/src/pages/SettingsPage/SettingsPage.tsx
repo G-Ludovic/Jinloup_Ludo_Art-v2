@@ -217,6 +217,8 @@ function SettingsPage() {
         const updatedUser = await res.json();
         setUser(updatedUser);
         toast.success("Paramètres mis à jour avec succès !");
+        // Reload page to update Header immediately
+        window.location.reload();
       } else if (res.status === 401) {
         toast.error("Session expirée. Veuillez vous reconnecter.");
       } else if (res.status === 403) {
