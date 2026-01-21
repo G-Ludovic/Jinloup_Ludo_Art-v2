@@ -70,6 +70,7 @@ export const AuthProvider = ({ children }: Children) => {
       setIsLogged(true);
       setUser(userWithoutToken);
       // Navigate to home after login
+      console.log("Redirecting to home after login");
       window.location.href = "/";
     } catch (err) {
       console.error(err);
