@@ -2,21 +2,24 @@ import { Link, useNavigate } from "react-router";
 import { useAuth } from "../../services/AuthContext";
 import "./Header.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
+
 function Header() {
   const { isLogged, user, setIsLogged, setUser } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    fetch("/api/logout", {
+  const handleLogout = async () => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${API_URL}/api/logout`, {
       method: "POST",
-      credentials: "include",
-    }).then((res) => {
-      if (res.ok) {
-        setIsLogged(false);
-        setUser(null);
-        navigate("/"); // redirige vers l'accueil
-      }
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
+    if (res.ok) {
+      localStorage.removeItem("token");
+      setIsLogged(false);
+      setUser(null);
+      navigate("/"); // redirige vers l'accueil
+    }
   };
 
   return (
