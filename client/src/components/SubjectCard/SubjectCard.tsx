@@ -54,7 +54,7 @@ export default function SubjectCard({
         <p>{text}</p>
         {file && (
           <img
-            src={`http://localhost:3310${file}`}
+            src={`${import.meta.env.VITE_API_URL || "http://localhost:3310"}${file}`}
             alt={
               user_name ? `Image partagée par ${user_name}` : "Image partagée"
             }

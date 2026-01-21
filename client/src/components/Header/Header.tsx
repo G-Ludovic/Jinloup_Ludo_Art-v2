@@ -38,7 +38,7 @@ function Header() {
                 className="user-avatar"
                 src={
                   user?.avatar
-                    ? `http://localhost:3310${user.avatar}`
+                    ? `${API_URL}${user.avatar}`
                     : "/images/user-circle.png"
                 }
                 alt="avatar utilisateur"

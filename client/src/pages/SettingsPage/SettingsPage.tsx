@@ -76,7 +76,8 @@ function SettingsPage() {
       setRole(user.role || "");
       setBio(user.bio || "");
       if (user.avatar) {
-        setPreviewUrl(`http://localhost:3310${user.avatar}`);
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
+        setPreviewUrl(`${API_URL}${user.avatar}`);
       }
     }
   }, [user]);

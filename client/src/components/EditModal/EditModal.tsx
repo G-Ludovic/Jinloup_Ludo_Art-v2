@@ -20,8 +20,9 @@ function EditModal({
 }: EditModalProps) {
   const [text, setText] = useState(initialText);
   const [file, setFile] = useState<File | null>(null);
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
   const [preview, setPreview] = useState<string | null>(
-    initialImage ? `http://localhost:3310${initialImage}` : null,
+    initialImage ? `${API_URL}${initialImage}` : null,
   );
   const dropRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +34,7 @@ function EditModal({
     if (isOpen) {
       setText(initialText);
       setFile(null);
-      setPreview(initialImage ? `http://localhost:3310${initialImage}` : null);
+      setPreview(initialImage ? `${API_URL}${initialImage}` : null);
     }
   }, [isOpen, initialText, initialImage]);
 

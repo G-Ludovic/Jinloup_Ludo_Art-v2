@@ -394,7 +394,7 @@ function MessagesPage() {
                 <td>{d.user_name || "Inconnu"}</td>
                 <td>
                   <img
-                    src={`http://localhost:3310${d.image}`}
+                    src={`${API_URL}${d.image}`}
                     alt={d.name}
                     style={{
                       width: "50px",
@@ -498,7 +498,7 @@ function MessagesPage() {
               </p>
               <div className="image-container">
                 <img
-                  src={`http://localhost:3310${selectedDrawing.image}`}
+                  src={`${API_URL}${selectedDrawing.image}`}
                   alt={selectedDrawing.name}
                   style={{ maxWidth: "100%", maxHeight: "400px" }}
                 />
