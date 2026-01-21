@@ -62,14 +62,15 @@ const login: RequestHandler = async (req, res) => {
     }
 
     const token = jwt.sign(payload, secretKey, { expiresIn: "1d" });
+    console.log("Generated token:", token);
 
     // Pour cross-origin, on retourne le token au lieu de le mettre en cookie
     res
       .status(200)
       .json({ message: "Congratulations, you're logged in !", token });
   } catch (err) {
-    console.warn((err as Error).message);
-    res.sendStatus(500);
+    console.error("Login error:", (err as Error).message);
+    res.status(500).json({ error: (err as Error).message });
   }
 };
 
