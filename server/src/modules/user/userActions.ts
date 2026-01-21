@@ -42,12 +42,14 @@ const read: RequestHandler = async (req, res, next) => {
 
 const edit: RequestHandler = async (req, res, next) => {
   try {
+    console.log("Edit user request:", req.params.id, req.body);
     const userId = Number(req.params.id);
     if (req.user?.id !== userId) {
       res.status(403).json("You can only edit your own profile");
       return;
     }
     const { pseudo, role, bio, avatar } = req.body;
+    console.log("Parsed data:", { pseudo, role, bio, avatar });
     if (!pseudo || !role) {
       res.status(400).json("Pseudo and role are required");
       return;
@@ -68,8 +70,10 @@ const edit: RequestHandler = async (req, res, next) => {
     const updateData: Partial<User> = { pseudo, role };
     if (bio !== undefined) updateData.bio = bio;
     if (avatar !== undefined) updateData.avatar = avatar;
+    console.log("Update data:", updateData);
 
     const affectedRows = await userRepository.updateUser(userId, updateData);
+    console.log("Affected rows:", affectedRows);
     if (affectedRows === 0) {
       res.sendStatus(404);
       return;
@@ -77,8 +81,10 @@ const edit: RequestHandler = async (req, res, next) => {
 
     // Retourner l'utilisateur mis à jour
     const updatedUser = await userRepository.read(userId);
+    console.log("Updated user:", updatedUser);
     res.json(updatedUser);
   } catch (err) {
+    console.error("Edit error:", err);
     next(err);
   }
 };
