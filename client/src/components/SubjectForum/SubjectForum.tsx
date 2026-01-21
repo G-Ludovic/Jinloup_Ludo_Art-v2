@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "./SubjectForum.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
+
 type Subject = {
   id: number;
   title: string;
@@ -15,7 +17,7 @@ function SubjectForum() {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const response = await fetch("/api/subject");
+        const response = await fetch(`${API_URL}/api/subject`);
         if (!response.ok)
           throw new Error("Erreur lors de la récupération des sujets");
 
