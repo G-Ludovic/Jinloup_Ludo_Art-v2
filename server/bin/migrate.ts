@@ -23,11 +23,9 @@ const migrate = async () => {
         rejectUnauthorized: false,
       },
     });
-    // Supprimer la base de données existante si elle existe
-    await database.query(`DROP DATABASE IF EXISTS \`${DB_NAME}\``);
-    // Créer une nouvelle base de données avec le nom spécifié
-    await database.query(`CREATE DATABASE \`${DB_NAME}\``);
-    // Basculer vers la base de données nouvellement créée
+    // Créer la base de données si elle n'existe pas (pour production)
+    await database.query(`CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\``);
+    // Basculer vers la base de données
     await database.query(`USE \`${DB_NAME}\``);
     // Exécuter les instructions SQL pour mettre à jour le schéma de la base de données
     await database.query(sql);
