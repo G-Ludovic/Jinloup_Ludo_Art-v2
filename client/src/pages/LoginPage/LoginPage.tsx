@@ -3,6 +3,8 @@ import "./LoginPage.css";
 import { toast } from "react-toastify";
 import { useAuth } from "../../services/AuthContext";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
+
 function LoginPage() {
   const { setIsLogged, setUser } = useAuth();
   const navigate = useNavigate();
@@ -10,7 +12,7 @@ function LoginPage() {
   const handleSubmit = (FormData: FormData) => {
     const data = Object.fromEntries(FormData);
 
-    fetch("/api/login", {
+    fetch(`${API_URL}/api/login`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -23,7 +25,7 @@ function LoginPage() {
         setIsLogged(true);
 
         // On récupère l'utilisateur complet pour le rôle
-        const refreshRes = await fetch("/api/refresh", {
+        const refreshRes = await fetch(`${API_URL}/api/refresh`, {
           credentials: "include",
         });
         if (refreshRes.ok) {
