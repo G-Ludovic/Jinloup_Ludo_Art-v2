@@ -81,6 +81,14 @@ export const AuthProvider = ({ children }: Children) => {
         localStorage.setItem("token", userData.token);
       }
       setIsLogged(true);
+      console.log("Setting user in login:", {
+        id: userData.id,
+        email: userData.email,
+        pseudo: userData.pseudo,
+        avatar: userData.avatar,
+        bio: userData.bio,
+        role: userData.role,
+      });
       setUser({
         id: userData.id,
         email: userData.email,
