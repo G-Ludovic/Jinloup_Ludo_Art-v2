@@ -69,6 +69,8 @@ export const AuthProvider = ({ children }: Children) => {
       }
       setIsLogged(true);
       setUser(userWithoutToken);
+      // Navigate to home after login
+      window.location.href = "/";
     } catch (err) {
       console.error(err);
       throw err; // on peux aussi gérer une popup erreur côté UI (à voir plus tard)
