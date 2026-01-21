@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router";
 import router from "./router";
 import { AuthProvider } from "./services/AuthContext";
+import "./main";
 
 // Trouvez l'élément racine dans le document HTML
 const rootElement = document.getElementById("root");
