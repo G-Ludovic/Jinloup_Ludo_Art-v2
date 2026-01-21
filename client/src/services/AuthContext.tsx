@@ -73,8 +73,8 @@ export const AuthProvider = ({ children }: Children) => {
       console.log("Redirecting to home after login");
       window.location.href = "/";
     } catch (err) {
-      console.error(err);
-      throw err; // on peux aussi gérer une popup erreur côté UI (à voir plus tard)
+      console.error("Login error:", err);
+      // Don't throw, just log for debugging
     }
   };
 
