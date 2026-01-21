@@ -124,6 +124,7 @@ function MembersPage() {
 
   const confirmSaveProfile = async () => {
     if (!editingMember) return;
+    console.log("API_URL in MembersPage:", API_URL);
     setSaving(true);
     const formData = new FormData();
     formData.append("pseudo", editedPseudo);
