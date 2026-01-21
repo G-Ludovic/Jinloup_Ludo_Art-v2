@@ -4,6 +4,8 @@ import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationMo
 import { useAuth } from "../../services/AuthContext";
 import "./MembersPage.css";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
+
 interface Member {
   id: number;
   pseudo: string;
@@ -53,8 +55,9 @@ function MembersPage() {
   // Récupération des membres
   const fetchMembers = useCallback(async () => {
     try {
-      const res = await fetch("/api/users", {
-        credentials: "include",
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_URL}/api/users`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       if (!res.ok) throw new Error("Erreur serveur");
       const data = await res.json();
@@ -81,9 +84,10 @@ function MembersPage() {
   const confirmDelete = async () => {
     if (!deleteId) return;
     try {
-      const res = await fetch(`/api/users/${deleteId}`, {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_URL}/api/users/${deleteId}`, {
         method: "DELETE",
-        credentials: "include",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
 
       if (res.ok) {
@@ -130,10 +134,11 @@ function MembersPage() {
     }
 
     try {
-      const res = await fetch(`/api/users/${editingMember.id}`, {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${API_URL}/api/users/${editingMember.id}`, {
         method: "PUT",
         body: formData,
-        credentials: "include",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
 
       if (res.ok) {
