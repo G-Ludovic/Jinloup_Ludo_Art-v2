@@ -180,9 +180,7 @@ function GalleryPage() {
     <>
       <h1>Galerie</h1>
       <main className="gallery-page">
-        <hr />
         <h2>Proposez vos créations</h2>
-        <hr />
 
         {/* Formulaire d'ajout */}
         <article className="add-draw">
@@ -269,9 +267,7 @@ function GalleryPage() {
           )}
         </article>
 
-        <hr />
         <h2>Créations des membres</h2>
-        <hr />
 
         {/* Galeries des membres */}
         <article className="draw-member">
@@ -318,9 +314,7 @@ function GalleryPage() {
           )}
         </article>
 
-        <hr />
         <h2>Créations de Jinloup</h2>
-        <hr />
         <div className="carousel-article">
           <Carousel data={drawings} />
         </div>
