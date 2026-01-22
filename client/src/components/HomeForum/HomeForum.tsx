@@ -92,25 +92,29 @@ function HomeForum() {
                     <ul className="message-list">
                       {messagesForCategory.map((msg) => (
                         <li key={msg.id}>
-                          <strong>{msg.subject_title}</strong>
-                          <br />
-                          <span className="message-preview">
-                            {msg.content.length > 60
-                              ? `${msg.content.slice(0, 60)}...`
-                              : msg.content}
-                          </span>
-                          <br />
-                          <small className="message-date">
-                            🕒{" "}
-                            {new Date(msg.sending_date).toLocaleDateString(
-                              "fr-FR",
-                              {
-                                year: "numeric",
-                                month: "short",
-                                day: "numeric",
-                              },
-                            )}
-                          </small>
+                          <div className="message-header">
+                            <strong>{msg.subject_title}</strong>
+                          </div>
+                          <div className="message-content">
+                            <span className="message-preview">
+                              {msg.content.length > 60
+                                ? `${msg.content.slice(0, 60)}...`
+                                : msg.content}
+                            </span>
+                          </div>
+                          <div className="message-footer">
+                            <small className="message-date">
+                              🕒{" "}
+                              {new Date(msg.sending_date).toLocaleDateString(
+                                "fr-FR",
+                                {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                },
+                              )}
+                            </small>
+                          </div>
                         </li>
                       ))}
                     </ul>

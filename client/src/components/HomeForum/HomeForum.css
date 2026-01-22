@@ -10,10 +10,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background-size: cover;
   background-position: center;
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.718),
-      rgba(255, 255, 255, 0.612)
-    ), url(/images/bc_home_forum.webp);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)), url(/images/bc_home_forum.webp);
 }
 
 .home-forum p,
@@ -50,6 +48,18 @@
   border-radius: 8px;
   font-size: 0.9rem;
   transition: background-color 0.3s, transform 0.2s;
+}
+
+.message-header {
+  margin-bottom: 4px;
+}
+
+.message-content {
+  margin-bottom: 4px;
+}
+
+.message-footer {
+  margin-top: 4px;
 }
 
 .message-list li:hover {
