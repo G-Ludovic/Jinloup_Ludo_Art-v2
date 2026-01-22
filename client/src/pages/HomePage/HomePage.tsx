@@ -50,10 +50,10 @@ function HomePage() {
                 </p>
               </div>
             </div>
-            <p className="welcome-cta">
-              Rejoignez-nous dès maintenant et faites partie de cette aventure
-              artistique !
-            </p>
+            <Link to="/registration" className="welcome-cta">
+              👉 Rejoignez-nous dès maintenant et faites partie de cette
+              aventure artistique ! 🐺
+            </Link>
           </article>
         </section>
 

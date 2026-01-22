@@ -4,60 +4,76 @@ import "./Footer.css";
 function Footer() {
   return (
     <footer className="banner-footer">
-      <div className="footer-logo">
+      <section className="footer-logo">
         <img
           src="/images/logo-ongl.webp"
           alt="logo du site Jinloup Ludo Art"
           className="logo-wolf"
         />
-      </div>
+      </section>
 
       <nav className="footer-links" aria-label="Liens du footer">
-        <div className="footer-column">
-          <Link to="/privacy-policy">Politique de confidentialité</Link>
-          <Link to="/copyright">Droits d'auteur</Link>
-        </div>
+        <ul className="footer-column">
+          <li>
+            <Link to="/privacy-policy">Politique de confidentialité</Link>
+          </li>
+          <li>
+            <Link to="/copyright">Droits d'auteur</Link>
+          </li>
+        </ul>
 
-        <div className="footer-column">
-          <Link to="/etiquette">Étiquette</Link>
-          <Link to="/terms-of-use">Conditions d'utilisation</Link>
-        </div>
+        <ul className="footer-column">
+          <li>
+            <Link to="/etiquette">Étiquette</Link>
+          </li>
+          <li>
+            <Link to="/terms-of-use">Conditions d'utilisation</Link>
+          </li>
+        </ul>
 
-        <div className="footer-column">
-          <Link to="/developers">Développeurs</Link>
-          <Link to="/help-center">Centre d'aide</Link>
-        </div>
+        <ul className="footer-column">
+          <li>
+            <Link to="/developers">Développeurs</Link>
+          </li>
+          <li>
+            <Link to="/help-center">Centre d'aide</Link>
+          </li>
+        </ul>
 
-        <div className="footer-column">
-          <Link to="/author">À propos</Link>
-        </div>
+        <ul className="footer-column">
+          <li>
+            <Link to="/author">À propos</Link>
+          </li>
+        </ul>
       </nav>
 
-      <section>
-        <div className="footer-column social-block">
-          <a
-            href="https://github.com/G-Ludovic"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visiter GitHub (ouvre dans un nouvel onglet)"
-          >
-            <img src="/images/github-mark.svg" alt="logo GitHub" />
-          </a>
-          <a
-            href="https://linkedin.com/in/ludovic-galicher-69ba9932a"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visiter LinkedIn (ouvre dans un nouvel onglet)"
-          >
-            <img src="/images/linkedin.webp" alt="logo Linkedin" />
-          </a>
-        </div>
+      <section className="social-block">
+        <ul>
+          <li>
+            <a
+              href="https://github.com/G-Ludovic"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visiter GitHub (ouvre dans un nouvel onglet)"
+            >
+              <img src="/images/github-mark.svg" alt="logo GitHub" />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://linkedin.com/in/ludovic-galicher-69ba9932a"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visiter LinkedIn (ouvre dans un nouvel onglet)"
+            >
+              <img src="/images/linkedin.webp" alt="logo Linkedin" />
+            </a>
+          </li>
+        </ul>
       </section>
 
       <section className="copy-bottom">
-        <div className="footer-copy">
-          <p>&copy; Jinloup Ludo Art 2025 — Tous droits réservés</p>
-        </div>
+        <p>&copy; Jinloup Ludo Art 2025 — Tous droits réservés</p>
       </section>
     </footer>
   );
