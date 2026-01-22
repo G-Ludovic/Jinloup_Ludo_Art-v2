@@ -110,6 +110,20 @@
   box-shadow: none;
 }
 
+.home-forum tbody tr {
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.home-forum tbody tr:hover {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05)
+  );
+  transform: scale(1.01);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
 /* Styles pour le dark mode */
 [data-theme="dark"] .home-page h2 {
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
@@ -143,6 +157,11 @@
 
 [data-theme="dark"] .message-date {
   color: #bbb;
+}
+
+[data-theme="dark"] .home-forum tbody tr:hover {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
 }
 
 /* Tablette - HomeForum prend toute la largeur en bas */

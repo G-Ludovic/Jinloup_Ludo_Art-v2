@@ -57,6 +57,31 @@
     ), url(/images/bc_online.webp);
 }
 
+.online-forum table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.online-forum th,
+.online-forum td {
+  text-align: left;
+}
+
+.online-forum thead {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.online-forum thead tr:hover {
+  background-color: inherit;
+  transform: none;
+  box-shadow: none;
+}
+
+.online-forum tbody tr {
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  border-radius: 6px;
+}
+
 .online-forum p,
 .online-forum h3,
 .online-forum td,
@@ -69,6 +94,20 @@
   background-color: inherit;
   transform: none;
   box-shadow: none;
+}
+
+.online-forum tbody tr {
+  transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.online-forum tbody tr:hover {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05)
+  );
+  transform: scale(1.01);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
 }
 
 /* Styles pour le dark mode */
@@ -89,6 +128,11 @@
 [data-theme="dark"] .online-forum td,
 [data-theme="dark"] .online-forum th {
   text-shadow: 2px 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .online-forum tbody tr:hover {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
 }
 
 /* Mobile - OnlineForum en troisième position */

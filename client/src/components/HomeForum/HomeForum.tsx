@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "./HomeForum.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
@@ -21,6 +21,7 @@ type Message = {
 function HomeForum() {
   const [categories, setCategories] = useState<Categorie[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
+  const navigate = useNavigate();
 
   // Charger les catégories
   useEffect(() => {
@@ -85,7 +86,19 @@ function HomeForum() {
                 .slice(0, 3);
 
               return (
-                <tr key={cat.id}>
+                <tr
+                  key={cat.id}
+                  onClick={() => navigate(`/forum/category/${cat.id}`)}
+                  style={{ cursor: "pointer" }}
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      navigate(`/forum/category/${cat.id}`);
+                    }
+                  }}
+                  aria-label={`Accéder à la catégorie ${cat.name}`}
+                >
                   <th scope="row">{cat.name}</th>
 
                   <td>

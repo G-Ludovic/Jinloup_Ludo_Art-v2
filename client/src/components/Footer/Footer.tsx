@@ -79,7 +79,7 @@ function Footer() {
       </section>
 
       <section className="copy-bottom">
-        <p>&copy; Jinloup Ludo Art 2025 — Tous droits réservés</p>
+        <p>&copy; Jinloup Ludo Art 2026 — Tous droits réservés</p>
       </section>
     </footer>
   );
