@@ -21,9 +21,7 @@ function LoginPage() {
     }).then(async (res) => {
       if (res.ok) {
         const loginData = await res.json();
-        console.log("Login response:", loginData);
         const token = loginData.token;
-        console.log("Token:", token);
         if (!token) {
           console.error("No token received from login");
           toast.error("Erreur d'authentification");
@@ -41,7 +39,6 @@ function LoginPage() {
         });
         if (refreshRes.ok) {
           const userData = await refreshRes.json();
-          console.log("Refresh response:", userData);
           if (userData.token) {
             localStorage.setItem("token", userData.token);
           }
