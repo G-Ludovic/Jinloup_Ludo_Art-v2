@@ -51,30 +51,27 @@ function Header() {
                 </span>
                 <span className="user-grade">{user?.role}</span>
                 <span className="user-status">Connecté</span>
+                <div className="user-space-button">
+                  {user?.role === "loup alpha" && (
+                    <Link className="admin-a" to="/admin">
+                      🔑 Mon espace Admin 🔑
+                    </Link>
+                  )}
+                  {user?.role === "loup gardien" && (
+                    <Link className="moderation-a" to="/moderation">
+                      🛡️ Mon espace Modération 🛡️
+                    </Link>
+                  )}
+                  {user?.role === "jeune loup" && (
+                    <Link className="profile-a" to="/profile">
+                      🌙 Mon espace Membre 🌙
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           )}
         </div>
-
-        {isLogged && (
-          <aside className="user-spaces">
-            {user?.role === "loup alpha" && (
-              <Link className="admin-a" to="/admin">
-                🔑 Mon espace Admin 🔑
-              </Link>
-            )}
-            {user?.role === "loup gardien" && (
-              <Link className="moderation-a" to="/moderation">
-                🛡️ Mon espace Modération 🛡️
-              </Link>
-            )}
-            {user?.role === "jeune loup" && (
-              <Link className="profile-a" to="/profile">
-                🌙 Mon espace Membre 🌙
-              </Link>
-            )}
-          </aside>
-        )}
       </section>
 
       <nav className="header-nav" aria-label="Navigation principale">

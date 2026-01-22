@@ -58,7 +58,11 @@ function Footer() {
               rel="noopener noreferrer"
               aria-label="Visiter GitHub (ouvre dans un nouvel onglet)"
             >
-              <img src="/images/github-mark.svg" alt="logo GitHub" />
+              <img
+                src="/images/github-mark.svg"
+                alt="logo GitHub"
+                className="github-logo"
+              />
             </a>
           </li>
           <li>

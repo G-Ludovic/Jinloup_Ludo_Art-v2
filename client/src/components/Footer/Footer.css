@@ -105,6 +105,17 @@
   transform: scale(1.1);
 }
 
+/* Ajustement pour le logo GitHub */
+[data-theme="light"] .social-block .github-logo {
+  background-color: white;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+[data-theme="dark"] .social-block .github-logo {
+  filter: brightness(0) invert(1);
+}
+
 .copy-bottom {
   grid-area: copyright;
   text-align: center;

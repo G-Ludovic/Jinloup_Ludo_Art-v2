@@ -20,7 +20,8 @@
   align-items: center;
 }
 
-.header .p-logo .admin-a {
+.header .p-logo .admin-a,
+.user-space-button .admin-a {
   display: flex;
   justify-items: center;
   background-color: var(--background-color-button);
@@ -28,13 +29,19 @@
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
   padding: 6px;
   justify-content: center;
+  text-decoration: none;
+  font-weight: 600;
+  color: white;
+  transition: background-color 0.3s ease;
 }
 
-.header .p-logo .admin-a:hover {
+.header .p-logo .admin-a:hover,
+.user-space-button .admin-a:hover {
   background-color: var(--background-color-hoverbutton);
 }
 
-.header .p-logo .moderation-a {
+.header .p-logo .moderation-a,
+.user-space-button .moderation-a {
   display: flex;
   justify-items: center;
   background-color: #ff8c00;
@@ -43,13 +50,19 @@
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
   padding: 6px;
   justify-content: center;
+  text-decoration: none;
+  font-weight: 600;
+  color: white;
+  transition: background-color 0.3s ease;
 }
 
-.header .p-logo .moderation-a:hover {
+.header .p-logo .moderation-a:hover,
+.user-space-button .moderation-a:hover {
   background-color: #e67e22;
 }
 
-.header .p-logo .profile-a {
+.header .p-logo .profile-a,
+.user-space-button .profile-a {
   display: flex;
   justify-items: center;
   background-color: #9c88ff;
@@ -59,9 +72,13 @@
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
   padding: 6px;
   justify-content: center;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
-.header .p-logo .profile-a:hover {
+.header .p-logo .profile-a:hover,
+.user-space-button .profile-a:hover {
   background-color: #7c3aed;
 }
 
@@ -215,6 +232,26 @@
 
 .user-status::before {
   content: "🟢";
+}
+
+.user-space-button {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Ajustement pour le bouton admin en mode light et dark pour contraste */
+[data-theme="light"] .user-space-button .admin-a,
+[data-theme="dark"] .user-space-button .admin-a {
+  background-color: #ffffff;
+  color: var(--background-color-button);
+  border: 1px solid var(--background-color-button);
+}
+
+[data-theme="light"] .user-space-button .admin-a:hover,
+[data-theme="dark"] .user-space-button .admin-a:hover {
+  background-color: var(--background-color-hover);
+  color: white;
 }
 
 @media (min-width: 992px) {

@@ -50,9 +50,8 @@ function HomePage() {
                 </p>
               </div>
             </div>
-            <Link to="/registration" className="welcome-cta">
-              👉 Rejoignez-nous dès maintenant et faites partie de cette
-              aventure artistique ! 🐺
+            <Link to="/login" className="welcome-cta">
+              👉 Connectez-vous pour rejoindre l'aventure artistique ! 🐺
             </Link>
           </article>
         </section>
