@@ -25,8 +25,9 @@ export async function fetchAuth<T>(
   options: RequestInit = {},
 ): Promise<T | null> {
   const token = localStorage.getItem("token");
+  const isFormData = options.body instanceof FormData;
   const headers = {
-    "Content-Type": "application/json",
+    ...(isFormData ? {} : { "Content-Type": "application/json" }),
     ...options.headers,
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
@@ -37,6 +38,7 @@ export async function fetchAuth<T>(
       headers,
     });
     if (!response.ok) throw new Error(`Erreur HTTP ${response.status}`);
+    if (response.status === 204) return true as T; // For DELETE, return success
     return (await response.json()) as T;
   } catch (error) {
     console.error(`Erreur fetchAuth ${endpoint}:`, error);

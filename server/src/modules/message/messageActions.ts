@@ -4,9 +4,22 @@ import messageRepository from "./messageRepository";
 
 const add: RequestHandler = async (req, res) => {
   try {
+    console.log("Message add - req.user:", req.user);
+    console.log("Message add - req.body:", req.body);
+    console.log("Message add - req.file:", req.file);
+
     const filePath = req.file ? `/uploads/${req.file.filename}` : null;
     const { content, subject_id } = req.body;
     const user_id = req.user?.id;
+
+    console.log(
+      "Parsed - content:",
+      content,
+      "subject_id:",
+      subject_id,
+      "user_id:",
+      user_id,
+    );
 
     if (!content?.trim()) {
       res.status(400).json({ error: "Content is required" });
@@ -20,6 +33,12 @@ const add: RequestHandler = async (req, res) => {
 
     // Vérifier que le sujet existe
     const subjectExists = await messageRepository.checkSubjectExists(
+      Number(subject_id),
+    );
+    console.log(
+      "Subject exists check:",
+      subjectExists,
+      "for subject_id:",
       Number(subject_id),
     );
     if (!subjectExists) {

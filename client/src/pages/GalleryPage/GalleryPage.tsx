@@ -2,15 +2,15 @@ import type { FormEvent } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
+import { fetchAuth } from "../../api";
 import Card from "../../components/Card/Card.tsx";
 import { Carousel } from "../../components/Carousel/Carousel.tsx";
 import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal.tsx";
 import EditModal from "../../components/EditModal/EditModal.tsx";
+import { API_URL } from "../../config";
 import { drawings } from "../../data/drawings.ts";
 import { useAuth } from "../../services/AuthContext";
 import "./GalleryPage.css";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
 
 interface Drawing {
   id: number;
@@ -41,19 +41,16 @@ function GalleryPage() {
   }, [previewUrl]);
 
   // Chargement des dessins
-  const loadDraws = useCallback(() => {
+  const loadDraws = useCallback(async () => {
     setLoading(true);
-    const token = localStorage.getItem("token");
-    fetch(`${API_URL}/api/draws`, {
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    })
-      .then((res) => res.json())
-      .then((draws) => {
-        setData(draws);
-        localStorage.setItem("draws", JSON.stringify(draws));
-      })
-      .catch(() => toast.error("Erreur lors du chargement des dessins"))
-      .finally(() => setLoading(false));
+    const draws = await fetchAuth<Drawing[]>("/api/draws");
+    if (draws) {
+      setData(draws);
+      localStorage.setItem("draws", JSON.stringify(draws));
+    } else {
+      toast.error("Erreur lors du chargement des dessins");
+    }
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -97,28 +94,26 @@ function GalleryPage() {
   };
 
   // Ajout de dessin
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     if (file) formData.set("image", file);
 
-    const token = localStorage.getItem("token");
-    fetch(`${API_URL}/api/draws`, {
+    const data = await fetchAuth("/api/draws", {
       method: "POST",
       body: formData,
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    }).then((res) => {
-      if (res.ok) {
-        toast.success("Dessin ajouté avec succès !");
-        loadDraws();
-        // reset automatique
-        formRef.current?.reset();
-        setFile(null);
-        setPreviewUrl(null);
-      } else {
-        toast.error("Échec de la création");
-      }
+      headers: {}, // Override for FormData
     });
+    if (data) {
+      toast.success("Dessin ajouté avec succès !");
+      loadDraws();
+      // reset automatique
+      formRef.current?.reset();
+      setFile(null);
+      setPreviewUrl(null);
+    } else {
+      toast.error("Échec de la création");
+    }
   };
 
   // Suppression
@@ -130,12 +125,10 @@ function GalleryPage() {
   const confirmDelete = async () => {
     if (!deleteId) return;
 
-    const token = localStorage.getItem("token");
-    const res = await fetch(`${API_URL}/api/draws/${deleteId}`, {
+    const res = await fetchAuth(`/api/draws/${deleteId}`, {
       method: "DELETE",
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
-    if (res.ok) {
+    if (res !== null) {
       toast.success("Dessin supprimé !");
       setData((prev) => prev.filter((item) => item.id !== deleteId));
     } else {
@@ -146,7 +139,7 @@ function GalleryPage() {
   };
 
   // Modification via modal
-  const handleConfirmEdit = (newName: string, newFile?: File) => {
+  const handleConfirmEdit = async (newName: string, newFile?: File) => {
     if (!editingDraw) return;
 
     // Vérification obligatoire
@@ -159,21 +152,19 @@ function GalleryPage() {
     formData.append("name", newName);
     if (newFile) formData.append("image", newFile);
 
-    const token = localStorage.getItem("token");
-    fetch(`${API_URL}/api/draws/${editingDraw.id}`, {
+    const data = await fetchAuth(`/api/draws/${editingDraw.id}`, {
       method: "PUT",
       body: formData,
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    }).then((res) => {
-      if (res.ok) {
-        toast.success("Dessin modifié avec succès !");
-        loadDraws();
-      } else {
-        toast.error("Échec de la modification");
-      }
-      setIsModalOpen(false);
-      setEditingDraw(null);
+      headers: {}, // Override for FormData
     });
+    if (data) {
+      toast.success("Dessin modifié avec succès !");
+      loadDraws();
+    } else {
+      toast.error("Échec de la modification");
+    }
+    setIsModalOpen(false);
+    setEditingDraw(null);
   };
 
   return (
@@ -290,25 +281,27 @@ function GalleryPage() {
                   />
                 </a>
 
-                <div className="member-card-btn">
-                  <button
-                    type="button"
-                    className="edit-button"
-                    onClick={() => {
-                      setEditingDraw(el);
-                      setIsModalOpen(true);
-                    }}
-                  >
-                    Modifier
-                  </button>
-                  <button
-                    type="button"
-                    className="delete-button"
-                    onClick={() => handleDelete(el.id)}
-                  >
-                    Supprimer
-                  </button>
-                </div>
+                {isLogged && (
+                  <div className="member-card-btn">
+                    <button
+                      type="button"
+                      className="edit-button"
+                      onClick={() => {
+                        setEditingDraw(el);
+                        setIsModalOpen(true);
+                      }}
+                    >
+                      Modifier
+                    </button>
+                    <button
+                      type="button"
+                      className="delete-button"
+                      onClick={() => handleDelete(el.id)}
+                    >
+                      Supprimer
+                    </button>
+                  </div>
+                )}
               </div>
             ))
           )}

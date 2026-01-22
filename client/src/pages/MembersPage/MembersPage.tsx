@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { fetchAuth } from "../../api";
 import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
+import { API_URL } from "../../config";
 import { useAuth } from "../../services/AuthContext";
 import "./MembersPage.css";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
 
 interface Member {
   id: number;
@@ -55,13 +55,12 @@ function MembersPage() {
   // Récupération des membres
   const fetchMembers = useCallback(async () => {
     try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(`${API_URL}/api/users`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-      });
-      if (!res.ok) throw new Error("Erreur serveur");
-      const data = await res.json();
-      setMembers(data);
+      const data = await fetchAuth<Member[]>("/api/users");
+      if (data) {
+        setMembers(data);
+      } else {
+        throw new Error("Erreur serveur");
+      }
     } catch (err) {
       setError((err as Error).message);
       toast.error("❌ Impossible de charger les membres.");
@@ -84,13 +83,11 @@ function MembersPage() {
   const confirmDelete = async () => {
     if (!deleteId) return;
     try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(`${API_URL}/api/users/${deleteId}`, {
+      const res = await fetchAuth(`/api/users/${deleteId}`, {
         method: "DELETE",
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
 
-      if (res.ok) {
+      if (res !== null) {
         setMembers((prev) => prev.filter((m) => m.id !== deleteId));
         toast.success("Membre supprimé avec succès !");
       } else {
@@ -132,17 +129,15 @@ function MembersPage() {
     }
 
     try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(`${API_URL}/api/users/${editingMember.id}`, {
+      const data = await fetchAuth<Member>(`/api/users/${editingMember.id}`, {
         method: "PUT",
         body: formData,
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        headers: {}, // Override to not set Content-Type for FormData
       });
 
-      if (res.ok) {
-        const updatedMember = await res.json();
+      if (data) {
         setMembers((prev) =>
-          prev.map((m) => (m.id === editingMember.id ? updatedMember : m)),
+          prev.map((m) => (m.id === editingMember.id ? data : m)),
         );
         setEditingMember(null);
         toast.success("Profil mis à jour avec succès !");

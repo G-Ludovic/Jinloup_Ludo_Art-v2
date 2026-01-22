@@ -73,8 +73,7 @@ const seed = async () => {
     // Tronquer les tables (en commençant par celles qui en dépendent)
 
     for (const seeder of sortedSeeders.toReversed()) {
-      // Utiliser DELETE au lieu de TRUNCATE pour contourner la contrainte de clé étrangère
-      // Attendre la fin de la promesse DELETE
+      // Utiliser DELETE pour éviter les contraintes FK
       await database.query(`delete from ${seeder.table}`);
     }
 

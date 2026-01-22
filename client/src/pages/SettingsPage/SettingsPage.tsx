@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { fetchAuth } from "../../api";
 import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
+import { API_URL } from "../../config";
 import { useAuth } from "../../services/AuthContext";
+import type { User } from "../../types/auth";
 import "../../components/ConfirmationModal/ConfirmationModal.css";
 import "./SettingsPage.css";
 
 // Constants
 const MAX_AVATAR_SIZE = 5 * 1024 * 1024; // 5MB
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
 
 // User roles constants
 const USER_ROLES = {
@@ -76,7 +78,6 @@ function SettingsPage() {
       setRole(user.role || "");
       setBio(user.bio || "");
       if (user.avatar) {
-        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
         setPreviewUrl(`${API_URL}${user.avatar}`);
       }
     }
@@ -206,27 +207,17 @@ function SettingsPage() {
     }
 
     try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(`${API_URL}/api/users/${user.id}`, {
+      const data = await fetchAuth<User>(`/api/users/${user.id}`, {
         method: "PUT",
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
         body: formData,
+        headers: {}, // Override for FormData
       });
 
-      if (res.ok) {
-        const updatedUser = await res.json();
-        setUser(updatedUser);
+      if (data) {
+        setUser(data);
         toast.success("Paramètres mis à jour avec succès !");
         // Reload page to update Header immediately
         window.location.reload();
-      } else if (res.status === 401) {
-        toast.error("Session expirée. Veuillez vous reconnecter.");
-      } else if (res.status === 403) {
-        toast.error(
-          "Vous n'avez pas les permissions pour effectuer cette action.",
-        );
-      } else if (res.status === 409) {
-        toast.error("Ce pseudo ou email est déjà utilisé.");
       } else {
         toast.error("Échec de la mise à jour. Veuillez réessayer.");
       }

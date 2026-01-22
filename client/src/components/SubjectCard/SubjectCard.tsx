@@ -9,6 +9,7 @@ interface Props {
   sending_date?: string | null;
   edited_at?: string | null;
   user_name?: string;
+  isLogged?: boolean;
   onDelete: (id: number) => void;
   onEdit: (id: number, newText: string, newFile?: File) => void;
 }
@@ -20,6 +21,7 @@ export default function SubjectCard({
   sending_date,
   edited_at,
   user_name,
+  isLogged = false,
   onDelete,
   onEdit,
 }: Props) {
@@ -64,22 +66,24 @@ export default function SubjectCard({
         {displayDate && <small>{displayDate}</small>}
       </div>
 
-      <div className="actions">
-        <button
-          type="button"
-          className="edit-button"
-          onClick={() => setIsModalOpen(true)}
-        >
-          ✏️ Modifier
-        </button>
-        <button
-          type="button"
-          className="delete-button"
-          onClick={() => onDelete(id)}
-        >
-          ❌ Supprimer
-        </button>
-      </div>
+      {isLogged && (
+        <div className="actions">
+          <button
+            type="button"
+            className="edit-button"
+            onClick={() => setIsModalOpen(true)}
+          >
+            ✏️ Modifier
+          </button>
+          <button
+            type="button"
+            className="delete-button"
+            onClick={() => onDelete(id)}
+          >
+            ❌ Supprimer
+          </button>
+        </div>
+      )}
 
       <EditModal
         isOpen={isModalOpen}

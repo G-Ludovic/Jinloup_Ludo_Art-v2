@@ -7,7 +7,7 @@ import files from "../../utils/files";
 import userRepository from "./userRepository";
 
 interface AuthRequest extends Request {
-  user?: { id: number; email: string };
+  user?: { id: number; email: string; role: string };
 }
 
 interface RegisterRequestBody {
@@ -44,8 +44,16 @@ const edit: RequestHandler = async (req, res, next) => {
   try {
     console.log("Edit user request:", req.params.id, req.body);
     const userId = Number(req.params.id);
-    if (req.user?.id !== userId) {
-      res.status(403).json("You can only edit your own profile");
+    const currentUser = req.user;
+    if (!currentUser) {
+      res.status(403).json("Authentication required");
+      return;
+    }
+    // Allow if editing own profile or if user is alpha
+    if (currentUser.id !== userId && currentUser.role !== "loup alpha") {
+      res
+        .status(403)
+        .json("You can only edit your own profile or must be an admin");
       return;
     }
     const { pseudo, role, bio, avatar } = req.body;
@@ -277,8 +285,10 @@ const verifyToken = (req: AuthRequest, res: Response, next: NextFunction) => {
     const secretKey = process.env.APP_SECRET;
     if (!secretKey) throw new Error("APP_SECRET is not defined");
 
-    const decoded = jwt.verify(token, secretKey) as JwtPayload;
-    req.user = { id: decoded.id, email: decoded.email };
+    const decoded = jwt.verify(token, secretKey) as JwtPayload & {
+      role: string;
+    };
+    req.user = { id: decoded.id, email: decoded.email, role: decoded.role };
     next();
   } catch {
     res.status(403).json("Invalid or expired token");
