@@ -165,6 +165,7 @@ const add: RequestHandler = async (req, res) => {
 // Connexion
 const login: RequestHandler = async (req, res) => {
   try {
+    console.log("Login attempt for email:", req.body.email);
     const { email, password } = req.body;
     const user = await userRepository.readByEmail(email);
 
