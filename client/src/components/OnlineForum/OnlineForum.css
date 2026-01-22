@@ -1,7 +1,45 @@
-.onligne-forum {
+.online-page {
   grid-column: 3 / 4;
   grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.online-page h2 {
+  margin: 0;
+  padding: 1rem;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.7)), url(/images/bc_online.webp);
+  background-size: cover;
+  background-position: center;
   color: var(--color-text);
+  text-shadow: 2px 1px 6px rgb(455, 755, 255);
+  border-radius: 6px;
+  text-align: center;
+  font-family: var(--font-family-title);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.online-forum {
+  color: var(--color-text);
+}
+
+.online-forum h2 {
+  margin: 0 0 1rem 0;
+  padding: 0.5rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),
+    url(/images/bc_online.webp);
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-shadow: 2px 1px 8px rgba(0, 0, 0, 0.8);
+  border-radius: 6px;
+  text-align: center;
+  font-family: var(--font-family-title);
+}
+
+.online-forum {
   font-family: var(--font-family-text);
   padding: 12px;
   border-radius: 6px;
@@ -10,35 +48,40 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background-size: cover;
   background-position: center;
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.718),
-      rgba(255, 255, 255, 0.612)
-    ), url(/images/bc_online.webp);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)), url(/images/bc_online.webp);
 }
 
-.onligne-forum p,
-.onligne-forum h3,
-.onligne-forum td,
-.onligne-forum th {
+.online-forum p,
+.online-forum h3,
+.online-forum td,
+.online-forum th {
   text-shadow: 2px 1px 6px rgb(455, 755, 255);
   transition: background-color 0.3s, backdrop-filter 0.3s;
 }
 
-.onligne-forum thead tr:hover {
+.online-forum thead tr:hover {
   background-color: inherit;
   transform: none;
   box-shadow: none;
 }
 
 /* Styles pour le dark mode */
-[data-theme="dark"] .onligne-forum {
+[data-theme="dark"] .online-page h2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+    url(/images/bc_online.webp);
+  background-size: cover;
+  background-position: center;
+}
+
+[data-theme="dark"] .online-forum {
   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
     url(/images/bc_online.webp);
 }
 
-[data-theme="dark"] .onligne-forum p,
-[data-theme="dark"] .onligne-forum h3,
-[data-theme="dark"] .onligne-forum td,
-[data-theme="dark"] .onligne-forum th {
+[data-theme="dark"] .online-forum p,
+[data-theme="dark"] .online-forum h3,
+[data-theme="dark"] .online-forum td,
+[data-theme="dark"] .online-forum th {
   text-shadow: 2px 1px 6px rgba(0, 0, 0, 0.8);
 }

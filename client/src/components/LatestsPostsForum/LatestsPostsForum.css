@@ -1,6 +1,27 @@
-.latest-posts-forum {
+.latest-posts-page {
   grid-column: 1 / 2;
   grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.latest-posts-page h2 {
+  margin: 0;
+  padding: 1rem;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.7)), url(/images/bc_lastests_posts.webp);
+  background-size: cover;
+  background-position: center;
+  color: var(--color-text);
+  text-shadow: 2px 1px 6px rgb(455, 755, 255);
+  border-radius: 6px;
+  text-align: center;
+  font-family: var(--font-family-title);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.latest-posts-forum {
   color: var(--color-text);
   font-family: var(--font-family-text);
   padding: 12px;
@@ -10,10 +31,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background-size: cover;
   background-position: center;
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.718),
-      rgba(255, 255, 255, 0.612)
-    ), url(/images/bc_lastests_posts.webp);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)), url(/images/bc_lastests_posts.webp);
 }
 
 .latest-posts-forum h3,
@@ -44,6 +63,13 @@
 }
 
 /* Styles pour le dark mode */
+[data-theme="dark"] .latest-posts-page h2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+    url(/images/bc_lastests_posts.webp);
+  background-size: cover;
+  background-position: center;
+}
+
 [data-theme="dark"] .latest-posts-forum {
   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
     url(/images/bc_lastests_posts.webp);

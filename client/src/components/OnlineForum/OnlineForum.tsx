@@ -53,29 +53,31 @@ function OnlineForum() {
   }, [fetchStats]);
 
   return (
-    <article className="onligne-forum">
+    <main className="online-page">
       <h2>Qui est en ligne ?</h2>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Indicateur</th>
-            <th scope="col">Grades</th>
-            <th scope="col">En ligne / Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {grades.map((gra) => (
-            <tr key={gra.id}>
-              <th scope="row">{gra.name}</th>
-              <td>{gra.name}</td>
-              <td>
-                : {gra.online} / {gra.total}
-              </td>
+      <aside className="online-forum">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Indicateur</th>
+              <th scope="col">Grades</th>
+              <th scope="col">En ligne / Total</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </article>
+          </thead>
+          <tbody>
+            {grades.map((gra) => (
+              <tr key={gra.id}>
+                <th scope="row">{gra.name}</th>
+                <td>{gra.name}</td>
+                <td>
+                  : {gra.online} / {gra.total}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </aside>
+    </main>
   );
 }
 
