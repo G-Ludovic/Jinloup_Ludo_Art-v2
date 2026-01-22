@@ -5,6 +5,7 @@
   gap: 24px;
   padding: 16px;
   background: var(--main-background);
+  grid-row: 2 / span 3;
 }
 
 .forum-main h3 {
@@ -53,9 +54,22 @@
   background-color: var(--color-hover);
 }
 
-@media (min-width: 320px) and (max-width: 968px) {
+/* Tablette - disposition en 2 colonnes */
+@media (min-width: 768px) and (max-width: 968px) {
+  .forum-main {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 16px;
+    padding: 12px;
+  }
+}
+
+/* Mobile - disposition verticale */
+@media (min-width: 320px) and (max-width: 767px) {
   .forum-main {
     display: flex;
     flex-direction: column;
+    gap: 24px;
+    padding: 12px;
   }
 }

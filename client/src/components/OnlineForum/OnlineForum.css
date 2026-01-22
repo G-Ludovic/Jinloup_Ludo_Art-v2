@@ -10,8 +10,10 @@
 .online-page h2 {
   margin: 0;
   padding: 1rem;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0.7)), url(/images/bc_online.webp);
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.7)
+    ), url(/images/bc_online.webp);
   background-size: cover;
   background-position: center;
   color: var(--color-text);
@@ -49,8 +51,10 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background-size: cover;
   background-position: center;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.718),
-      rgba(255, 255, 255, 0.612)), url(/images/bc_online.webp);
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)
+    ), url(/images/bc_online.webp);
 }
 
 .online-forum p,
@@ -85,4 +89,19 @@
 [data-theme="dark"] .online-forum td,
 [data-theme="dark"] .online-forum th {
   text-shadow: 2px 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+/* Mobile - OnlineForum en troisième position */
+@media (max-width: 767px) {
+  .online-page {
+    order: 2;
+  }
+}
+
+/* Tablette - OnlineForum en haut à droite */
+@media (min-width: 768px) and (max-width: 968px) {
+  .online-page {
+    grid-column: 2;
+    grid-row: 1;
+  }
 }

@@ -57,85 +57,87 @@ function HomeForum() {
   }, []);
 
   return (
-    <article className="home-forum">
+    <main className="home-page">
       <h2>Bienvenue sur le forum de Jinloup Ludo Art !</h2>
 
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Catégorie</th>
-            <th scope="col">Messages récents</th>
-            <th scope="col">Voir</th>
-          </tr>
-        </thead>
+      <aside className="home-forum">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Catégorie</th>
+              <th scope="col">Messages récents</th>
+              <th scope="col">Voir</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          {categories.map((cat) => {
-            // Filtrer les messages appartenant à cette catégorie
-            const messagesForCategory = messages
-              .filter((msg) => msg.category_id === cat.id)
-              // Trier les messages du plus récent au plus ancien
-              .sort(
-                (a, b) =>
-                  new Date(b.sending_date).getTime() -
-                  new Date(a.sending_date).getTime(),
-              )
-              // Garder seulement les 3 plus récents
-              .slice(0, 3);
+          <tbody>
+            {categories.map((cat) => {
+              // Filtrer les messages appartenant à cette catégorie
+              const messagesForCategory = messages
+                .filter((msg) => msg.category_id === cat.id)
+                // Trier les messages du plus récent au plus ancien
+                .sort(
+                  (a, b) =>
+                    new Date(b.sending_date).getTime() -
+                    new Date(a.sending_date).getTime(),
+                )
+                // Garder seulement les 3 plus récents
+                .slice(0, 3);
 
-            return (
-              <tr key={cat.id}>
-                <th scope="row">{cat.name}</th>
+              return (
+                <tr key={cat.id}>
+                  <th scope="row">{cat.name}</th>
 
-                <td>
-                  {messagesForCategory.length > 0 ? (
-                    <ul className="message-list">
-                      {messagesForCategory.map((msg) => (
-                        <li key={msg.id}>
-                          <div className="message-header">
-                            <strong>{msg.subject_title}</strong>
-                          </div>
-                          <div className="message-content">
-                            <span className="message-preview">
-                              {msg.content.length > 60
-                                ? `${msg.content.slice(0, 60)}...`
-                                : msg.content}
-                            </span>
-                          </div>
-                          <div className="message-footer">
-                            <small className="message-date">
-                              🕒{" "}
-                              {new Date(msg.sending_date).toLocaleDateString(
-                                "fr-FR",
-                                {
-                                  year: "numeric",
-                                  month: "short",
-                                  day: "numeric",
-                                },
-                              )}
-                            </small>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <em>Aucun message pour cette catégorie</em>
-                  )}
-                </td>
+                  <td>
+                    {messagesForCategory.length > 0 ? (
+                      <ul className="message-list">
+                        {messagesForCategory.map((msg) => (
+                          <li key={msg.id}>
+                            <div className="message-header">
+                              <strong>{msg.subject_title}</strong>
+                            </div>
+                            <div className="message-content">
+                              <span className="message-preview">
+                                {msg.content.length > 60
+                                  ? `${msg.content.slice(0, 60)}...`
+                                  : msg.content}
+                              </span>
+                            </div>
+                            <div className="message-footer">
+                              <small className="message-date">
+                                🕒{" "}
+                                {new Date(msg.sending_date).toLocaleDateString(
+                                  "fr-FR",
+                                  {
+                                    year: "numeric",
+                                    month: "short",
+                                    day: "numeric",
+                                  },
+                                )}
+                              </small>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <em>Aucun message pour cette catégorie</em>
+                    )}
+                  </td>
 
-                <td className="direction-button">
-                  <Link to={`/forum/category/${cat.id}`}>
-                    <button type="button" className="view-category-button">
-                      🗂️
-                    </button>
-                  </Link>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </article>
+                  <td className="direction-button">
+                    <Link to={`/forum/category/${cat.id}`}>
+                      <button type="button" className="view-category-button">
+                        🗂️
+                      </button>
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </aside>
+    </main>
   );
 }
 

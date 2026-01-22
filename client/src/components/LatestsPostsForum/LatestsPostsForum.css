@@ -10,8 +10,10 @@
 .latest-posts-page h2 {
   margin: 0;
   padding: 1rem;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0.7)), url(/images/bc_lastests_posts.webp);
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.7)
+    ), url(/images/bc_lastests_posts.webp);
   background-size: cover;
   background-position: center;
   color: var(--color-text);
@@ -32,8 +34,10 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background-size: cover;
   background-position: center;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.718),
-      rgba(255, 255, 255, 0.612)), url(/images/bc_lastests_posts.webp);
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.718),
+      rgba(255, 255, 255, 0.612)
+    ), url(/images/bc_lastests_posts.webp);
 }
 
 .latest-posts-forum h3,
@@ -88,4 +92,19 @@
 
 [data-theme="dark"] .latest-posts-forum tbody tr:hover {
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Mobile - LatestsPostsForum en quatrième position */
+@media (max-width: 767px) {
+  .latest-posts-page {
+    order: 3;
+  }
+}
+
+/* Tablette - LatestsPostsForum en bas à gauche */
+@media (min-width: 768px) and (max-width: 968px) {
+  .latest-posts-page {
+    grid-column: 1;
+    grid-row: 2;
+  }
 }

@@ -48,37 +48,39 @@ function LatestsPostsForum() {
   }, []);
 
   return (
-    <article className="latest-posts-forum">
+    <main className="latest-posts-page">
       <h2>Derniers messages</h2>
 
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Message</th>
-            <th scope="col">Date</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {messages.map((mes) => (
-            <tr key={mes.id}>
-              <td>
-                {mes.content.length > 60
-                  ? `${mes.content.slice(0, 60)}...`
-                  : mes.content}
-              </td>
-              <td>
-                {new Date(mes.sending_date).toLocaleDateString("fr-FR", {
-                  day: "2-digit",
-                  month: "short",
-                  year: "numeric",
-                })}
-              </td>
+      <aside className="latest-posts-forum">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Message</th>
+              <th scope="col">Date</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </article>
+          </thead>
+
+          <tbody>
+            {messages.map((mes) => (
+              <tr key={mes.id}>
+                <td>
+                  {mes.content.length > 60
+                    ? `${mes.content.slice(0, 60)}...`
+                    : mes.content}
+                </td>
+                <td>
+                  {new Date(mes.sending_date).toLocaleDateString("fr-FR", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </aside>
+    </main>
   );
 }
 

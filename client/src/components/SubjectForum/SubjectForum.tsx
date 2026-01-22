@@ -42,37 +42,39 @@ function SubjectForum() {
   }, []);
 
   return (
-    <article className="subject-forum">
+    <main className="subject-page">
       <h2>Derniers sujets</h2>
-      {subjects.length === 0 ? (
-        <p>Aucun sujet disponible pour le moment.</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Sujet</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {subjects.map((su) => (
-              <tr key={su.id}>
-                <td>{su.title}</td>
-                <td>
-                  {su.creation_date
-                    ? new Date(su.creation_date).toLocaleDateString("fr-FR", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })
-                    : "–"}
-                </td>
+      <aside className="subject-forum">
+        {subjects.length === 0 ? (
+          <p>Aucun sujet disponible pour le moment.</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>Sujet</th>
+                <th>Date</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </article>
+            </thead>
+            <tbody>
+              {subjects.map((su) => (
+                <tr key={su.id}>
+                  <td>{su.title}</td>
+                  <td>
+                    {su.creation_date
+                      ? new Date(su.creation_date).toLocaleDateString("fr-FR", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })
+                      : "–"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </aside>
+    </main>
   );
 }
 
