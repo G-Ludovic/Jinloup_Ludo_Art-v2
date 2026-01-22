@@ -24,13 +24,15 @@ function Header() {
 
   return (
     <header className="header">
-      <figure className="p-logo">
+      <section className="p-logo">
         <div className="logo-and-card">
-          <img
-            className="img-logo"
-            src="/images/logo-jinloup-ludo-art.webp"
-            alt="logo du site"
-          />
+          <Link to="/">
+            <img
+              className="img-logo"
+              src="/images/logo-jinloup-ludo-art.webp"
+              alt="logo du site"
+            />
+          </Link>
 
           {isLogged && (
             <div className="user-card">
@@ -54,22 +56,26 @@ function Header() {
           )}
         </div>
 
-        {isLogged && user?.role === "loup alpha" && (
-          <Link className="admin-a" to="/admin">
-            🔑 Mon espace Admin 🔑
-          </Link>
+        {isLogged && (
+          <aside className="user-spaces">
+            {user?.role === "loup alpha" && (
+              <Link className="admin-a" to="/admin">
+                🔑 Mon espace Admin 🔑
+              </Link>
+            )}
+            {user?.role === "loup gardien" && (
+              <Link className="moderation-a" to="/moderation">
+                🛡️ Mon espace Modération 🛡️
+              </Link>
+            )}
+            {user?.role === "jeune loup" && (
+              <Link className="profile-a" to="/profile">
+                🌙 Mon espace Membre 🌙
+              </Link>
+            )}
+          </aside>
         )}
-        {isLogged && user?.role === "loup gardien" && (
-          <Link className="moderation-a" to="/moderation">
-            🛡️ Mon espace Modération 🛡️
-          </Link>
-        )}
-        {isLogged && user?.role === "jeune loup" && (
-          <Link className="profile-a" to="/profile">
-            🌙 Mon espace Membre 🌙
-          </Link>
-        )}
-      </figure>
+      </section>
 
       <nav className="header-nav" aria-label="Navigation principale">
         <Link className="home-a" to="/">

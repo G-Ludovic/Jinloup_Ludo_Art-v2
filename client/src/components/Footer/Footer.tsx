@@ -5,11 +5,13 @@ function Footer() {
   return (
     <footer className="banner-footer">
       <section className="footer-logo">
-        <img
-          src="/images/logo-ongl.webp"
-          alt="logo du site Jinloup Ludo Art"
-          className="logo-wolf"
-        />
+        <Link to="/">
+          <img
+            src="/images/logo-ongl.webp"
+            alt="logo du site Jinloup Ludo Art"
+            className="logo-wolf"
+          />
+        </Link>
       </section>
 
       <nav className="footer-links" aria-label="Liens du footer">
