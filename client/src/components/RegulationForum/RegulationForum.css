@@ -45,7 +45,7 @@
 
 /* Styles pour le dark mode */
 [data-theme="dark"] .regulation-page h2 {
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
     url(/images/bc_regulation.webp);
   background-size: cover;
   background-position: center;
