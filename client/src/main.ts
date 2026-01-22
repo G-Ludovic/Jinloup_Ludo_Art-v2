@@ -1,16 +1,14 @@
-import { loadCategories, loadDraws, loadMessages, loadSubjects } from "./api";
+// bootstrap simple avec vérification API_URL
+import { API_URL } from "./config";
 
-async function main() {
-  console.log(
-    "Application front démarrée avec API_URL =",
-    import.meta.env.VITE_API_URL,
-  );
-  await Promise.all([
-    loadSubjects(),
-    loadMessages(),
-    loadCategories(),
-    loadDraws(),
-  ]);
+function main() {
+  console.log("🚀 Application front démarrée avec API_URL =", API_URL);
+
+  if (!API_URL) {
+    console.error("❌ API_URL non définie, vérifiez .env");
+  } else {
+    console.log("✅ Configuration API OK");
+  }
 }
 
 main();

@@ -19,3 +19,28 @@ export interface Auth {
 export interface Children {
   children: React.ReactNode;
 }
+
+export interface Subject {
+  id: number;
+  name: string;
+}
+export interface Message {
+  id: number;
+  content: string;
+}
+export interface Category {
+  id: number;
+  name: string;
+}
+export interface Draw {
+  id: number;
+  title: string;
+  url: string;
+}
+export interface OnlineStats {
+  stats: Array<{
+    role: string;
+    total: number;
+    online: number;
+  }>;
+}

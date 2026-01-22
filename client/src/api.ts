@@ -1,47 +1,63 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3310";
+// Centralisation des appels API, typés et sécurisés, fetchAuth inclus
+import { API_URL } from "./config";
+import { ENDPOINTS } from "./endpoints";
+import type {
+  Category,
+  Draw,
+  Message,
+  OnlineStats,
+  Subject,
+} from "./types/auth";
 
-if (!API_URL) {
-  console.error("⚠️ VITE_API_URL n'est pas définie !");
-}
-
-export async function fetchAPI(endpoint: string) {
+async function fetchAPI<T>(endpoint: string): Promise<T | null> {
   try {
     const response = await fetch(`${API_URL}${endpoint}`);
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP ${response.status}`);
-    }
-    return await response.json();
+    if (!response.ok) throw new Error(`Erreur HTTP ${response.status}`);
+    return (await response.json()) as T;
   } catch (error) {
     console.error(`Erreur fetch ${endpoint}:`, error);
     return null;
   }
 }
 
-export async function loadSubjects() {
-  await fetchAPI("/api/subject");
-}
-
-export async function loadMessages() {
-  await fetchAPI("/api/message");
-}
-
-export async function loadCategories() {
-  await fetchAPI("/api/categories");
-}
-
-export async function loadDraws() {
-  await fetchAPI("/api/draws");
-}
-
-export async function loadOnlineStats() {
-  return await fetchAPI("/api/online-stats");
-}
-
-export async function fetchAuth(endpoint: string, options: RequestInit = {}) {
+export async function fetchAuth<T>(
+  endpoint: string,
+  options: RequestInit = {},
+): Promise<T | null> {
   const token = localStorage.getItem("token");
   const headers = {
+    "Content-Type": "application/json",
     ...options.headers,
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
-  return await fetch(`${API_URL}${endpoint}`, { ...options, headers });
+
+  try {
+    const response = await fetch(`${API_URL}${endpoint}`, {
+      ...options,
+      headers,
+    });
+    if (!response.ok) throw new Error(`Erreur HTTP ${response.status}`);
+    return (await response.json()) as T;
+  } catch (error) {
+    console.error(`Erreur fetchAuth ${endpoint}:`, error);
+    return null;
+  }
+}
+
+// ------------------- Fonctions spécifiques -------------------
+
+export async function loadSubjects() {
+  return fetchAPI<Subject[]>(ENDPOINTS.subjects);
+}
+export async function loadMessages() {
+  return fetchAPI<Message[]>(ENDPOINTS.messages);
+}
+export async function loadCategories() {
+  return fetchAPI<Category[]>(ENDPOINTS.categories);
+}
+export async function loadDraws() {
+  return fetchAPI<Draw[]>(ENDPOINTS.draws);
+}
+export async function loadOnlineStats() {
+  return fetchAPI<OnlineStats>(ENDPOINTS.onlineStats);
 }

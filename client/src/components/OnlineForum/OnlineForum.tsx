@@ -2,12 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import { loadOnlineStats } from "../../api";
 import "./OnlineForum.css";
 
-type Stat = {
-  role: string;
-  total: number;
-  online: number;
-};
-
 type Grade = {
   id: string;
   name: string;
@@ -26,9 +20,8 @@ function OnlineForum() {
 
   const fetchStats = useCallback(async () => {
     const stats = await loadOnlineStats();
-    if (stats) {
-      const typedStats = stats as Stat[];
-      const dynamicGrades = typedStats.map(
+    if (stats?.stats) {
+      const dynamicGrades = stats.stats.map(
         (
           stat: { role: string; total: number; online: number },
           index: number,
@@ -40,6 +33,8 @@ function OnlineForum() {
         }),
       );
       setGrades(dynamicGrades);
+    } else {
+      setGrades([]);
     }
   }, []);
 

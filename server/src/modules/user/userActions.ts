@@ -256,7 +256,7 @@ const getOnlineStats: RequestHandler = async (req, res, next) => {
         online: online ? online.count : 0,
       };
     });
-    res.json(stats);
+    res.json({ stats });
   } catch (err) {
     next(err);
   }
