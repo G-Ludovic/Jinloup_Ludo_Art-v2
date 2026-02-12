@@ -1,0 +1,2 @@
+# Ce fichier empêche git de supprimer le dossier uploads
+# Les fichiers uploadés seront ajoutés individuellement
