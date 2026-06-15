@@ -18,6 +18,7 @@ Ce projet a pour but de créer un véritable **espace communautaire et artistiqu
 - [Docker](#-docker)
 - [Tests](#-tests)
 - [Structure du projet](#-structure-du-projet)
+- [Déploiement](#-déploiement)
 - [Contribuer](#-contribuer)
 - [Objectifs à long terme](#-objectifs-à-long-terme)
 - [État du projet](#-état-du-projet)
@@ -277,6 +278,104 @@ jinloup-ludo-art/
 ├── Dockerfile
 └── README.md
 ```
+
+---
+
+## 🚀 Déploiement
+
+Le projet utilise un hébergement cloud gratuit avec la Stack suivante :
+
+| Composant | Hébergeur | Plan |
+|-----------|-----------|------|
+| **Backend** | [Render](https://render.com/) | Gratuit |
+| **Base de données MySQL** | [Aiven](https://aiven.io/) | Gratuit |
+| **Frontend** | [Vercel](https://vercel.com/) | Gratuit |
+
+### Architecture de production
+
+```
+[Vercel (Frontend)] → [Render (Backend API)] → [Aiven (MySQL distant)]
+```
+
+Le frontend est déployé séparément sur **Vercel**, le backend sur **Render**, et la base de données MySQL est hébergée sur **Aiven** (service distant avec SSL).
+
+### Étapes de déploiement
+
+#### 1. Créer la base de données sur Aiven
+
+1. Créer un compte [Aiven](https://aiven.io/) et créer un service **MySQL** gratuit.
+2. Récupérer les informations de connexion depuis le dashboard Aiven :
+   - `DB_HOST` (hostname Aiven, ex : `jinloup-mysql-jinloup-ludo-art.l.aivencloud.com`)
+   - `DB_PORT` (port Aiven, ex : `18859`)
+   - `DB_USER` (utilisateur, ex : `avnadmin`)
+   - `DB_PASSWORD` (mot de passe)
+   - `DB_NAME` (nom de la base, ex : `defaultdb`)
+3. Exécuter les migrations et les seeds :
+   ```bash
+   DB_HOST=<hostname> DB_PORT=<port> DB_USER=<user> DB_PASSWORD=<pass> DB_NAME=defaultdb npm run db:migrate
+   DB_HOST=<hostname> DB_PORT=<port> DB_USER=<user> DB_PASSWORD=<pass> DB_NAME=defaultdb npm run db:seed
+   ```
+
+> ⚠️ Le port Aiven n'est **pas** 3306 (il est configurable, ex : `18859`). Le SSL est obligatoire (`DB_SSL=true`).
+
+#### 2. Déployer le backend sur Render
+
+1. Créer un compte [Render](https://render.com/) et connecter le dépôt GitHub.
+2. Render détecte automatiquement le fichier `server/render.yaml` (Blueprint) :
+   - **Nom du service** : `jinloup-backend`
+   - **Type** : Web Service (Node.js)
+   - **Plan** : Gratuit
+   - **Build** : `npm install`
+   - **Start** : `npm start`
+3. Configurer les **variables d'environnement** dans le dashboard Render :
+
+   | Variable | Valeur |
+   |----------|--------|
+   | `NODE_ENV` | `production` |
+   | `PORT` | `3000` |
+   | `APP_SECRET` | `clé_secrète` |
+   | `JWT_SECRET` | `clé_jwt_secrète` |
+   | `DB_HOST` | *(hostname Aiven)* |
+   | `DB_PORT` | `18859` |
+   | `DB_USER` | `avnadmin` |
+   | `DB_PASSWORD` | *(mot de passe Aiven)* |
+   | `DB_NAME` | `defaultdb` |
+   | `DB_SSL` | `true` |
+   | `CLIENT_URL` | `https://jinloup-ludo-art-v2-client.vercel.app` |
+
+   > Le fichier de référence est `server/.env.production`.
+
+4. Lancer le déploiement. Le build et le démarrage se font automatiquement à chaque push.
+
+#### 3. Déployer le frontend sur Vercel
+
+1. Créer un compte [Vercel](https://vercel.com/) et connecter le dépôt GitHub.
+2. Vercel détecte automatiquement la configuration Vite.
+3. Configurer la variable d'environnement :
+   - `VITE_API_URL` → URL du backend Render (ex : `https://jinloup-backend.onrender.com`)
+
+4. Lancer le déploiement. Le build et le déploiement se font automatiquement.
+
+> Le frontend est actuellement accessible sur `https://jinloup-ludo-art-v2-client.vercel.app`.
+
+### Fichier de variables d'environnement
+
+| Fichier | Usage | Exemple |
+|---------|-------|---------|
+| `server/.env.sample` | Développement local | Copier vers `server/.env` |
+| `server/.env.production` | Référence des variables de production | Définies dans le dashboard Render |
+| `client/.env.sample` | Développement local | Copier vers `client/.env` |
+
+### Configuration Docker (alternative)
+
+Le projet inclut aussi une configuration **Docker Compose** pour un déploiement en production via un serveur personnel :
+
+```bash
+# Production avec Docker
+docker-compose -f docker-compose.prod.yml up -d --build
+```
+
+Ce mode utilise **Traefik** comme reverse proxy pour gérer le routage et les certificats SSL.
 
 ---
 
