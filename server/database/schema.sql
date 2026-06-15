@@ -9,12 +9,12 @@ DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS item;
 
 CREATE TABLE item (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    description TEXT,
-    price DECIMAL(10,2) NOT NULL,
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    user_id INT UNSIGNED NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 CREATE TABLE user (
@@ -77,9 +77,9 @@ CREATE TABLE comment (
 );
 
 -- Items
-INSERT INTO item (name, description, price) VALUES
-('Item1', 'Premier item de test', 10.99),
-('Item2', 'Deuxième item de test', 5.49);
+INSERT INTO item (title, user_id) VALUES
+('Item1', 1),
+('Item2', 2);
 
 -- Users
 INSERT INTO user (id, pseudo, avatar, location, bio, email, password, registration_date, role)

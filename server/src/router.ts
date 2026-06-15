@@ -32,9 +32,9 @@ router.get("/users", userActions.verifyToken, userActions.browse);
 router.get("/users/:id", userActions.verifyToken, userActions.read);
 router.put(
   "/users/:id",
+  userActions.verifyToken,
   files.anyUpload,
   files.avatarImage,
-  userActions.verifyToken,
   userActions.edit,
 );
 router.delete(
@@ -85,6 +85,7 @@ router.post(
 );
 router.put(
   "/message/:id",
+  auth.verifyToken,
   files.imageUpload,
   files.presentationImage,
   messageActions.edit,

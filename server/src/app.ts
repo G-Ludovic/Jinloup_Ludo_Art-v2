@@ -11,12 +11,11 @@ import authRoutes from "./modules/auth/authRoutes";
 import router from "./router";
 
 const app = express();
-const port = process.env.APP_PORT || 18859;
 
 // --------------------
 // Middleware parsing
 // --------------------
-// L’ordre compte : on doit parser les cookies avant d’utiliser le routeur
+// L'ordre compte : on doit parser les cookies avant d'utiliser le routeur
 app.use(cookieParser());
 app.use(express.json());
 
@@ -54,6 +53,14 @@ if (fs.existsSync(publicFolderPath)) {
   app.use(express.static(publicFolderPath));
 }
 
+// Serve uploaded files from the uploads directory
+// Note: This is for serving images uploaded by users
+// __dirname = server/src/ -> remonter de 2 niveaux puis server/uploads
+const uploadsFolderPath = path.resolve(__dirname, "../uploads");
+if (fs.existsSync(uploadsFolderPath)) {
+  app.use("/uploads", express.static(uploadsFolderPath));
+}
+
 // Client is deployed separately on Vercel, so no need to serve it here
 // const clientBuildPath = path.join(__dirname, "../../client/dist");
 // if (fs.existsSync(clientBuildPath)) {
@@ -67,6 +74,7 @@ if (fs.existsSync(publicFolderPath)) {
 // Error Middleware
 // --------------------
 const logErrors: ErrorRequestHandler = (err, req, res, next) => {
+  console.error("Unhandled error:", err);
   if (!res.headersSent) {
     res.status(500).json({ message: "Internal Server Error" });
   }

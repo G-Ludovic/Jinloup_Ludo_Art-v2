@@ -5,8 +5,10 @@ import type { Request, RequestHandler } from "express";
 import multer from "multer";
 import type { FileFilterCallback } from "multer";
 
-// Dossier où seront sauvegardées les images
-const UPLOAD_DIR = path.join(process.cwd(), "public/uploads");
+// Dossier où seront sauvegardées les images uploadées
+// Utiliser le même répertoire que app.ts pour servir les fichiers statiques
+// __dirname = server/src/utils/ -> remonter de 3 niveaux pour arriver à la racine du projet
+const UPLOAD_DIR = path.resolve(__dirname, "../../uploads");
 
 // Création du dossier s'il n'existe pas
 if (!fs.existsSync(UPLOAD_DIR)) {
@@ -28,7 +30,7 @@ const storage = multer.diskStorage({
   },
 });
 
-// Filtrage : n’accepter que les fichiers image
+// Filtrage : n'accepter que les fichiers image
 const fileFilter = (
   _req: Request,
   file: Express.Multer.File,
@@ -49,13 +51,13 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }, // max 10 Mo
 });
 
-// Middleware générique pour upload d’image (clé : "image")
+// Middleware générique pour upload d'image (clé : "image")
 const imageUpload = upload.single("image");
 
 // Middleware pour upload avec champs multiples (text + file)
 const anyUpload = upload.any();
 
-// Middleware pour ajouter le chemin d’accès au body (module draw)
+// Middleware pour ajouter le chemin d'accès au body (module draw)
 const drawImage: RequestHandler = (req, res, next) => {
   try {
     if (req.file) {
@@ -98,9 +100,11 @@ const avatarImage: RequestHandler = (req, res, next) => {
 const removeImageFromServer = (filePath: string | null | undefined) => {
   if (!filePath) return;
 
-  const relativePath = path.join(process.cwd(), "public", filePath);
+  // Extraire le nom du fichier depuis le chemin
+  const filename = path.basename(filePath);
+  const absolutePath = path.join(UPLOAD_DIR, filename);
 
-  fs.unlink(relativePath, (err) => {
+  fs.unlink(absolutePath, (err) => {
     if (err && err.code !== "ENOENT") {
       console.error(`Erreur suppression fichier : ${err.message}`);
     }

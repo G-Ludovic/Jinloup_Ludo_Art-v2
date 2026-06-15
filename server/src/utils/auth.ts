@@ -5,11 +5,10 @@ import userRepository from "../modules/user/userRepository";
 import type { Role } from "./roles";
 
 interface AuthRequest extends Request {
-  cookies: Record<string, string>;
   user?: {
     id: number;
     email: string;
-    role: Role;
+    role: string;
   };
 }
 
@@ -161,7 +160,7 @@ const authorize =
       return;
     }
 
-    if (!roles.includes(req.user.role)) {
+    if (!roles.includes(req.user.role as Role)) {
       res
         .status(403)
         .json({ message: "Access forbidden: insufficient rights" });

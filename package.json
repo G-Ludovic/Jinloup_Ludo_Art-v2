@@ -2,13 +2,13 @@
   "name": "jinloup-ludo-art",
   "version": "0.0.1",
   "description": "",
-  "homepage": "https://github.com/  (hit Enter to use an empty string)/jinloup-ludo-art#readme",
+  "homepage": "https://github.com/G-Ludovic/Jinloup_Ludo_Art-v2#readme",
   "bugs": {
-    "url": "https://github.com/  (hit Enter to use an empty string)/jinloup-ludo-art/issues"
+    "url": "https://github.com/G-Ludovic/Jinloup_Ludo_Art-v2/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/  (hit Enter to use an empty string)/jinloup-ludo-art.git"
+    "url": "git+https://github.com/G-Ludovic/Jinloup_Ludo_Art-v2.git"
   },
   "workspaces": ["client", "server"],
   "scripts": {
@@ -28,7 +28,7 @@
     "security:check": "npm audit --omit=dev && npm ls form-data jws"
   },
   "keywords": [],
-  "author": "  (hit Enter to use an empty string)",
+  "author": "G-Ludovic",
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",

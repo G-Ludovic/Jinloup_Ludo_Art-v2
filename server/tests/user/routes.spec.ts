@@ -7,7 +7,7 @@ import databaseClient from "../../database/client";
 import type { Result, Rows } from "../../database/client";
 
 interface AuthRequest extends Request {
-  user?: { id: number; email: string };
+  user?: { id: number; email: string; role: string };
 }
 
 import userActions from "../../src/modules/user/userActions";
@@ -24,7 +24,7 @@ jest
       next: NextFunction,
     ): Response | undefined => {
       // Injecte un utilisateur fictif pour les tests
-      req.user = { id: 1, email: "mock@mail.com" };
+      req.user = { id: 1, email: "mock@mail.com", role: "jeune loup" };
       next();
       return undefined;
     },

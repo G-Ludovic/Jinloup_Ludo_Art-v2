@@ -15,8 +15,12 @@ const browse: RequestHandler = async (_req, res, next) => {
 // GET /draws/:id
 const read: RequestHandler = async (req, res, next) => {
   try {
-    const draw = await drawRepository.readById(req.params.id);
-    if (!draw) res.status(404).json("This draw doesn't exist");
+    const id = String(req.params.id);
+    const draw = await drawRepository.readById(id);
+    if (!draw) {
+      res.status(404).json("This draw doesn't exist");
+      return;
+    }
     res.status(200).json(draw);
     return;
   } catch (err) {
@@ -55,7 +59,7 @@ const add: RequestHandler = async (req, res, next) => {
 // PUT /draws/:id
 const edit: RequestHandler = async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const id = String(req.params.id);
     const { name, image } = req.body;
 
     if (!name) {
@@ -91,7 +95,7 @@ const edit: RequestHandler = async (req, res, next) => {
 // DELETE /draws/:id
 const destroy: RequestHandler = async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const id = String(req.params.id);
     const draw = await drawRepository.readById(id);
 
     if (!draw) {
@@ -115,7 +119,10 @@ const destroy: RequestHandler = async (req, res, next) => {
     if (draw.image) files.removeImageFromServer(draw.image);
 
     const deleted = await drawRepository.delete(id);
-    if (!deleted) res.status(404).json({});
+    if (!deleted) {
+      res.status(404).json({});
+      return;
+    }
 
     res.status(204).json({});
   } catch (err) {
