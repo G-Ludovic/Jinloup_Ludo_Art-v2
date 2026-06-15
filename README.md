@@ -306,10 +306,10 @@ Le frontend est déployé séparément sur **Vercel**, le backend sur **Render**
 1. Créer un compte [Aiven](https://aiven.io/) et créer un service **MySQL** gratuit.
 2. Récupérer les informations de connexion depuis le dashboard Aiven :
    - `DB_HOST` (hostname Aiven, ex : `jinloup-mysql-jinloup-ludo-art.l.aivencloud.com`)
-   - `DB_PORT` (port Aiven, ex : `18859`)
-   - `DB_USER` (utilisateur, ex : `avnadmin`)
+   - `DB_PORT` (port Aiven est ```18859```)
+   - `DB_USER` (utilisateur)
    - `DB_PASSWORD` (mot de passe)
-   - `DB_NAME` (nom de la base, ex : `defaultdb`)
+   - `DB_NAME` (nom de la base de donnée)
 3. Exécuter les migrations et les seeds :
    ```bash
    DB_HOST=<hostname> DB_PORT=<port> DB_USER=<user> DB_PASSWORD=<pass> DB_NAME=defaultdb npm run db:migrate
