@@ -10,10 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/G-Ludovic/Jinloup_Ludo_Art-v2.git"
   },
-  "workspaces": [
-    "client",
-    "server"
-  ],
+  "workspaces": ["client", "server"],
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "build:render": "npm install --workspace=@js-monorepo/server",

@@ -6,7 +6,11 @@ export async function up(knex: Knex): Promise<void> {
     table.increments("id").unsigned().primary();
     table.string("title", 255).notNullable();
     table.integer("user_id").unsigned().notNullable();
-    table.foreign("user_id").references("id").inTable("user").onDelete("CASCADE");
+    table
+      .foreign("user_id")
+      .references("id")
+      .inTable("user")
+      .onDelete("CASCADE");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.fn.now());
   });
