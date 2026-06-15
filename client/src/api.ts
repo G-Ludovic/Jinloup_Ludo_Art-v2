@@ -26,11 +26,16 @@ export async function fetchAuth<T>(
 ): Promise<T | null> {
   const token = localStorage.getItem("token");
   const isFormData = options.body instanceof FormData;
-  const headers = {
+  // Ne pas écraser le header Authorization par des headers vides
+  const customHeaders = options.headers || {};
+  const headers: Record<string, string> = {
     ...(isFormData ? {} : { "Content-Type": "application/json" }),
-    ...options.headers,
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(customHeaders as Record<string, string>),
   };
+  // Ajouter le token en dernier pour ne pas être écrasé
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
 
   try {
     const response = await fetch(`${API_URL}${endpoint}`, {

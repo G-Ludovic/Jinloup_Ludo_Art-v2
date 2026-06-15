@@ -16,10 +16,18 @@ interface RegisterRequestBody {
   confirmPassword: string;
 }
 
+// Fonction utilitaire pour retirer le mot de passe des données utilisateur
+function sanitizeUser(user: Partial<User>) {
+  const { password, ...safeUser } = user;
+  return safeUser;
+}
+
 const browse: RequestHandler = async (req, res, next) => {
   try {
     const users = await userRepository.readAll();
-    res.json(users);
+    // Filtrer les mots de passe
+    const safeUsers = users.map((user) => sanitizeUser(user as Partial<User>));
+    res.json(safeUsers);
   } catch (err) {
     next(err);
   }
@@ -34,7 +42,7 @@ const read: RequestHandler = async (req, res, next) => {
       res.sendStatus(404);
       return;
     }
-    res.json(user);
+    res.json(sanitizeUser(user as Partial<User>));
   } catch (err) {
     next(err);
   }
@@ -56,8 +64,8 @@ const edit: RequestHandler = async (req, res, next) => {
         .json("You can only edit your own profile or must be an admin");
       return;
     }
-    const { pseudo, role, bio, avatar } = req.body;
-    console.log("Parsed data:", { pseudo, role, bio, avatar });
+    const { pseudo, email, role, bio, avatar } = req.body;
+    console.log("Parsed data:", { pseudo, email, role, bio, avatar });
     if (!pseudo || !role) {
       res.status(400).json("Pseudo and role are required");
       return;
@@ -76,6 +84,7 @@ const edit: RequestHandler = async (req, res, next) => {
     }
 
     const updateData: Partial<User> = { pseudo, role };
+    if (email !== undefined) updateData.email = email;
     if (bio !== undefined) updateData.bio = bio;
     if (avatar !== undefined) updateData.avatar = avatar;
     console.log("Update data:", updateData);
@@ -87,10 +96,10 @@ const edit: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    // Retourner l'utilisateur mis à jour
+    // Retourner l'utilisateur mis à jour (sans le mot de passe)
     const updatedUser = await userRepository.read(userId);
     console.log("Updated user:", updatedUser);
-    res.json(updatedUser);
+    res.json(sanitizeUser(updatedUser as Partial<User>));
   } catch (err) {
     console.error("Edit error:", err);
     next(err);
@@ -158,7 +167,7 @@ const add: RequestHandler = async (req, res) => {
       .status(201)
       .json("Congratulations, your account has been created successfully !");
   } catch (err) {
-    res.sendStatus(500).json;
+    res.sendStatus(500);
   }
 };
 
@@ -237,7 +246,7 @@ const refreshToken: RequestHandler = async (req, res) => {
       },
     );
 
-    // On renvoie les infos complètes de l'utilisateur avec le nouveau token
+    // On renvoie les infos complètes de l'utilisateur avec le nouveau token (sans le mot de passe)
     res.status(200).json({
       id: user.id,
       email: user.email,

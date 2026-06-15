@@ -8,7 +8,7 @@ const browse: RequestHandler = async (req, res) => {
 
 const read: RequestHandler = async (req, res) => {
   try {
-    const category = await categoriesRepository.readById(req.params.id);
+    const category = await categoriesRepository.readById(String(req.params.id));
 
     if (category) {
       res.json(category);

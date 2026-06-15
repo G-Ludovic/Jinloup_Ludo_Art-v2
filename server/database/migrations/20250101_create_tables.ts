@@ -3,10 +3,10 @@ import type { Knex } from "knex";
 export async function up(knex: Knex): Promise<void> {
   // Create tables
   await knex.schema.createTable("item", (table) => {
-    table.increments("id").primary();
-    table.string("name", 255).notNullable();
-    table.text("description");
-    table.decimal("price", 10, 2).notNullable();
+    table.increments("id").unsigned().primary();
+    table.string("title", 255).notNullable();
+    table.integer("user_id").unsigned().notNullable();
+    table.foreign("user_id").references("id").inTable("user").onDelete("CASCADE");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.fn.now());
   });

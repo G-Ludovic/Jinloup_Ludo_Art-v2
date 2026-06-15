@@ -45,6 +45,9 @@ function LoginPage() {
           setUser({
             id: userData.id,
             email: userData.email,
+            pseudo: userData.pseudo,
+            avatar: userData.avatar,
+            bio: userData.bio,
             role: userData.role,
           });
 
