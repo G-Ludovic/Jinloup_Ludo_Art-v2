@@ -35,14 +35,30 @@ const ContactPage: React.FC = () => {
         body: JSON.stringify(formData),
       });
 
+      // Vérifier le type de contenu avant de parser le JSON
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        console.error("Réponse non-JSON reçue:", text);
+        throw new Error(
+          "Le serveur a répondu avec une page HTML au lieu de JSON. Vérifiez que l'URL de l'API est correcte en production.",
+        );
+      }
+
+      const data = await response.json();
+
       if (!response.ok) {
-        const data = await response.json();
         throw new Error(data.message || "Erreur lors de l'envoi du message.");
       }
 
       setSubmitted(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Une erreur est survenue.");
+      const message =
+        err instanceof Error
+          ? err.message
+          : "Une erreur est survenue lors de l'envoi.";
+      setError(message);
+      console.error("Contact form error:", err);
     } finally {
       setLoading(false);
     }
