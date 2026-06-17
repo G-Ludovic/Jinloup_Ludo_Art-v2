@@ -5,17 +5,8 @@ DROP TABLE IF EXISTS message;
 DROP TABLE IF EXISTS subject;
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS draw;
-DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS item;
-
-CREATE TABLE item (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    user_id INT UNSIGNED NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user(id)
-);
+DROP TABLE IF EXISTS user;
 
 CREATE TABLE user (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -28,6 +19,15 @@ CREATE TABLE user (
   role ENUM('loup alpha', 'loup gardien', 'jeune loup') DEFAULT 'jeune loup',
   registration_date DATETIME DEFAULT CURRENT_TIMESTAMP,
   last_active TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE item (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    user_id INT UNSIGNED NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
 CREATE TABLE category (
@@ -76,11 +76,6 @@ CREATE TABLE comment (
   FOREIGN KEY (draw_id) REFERENCES draw(id)
 );
 
--- Items
-INSERT INTO item (title, user_id) VALUES
-('Item1', 1),
-('Item2', 2);
-
 -- Users
 INSERT INTO user (id, pseudo, avatar, location, bio, email, password, registration_date, role)
 VALUES
@@ -88,6 +83,11 @@ VALUES
   (2, 'PetitLoup', '###', '12, run de la neige, 59 999 Toundra', 'Je suis un petit loup mignon', 'petitloup@gmail.com', '$argon2id$v=19$m=16,t=2,p=1$NFpuWXFyYldKZTVXaDd3Yw$sEPJMkW3cOEiBNgK6rQOSg', '2024-06-14 00:00:00', 'loup gardien'),
   (3, 'Jinloup', '###', '25, rue de la montagne, 59 999 Toundra', 'Le secret du loup', 'jinshi.wolf@gmail.com', '$argon2d$v=19$m=16,t=2,p=1$THBzUlRGaTcxOWtSdzd3aA$YzIgD5uXbC0sDQIMhkGd8Q', '2020-01-22 00:00:00', 'loup alpha'),
   (4, 'Kitsune', '###', '58, rue de la renardière, 79 999 Fox', 'Le secret de la renarde', 'kitsunekiss@gmail.com', '$argon2d$v=19$m=16,t=2,p=1$MkxDVDdOc3hWOVpGTnB0NA$IoknlDz4vSmaP0Y/dqbdwg', '2025-01-06 00:00:00', 'jeune loup');
+
+-- Items
+INSERT INTO item (title, user_id) VALUES
+('Item1', 1),
+('Item2', 2);
 
 -- Categories
 INSERT INTO category (name, description)
