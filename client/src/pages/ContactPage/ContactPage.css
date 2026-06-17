@@ -2,14 +2,42 @@
   background: var(--main-background);
 }
 
+/* === SECTION D'INTRODUCTION === */
+.contact-intro {
+  max-width: 900px;
+  margin: 0 auto 24px;
+  padding: 0 24px;
+  text-align: center;
+  font-family: var(--font-family-text);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.contact-intro p {
+  margin: 0 0 8px;
+}
+
+.contact-intro-response-time {
+  display: inline-block;
+  background: var(--background-color-secondary);
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* === GRILLE PRINCIPALE === */
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
   align-items: center;
   padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* === CONTENEUR DU FORMULAIRE === */
 .contact-container {
   align-items: center;
   grid-column: 1;
@@ -23,6 +51,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* === FORMULAIRE === */
 .contact-form {
   color: var(--color-text);
 }
@@ -33,7 +62,13 @@
   font-weight: 600;
   font-family: var(--font-family-text);
   font-size: 1rem;
-  margin: 12px;
+  margin: 12px 0;
+}
+
+.contact-form label p {
+  margin: 0 0 4px;
+  font-family: var(--font-family-title);
+  font-size: 0.95rem;
 }
 
 .contact-form label button {
@@ -42,38 +77,125 @@
   width: 200px;
 }
 
+/* === CHAMPS DE SAISIE === */
 .contact-form input,
-.contact-form textarea {
+.contact-form textarea,
+.contact-form select {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
   font-family: var(--font-family-text);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--background-color);
+  color: var(--color-text);
 }
 
 .contact-form input:focus,
-.contact-form textarea:focus {
+.contact-form textarea:focus,
+.contact-form select:focus {
   border-color: var(--secondary-color);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 
+/* État d'erreur pour les champs */
+.contact-form .input-error {
+  border-color: var(--color-error) !important;
+  box-shadow: 0 0 0 2px rgba(var(--color-error-rgb, 220, 53, 69), 0.2) !important;
+}
+
+/* === SELECTEUR (sujet) === */
+.contact-form select {
+  cursor: pointer;
+  appearance: auto;
+}
+
+/* === TEXTE D'AIDE SOUS LES CHAMPS === */
+.field-help {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* === MESSAGES D'ERREUR INDIVIDUELS === */
+.field-error {
+  font-size: 0.85rem;
+  color: var(--color-error);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* === CHAMPS OBLIGATOIRES === */
+.required {
+  color: var(--color-error);
+  font-weight: bold;
+}
+
+/* === CONSENTEMENT RGPD === */
+.consent-label {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start;
+  gap: 10px;
+  font-weight: 400 !important;
+  font-size: 0.9rem !important;
+  line-height: 1.4;
+  margin-top: 16px !important;
+}
+
+.consent-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--secondary-color);
+}
+
+.consent-label a {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+.consent-label a:hover {
+  opacity: 0.8;
+}
+
+/* === BOUTON D'ENVOI === */
 .contact-form button {
   background-color: var(--background-color-button);
   color: #fff;
   border: none;
-  padding: 12px 24px;
+  padding: 14px 32px;
   font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
   font-family: var(--font-family-link);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 16px;
+  width: 100%;
+  font-weight: 600;
 }
 
 .contact-form button:hover {
   background-color: var(--background-color-hoverbutton);
+  transform: translateY(-1px);
 }
 
+.contact-form button:active {
+  transform: translateY(0);
+}
+
+.contact-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* === MESSAGE D'ERREUR GLOBAL === */
 .error-message {
   color: var(--color-error);
   font-weight: bold;
@@ -81,22 +203,74 @@
   padding: 12px;
   font-family: var(--font-family-title);
   font-size: 1rem;
+  background-color: rgba(var(--color-error-rgb, 220, 53, 69), 0.1);
+  border-radius: 6px;
+  margin-bottom: 8px;
 }
 
-.contact-form button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+/* === MESSAGE DE SUCCÈS === */
+.success-container {
+  text-align: center;
+  padding: 32px 24px;
+}
+
+.success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--color-success);
+  color: #fff;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.success-title {
+  font-family: var(--font-family-title);
+  color: var(--color-success);
+  margin: 0 0 12px;
+  font-size: 1.4rem;
 }
 
 .success-message {
-  color: var(--color-success);
-  font-weight: bold;
+  color: var(--color-text);
+  font-family: var(--font-family-text);
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  padding: 0;
   text-align: center;
-  padding: 40px 0;
-  font-family: var(--font-family-title);
-  font-size: 1.2rem;
 }
 
+.success-details {
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-text);
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.success-reset-button {
+  background-color: var(--background-color-button);
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-family-link);
+  transition: background-color 0.3s ease;
+}
+
+.success-reset-button:hover {
+  background-color: var(--background-color-hoverbutton);
+}
+
+/* === ILLUSTRATION === */
 .illustration-contact {
   display: flex;
   justify-content: center;
@@ -111,15 +285,17 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Styles pour le dark mode */
+/* === STYLES DARK MODE === */
 [data-theme="dark"] .contact-container {
   color: var(--color-text);
 }
 
 [data-theme="dark"] .contact-form input,
-[data-theme="dark"] .contact-form textarea {
+[data-theme="dark"] .contact-form textarea,
+[data-theme="dark"] .contact-form select {
   border-color: var(--color-text-secondary);
   color: var(--color-text);
+  background-color: var(--background-color);
 }
 
 [data-theme="dark"] .contact-form input::placeholder,
@@ -127,6 +303,16 @@
   color: var(--color-text-secondary);
 }
 
+[data-theme="dark"] .consent-label a {
+  color: var(--secondary-color);
+}
+
+[data-theme="dark"] .contact-intro-response-time {
+  background: var(--background-color);
+  color: var(--color-text);
+}
+
+/* === RESPONSIVE === */
 @media (max-width: 968px) {
   .form-grid {
     display: flex;
@@ -136,5 +322,23 @@
 
   .illustration-contact {
     width: 100%;
+  }
+
+  .contact-intro {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-container {
+    padding: 16px;
+  }
+
+  .contact-form label {
+    margin: 8px 0;
+  }
+
+  .success-container {
+    padding: 24px 16px;
   }
 }
