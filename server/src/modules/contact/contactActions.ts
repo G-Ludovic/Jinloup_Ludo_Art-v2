@@ -49,6 +49,8 @@ const send: RequestHandler = async (req, res) => {
     }
     if (!message || !message.trim() || message.trim().length < 10) {
       errors.push("Le message est requis (min. 10 caractères).");
+    } else if (message.trim().length > 500) {
+      errors.push("Le message ne peut pas dépasser 500 caractères.");
     }
 
     if (errors.length > 0) {

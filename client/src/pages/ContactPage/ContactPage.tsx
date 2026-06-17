@@ -60,6 +60,8 @@ const ContactPage: React.FC = () => {
       newErrors.message = "Le message est requis.";
     } else if (formData.message.trim().length < 10) {
       newErrors.message = "Le message doit contenir au moins 10 caractères.";
+    } else if (formData.message.trim().length > 500) {
+      newErrors.message = "Le message ne peut pas dépasser 500 caractères.";
     }
 
     // Validation du consentement RGPD
@@ -320,10 +322,17 @@ const ContactPage: React.FC = () => {
                   required
                   aria-required="true"
                   rows={6}
+                  maxLength={500}
                   className={errors.message ? "input-error" : ""}
                 />
                 <span className="field-help">
-                  Minimum 10 caractères. Soyez le plus précis possible.
+                  Minimum 10 caractères, maximum 500 caractères. Soyez le plus
+                  précis possible.
+                </span>
+                <span
+                  className={`char-counter ${formData.message.length > 500 ? "char-counter-over" : ""}`}
+                >
+                  {formData.message.length}/500
                 </span>
                 {errors.message && (
                   <span className="field-error" role="alert">
