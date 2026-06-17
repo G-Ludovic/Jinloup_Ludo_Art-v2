@@ -4,4 +4,5 @@ export const ENDPOINTS = {
   categories: "/api/categories",
   draws: "/api/draws",
   onlineStats: "/api/online-stats",
+  contact: "/api/contact",
 };

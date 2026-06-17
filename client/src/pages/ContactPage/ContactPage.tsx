@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { API_URL } from "../../config";
+import { ENDPOINTS } from "../../endpoints";
 import "./ContactPage.css";
 
 const ContactPage: React.FC = () => {
@@ -9,6 +11,8 @@ const ContactPage: React.FC = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -19,9 +23,29 @@ const ContactPage: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${API_URL}${ENDPOINTS.contact}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || "Erreur lors de l'envoi du message.");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Une erreur est survenue.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,6 +57,8 @@ const ContactPage: React.FC = () => {
             <p className="success-message">Merci pour votre message !</p>
           ) : (
             <form onSubmit={handleSubmit} className="contact-form">
+              {error && <p className="error-message">{error}</p>}
+
               <label htmlFor="name">
                 <p>Pseudo</p>
                 <input
@@ -70,7 +96,9 @@ const ContactPage: React.FC = () => {
                   required
                 />
               </label>
-              <button type="submit">Envoyer</button>
+              <button type="submit" disabled={loading}>
+                {loading ? "Envoi en cours..." : "Envoyer"}
+              </button>
             </form>
           )}
         </div>

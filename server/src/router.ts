@@ -1,5 +1,6 @@
 import express from "express";
 import categoriesActions from "./modules/category/categoriesActions";
+import contactActions from "./modules/contact/contactActions";
 import drawActions from "./modules/draw/drawActions";
 import itemActions from "./modules/item/itemActions";
 import messageActions from "./modules/message/messageActions";
@@ -91,5 +92,8 @@ router.put(
   messageActions.edit,
 );
 router.delete("/message/:id", auth.verifyToken, messageActions.destroy);
+
+/** Contact (public) **/
+router.post("/contact", contactActions.send);
 
 export default router;

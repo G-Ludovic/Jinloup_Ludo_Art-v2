@@ -74,6 +74,20 @@
   background-color: var(--background-color-hoverbutton);
 }
 
+.error-message {
+  color: var(--color-error);
+  font-weight: bold;
+  text-align: center;
+  padding: 12px;
+  font-family: var(--font-family-title);
+  font-size: 1rem;
+}
+
+.contact-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .success-message {
   color: var(--color-success);
   font-weight: bold;
