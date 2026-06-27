@@ -43,6 +43,10 @@
   "overrides": {
     "form-data": "^4.0.5",
     "jws": ">=3.2.3",
-    "shell-quote": ">=1.8.4"
+    "shell-quote": ">=1.8.4",
+    "js-yaml": ">=4.2.0",
+    "@istanbuljs/load-nyc-config": {
+      "js-yaml": ">=4.2.0"
+    }
   }
 }
