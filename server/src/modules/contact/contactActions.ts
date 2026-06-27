@@ -1,5 +1,9 @@
+import { setDefaultResultOrder } from "node:dns";
 import type { RequestHandler } from "express";
 import nodemailer from "nodemailer";
+
+// Forcer la résolution DNS en IPv4 (nécessaire sur Render qui ne supporte pas l'IPv6)
+setDefaultResultOrder("ipv4first");
 
 // Configuration du transporteur SMTP
 const transporter = nodemailer.createTransport({
