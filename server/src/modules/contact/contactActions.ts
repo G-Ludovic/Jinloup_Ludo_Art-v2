@@ -1,20 +1,12 @@
 import { setDefaultResultOrder } from "node:dns";
+import sgMail from "@sendgrid/mail";
 import type { RequestHandler } from "express";
-import nodemailer from "nodemailer";
 
-// Forcer la résolution DNS en IPv4 (nécessaire sur Render qui ne supporte pas l'IPv6)
+// Forcer la résolution DNS en IPv4
 setDefaultResultOrder("ipv4first");
 
-// Configuration du transporteur SMTP
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || "smtp.gmail.com",
-  port: Number(process.env.SMTP_PORT) || 587,
-  secure: process.env.SMTP_SECURE === "true", // true for 465, false for others
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-});
+// Configuration SendGrid (API Email)
+sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
 
 // Mapping des sujets pour un affichage lisible
 const SUBJECT_LABELS: Record<string, string> = {
@@ -64,11 +56,17 @@ const send: RequestHandler = async (req, res) => {
 
     const subjectLabel = SUBJECT_LABELS[subject] || subject;
 
-    // Email pour le propriétaire du site
-    const mailOptions = {
-      from: `"${name}" <${email}>`,
-      to: process.env.CONTACT_EMAIL,
-      replyTo: email,
+    // Email pour le propriétaire du site via SendGrid API
+    const msg = {
+      to: process.env.CONTACT_EMAIL || "jinshi.wolf@gmail.com",
+      from: {
+        email:
+          process.env.FROM_EMAIL ||
+          process.env.SMTP_USER ||
+          "jinshi.wolf@gmail.com",
+        name: "Jinloup Ludo Art - Contact",
+      },
+      replyTo: { email, name },
       subject: `[Contact Jinloup Ludo Art] ${subjectLabel} - ${name}`,
       html: `
         <h2>Nouveau message de contact</h2>
@@ -96,7 +94,7 @@ const send: RequestHandler = async (req, res) => {
       `,
     };
 
-    await transporter.sendMail(mailOptions);
+    await sgMail.send(msg);
 
     res.status(200).json({ message: "Message envoyé avec succès." });
   } catch (error) {
