@@ -112,6 +112,17 @@ const send: RequestHandler = async (req, res) => {
       error instanceof Error ? error.message : "Erreur inconnue";
     console.error("Erreur lors de l'envoi du mail :", errorMessage);
 
+    // Afficher le détail de l'erreur SendGrid si disponible
+    if (error instanceof Error && "response" in error) {
+      const sgError = error as {
+        response?: { body?: { errors?: Array<{ message: string }> } };
+      };
+      console.error(
+        "Détail SendGrid :",
+        JSON.stringify(sgError.response?.body?.errors, null, 2),
+      );
+    }
+
     // Détecter les erreurs d'authentification SendGrid
     if (
       error instanceof Error &&
