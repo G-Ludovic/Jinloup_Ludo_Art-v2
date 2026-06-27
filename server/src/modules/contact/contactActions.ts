@@ -7,8 +7,14 @@ import type { RequestHandler } from "express";
 setDefaultResultOrder("ipv4first");
 
 // Configuration SendGrid (API Email) avec résidence des données dans l'UE
+const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+if (!SENDGRID_API_KEY) {
+  console.warn(
+    "⚠️  SENDGRID_API_KEY non définie. Les emails de contact ne pourront pas être envoyés.",
+  );
+}
 const client = new Client();
-client.setApiKey(process.env.SENDGRID_API_KEY || "");
+client.setApiKey(SENDGRID_API_KEY || "");
 client.setDataResidency("eu");
 sgMail.setClient(client);
 
@@ -101,9 +107,24 @@ const send: RequestHandler = async (req, res) => {
     await sgMail.send(msg);
 
     res.status(200).json({ message: "Message envoyé avec succès." });
-  } catch (error) {
-    console.error("Erreur lors de l'envoi du mail :", error);
-    res.status(500).json({ message: "Erreur lors de l'envoi du message." });
+  } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Erreur inconnue";
+    console.error("Erreur lors de l'envoi du mail :", errorMessage);
+
+    // Détecter les erreurs d'authentification SendGrid
+    if (
+      error instanceof Error &&
+      "code" in error &&
+      (error as { code: number }).code === 401
+    ) {
+      res.status(500).json({
+        message:
+          "Erreur de configuration de l'envoi d'email. Veuillez contacter l'administrateur du site.",
+      });
+    } else {
+      res.status(500).json({ message: "Erreur lors de l'envoi du message." });
+    }
   }
 };
 
