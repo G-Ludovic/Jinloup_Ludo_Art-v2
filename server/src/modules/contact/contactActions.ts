@@ -15,7 +15,6 @@ if (!SENDGRID_API_KEY) {
 }
 const client = new Client();
 client.setApiKey(SENDGRID_API_KEY || "");
-client.setDataResidency("eu");
 sgMail.setClient(client);
 
 // Mapping des sujets pour un affichage lisible
