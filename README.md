@@ -44,6 +44,9 @@ Ce projet a pour but de créer un véritable **espace communautaire et artistiqu
 - 📱 **Responsive Design**
   Compatible tous supports : PC et mobile.
 
+- 📧 **Formulaire de contact**
+  Envoi d'emails via l'API SendGrid avec validation côté serveur et résidence des données configurable.
+
 ---
 
 ## 🛠️ Stack technique
@@ -55,6 +58,7 @@ Ce projet a pour but de créer un véritable **espace communautaire et artistiqu
 | **Base de données** | MySQL 8 | ORM : Knex (migrations, seeds) |
 | **Authentification** | JWT + argon2 | Cookies + CORS |
 | **Upload fichiers** | Multer | Images de dessins |
+| **Envoi d'emails** | SendGrid (API) | Formulaire de contact, résidence UE optionnelle |
 | **Tests** | Jest + Supertest | Tests d'intégration |
 | **Linting** | Biome | Formatage et vérification de code |
 | **Conteneurisation** | Docker + Docker Compose | Environnement reproductible |
@@ -342,6 +346,10 @@ Le frontend est déployé séparément sur **Vercel**, le backend sur **Render**
    | `DB_NAME` | `defaultdb` |
    | `DB_SSL` | `true` |
    | `CLIENT_URL` | `https://jinloup-ludo-art-v2-client.vercel.app` |
+   | `SENDGRID_API_KEY` | *(clé API SendGrid)* |
+   | `FROM_EMAIL` | *(adresse d'expédition vérifiée sur SendGrid)* |
+   | `CONTACT_EMAIL` | *(destination des messages du formulaire de contact)* |
+   | `SMTP_USER` | *(alternative pour FROM_EMAIL — email expéditeur)* |
 
    > Le fichier de référence est `server/.env.production`.
 
