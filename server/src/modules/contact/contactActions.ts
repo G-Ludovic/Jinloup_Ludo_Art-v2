@@ -1,12 +1,16 @@
 import { setDefaultResultOrder } from "node:dns";
+import { Client } from "@sendgrid/client";
 import sgMail from "@sendgrid/mail";
 import type { RequestHandler } from "express";
 
 // Forcer la résolution DNS en IPv4
 setDefaultResultOrder("ipv4first");
 
-// Configuration SendGrid (API Email)
-sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
+// Configuration SendGrid (API Email) avec résidence des données dans l'UE
+const client = new Client();
+client.setApiKey(process.env.SENDGRID_API_KEY || "");
+client.setDataResidency("eu");
+sgMail.setClient(client);
 
 // Mapping des sujets pour un affichage lisible
 const SUBJECT_LABELS: Record<string, string> = {
